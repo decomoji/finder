@@ -1,6 +1,6 @@
-import { Category } from '@/models/Category'
+import { CategoryItem } from '@/models/CategoryItem'
 
-export const Categories: Category[] = [
+export const Categories: CategoryItem[] = [
   {
     id: 'basic',
     title_main: 'Basic',
