@@ -4,9 +4,9 @@
       <VSubheader>カテゴリー</VSubheader>
 
       <VListTile v-for="(item, i) in items" :key="i">
-        <VListAction>
+        <VListTileAction>
           <VCheckbox v-model="item.selected"></VCheckbox>
-        </VListAction>
+        </VListTileAction>
         <VListTileContent @click="item.selected = !item.selected">
           <VListTileTitle>{{ item.title_main }}</VListTileTitle>
           <VListTileSubTitle>{{ item.title_sub }}</VListTileSubTitle>
