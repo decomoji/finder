@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { Link } from '@/models/Link'
+import { HeaderLinks } from '@/configs/HeaderLinks'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
@@ -25,25 +25,6 @@ export default class GlobalHeader extends Vue {
   /**
    * 内部プロパティを定義する
    */
-  items: Link[] = [
-    {
-      title: 'Store',
-      href: 'https://suzuri.jp/decomoji',
-      target: '_blank',
-      rel: 'noopener'
-    },
-    {
-      title: 'Patreon',
-      href: 'https://www.patreon.com/decomoji',
-      target: '_blank',
-      rel: 'noopener'
-    },
-    {
-      title: 'GitHub',
-      href: 'https://github.com/decomoji/decomoji-finder/',
-      target: '_blank',
-      rel: 'noopener'
-    }
-  ]
+  items = HeaderLinks
 }
 </script>
