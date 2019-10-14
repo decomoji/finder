@@ -35,21 +35,7 @@
         </VListTile>
       </VList>
     </VNavigationDrawer>
-    <VToolbar app clipped-left>
-      <VToolbarTitle>decomoji-finder</VToolbarTitle>
-      <VSpacer></VSpacer>
-      <VToolbarItems>
-        <VBtn flat>Goods</VBtn>
-        <VBtn flat>Patreon</VBtn>
-        <VBtn
-          flat
-          href="https://github.com/decomoji/decomoji-finder/"
-          target="_blank"
-          rel="noopener"
-          >GitHub</VBtn
-        >
-      </VToolbarItems>
-    </VToolbar>
+    <GlobalHeader />
     <VContent>
       <VContainer fluid fill-height>
         <VLayout>
@@ -63,6 +49,7 @@
 </template>
 
 <script lang="ts">
+import GlobalHeader from '@/components/GlobalHeader.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 interface Category {
@@ -71,7 +58,11 @@ interface Category {
   explicit: boolean
 }
 
-@Component
+@Component({
+  components: {
+    GlobalHeader
+  }
+})
 export default class Home extends Vue {
   /**
    * 内部プロパティを定義する
