@@ -18,9 +18,9 @@ export default function useVuetify(ctx = Vue) {
       current: 'ja-JP'
     },
     theme: {
-      primary: colors.blueGrey.darken2,
-      secondary: colors.blueGrey.lighten2,
-      accent: colors.blueGrey.darken4
+      primary: colors.blueGrey.darken3,
+      secondary: colors.blueGrey.lighten3,
+      accent: colors.blueGrey.base
     }
   })
 }
