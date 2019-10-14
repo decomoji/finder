@@ -3,25 +3,20 @@
     <Drawer />
 
     <GlobalHeader />
-    <VContent>
-      <VContainer fluid fill-height>
-        <VLayout>
-          <VFLex grow>
-            <VTextField flat prepend-icon="search" label="Search" />
-          </VFLex>
-        </VLayout>
-      </VContainer>
-    </VContent>
+
+    <Content />
   </div>
 </template>
 
 <script lang="ts">
+import Content from '@/components/Content.vue'
 import Drawer from '@/components/Drawer.vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
   components: {
+    Content,
     Drawer,
     GlobalHeader
   }
