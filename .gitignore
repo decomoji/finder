@@ -2,6 +2,7 @@
 node_modules
 coverage
 dist
+decomoji
 
 # Log files
 npm-debug.log*
