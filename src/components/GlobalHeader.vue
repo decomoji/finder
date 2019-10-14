@@ -1,5 +1,5 @@
 <template>
-  <VToolbar app clipped-left>
+  <VToolbar app clipped-left dark color="primary">
     <VToolbarTitle>decomoji-finder</VToolbarTitle>
     <VSpacer />
     <VToolbarItems>
