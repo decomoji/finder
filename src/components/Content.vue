@@ -1,20 +1,68 @@
 <template>
   <VContent>
-    <VContainer fluid fill-height>
-      <VLayout>
-        <VFLex grow>
-          <VTextField flat prepend-icon="search" label="Search" />
-        </VFLex>
+    <VContainer grid-list-lg pa-4>
+      <VLayout row nowrap align-baseline>
+        <VFlex grow>
+          <VTextField
+            v-model="query"
+            solo-invert
+            prepend-icon="search"
+            label="Search"
+          />
+        </VFlex>
+      </VLayout>
+      <VLayout row wrap align-baseline>
+        <VFlex v-for="item in items" :key="item" xs1>
+          <VTooltip bottom>
+            <template v-slot:activator="{ on }">
+              <VBtn flat icon v-on="on">
+                <img
+                  :src="
+                    `https://raw.githubusercontent.com/decomoji/slack-reaction-decomoji/master/decomoji/extra/${item}.png`
+                  "
+                />
+              </VBtn>
+            </template>
+            <span>{{ item }}</span>
+          </VTooltip>
+        </VFlex>
       </VLayout>
     </VContainer>
   </VContent>
 </template>
 
 <script lang="ts">
+import { DecomojiBasic } from '@/configs/DecomojiBasic'
+import { DecomojiExtra } from '@/configs/DecomojiExtra'
+import { NullableString } from '@/models/NullableString'
+import { isStringOfNotEmpty } from '@/utilities/isString'
+import {
+  zenkakuAlphaNumSymbolToHankaku,
+  zenkakuKatakanaToHiragana
+} from '@maboroshi/shoshiki'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Content extends Vue {}
+export default class Content extends Vue {
+  query: NullableString = null
+
+  /**
+   * @get
+   */
+  get items() {
+    const memo: string[] = []
+    const basic = DecomojiBasic.basic
+    const extra = DecomojiExtra.extra
+    const items = memo.concat(basic, extra)
+    const query = this.query
+
+    return items.reduce<string[]>((memo, item) => {
+      return item.includes(isStringOfNotEmpty(query) ? query : '')
+        ? memo.concat(item)
+        : memo
+    }, [])
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
