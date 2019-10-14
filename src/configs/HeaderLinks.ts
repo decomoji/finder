@@ -1,6 +1,6 @@
-import { Link } from '@/models/Link'
+import { LinkItem } from '@/models/LinkItem'
 
-export const HeaderLinks: Link[] = [
+export const HeaderLinks: LinkItem[] = [
   {
     title: 'Store',
     href: 'https://suzuri.jp/decomoji',
