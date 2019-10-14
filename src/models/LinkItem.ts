@@ -1,6 +1,6 @@
 import { NullableString } from '@/models/NullableString'
 
-export interface Link {
+export interface LinkItem {
   title: string
   href: string
   target: NullableString
