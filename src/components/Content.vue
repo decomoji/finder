@@ -5,12 +5,8 @@
         <VFlex v-for="item in items" :key="item" xs1>
           <VTooltip bottom>
             <template v-slot:activator="{ on }">
-              <VBtn flat icon v-on="on">
-                <img
-                  :src="
-                    `https://raw.githubusercontent.com/decomoji/slack-reaction-decomoji/master/decomoji/extra/${item}.png`
-                  "
-                />
+              <VBtn flat fab large v-on="on">
+                <img :src="`/decomoji/${item}.png`" />
               </VBtn>
             </template>
             <span>{{ item }}</span>
