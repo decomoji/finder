@@ -3,6 +3,7 @@ import { UiMutationPayloads, UiState } from '@/store/modules/ui/models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
+  UPDATE_SEARCH_QUERY,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE
 } from '@/store/modules/ui/mutation-types'
@@ -38,7 +39,18 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
   },
 
   /**
+   * 検索クエリを更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_SEARCH_QUERY](state, payload) {
+    state.searchQuery = payload
+  },
+
+  /**
    * カテゴリーをトグルする
+   * @param state
+   * @param payload
    */
   [TOGGLE_CATEGORY](state, payload) {
     state.category = {
