@@ -42,6 +42,7 @@ export interface UiMutationPayloads {
 export interface UiActionPayloads {
   decrementGlobalLoadingQueue: UiMutationPayloads[typeof DECREMENT_GLOBAL_LOADING_QUEUE]
   incrementGlobalLoadingQueue: UiMutationPayloads[typeof INCREMENT_GLOBAL_LOADING_QUEUE]
+  updateSearchQuery: UiMutationPayloads[typeof UPDATE_SEARCH_QUERY]
   toggleCategory: UiMutationPayloads[typeof TOGGLE_CATEGORY]
   toggleDarkMode: UiMutationPayloads[typeof TOGGLE_DARK_MODE]
 }

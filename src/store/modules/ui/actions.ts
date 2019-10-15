@@ -2,6 +2,7 @@ import { UiActionTree } from '@/store/modules/ui/models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
+  UPDATE_SEARCH_QUERY,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE
 } from '@/store/modules/ui/mutation-types'
@@ -23,6 +24,15 @@ export const actions: UiActionTree = {
    */
   incrementGlobalLoadingQueue({ commit }, length?) {
     commit(INCREMENT_GLOBAL_LOADING_QUEUE, length)
+  },
+
+  /**
+   * 検索クエリを更新する
+   * @param commit
+   * @param payload
+   */
+  updateSearchQuery({ commit }, payload) {
+    commit(UPDATE_SEARCH_QUERY, payload)
   },
 
   /**
