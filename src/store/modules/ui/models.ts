@@ -1,4 +1,5 @@
 import { CategoryId } from '@/models/CategoryId'
+import { NullableString } from '@/models/NullableString'
 import { DefinedActionTree, VuexActionDispatchers } from '@/store/models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
@@ -16,6 +17,7 @@ interface CategoryState {
 export interface UiState {
   dark: boolean
   category: CategoryState
+  searchQuery: NullableString
   globalLadingQueue: number
 }
 

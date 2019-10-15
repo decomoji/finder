@@ -17,6 +17,7 @@ export const state: StateCreator<UiState> = () => ({
     explicit: false,
     extra: false
   },
+  searchQuery: null,
   globalLadingQueue: 0
 })
 
