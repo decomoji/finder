@@ -2,6 +2,7 @@ import { DefinedActionTree, VuexActionDispatchers } from '@/store/models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
+  TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE
 } from '@/store/modules/ui/mutation-types'
 
@@ -29,6 +30,7 @@ export interface UiGetterReturns {
 export interface UiMutationPayloads {
   [DECREMENT_GLOBAL_LOADING_QUEUE]: number | undefined
   [INCREMENT_GLOBAL_LOADING_QUEUE]: number | undefined
+  [TOGGLE_CATEGORY]: Partial<CategoryState>
   [TOGGLE_DARK_MODE]: boolean
 }
 
