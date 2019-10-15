@@ -1,16 +1,6 @@
 <template>
   <VContent>
     <VContainer grid-list-lg pa-4>
-      <VLayout row nowrap align-baseline>
-        <VFlex grow>
-          <VTextField
-            v-model="query"
-            solo-invert
-            prepend-icon="search"
-            label="Search"
-          />
-        </VFlex>
-      </VLayout>
       <VLayout row wrap align-baseline>
         <VFlex v-for="item in items" :key="item" xs1>
           <VTooltip bottom>
@@ -33,18 +23,17 @@
 
 <script lang="ts">
 import { DecomojiBasic } from '@/configs/DecomojiBasic'
+import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
 import { DecomojiExtra } from '@/configs/DecomojiExtra'
-import { NullableString } from '@/models/NullableString'
 import { isStringOfNotEmpty } from '@/utilities/isString'
-import {
-  zenkakuAlphaNumSymbolToHankaku,
-  zenkakuKatakanaToHiragana
-} from '@maboroshi/shoshiki'
+import { UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 
 @Component
 export default class Content extends Vue {
-  query: NullableString = null
+  // viewModel を引き当てる
+  @Getter('ui/viewModel') ui!: UiViewModel
 
   /**
    * @get
