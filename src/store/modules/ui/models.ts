@@ -28,6 +28,7 @@ export interface UiMutationPayloads {
 export interface UiActionPayloads {
   decrementGlobalLoadingQueue: UiMutationPayloads[typeof DECREMENT_GLOBAL_LOADING_QUEUE]
   incrementGlobalLoadingQueue: UiMutationPayloads[typeof INCREMENT_GLOBAL_LOADING_QUEUE]
+  toggleDarkMode: UiMutationPayloads[typeof TOGGLE_DARK_MODE]
 }
 
 export type UiActionTree = DefinedActionTree<UiState, UiActionPayloads>
