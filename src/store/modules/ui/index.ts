@@ -9,8 +9,14 @@ import {
 } from '@/store/modules/ui/models'
 import { mutations } from '@/store/modules/ui/mutations'
 
+// ステートの初期値を返す
 export const state: StateCreator<UiState> = () => ({
   dark: false,
+  category: {
+    basic: true,
+    explicit: false,
+    extra: false
+  },
   globalLadingQueue: 0
 })
 
