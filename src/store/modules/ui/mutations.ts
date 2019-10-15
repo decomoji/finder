@@ -43,7 +43,9 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
   [TOGGLE_CATEGORY](state, payload) {
     state.category = {
       ...state.category,
-      ...payload
+      ...{
+        [payload]: !state.category[payload]
+      }
     }
   },
 
