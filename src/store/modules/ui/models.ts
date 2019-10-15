@@ -5,6 +5,7 @@ import {
 } from '@/store/modules/ui/mutation-types'
 
 export interface UiState {
+  dark: boolean
   globalLadingQueue: number
 }
 
