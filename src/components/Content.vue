@@ -35,16 +35,18 @@ export default class Content extends Vue {
    * @get
    */
   get items() {
-    const memo: string[] = []
-    const basic = DecomojiBasic.basic
-    const extra = DecomojiExtra.extra
-    const items = memo.concat(basic, extra)
-    const query = this.query
+    const { category, searchQuery } = this.ui
+    const _basic = category.basic ? DecomojiBasic.basic : []
+    const _extra = category.extra ? DecomojiExtra.extra : []
+    const _explicit = category.explicit ? DecomojiExplicit.explicit : []
+    // カテゴリーの選択に合わせて返すデコモジの配列を変える
+    const _items: string[] = Array(0).concat(_basic, _extra, _explicit)
+    // 検索クエリをノーマライズする
+    const _query = isStringOfNotEmpty(searchQuery) ? searchQuery : ''
 
-    return items.reduce<string[]>((memo, item) => {
-      return item.includes(isStringOfNotEmpty(query) ? query : '')
-        ? memo.concat(item)
-        : memo
+    // 検索クエリにマッチする配列に絞り込む
+    return _items.reduce<string[]>((memo, item) => {
+      return item.includes(_query) ? memo.concat(item) : memo
     }, [])
   }
 }
