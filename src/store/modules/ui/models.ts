@@ -5,8 +5,15 @@ import {
   TOGGLE_DARK_MODE
 } from '@/store/modules/ui/mutation-types'
 
+interface CategoryState {
+  basic: boolean
+  explicit: boolean
+  extra: boolean
+}
+
 export interface UiState {
   dark: boolean
+  category: CategoryState
   globalLadingQueue: number
 }
 
