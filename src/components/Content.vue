@@ -1,15 +1,15 @@
 <template>
-  <VContent>
+  <VContent class="Content">
     <VContainer grid-list-lg pa-4>
       <VLayout row wrap align-baseline>
-        <VFlex v-for="item in items" :key="item" xs1>
+        <VFlex v-for="name in items" v-show="matched(name)" :key="name" xs1>
           <VTooltip bottom>
             <template v-slot:activator="{ on }">
               <VBtn flat fab large v-on="on">
-                <img :src="`/decomoji/${item}.png`" />
+                <img :src="`/decomoji/${name}.png`" />
               </VBtn>
             </template>
-            <span>{{ item }}</span>
+            <span> {{ name }} </span>
           </VTooltip>
         </VFlex>
       </VLayout>
@@ -18,9 +18,10 @@
 </template>
 
 <script lang="ts">
-import { DecomojiBasic } from '@/configs/DecomojiBasic'
-import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
-import { DecomojiExtra } from '@/configs/DecomojiExtra'
+import { DECOMOJI_BASIC } from '@/decomoji/ts/basic'
+import { DECOMOJI_EXPLICIT } from '@/decomoji/ts/explicit'
+import { DECOMOJI_EXTRA } from '@/decomoji/ts/extra'
+import { DecomojiItem } from '@/models/DecomojiItem'
 import { isStringOfNotEmpty } from '@/utilities/isString'
 import { UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
@@ -31,27 +32,67 @@ export default class Content extends Vue {
   // viewModel を引き当てる
   @Getter('ui/viewModel') ui!: UiViewModel
 
+  // 各組み合わせの配列をプリセットしておく
+  decomojis = {
+    all: [
+      ...DECOMOJI_BASIC,
+      ...DECOMOJI_EXTRA,
+      ...DECOMOJI_EXPLICIT
+    ] as DecomojiItem[],
+    basic: DECOMOJI_BASIC as DecomojiItem[],
+    extra: DECOMOJI_EXTRA as DecomojiItem[],
+    explicit: DECOMOJI_EXPLICIT as DecomojiItem[],
+    basic_extra: [...DECOMOJI_BASIC, ...DECOMOJI_EXTRA] as DecomojiItem[],
+    basic_explicit: [...DECOMOJI_BASIC, ...DECOMOJI_EXPLICIT] as DecomojiItem[],
+    extra_explicit: [...DECOMOJI_EXTRA, ...DECOMOJI_EXPLICIT] as DecomojiItem[]
+  }
+
   /**
-   * @get
+   * @get - カテゴリーの選択条件に合わせてデコモジの配列を返す
    */
   get items() {
-    const { category, searchQuery } = this.ui
-    const _basic = category.basic ? DecomojiBasic.basic : []
-    const _extra = category.extra ? DecomojiExtra.extra : []
-    const _explicit = category.explicit ? DecomojiExplicit.explicit : []
-    // カテゴリーの選択に合わせて返すデコモジの配列を変える
-    const _items: string[] = Array(0).concat(_basic, _extra, _explicit)
-    // 検索クエリをノーマライズする
-    const _query = isStringOfNotEmpty(searchQuery) ? searchQuery : ''
+    const { decomojis, ui } = this
+    const { category } = ui
+    const basic: string = category.basic ? '1' : '0'
+    const extra: string = category.extra ? '1' : '0'
+    const explicit: string = category.explicit ? '1' : '0'
+    const conditionCode = basic + extra + explicit
 
-    // 検索クエリにマッチする配列に絞り込む
-    return _items.reduce<string[]>((memo, item) => {
-      return item.includes(_query) ? memo.concat(item) : memo
-    }, [])
+    switch (conditionCode) {
+      case '111':
+        return decomojis.all
+      case '100':
+        return decomojis.basic
+      case '010':
+        return decomojis.extra
+      case '001':
+        return decomojis.explicit
+      case '110':
+        return decomojis.basic_extra
+      case '101':
+        return decomojis.basic_explicit
+      case '011':
+        return decomojis.extra_explicit
+      default:
+        return []
+    }
+  }
+
+  /**
+   * @get - ノーマライズした検索クエリを返す
+   */
+  get query() {
+    const { searchQuery } = this.ui
+    return isStringOfNotEmpty(searchQuery) ? searchQuery : ''
+  }
+
+  /**
+   * @method - 各要素が検索クエリを含んでいるかを返す
+   */
+  matched(name: string) {
+    return name.includes(this.query)
   }
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '~vuetify/src/stylus/app'
-</style>
+<style lang="stylus" scoped></style>
