@@ -4,7 +4,7 @@
       <VSubheader>Slackのダークモードをエミュレート</VSubheader>
       <VListTile>
         <VListTileAction>
-          <VCheckbox :value="ui.dark" @change="handleClickDarkMode" />
+          <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
         </VListTileAction>
         <VListTileContent @click="handleClickDarkMode">
           <VListTileTitle>ダークモード</VListTileTitle>
@@ -16,7 +16,7 @@
       <VListTile v-for="(item, i) in items" :key="i">
         <VListTileAction>
           <VCheckbox
-            :value="ui.category[item.id]"
+            :input-value="ui.category[item.id]"
             @change="handleClickCategory(item.id)"
           />
         </VListTileAction>
