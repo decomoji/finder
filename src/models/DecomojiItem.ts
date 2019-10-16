@@ -1,1 +1,4 @@
-export type DecomojiItem = string
+export type DecomojiItem = {
+  category: string
+  name: string
+}
