@@ -4,7 +4,8 @@ import {
   INCREMENT_GLOBAL_LOADING_QUEUE,
   UPDATE_SEARCH_QUERY,
   TOGGLE_CATEGORY,
-  TOGGLE_DARK_MODE
+  TOGGLE_DARK_MODE,
+  TOGGLE_NAME_SHOWS
 } from '@/store/modules/ui/mutation-types'
 
 export const actions: UiActionTree = {
@@ -50,5 +51,13 @@ export const actions: UiActionTree = {
    */
   toggleDarkMode({ commit }) {
     commit(TOGGLE_DARK_MODE)
+  },
+
+  /**
+   * デコモジ名の表示をトグルする
+   * @param commit
+   */
+  toggleNameShows({ commit }) {
+    commit(TOGGLE_NAME_SHOWS)
   }
 }

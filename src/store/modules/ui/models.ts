@@ -48,6 +48,7 @@ export interface UiActionPayloads {
   updateSearchQuery: UiMutationPayloads[typeof UPDATE_SEARCH_QUERY]
   toggleCategory: UiMutationPayloads[typeof TOGGLE_CATEGORY]
   toggleDarkMode: UiMutationPayloads[typeof TOGGLE_DARK_MODE]
+  toggleNameShows: UiMutationPayloads[typeof TOGGLE_NAME_SHOWS]
 }
 
 export type UiActionTree = DefinedActionTree<UiState, UiActionPayloads>
