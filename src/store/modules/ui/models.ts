@@ -20,6 +20,7 @@ export interface UiState {
   category: CategoryState
   searchQuery: NullableString
   globalLadingQueue: number
+  name: boolean
 }
 
 export interface UiViewModel extends UiState {
