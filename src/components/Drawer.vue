@@ -1,18 +1,7 @@
 <template>
   <VNavigationDrawer app clipped fixed permanent>
     <VList subheader two-line>
-      <VSubheader>Slackのダークモードをエミュレート</VSubheader>
-      <VListTile>
-        <VListTileAction>
-          <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
-        </VListTileAction>
-        <VListTileContent @click="handleClickDarkMode">
-          <VListTileTitle>ダークモード</VListTileTitle>
-        </VListTileContent>
-      </VListTile>
-    </VList>
-    <VList subheader two-line>
-      <VSubheader>カテゴリー</VSubheader>
+      <VSubheader>表示カテゴリー</VSubheader>
       <VListTile v-for="(item, i) in items" :key="i">
         <VListTileAction>
           <VCheckbox
@@ -26,14 +15,23 @@
         </VListTileContent>
       </VListTile>
     </VList>
+    <VDivider />
     <VList subheader two-line>
-      <VSubheader>デコモジのファイル名の表示</VSubheader>
+      <VSubheader>表示オプション</VSubheader>
+      <VListTile>
+        <VListTileAction>
+          <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
+        </VListTileAction>
+        <VListTileContent @click="handleClickDarkMode">
+          <VListTileTitle>ダークモード</VListTileTitle>
+        </VListTileContent>
+      </VListTile>
       <VListTile>
         <VListTileAction>
           <VCheckbox :input-value="ui.name" @change="handleClickNameShows" />
         </VListTileAction>
         <VListTileContent @click="handleClickNameShows">
-          <VListTileTitle>表示する</VListTileTitle>
+          <VListTileTitle>ファイル名の表示</VListTileTitle>
         </VListTileContent>
       </VListTile>
     </VList>
