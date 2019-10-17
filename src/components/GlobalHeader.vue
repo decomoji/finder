@@ -2,13 +2,13 @@
   <VToolbar app clipped-left dark color="primary" class="GlobalHeader">
     <VToolbarTitle class="__title">decomoji-finder v1</VToolbarTitle>
     <VTextField
-      :value="ui.searchQuery"
+      :input-value="ui.searchQuery"
       flat
       hide-details
       solo-inverted
       prepend-inner-icon="search"
       label="Search"
-      @input="updateSearchQuery"
+      @input="debounceUpdateSearchQuery($event)"
     />
     <VSpacer />
     <VToolbarItems>
@@ -28,6 +28,7 @@
 <script lang="ts">
 import { HeaderLinks } from '@/configs/HeaderLinks'
 import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
+import { debounce } from 'lodash'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -46,6 +47,17 @@ export default class GlobalHeader extends Vue {
    * 内部プロパティを定義する
    */
   items = HeaderLinks
+
+  /**
+   * @method
+   */
+  debounceUpdateSearchQuery(query: string) {
+    let timer
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      this.updateSearchQuery(query)
+    }, 300)
+  }
 }
 </script>
 <style lang="stylus" scoped>
