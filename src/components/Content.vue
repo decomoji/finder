@@ -11,7 +11,7 @@
           mb-2
         >
           <img :src="`/decomoji/${name}.png`" /><br />
-          <span class="__name">:{{ name }}:</span>
+          <span v-show="ui.name" class="__name">:{{ name }}:</span>
         </VFlex>
       </VLayout>
     </VContainer>
