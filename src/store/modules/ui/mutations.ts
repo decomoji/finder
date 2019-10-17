@@ -5,7 +5,8 @@ import {
   INCREMENT_GLOBAL_LOADING_QUEUE,
   UPDATE_SEARCH_QUERY,
   TOGGLE_CATEGORY,
-  TOGGLE_DARK_MODE
+  TOGGLE_DARK_MODE,
+  TOGGLE_NAME_SHOWS
 } from '@/store/modules/ui/mutation-types'
 
 export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
@@ -67,5 +68,13 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
    */
   [TOGGLE_DARK_MODE](state) {
     state.dark = !state.dark
+  },
+
+  /**
+   * デコモジ名の表示をトグルする
+   * @param state
+   */
+  [TOGGLE_NAME_SHOWS](state) {
+    state.name = !state.name
   }
 }
