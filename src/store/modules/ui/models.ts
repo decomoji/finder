@@ -6,7 +6,8 @@ import {
   INCREMENT_GLOBAL_LOADING_QUEUE,
   UPDATE_SEARCH_QUERY,
   TOGGLE_CATEGORY,
-  TOGGLE_DARK_MODE
+  TOGGLE_DARK_MODE,
+  TOGGLE_NAME_SHOWS
 } from '@/store/modules/ui/mutation-types'
 
 interface CategoryState {
@@ -38,6 +39,7 @@ export interface UiMutationPayloads {
   [UPDATE_SEARCH_QUERY]: string
   [TOGGLE_CATEGORY]: CategoryId
   [TOGGLE_DARK_MODE]: boolean
+  [TOGGLE_NAME_SHOWS]: boolean
 }
 
 export interface UiActionPayloads {
