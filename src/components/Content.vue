@@ -2,15 +2,16 @@
   <VContent class="Content">
     <VContainer grid-list-lg pa-4>
       <VLayout row wrap align-baseline>
-        <VFlex v-for="name in items" v-show="matched(name)" :key="name" xs1>
-          <VTooltip bottom>
-            <template v-slot:activator="{ on }">
-              <VBtn flat fab large v-on="on">
-                <img :src="`/decomoji/${name}.png`" />
-              </VBtn>
-            </template>
-            <span> {{ name }} </span>
-          </VTooltip>
+        <VFlex
+          v-for="name in items"
+          v-show="matched(name)"
+          :key="name"
+          xs1
+          text-xs-center
+          mb-2
+        >
+          <img :src="`/decomoji/${name}.png`" /><br />
+          <span class="__name">:{{ name }}:</span>
         </VFlex>
       </VLayout>
     </VContainer>
@@ -95,4 +96,12 @@ export default class Content extends Vue {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+@import '~vuetify/src/stylus/settings/_colors'
+
+.Content
+  .__name
+    padding: 3px 5px
+    border-radius: 3px
+    background-color: $blue-grey.lighten-5
+</style>
