@@ -26,6 +26,17 @@
         </VListTileContent>
       </VListTile>
     </VList>
+    <VList subheader two-line>
+      <VSubheader>デコモジのファイル名の表示</VSubheader>
+      <VListTile>
+        <VListTileAction>
+          <VCheckbox :input-value="ui.name" @change="handleClickNameShows" />
+        </VListTileAction>
+        <VListTileContent @click="handleClickNameShows">
+          <VListTileTitle>表示する</VListTileTitle>
+        </VListTileContent>
+      </VListTile>
+    </VList>
   </VNavigationDrawer>
 </template>
 
@@ -48,6 +59,8 @@ export default class Drawer extends Vue {
   toggleCategory!: UiActionDispatchers['toggleCategory']
   @Action('ui/toggleDarkMode')
   toggleDarkMode!: UiActionDispatchers['toggleDarkMode']
+  @Action('ui/toggleNameShows')
+  toggleNameShows!: UiActionDispatchers['toggleNameShows']
 
   /**
    * 内部プロパティを定義する
@@ -68,6 +81,14 @@ export default class Drawer extends Vue {
    */
   handleClickDarkMode() {
     this.toggleDarkMode(this.ui.dark)
+  }
+
+  /**
+   * @listens VCheckbox[v-model=ui.name].change
+   * @listens VListTileContent.click
+   */
+  handleClickNameShows() {
+    this.toggleNameShows(this.ui.name)
   }
 }
 </script>
