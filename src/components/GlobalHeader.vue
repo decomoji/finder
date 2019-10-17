@@ -3,6 +3,7 @@
     <VToolbarTitle class="__title">decomoji-finder v1</VToolbarTitle>
     <VTextField
       :input-value="ui.searchQuery"
+      clearable
       flat
       hide-details
       solo-inverted
