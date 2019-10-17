@@ -11,15 +11,15 @@ import { mutations } from '@/store/modules/ui/mutations'
 
 // ステートの初期値を返す
 export const state: StateCreator<UiState> = () => ({
-  dark: false,
   category: {
     basic: true,
     explicit: false,
     extra: false
   },
-  searchQuery: null,
+  dark: false,
   globalLadingQueue: 0,
   name: false,
+  searchQuery: null
 })
 
 export const storeModule: DefinedModule<
@@ -28,9 +28,9 @@ export const storeModule: DefinedModule<
   UiMutationPayloads,
   UiActionPayloads
 > = {
-  namespaced: true,
-  state,
+  actions,
   getters,
   mutations,
-  actions
+  namespaced: true,
+  state
 }

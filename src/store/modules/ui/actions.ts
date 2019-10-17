@@ -28,15 +28,6 @@ export const actions: UiActionTree = {
   },
 
   /**
-   * 検索クエリを更新する
-   * @param commit
-   * @param payload
-   */
-  updateSearchQuery({ commit }, payload) {
-    commit(UPDATE_SEARCH_QUERY, payload)
-  },
-
-  /**
    * カテゴリーをトグルする
    * @param commit
    * @param payload
@@ -59,5 +50,14 @@ export const actions: UiActionTree = {
    */
   toggleNameShows({ commit }) {
     commit(TOGGLE_NAME_SHOWS)
+  },
+
+  /**
+   * 検索クエリを更新する
+   * @param commit
+   * @param payload
+   */
+  updateSearchQuery({ commit }, payload) {
+    commit(UPDATE_SEARCH_QUERY, payload)
   }
 }
