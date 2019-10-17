@@ -103,5 +103,6 @@ export default class Content extends Vue {
   .__name
     padding: 3px 5px
     border-radius: 3px
+    word-break: break-all
     background-color: $blue-grey.lighten-5
 </style>
