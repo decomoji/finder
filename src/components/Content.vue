@@ -18,10 +18,11 @@
           :class="`__item -${category}`"
         >
           <img
+            :alt="name"
             :src="`/decomoji/${category}/${name}.png`"
             width="64"
             height="64"
-            :alt="name"
+            class="__icon"
           />
           <p v-show="ui.name" class="__name">:{{ name }}:</p>
         </div>
@@ -72,7 +73,7 @@ export default class Content extends Vue {
     gap: 10px
     grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
     grid-auto-rows: auto;
-    padding: $spacers.four.y $spacers.three.x
+    padding: 10px
     overflow-x: hidden
     &.-basic .__item.-basic
     &.-extra .__item.-extra
@@ -80,12 +81,14 @@ export default class Content extends Vue {
       display: block
   .__item
     display: none
-    padding-bottom: 10px
+    padding: 10px
+    border-radius: 4px
     text-align: center
+  .__icon
+    vertical-align: top
   .__name
-    margin: 0
-    padding: 3px 5px
-    border-radius: 3px
+    margin-top: 10px
+    margin-bottom: 0
+    line-height: 1.4
     word-break: break-all
-    background-color: $blue-grey.lighten-5
 </style>
