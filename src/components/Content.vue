@@ -35,7 +35,7 @@ import { DecomojiBasic } from '@/configs/DecomojiBasic'
 import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
 import { DecomojiExtra } from '@/configs/DecomojiExtra'
 import { CategoryId } from '@/models/CategoryId'
-import { isStringOfNotEmpty } from '@/utilities/isString'
+import { DecomojiItem } from '@/models/DecomojiItem'
 import { UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
@@ -48,9 +48,9 @@ export default class Content extends Vue {
   categories: CategoryId[] = ['basic', 'explicit', 'extra']
 
   decomojis = Object.freeze({
-    basic: DecomojiBasic,
-    extra: DecomojiExtra,
-    explicit: DecomojiExplicit
+    basic: DecomojiBasic as DecomojiItem[],
+    extra: DecomojiExtra as DecomojiItem[],
+    explicit: DecomojiExplicit as DecomojiItem[]
   })
 
   /**
