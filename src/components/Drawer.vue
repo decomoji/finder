@@ -33,6 +33,14 @@
       </VListTile>
       <VListTile @click="() => {}">
         <VListTileAction class="__action">
+          <VCheckbox :input-value="ui.reacted" @change="handleClickReacted" />
+        </VListTileAction>
+        <VListTileContent @click="handleClickReacted">
+          <VListTileTitle>リアクション済みのスタイル</VListTileTitle>
+        </VListTileContent>
+      </VListTile>
+      <VListTile @click="() => {}">
+        <VListTileAction class="__action">
           <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
         </VListTileAction>
         <VListTileContent @click="handleClickDarkMode">
@@ -67,6 +75,8 @@ export default class Drawer extends Vue {
   toggleDarkMode!: UiActionDispatchers['toggleDarkMode']
   @Action('ui/toggleNameShows')
   toggleNameShows!: UiActionDispatchers['toggleNameShows']
+  @Action('ui/toggleReacted')
+  toggleReacted!: UiActionDispatchers['toggleReacted']
 
   /**
    * 内部プロパティを定義する
@@ -95,6 +105,14 @@ export default class Drawer extends Vue {
    */
   handleClickNameShows() {
     this.toggleNameShows(this.ui.name)
+  }
+
+  /**
+   * @listens VCheckbox[v-model=ui.reacted].change
+   * @listens VListTileContent.click
+   */
+  handleClickReacted() {
+    this.toggleReacted(this.ui.reacted)
   }
 }
 </script>
