@@ -18,6 +18,7 @@ export const state: StateCreator<UiState> = () => ({
   },
   dark: false,
   globalLadingQueue: 0,
+  iconSize: 'l',
   name: false,
   reacted: false,
   searchQuery: ''
