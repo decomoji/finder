@@ -6,6 +6,7 @@ import {
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
+  TOGGLE_REACTED,
   UPDATE_SEARCH_QUERY
 } from '@/store/modules/ui/mutation-types'
 
@@ -68,6 +69,15 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
   [TOGGLE_NAME_SHOWS](state) {
     state.name = !state.name
   },
+
+  /**
+   * リアクション済みをトグルする
+   * @param state
+   */
+  [TOGGLE_REACTED](state) {
+    state.reacted = !state.reacted
+  },
+
 
   /**
    * 検索クエリを更新する
