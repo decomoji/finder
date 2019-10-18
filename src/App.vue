@@ -1,5 +1,5 @@
 <template>
-  <VApp>
+  <VApp :dark="ui.dark" class="App">
     <RouterView role="main" class="mb-4" />
     <GlobalLoading v-if="ui.hasGlobalLoadingQueue" />
   </VApp>
@@ -34,3 +34,10 @@ export default class App extends Vue {
   created() {}
 }
 </script>
+<style lang="stylus" scoped>
+.App
+  &.theme--light
+    background-color: rgb(255,255,255)
+  &.theme--dark
+    background-color: rgb(24,26,28)
+</style>

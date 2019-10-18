@@ -18,9 +18,8 @@ export default function useVuetify(ctx = Vue) {
       current: 'ja-JP'
     },
     theme: {
-      primary: colors.blueGrey.darken3,
-      secondary: colors.blueGrey.lighten3,
-      accent: colors.blueGrey.base
+      primary: '#3b3642',
+      accent: '#2bac76'
     }
   })
 }

@@ -84,6 +84,10 @@ export default class Content extends Vue {
     padding: 10px
     border-radius: 4px
     text-align: center
+    .theme--light &
+      background-color: rgb(245,244,245)
+    .theme--dark &
+      background-color: rgb(30,32,34)
   .__icon
     vertical-align: top
   .__name

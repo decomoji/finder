@@ -1,5 +1,5 @@
 <template>
-  <VToolbar app clipped-left dark color="primary" class="GlobalHeader">
+  <VToolbar app clipped-left dark class="GlobalHeader">
     <VToolbarTitle class="__title">decomoji-finder v1</VToolbarTitle>
     <VTextField
       :input-value="ui.searchQuery"
@@ -65,6 +65,7 @@ export default class GlobalHeader extends Vue {
 @import '~vuetify/src/stylus/settings/_variables'
 
 .GlobalHeader
+  background-color: #3b3642
   .__title
     width: 300px
   .__input
