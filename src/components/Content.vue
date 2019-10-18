@@ -15,7 +15,7 @@
           v-for="name in decomojis[category]"
           v-show="matched(name)"
           :key="name"
-          :class="`__item -${category}`"
+          :class="['__item', `-${category}`, { '-reacted': ui.reacted }]"
         >
           <img
             :alt="name"
@@ -79,17 +79,27 @@ export default class Content extends Vue {
     &.-extra .__item.-extra
     &.-explicit .__item.-explicit
       display: block
+
   .__item
     display: none
     padding: 10px
+    border: 1px solid transparent
     border-radius: 4px
     text-align: center
     .theme--light &
       background-color: rgb(245,244,245)
+      &.-reacted
+        border-color: #1d9bd1
+        background-color: #ebf5fb
     .theme--dark &
       background-color: rgb(30,32,34)
+      &.-reacted
+        border-color: #1264a3
+        background-color: #1264a3
+
   .__icon
     vertical-align: top
+
   .__name
     margin-top: 10px
     margin-bottom: 0
