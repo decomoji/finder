@@ -7,6 +7,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
 } from '@/store/modules/ui/mutation-types'
 
@@ -78,6 +79,14 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
     state.reacted = !state.reacted
   },
 
+  /**
+   * アイコンサイズを更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_ICON_SIZE](state, payload) {
+    state.iconSize = payload
+  },
 
   /**
    * 検索クエリを更新する
