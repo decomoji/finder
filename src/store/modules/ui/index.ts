@@ -19,7 +19,7 @@ export const state: StateCreator<UiState> = () => ({
   dark: false,
   globalLadingQueue: 0,
   name: false,
-  searchQuery: null
+  searchQuery: ''
 })
 
 export const storeModule: DefinedModule<
