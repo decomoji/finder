@@ -21,7 +21,7 @@ export interface UiState {
   dark: boolean
   globalLadingQueue: number
   name: boolean
-  searchQuery: NullableString
+  searchQuery: string
 }
 
 export interface UiViewModel extends UiState {

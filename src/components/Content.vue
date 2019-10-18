@@ -52,18 +52,12 @@ export default class Content extends Vue {
     extra: DecomojiExtra,
     explicit: DecomojiExplicit
   })
-  /**
-   * @get - ノーマライズした検索クエリを返す
-   */
-  get query() {
-    const { searchQuery } = this.ui
-    return isStringOfNotEmpty(searchQuery) ? searchQuery : ''
-  }
+
   /**
    * @method - 各要素が検索クエリを含んでいるかを返す
    */
   matched(name: string) {
-    return name.includes(this.query)
+    return name.includes(this.ui.searchQuery)
   }
 }
 </script>

@@ -7,6 +7,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS
 } from '@/store/modules/ui/mutation-types'
+import { isStringOfNotEmpty } from '@/utilities/isString'
 
 export const actions: UiActionTree = {
   /**
@@ -58,6 +59,6 @@ export const actions: UiActionTree = {
    * @param payload
    */
   updateSearchQuery({ commit }, payload) {
-    commit(UPDATE_SEARCH_QUERY, payload)
+    commit(UPDATE_SEARCH_QUERY, isStringOfNotEmpty(payload) ? payload : '')
   }
 }
