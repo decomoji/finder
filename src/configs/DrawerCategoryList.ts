@@ -1,6 +1,6 @@
 import { CategoryItem } from '@/models/CategoryItem'
 
-export const Categories: CategoryItem[] = [
+export const DrawerCategoryList: CategoryItem[] = [
   {
     id: 'basic',
     title_main: 'Basic',

@@ -2,16 +2,16 @@
   <VNavigationDrawer app clipped fixed permanent>
     <VList subheader two-line>
       <VSubheader>表示カテゴリー</VSubheader>
-      <VListTile v-for="(item, i) in items" :key="i">
+      <VListTile v-for="(category, i) in drawerCategoryList" :key="i">
         <VListTileAction>
           <VCheckbox
-            :input-value="ui.category[item.id]"
-            @change="handleClickCategory(item.id)"
+            :input-value="ui.category[category.id]"
+            @change="handleClickCategory(category.id)"
           />
         </VListTileAction>
         <VListTileContent @click="handleClickCategory(item.id)">
-          <VListTileTitle>{{ item.title_main }}</VListTileTitle>
-          <VListTileSubTitle>{{ item.title_sub }}</VListTileSubTitle>
+          <VListTileTitle>{{ category.title_main }}</VListTileTitle>
+          <VListTileSubTitle>{{ category.title_sub }}</VListTileSubTitle>
         </VListTileContent>
       </VListTile>
     </VList>
@@ -39,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import { Categories } from '@/configs/Categories'
 import { CategoryId } from '@/models/CategoryId'
+import { DrawerCategoryList } from '@/configs/DrawerCategoryList'
 import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
@@ -63,7 +63,7 @@ export default class Drawer extends Vue {
   /**
    * 内部プロパティを定義する
    */
-  items = Categories
+  drawerCategoryList = DrawerCategoryList
 
   /**
    * @listens VCheckbox[v-model=ui.category[id]].change
