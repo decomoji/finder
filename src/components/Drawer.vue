@@ -5,47 +5,43 @@
       <VListTile
         v-for="category in drawerCategoryList"
         :key="category.id"
-        @click="() => {}"
+        ripple
+        @click="handleClickCategory(category.id)"
       >
-        <VListTileAction class="__action">
-          <VCheckbox
-            :input-value="ui.category[category.id]"
-            @change="handleClickCategory(category.id)"
-          />
-        </VListTileAction>
-        <VListTileContent @click="handleClickCategory(category.id)">
-          <VListTileTitle
-            >{{ category.name }}（{{ category.id }}）</VListTileTitle
-          >
-        </VListTileContent>
+        <VCheckbox
+          :input-value="ui.category[category.id]"
+          :label="`${category.name}（${category.id}）`"
+          class="__check"
+          @change="() => {}"
+        />
       </VListTile>
     </VList>
     <VDivider />
     <VList subheader>
       <VSubheader>表示オプション</VSubheader>
-      <VListTile @click="() => {}">
-        <VListTileAction class="__action">
-          <VCheckbox :input-value="ui.name" @change="handleClickNameShows" />
-        </VListTileAction>
-        <VListTileContent @click="handleClickNameShows">
-          <VListTileTitle>ファイル名の表示</VListTileTitle>
-        </VListTileContent>
+      <VListTile ripple @click="handleClickNameShows">
+        <VCheckbox
+          :input-value="ui.name"
+          class="__check"
+          label="ファイル名の表示"
+          @change="() => {}"
+        />
       </VListTile>
-      <VListTile @click="() => {}">
-        <VListTileAction class="__action">
-          <VCheckbox :input-value="ui.reacted" @change="handleClickReacted" />
-        </VListTileAction>
-        <VListTileContent @click="handleClickReacted">
-          <VListTileTitle>リアクション済みのスタイル</VListTileTitle>
-        </VListTileContent>
+      <VListTile ripple @click="handleClickReacted">
+        <VCheckbox
+          :input-value="ui.reacted"
+          class="__check"
+          label="リアクション済みのスタイル"
+          @change="() => {}"
+        />
       </VListTile>
-      <VListTile @click="() => {}">
-        <VListTileAction class="__action">
-          <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
-        </VListTileAction>
-        <VListTileContent @click="handleClickDarkMode">
-          <VListTileTitle>ダークモード</VListTileTitle>
-        </VListTileContent>
+      <VListTile ripple @click="handleClickDarkMode">
+        <VCheckbox
+          :input-value="ui.dark"
+          class="__check"
+          label="ダークモード"
+          @change="() => {}"
+        />
       </VListTile>
       <VListTile>
         <p class="__desc">テーマはSlackのAubergineをエミュレートしています。</p>
@@ -122,8 +118,8 @@ export default class Drawer extends Vue {
     background-color: #301131
   .theme--dark &
     background-color: #17161a
-  .__action
-    min-width: 0
+  .__check
+    pointer-events: none
   .__desc
     margin-bottom: 0
 </style>
