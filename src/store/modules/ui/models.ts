@@ -1,4 +1,5 @@
 import { CategoryId } from '@/models/CategoryId'
+import { CategoryState } from '@/models/CategoryState'
 import { NullableString } from '@/models/NullableString'
 import { DefinedActionTree, VuexActionDispatchers } from '@/store/models'
 import {
@@ -9,12 +10,6 @@ import {
   TOGGLE_NAME_SHOWS,
   UPDATE_SEARCH_QUERY
 } from '@/store/modules/ui/mutation-types'
-
-interface CategoryState {
-  basic: boolean
-  explicit: boolean
-  extra: boolean
-}
 
 export interface UiState {
   category: CategoryState
