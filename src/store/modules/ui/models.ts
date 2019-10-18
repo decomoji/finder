@@ -16,6 +16,7 @@ export interface UiState {
   category: CategoryState
   dark: boolean
   globalLadingQueue: number
+  iconSize: string
   name: boolean
   reacted: boolean
   searchQuery: string
