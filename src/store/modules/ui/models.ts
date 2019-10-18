@@ -9,6 +9,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
 } from '@/store/modules/ui/mutation-types'
 
@@ -38,6 +39,7 @@ export interface UiMutationPayloads {
   [TOGGLE_DARK_MODE]: boolean
   [TOGGLE_NAME_SHOWS]: boolean
   [TOGGLE_REACTED]: boolean
+  [UPDATE_ICON_SIZE]: string
   [UPDATE_SEARCH_QUERY]: string
 }
 
