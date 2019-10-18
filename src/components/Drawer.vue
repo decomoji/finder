@@ -1,5 +1,5 @@
 <template>
-  <VNavigationDrawer app clipped fixed permanent>
+  <VNavigationDrawer app clipped fixed permanent class="Drawer">
     <VList subheader two-line>
       <VSubheader>表示カテゴリー</VSubheader>
       <VListTile v-for="(category, i) in drawerCategoryList" :key="i">
@@ -9,7 +9,10 @@
             @change="handleClickCategory(category.id)"
           />
         </VListTileAction>
-        <VListTileContent @click="handleClickCategory(item.id)">
+        <VListTileContent
+          class="__label"
+          @click="handleClickCategory(category.id)"
+        >
           <VListTileTitle>{{ category.title_main }}</VListTileTitle>
           <VListTileSubTitle>{{ category.title_sub }}</VListTileSubTitle>
         </VListTileContent>
@@ -22,7 +25,7 @@
         <VListTileAction>
           <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
         </VListTileAction>
-        <VListTileContent @click="handleClickDarkMode">
+        <VListTileContent class="__label" @click="handleClickDarkMode">
           <VListTileTitle>ダークモード</VListTileTitle>
         </VListTileContent>
       </VListTile>
@@ -30,7 +33,7 @@
         <VListTileAction>
           <VCheckbox :input-value="ui.name" @change="handleClickNameShows" />
         </VListTileAction>
-        <VListTileContent @click="handleClickNameShows">
+        <VListTileContent class="__label" @click="handleClickNameShows">
           <VListTileTitle>ファイル名の表示</VListTileTitle>
         </VListTileContent>
       </VListTile>
@@ -90,3 +93,9 @@ export default class Drawer extends Vue {
   }
 }
 </script>
+<style lang="stylus" scoped>
+.Drawer
+  .__label
+    &:hover
+      cursor: pointer
+</style>
