@@ -13,8 +13,9 @@
           class="__label"
           @click="handleClickCategory(category.id)"
         >
-          <VListTileTitle>{{ category.title_main }}</VListTileTitle>
-          <VListTileSubTitle>{{ category.title_sub }}</VListTileSubTitle>
+          <VListTileTitle
+            >{{ category.name }}（{{ category.id }}）</VListTileTitle
+          >
         </VListTileContent>
       </VListTile>
     </VList>
