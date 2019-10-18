@@ -46,6 +46,7 @@ export interface UiActionPayloads {
   toggleCategory: UiMutationPayloads[typeof TOGGLE_CATEGORY]
   toggleDarkMode: UiMutationPayloads[typeof TOGGLE_DARK_MODE]
   toggleNameShows: UiMutationPayloads[typeof TOGGLE_NAME_SHOWS]
+  toggleReacted: UiMutationPayloads[typeof TOGGLE_REACTED]
   updateSearchQuery: UiMutationPayloads[typeof UPDATE_SEARCH_QUERY]
 }
 

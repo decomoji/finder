@@ -2,10 +2,11 @@ import { UiActionTree } from '@/store/modules/ui/models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
-  UPDATE_SEARCH_QUERY,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
-  TOGGLE_NAME_SHOWS
+  TOGGLE_NAME_SHOWS,
+  TOGGLE_REACTED,
+  UPDATE_SEARCH_QUERY
 } from '@/store/modules/ui/mutation-types'
 import { isStringOfNotEmpty } from '@/utilities/isString'
 
@@ -51,6 +52,14 @@ export const actions: UiActionTree = {
    */
   toggleNameShows({ commit }) {
     commit(TOGGLE_NAME_SHOWS)
+  },
+
+  /**
+   * リアクション済みをトグルする
+   * @param commit
+   */
+  toggleReacted({ commit }) {
+    commit(TOGGLE_REACTED)
   },
 
   /**
