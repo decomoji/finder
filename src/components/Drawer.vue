@@ -1,5 +1,5 @@
 <template>
-  <VNavigationDrawer app clipped fixed permanent class="Drawer">
+  <VNavigationDrawer app clipped dark fixed permanent class="Drawer">
     <VList>
       <VSubheader>表示カテゴリー</VSubheader>
       <VListTile
@@ -38,6 +38,9 @@
         <VListTileContent @click="handleClickDarkMode">
           <VListTileTitle>ダークモード</VListTileTitle>
         </VListTileContent>
+      </VListTile>
+      <VListTile>
+        <p class="__desc">テーマはSlackのAubergineをエミュレートしています。</p>
       </VListTile>
     </VList>
   </VNavigationDrawer>
@@ -97,7 +100,12 @@ export default class Drawer extends Vue {
 </script>
 <style lang="stylus" scoped>
 .Drawer
-  .__label
-    &:hover
-      cursor: pointer
+  .theme--light &
+    background-color: #301131
+  .theme--dark &
+    background-color: #17161a
+  .__action
+    min-width: 0
+  .__desc
+    margin-bottom: 0
 </style>
