@@ -6,6 +6,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
 } from '@/store/modules/ui/mutation-types'
 import { isStringOfNotEmpty } from '@/utilities/isString'
@@ -60,6 +61,15 @@ export const actions: UiActionTree = {
    */
   toggleReacted({ commit }) {
     commit(TOGGLE_REACTED)
+  },
+
+  /**
+   * アイコンサイズを更新する
+   * @param commit
+   * @param payload
+   */
+  updateIconSize({ commit }, payload) {
+    commit(UPDATE_ICON_SIZE, payload)
   },
 
   /**
