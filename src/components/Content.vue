@@ -7,7 +7,8 @@
           '-basic': ui.category.basic,
           '-explicit': ui.category.explicit,
           '-extra': ui.category.extra
-        }
+        },
+        `-${ui.iconSize}`
       ]"
     >
       <template v-for="category in categories">
@@ -15,16 +16,21 @@
           v-for="name in decomojis[category]"
           v-show="matched(name)"
           :key="name"
-          :class="['__item', `-${category}`, { '-reacted': ui.reacted }]"
+          :class="[
+            '__item',
+            `-${category}`,
+            `-${ui.iconSize}`,
+            { '-reacted': ui.reacted }
+          ]"
         >
           <img
             :alt="name"
             :src="`/decomoji/${category}/${name}.png`"
             width="64"
             height="64"
-            class="__icon"
+            :class="`__icon -${ui.iconSize}`"
           />
-          <p v-show="ui.name" class="__name">:{{ name }}:</p>
+          <p v-show="nameShows" class="__name">:{{ name }}:</p>
         </div>
       </template>
     </div>
@@ -35,6 +41,7 @@
 import { DecomojiBasic } from '@/configs/DecomojiBasic'
 import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
 import { DecomojiExtra } from '@/configs/DecomojiExtra'
+import { DefaultIconSize } from '@/configs/DefaultIconSize'
 import { CategoryId } from '@/models/CategoryId'
 import { DecomojiItem } from '@/models/DecomojiItem'
 import { UiViewModel } from '@/store/modules/ui/models'
@@ -55,6 +62,13 @@ export default class Content extends Vue {
   })
 
   /**
+   * @get - ファイル名を表示するか否かを返す
+   */
+  get nameShows() {
+    return this.ui.name && this.ui.iconSize === DefaultIconSize
+  }
+
+  /**
    * @method - 各要素が検索クエリを含んでいるかを返す
    */
   matched(name: string) {
@@ -70,22 +84,36 @@ export default class Content extends Vue {
 .Content
   .__list
     display: grid
-    gap: 10px
-    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
-    grid-auto-rows: auto;
+    grid-auto-rows: auto
     padding: 10px
     overflow-x: hidden
     &.-basic .__item.-basic
     &.-extra .__item.-extra
     &.-explicit .__item.-explicit
       display: block
+    &.-l
+      gap: 10px
+      grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
+    &.-m
+      gap: 5px
+      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
+    &.-s
+      gap: 3px
+      grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
 
   .__item
     display: none
-    padding: 10px
     border: 1px solid transparent
     border-radius: 4px
+    line-height: 1
     text-align: center
+    &.-l
+      padding: 10px
+    &.-m
+      padding: 5px
+    &.-s
+      padding: 3px
+
     .theme--light &
       background-color: rgb(245,244,245)
       &.-reacted
@@ -99,10 +127,16 @@ export default class Content extends Vue {
 
   .__icon
     vertical-align: top
+    &.-m
+      width: 32px
+      height: 32px
+    &.-s
+      width: 16px
+      height: 16px
 
   .__name
     margin-top: 10px
     margin-bottom: 0
-    line-height: 1.4
+    line-height: 1.2
     word-break: break-all
 </style>
