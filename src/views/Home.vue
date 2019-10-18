@@ -2,7 +2,7 @@
   <div>
     <Drawer />
 
-    <GlobalHeader />
+    <Header />
 
     <Content />
   </div>
@@ -11,14 +11,14 @@
 <script lang="ts">
 import Content from '@/components/Content.vue'
 import Drawer from '@/components/Drawer.vue'
-import GlobalHeader from '@/components/GlobalHeader.vue'
+import Header from '@/components/Header.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
   components: {
     Content,
     Drawer,
-    GlobalHeader
+    Header
   }
 })
 export default class Home extends Vue {}
