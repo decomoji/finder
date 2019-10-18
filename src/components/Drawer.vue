@@ -18,6 +18,23 @@
     </VList>
     <VDivider />
     <VList subheader>
+      <VSubheader>アイコンサイズ</VSubheader>
+      <VListTile>
+        <VSelect
+          :items="drawerIconSizeList"
+          :value="ui.iconSize"
+          color="accent"
+          item-text="label"
+          item-value="value"
+          label="アイコンサイズ"
+          menu-props="auto"
+          single-line
+          @input="handleClickIconSize"
+        />
+      </VListTile>
+    </VList>
+    <VDivider />
+    <VList subheader>
       <VSubheader>表示オプション</VSubheader>
       <VListTile ripple @click="handleClickNameShows">
         <VCheckbox
@@ -52,7 +69,10 @@
 
 <script lang="ts">
 import { CategoryId } from '@/models/CategoryId'
+import { IconSizeId } from '@/models/IconSizeId'
+import { IconSizeItem } from '@/models/IconSizeItem'
 import { DrawerCategoryList } from '@/configs/DrawerCategoryList'
+import { DrawerIconSizeList } from '@/configs/DrawerIconSizeList'
 import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
@@ -73,11 +93,14 @@ export default class Drawer extends Vue {
   toggleNameShows!: UiActionDispatchers['toggleNameShows']
   @Action('ui/toggleReacted')
   toggleReacted!: UiActionDispatchers['toggleReacted']
+  @Action('ui/updateIconSize')
+  updateIconSize!: UiActionDispatchers['updateIconSize']
 
   /**
    * 内部プロパティを定義する
    */
   drawerCategoryList = DrawerCategoryList
+  drawerIconSizeList = DrawerIconSizeList
 
   /**
    * @listens VCheckbox[v-model=ui.category[id]].change
@@ -93,6 +116,13 @@ export default class Drawer extends Vue {
    */
   handleClickDarkMode() {
     this.toggleDarkMode(this.ui.dark)
+  }
+
+  /**
+   * @listens VRadio.click
+   */
+  handleClickIconSize(value: IconSizeId) {
+    this.updateIconSize(value)
   }
 
   /**
