@@ -11,6 +11,7 @@
         <VCheckbox
           :input-value="ui.category[category.id]"
           :label="`${category.name}（${category.id}）`"
+          :value="ui.category[category.id]"
           class="__check"
           @change="() => {}"
         />
@@ -39,6 +40,7 @@
       <VListTile ripple @click="handleClickNameShows">
         <VCheckbox
           :input-value="ui.name"
+          :disabled="!defaultIconSizeSelects"
           class="__check"
           label="ファイル名の表示"
           @change="() => {}"
@@ -68,6 +70,7 @@
 </template>
 
 <script lang="ts">
+import { DefaultIconSize } from '@/configs/DefaultIconSize'
 import { CategoryId } from '@/models/CategoryId'
 import { IconSizeId } from '@/models/IconSizeId'
 import { IconSizeItem } from '@/models/IconSizeItem'
@@ -103,6 +106,13 @@ export default class Drawer extends Vue {
   drawerIconSizeList = DrawerIconSizeList
 
   /**
+   * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
+   */
+  get defaultIconSizeSelects() {
+    return this.ui.iconSize === DefaultIconSize
+  }
+
+  /**
    * @listens VCheckbox[v-model=ui.category[id]].change
    * @listens VListTileContent.click
    */
@@ -130,6 +140,7 @@ export default class Drawer extends Vue {
    * @listens VListTileContent.click
    */
   handleClickNameShows() {
+    if (!this.defaultIconSizeSelects) return
     this.toggleNameShows(this.ui.name)
   }
 
