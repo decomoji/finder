@@ -16,6 +16,7 @@ export interface UiState {
   dark: boolean
   globalLadingQueue: number
   name: boolean
+  reacted: boolean
   searchQuery: string
 }
 
