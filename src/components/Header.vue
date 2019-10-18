@@ -1,5 +1,5 @@
 <template>
-  <VToolbar app clipped-left dark class="GlobalHeader">
+  <VToolbar app clipped-left dark class="Header">
     <VToolbarTitle class="__title">decomoji-finder v1</VToolbarTitle>
     <VTextField
       :input-value="ui.searchQuery"
@@ -34,7 +34,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
 @Component
-export default class GlobalHeader extends Vue {
+export default class Header extends Vue {
   // viewModel を引き当てる
   @Getter('ui/viewModel') ui!: UiViewModel
 
@@ -64,7 +64,7 @@ export default class GlobalHeader extends Vue {
 <style lang="stylus" scoped>
 @import '~vuetify/src/stylus/settings/_variables'
 
-.GlobalHeader
+.Header
   background-color: #3b3642
   .__title
     width: 300px
