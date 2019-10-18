@@ -12,18 +12,18 @@
     >
       <template v-for="category in categories">
         <div
-          v-for="decomoji in decomojis[category]"
-          v-show="matched(decomoji.name)"
-          :key="decomoji.name"
+          v-for="name in decomojis[category]"
+          v-show="matched(name)"
+          :key="name"
           :class="`__item -${category}`"
         >
           <img
-            :src="`/decomoji/${category}/${decomoji.name}.png`"
+            :src="`/decomoji/${category}/${name}.png`"
             width="64"
             height="64"
-            :alt="decomoji.name"
+            :alt="name"
           />
-          <p v-show="ui.name" class="__name">:{{ decomoji.name }}:</p>
+          <p v-show="ui.name" class="__name">:{{ name }}:</p>
         </div>
       </template>
     </div>

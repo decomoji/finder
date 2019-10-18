@@ -18,12 +18,7 @@ function generate_decomoji_ts(type) {
       }
 
       const decomoji_array = files.reduce((memo, file) => {
-        return /^\./.test(file)
-          ? memo
-          : memo.concat({
-              category: type.toLowerCase(),
-              name: file.split('.')[0]
-            })
+        return /^\./.test(file) ? memo : memo.concat(file.split('.')[0])
       }, [])
 
       fs.writeFile(
