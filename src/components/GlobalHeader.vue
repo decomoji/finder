@@ -7,6 +7,7 @@
       flat
       hide-details
       solo-inverted
+      class="__input"
       prepend-inner-icon="search"
       label="Search"
       @input="debounceUpdateSearchQuery($event)"
@@ -29,7 +30,6 @@
 <script lang="ts">
 import { HeaderLinks } from '@/configs/HeaderLinks'
 import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
-import { debounce } from 'lodash'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -67,4 +67,6 @@ export default class GlobalHeader extends Vue {
 .GlobalHeader
   .__title
     width: 300px
+  .__input
+    max-width: 450px
 </style>
