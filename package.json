@@ -6,7 +6,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "postinstall": "node build_decomoji_module.js && npm run copy-decomoji",
+    "copy-decomoji": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
+    "update-decomoji": "cd node_modules/slack-reaction-decomoji && git pull origin master && cd - && npm run postinstall"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
