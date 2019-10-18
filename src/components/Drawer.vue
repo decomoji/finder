@@ -1,18 +1,19 @@
 <template>
   <VNavigationDrawer app clipped fixed permanent class="Drawer">
-    <VList subheader two-line>
+    <VList>
       <VSubheader>表示カテゴリー</VSubheader>
-      <VListTile v-for="(category, i) in drawerCategoryList" :key="i">
-        <VListTileAction>
+      <VListTile
+        v-for="category in drawerCategoryList"
+        :key="category.id"
+        @click="() => {}"
+      >
+        <VListTileAction class="__action">
           <VCheckbox
             :input-value="ui.category[category.id]"
             @change="handleClickCategory(category.id)"
           />
         </VListTileAction>
-        <VListTileContent
-          class="__label"
-          @click="handleClickCategory(category.id)"
-        >
+        <VListTileContent @click="handleClickCategory(category.id)">
           <VListTileTitle
             >{{ category.name }}（{{ category.id }}）</VListTileTitle
           >
@@ -20,22 +21,22 @@
       </VListTile>
     </VList>
     <VDivider />
-    <VList subheader two-line>
+    <VList subheader>
       <VSubheader>表示オプション</VSubheader>
-      <VListTile>
-        <VListTileAction>
-          <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
-        </VListTileAction>
-        <VListTileContent class="__label" @click="handleClickDarkMode">
-          <VListTileTitle>ダークモード</VListTileTitle>
-        </VListTileContent>
-      </VListTile>
-      <VListTile>
-        <VListTileAction>
+      <VListTile @click="() => {}">
+        <VListTileAction class="__action">
           <VCheckbox :input-value="ui.name" @change="handleClickNameShows" />
         </VListTileAction>
-        <VListTileContent class="__label" @click="handleClickNameShows">
+        <VListTileContent @click="handleClickNameShows">
           <VListTileTitle>ファイル名の表示</VListTileTitle>
+        </VListTileContent>
+      </VListTile>
+      <VListTile @click="() => {}">
+        <VListTileAction class="__action">
+          <VCheckbox :input-value="ui.dark" @change="handleClickDarkMode" />
+        </VListTileAction>
+        <VListTileContent @click="handleClickDarkMode">
+          <VListTileTitle>ダークモード</VListTileTitle>
         </VListTileContent>
       </VListTile>
     </VList>
