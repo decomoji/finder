@@ -21,6 +21,7 @@
         :rel="item.rel"
         :target="item.target"
         flat
+        class="__link"
         >{{ item.title }}</VBtn
       >
     </VToolbarItems>
@@ -67,7 +68,9 @@ export default class Header extends Vue {
 .Header
   background-color: #3b3642
   .__title
-    width: 300px
+    width: 286px
   .__input
     max-width: 450px
+  .__link
+    text-transform: none
 </style>
