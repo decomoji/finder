@@ -2,6 +2,12 @@ import { LinkItem } from '@/models/LinkItem'
 
 export const HeaderLinks: LinkItem[] = [
   {
+    title: "What's decomoji?",
+    href: 'https://decomoji.dev',
+    target: null,
+    rel: null
+  },
+  {
     title: 'Store',
     href: 'https://suzuri.jp/decomoji',
     target: '_blank',
