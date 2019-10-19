@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/finder/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/finder/' : ''
 }
