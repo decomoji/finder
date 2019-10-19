@@ -1,5 +1,2 @@
-[context.*.environment]
-  NODE_ENV="development"
-
 [context.master.environment]
   NODE_ENV="production"
