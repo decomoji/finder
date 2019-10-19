@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: './',
+  publicPath: '/finder/',
   outputDir: 'dist/finder/'
 }
