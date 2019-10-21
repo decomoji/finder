@@ -69,10 +69,14 @@ export default class Content extends Vue {
   }
 
   /**
-   * @method - 各要素が検索クエリを含んでいるかを返す
+   * @method - 要素が検索クエリを正規表現にマッチするか否かを返す
    */
   matched(name: string) {
-    return name.includes(this.ui.searchQuery)
+    try {
+      return RegExp(this.ui.searchQuery).test(name)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 </script>
