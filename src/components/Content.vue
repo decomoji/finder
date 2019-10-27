@@ -25,7 +25,7 @@
         >
           <img
             :alt="name"
-            :src="`/finder/decomoji/${category}/${name}.png`"
+            :src="`/decomoji/${category}/${name}.png`"
             width="64"
             height="64"
             :class="`__icon -${ui.iconSize}`"

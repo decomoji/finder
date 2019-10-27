@@ -1,6 +1,8 @@
 # decomoji-finder v1
 
-https://decomoji.dev/finder/
+https://finder.decomoji.dev
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d92c4975-0578-44fa-a005-3d53c1d7363b/deploy-status)](https://app.netlify.com/sites/decomoji-finder/deploys)
 
 オリジナルSlack用カスタムリアクション絵文字「[デコモジ（decomoji）](https://git.io/decomoji)」がたくさんありすぎて、何が何だかわからなくなっていませんか？
 
@@ -12,7 +14,7 @@ decomoji-finderは、デコモジに含まれているものを検索できる�
 
 ## チェンジログ
 
-### 2019-10-31
+### 2019-12-01
 
 - 1.0.0 公開
   - デコモジのインクリメンタルサーチ
