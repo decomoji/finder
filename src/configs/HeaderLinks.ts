@@ -3,9 +3,9 @@ import { LinkItem } from '@/models/LinkItem'
 export const HeaderLinks: LinkItem[] = [
   {
     title: "What's decomoji?",
-    href: 'https://decomoji.dev',
-    target: null,
-    rel: null
+    href: 'https://github.com/decomoji/slack-reaction-decomoji',
+    target: '_blank',
+    rel: 'noopener'
   },
   {
     title: 'Store',
