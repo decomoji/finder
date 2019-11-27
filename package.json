@@ -1,6 +1,6 @@
 {
   "name": "decomoji-finder",
-  "version": "1.0.0",
+  "version": "1.0.0-rc",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
