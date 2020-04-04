@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "postinstall": "node build_decomoji_module.js && npm run decomoji:copy",
-    "decomoji:copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
+    "decomoji:copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
     "decomoji:update": "cd node_modules/slack-reaction-decomoji && git pull origin master && cd - && npm run postinstall"
   },
   "dependencies": {

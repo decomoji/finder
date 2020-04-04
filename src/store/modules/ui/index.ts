@@ -12,14 +12,15 @@ import { mutations } from '@/store/modules/ui/mutations'
 // ステートの初期値を返す
 export const state: StateCreator<UiState> = () => ({
   category: {
-    basic: true,
+    basic: false,
     explicit: false,
-    extra: false
+    extra: false,
+    preview: true
   },
   dark: false,
   globalLadingQueue: 0,
   iconSize: 'l',
-  name: false,
+  name: true,
   reacted: false,
   searchQuery: ''
 })
