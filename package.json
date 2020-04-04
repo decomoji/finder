@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm run decomoji:update && vue-cli-service build",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "postinstall": "node build_decomoji_module.js && npm run decomoji:copy",
-    "decomoji:copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
-    "decomoji:update": "cd node_modules/slack-reaction-decomoji && git pull origin master && cd - && npm run postinstall"
+    "set:decomoji-install": "git clone git@github.com:decomoji/slack-reaction-decomoji.git node_module/slack-reaction-decomoji",
+    "set:decomoji-branch": "cd node_modules/slack-reaction-decomoji && gco v5-preview",
+    "set:decomoji-copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
+    "postinstall": "npm run set:decomoji-install && npm run set:decomoji-branch && node build_decomoji_module.js && npm run set:decomoji-copy"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
@@ -19,7 +20,6 @@
     "axios-mock-adapter": "^1.16.0",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
-    "slack-reaction-decomoji": "github:decomoji/slack-reaction-decomoji",
     "vue": "^2.6.6",
     "vue-class-component": "^7.1.0",
     "vue-property-decorator": "^8.2.1",
