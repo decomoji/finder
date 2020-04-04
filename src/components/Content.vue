@@ -6,7 +6,8 @@
         {
           '-basic': ui.category.basic,
           '-explicit': ui.category.explicit,
-          '-extra': ui.category.extra
+          '-extra': ui.category.extra,
+          '-preview': ui.category.preview
         },
         `-${ui.iconSize}`
       ]"
@@ -41,6 +42,7 @@
 import { DecomojiBasic } from '@/configs/DecomojiBasic'
 import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
 import { DecomojiExtra } from '@/configs/DecomojiExtra'
+import { DecomojiPreview } from '@/configs/DecomojiPreview'
 import { DefaultIconSize } from '@/configs/DefaultIconSize'
 import { CategoryId } from '@/models/CategoryId'
 import { DecomojiItem } from '@/models/DecomojiItem'
@@ -53,12 +55,13 @@ export default class Content extends Vue {
   // viewModel を引き当てる
   @Getter('ui/viewModel') ui!: UiViewModel
 
-  categories: CategoryId[] = ['basic', 'explicit', 'extra']
+  categories: CategoryId[] = ['basic', 'explicit', 'extra', 'preview']
 
   decomojis = Object.freeze({
     basic: DecomojiBasic as DecomojiItem[],
     extra: DecomojiExtra as DecomojiItem[],
-    explicit: DecomojiExplicit as DecomojiItem[]
+    explicit: DecomojiExplicit as DecomojiItem[],
+    preview: DecomojiPreview as DecomojiItem[]
   })
 
   /**
@@ -94,6 +97,7 @@ export default class Content extends Vue {
     &.-basic .__item.-basic
     &.-extra .__item.-extra
     &.-explicit .__item.-explicit
+    &.-preview .__item.-preview
       display: block
     &.-l
       gap: 10px

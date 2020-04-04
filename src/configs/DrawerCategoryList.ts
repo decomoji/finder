@@ -12,5 +12,9 @@ export const DrawerCategoryList: CategoryItem[] = [
   {
     id: 'explicit',
     name: '危険セット'
+  },
+  {
+    id: 'preview',
+    name: 'v5プレビュー'
   }
 ]
