@@ -76,7 +76,7 @@ import { IconSizeId } from '@/models/IconSizeId'
 import { IconSizeItem } from '@/models/IconSizeItem'
 import { DrawerCategoryList } from '@/configs/DrawerCategoryList'
 import { DrawerIconSizeList } from '@/configs/DrawerIconSizeList'
-import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
+import { UiActions, UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -88,16 +88,11 @@ export default class Drawer extends Vue {
   /**
    * アクションを引き当てる
    */
-  @Action('ui/toggleCategory')
-  toggleCategory!: UiActionDispatchers['toggleCategory']
-  @Action('ui/toggleDarkMode')
-  toggleDarkMode!: UiActionDispatchers['toggleDarkMode']
-  @Action('ui/toggleNameShows')
-  toggleNameShows!: UiActionDispatchers['toggleNameShows']
-  @Action('ui/toggleReacted')
-  toggleReacted!: UiActionDispatchers['toggleReacted']
-  @Action('ui/updateIconSize')
-  updateIconSize!: UiActionDispatchers['updateIconSize']
+  @Action('ui/toggleCategory') toggleCategory!: UiActions['toggleCategory']
+  @Action('ui/toggleDarkMode') toggleDarkMode!: UiActions['toggleDarkMode']
+  @Action('ui/toggleNameShows') toggleNameShows!: UiActions['toggleNameShows']
+  @Action('ui/toggleReacted') toggleReacted!: UiActions['toggleReacted']
+  @Action('ui/updateIconSize') updateIconSize!: UiActions['updateIconSize']
 
   /**
    * 内部プロパティを定義する

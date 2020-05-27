@@ -1,4 +1,8 @@
-import { UiActionTree } from '@/store/modules/ui/models'
+import { RootState } from '@/store/models'
+import {
+  UiActionPayloads as ThisActionPayloads,
+  UiState as ThisState
+} from './models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
@@ -8,16 +12,20 @@ import {
   TOGGLE_REACTED,
   UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
-} from '@/store/modules/ui/mutation-types'
+} from './mutation-types'
 import { isStringOfNotEmpty } from '@/utilities/isString'
+import { ActionTree } from 'vuex'
 
-export const actions: UiActionTree = {
+export const actions: ActionTree<ThisState, RootState> = {
   /**
    * グローバルのローディングキューを減少させる
    * @param commit
    * @param length
    */
-  decrementGlobalLoadingQueue({ commit }, length?) {
+  decrementGlobalLoadingQueue(
+    { commit },
+    length?: ThisActionPayloads['decrementGlobalLoadingQueue']
+  ) {
     commit(DECREMENT_GLOBAL_LOADING_QUEUE, length)
   },
 
@@ -26,7 +34,10 @@ export const actions: UiActionTree = {
    * @param commit
    * @param length
    */
-  incrementGlobalLoadingQueue({ commit }, length?) {
+  incrementGlobalLoadingQueue(
+    { commit },
+    length?: ThisActionPayloads['incrementGlobalLoadingQueue']
+  ) {
     commit(INCREMENT_GLOBAL_LOADING_QUEUE, length)
   },
 
@@ -35,7 +46,7 @@ export const actions: UiActionTree = {
    * @param commit
    * @param payload
    */
-  toggleCategory({ commit }, payload) {
+  toggleCategory({ commit }, payload: ThisActionPayloads['toggleCategory']) {
     commit(TOGGLE_CATEGORY, payload)
   },
 
@@ -68,7 +79,7 @@ export const actions: UiActionTree = {
    * @param commit
    * @param payload
    */
-  updateIconSize({ commit }, payload) {
+  updateIconSize({ commit }, payload: ThisActionPayloads['updateIconSize']) {
     commit(UPDATE_ICON_SIZE, payload)
   },
 
@@ -77,7 +88,10 @@ export const actions: UiActionTree = {
    * @param commit
    * @param payload
    */
-  updateSearchQuery({ commit }, payload) {
+  updateSearchQuery(
+    { commit },
+    payload: ThisActionPayloads['updateSearchQuery']
+  ) {
     commit(UPDATE_SEARCH_QUERY, isStringOfNotEmpty(payload) ? payload : '')
   }
 }
