@@ -153,26 +153,32 @@ export default class Content extends Vue {
     border-radius: 4px
     line-height: 1
     text-align: center
-    transition: transform 0.1s ease-out
+    transition: transform 0.05s ease-out
     &.-l
       padding: 10px
     &.-m
       padding: 5px
     &.-s
       padding: 3px
-    &.-collected
-      transform: scale3d(0.8,0.8,1)
 
     .theme--light &
       background-color: rgb(245,244,245)
       &.-reacted
         border-color: #1d9bd1
         background-color: #ebf5fb
+      &.-collected
+        border-color: #727272
+        background-color: #ffffff
+        transform: scale3d(0.7,0.7,1)
     .theme--dark &
       background-color: rgb(30,32,34)
       &.-reacted
         border-color: #1264a3
         background-color: #1264a3
+      &.-collected
+        border-color: #424242
+        background-color: #000000
+        transform: scale3d(0.7,0.7,1)
 
   .__icon
     width: 100%
