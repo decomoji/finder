@@ -1,4 +1,5 @@
 import { DecomojiManagerListItem } from '@/models/DecomojiManagerList'
+import { DecomojiCollectionItem } from '@/models/DecomojiCollection'
 import { RootState } from '@/store/models'
 import { pickState } from '@/store/utilities'
 import { state as defaultState } from './index'
@@ -14,10 +15,16 @@ export const getters: GetterTree<ThisState, RootState> = {
    */
   formatedDecomojiManagerList: state => {
     const { items } = state
-    return items.map<DecomojiManagerListItem>((name: string) => ({
-      name,
-      path: `./images/${name}.png`
-    }))
+    return items.map<DecomojiManagerListItem>(
+      (item: DecomojiCollectionItem) => {
+        const { name, category } = item
+        return {
+          name,
+          category,
+          path: `./decomoji/${category}/${name}.png`
+        }
+      }
+    )
   },
 
   /**

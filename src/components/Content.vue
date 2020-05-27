@@ -27,7 +27,7 @@
             }
           ]"
           :tabindex="i"
-          @click="handleClickItem(name)"
+          @click="handleClickItem({ name, category })"
         >
           <img
             :alt="name"
@@ -50,6 +50,10 @@ import { DecomojiExtra } from '@/configs/DecomojiExtra'
 import { DecomojiPreview } from '@/configs/DecomojiPreview'
 import { DefaultIconSize } from '@/configs/DefaultIconSize'
 import { CategoryId } from '@/models/CategoryId'
+import {
+  DecomojiCollection,
+  DecomojiCollectionItem
+} from '@/models/DecomojiCollection'
 import { DecomojiItem } from '@/models/DecomojiItem'
 import { UiViewModel } from '@/store/modules/ui/models'
 import {
@@ -86,10 +90,17 @@ export default class Content extends Vue {
   }
 
   /**
+   * @method - コレクションにおける要素のインデックスを返す
+   */
+  getItemIndex(items: DecomojiCollection, name: string) {
+    return items.findIndex((item: DecomojiCollectionItem) => item.name === name)
+  }
+
+  /**
    * @method - 要素が選択されているか否かを返す
    */
   collected(name: string) {
-    return this.collection.items.includes(name)
+    return this.getItemIndex(this.collection.items, name) > -1
   }
 
   /**
@@ -106,13 +117,8 @@ export default class Content extends Vue {
   /**
    * @method - 要素をクリックした時
    */
-  handleClickItem(name: string) {
-    if (this.collected(name)) {
-      const index = this.collection.items.findIndex(item => item === name)
-      this.remove(index)
-    } else {
-      this.add(name)
-    }
+  handleClickItem(item: DecomojiCollectionItem) {
+    this.collected(item.name) ? this.remove(item) : this.add(item)
   }
 }
 </script>
