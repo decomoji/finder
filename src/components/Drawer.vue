@@ -1,5 +1,5 @@
 <template>
-  <VNavigationDrawer app clipped dark fixed permanent class="Drawer">
+  <VNavigationDrawer app clipped dark fixed permanent tag="div" class="Drawer">
     <VList>
       <VSubheader>表示カテゴリー</VSubheader>
       <VListTile
