@@ -66,7 +66,10 @@ export default class Header extends Vue {
 @import '~vuetify/src/stylus/settings/_variables'
 
 .Header
-  background-color: #3b3642
+  .theme--light &
+    background-color: #290829
+  .theme--dark &
+    background-color: #0f0e12
   .__title
     width: 286px
   .__input

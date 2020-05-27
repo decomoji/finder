@@ -79,6 +79,10 @@ export default class Collection extends Vue {
 @import '~vuetify/src/stylus/settings/_variables'
 
 .Collection
+  .theme--light &
+    background-color: #f4f4f4
+  .theme--dark &
+    background-color: #1a1c20
   .__scrollable
     height: 100%
     overflow-y: auto

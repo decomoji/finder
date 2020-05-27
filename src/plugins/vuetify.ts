@@ -18,8 +18,8 @@ export default function useVuetify(ctx = Vue) {
       current: 'ja-JP'
     },
     theme: {
-      primary: '#3b3642',
-      accent: '#2bac76'
+      primary: '#2f0832',
+      accent: '#28a063'
     }
   })
 }

@@ -37,7 +37,7 @@ export default class App extends Vue {
 <style lang="stylus" scoped>
 .App
   &.theme--light
-    background-color: rgb(255,255,255)
+    background-color: #ffffff
   &.theme--dark
-    background-color: rgb(24,26,28)
+    background-color: #15171a
 </style>

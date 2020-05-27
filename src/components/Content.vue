@@ -162,19 +162,19 @@ export default class Content extends Vue {
       padding: 3px
 
     .theme--light &
-      background-color: rgb(245,244,245)
+      background-color: #f4f4f4
       &.-reacted
-        border-color: #1d9bd1
-        background-color: #ebf5fb
+        border-color: #1d89c7
+        background-color: #e6f3fa
       &.-collected
         border-color: #727272
         background-color: #ffffff
         transform: scale3d(0.7,0.7,1)
     .theme--dark &
-      background-color: rgb(30,32,34)
+      background-color: #1a1c20
       &.-reacted
-        border-color: #1264a3
-        background-color: #1264a3
+        border-color: #135092
+        background-color: #135092
       &.-collected
         border-color: #424242
         background-color: #000000
