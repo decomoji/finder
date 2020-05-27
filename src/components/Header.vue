@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { HeaderLinks } from '@/configs/HeaderLinks'
-import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
+import { UiActions, UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -43,7 +43,7 @@ export default class Header extends Vue {
    * アクションを引き当てる
    */
   @Action('ui/updateSearchQuery')
-  updateSearchQuery!: UiActionDispatchers['updateSearchQuery']
+  updateSearchQuery!: UiActions['updateSearchQuery']
 
   /**
    * 内部プロパティを定義する

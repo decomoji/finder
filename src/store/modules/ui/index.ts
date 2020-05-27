@@ -1,16 +1,14 @@
-import { DefinedModule, StateCreator } from '@/store/models'
-import { actions } from '@/store/modules/ui/actions'
-import { getters } from '@/store/modules/ui/getters'
-import {
-  UiActionPayloads,
-  UiGetterReturns,
-  UiMutationPayloads,
-  UiState
-} from '@/store/modules/ui/models'
-import { mutations } from '@/store/modules/ui/mutations'
+import { RootState } from '@/store/models'
+import { actions } from './actions'
+import { getters } from './getters'
+import { UiState as ThisState } from './models'
+import { mutations } from './mutations'
+import { Module } from 'vuex'
 
-// ステートの初期値を返す
-export const state: StateCreator<UiState> = () => ({
+/**
+ * 初期ステート
+ */
+export const state: () => ThisState = () => ({
   category: {
     basic: false,
     explicit: false,
@@ -25,15 +23,10 @@ export const state: StateCreator<UiState> = () => ({
   searchQuery: ''
 })
 
-export const storeModule: DefinedModule<
-  UiState,
-  UiGetterReturns,
-  UiMutationPayloads,
-  UiActionPayloads
-> = {
-  actions,
+export const storeModule: Module<ThisState, RootState> = {
+  namespaced: true,
+  state,
   getters,
   mutations,
-  namespaced: true,
-  state
+  actions
 }

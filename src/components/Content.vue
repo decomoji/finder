@@ -14,15 +14,20 @@
     >
       <template v-for="category in categories">
         <div
-          v-for="name in decomojis[category]"
+          v-for="(name, i) in decomojis[category]"
           v-show="matched(name)"
-          :key="name"
+          :key="`${name}_${category}_${i}`"
           :class="[
             '__item',
             `-${category}`,
             `-${ui.iconSize}`,
-            { '-reacted': ui.reacted }
+            {
+              '-reacted': ui.reacted,
+              '-collected': collected(name)
+            }
           ]"
+          :tabindex="i"
+          @click="handleClickItem(name)"
         >
           <img
             :alt="name"
@@ -47,13 +52,22 @@ import { DefaultIconSize } from '@/configs/DefaultIconSize'
 import { CategoryId } from '@/models/CategoryId'
 import { DecomojiItem } from '@/models/DecomojiItem'
 import { UiViewModel } from '@/store/modules/ui/models'
+import {
+  CollectionActions,
+  CollectionViewModel
+} from '@/store/modules/collection/models'
 import { Component, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Action, Getter } from 'vuex-class'
 
 @Component
 export default class Content extends Vue {
   // viewModel を引き当てる
   @Getter('ui/viewModel') ui!: UiViewModel
+  @Getter('collection/viewModel') collection!: CollectionViewModel
+
+  // アクションを引き当てる
+  @Action('collection/add') add!: CollectionActions['add']
+  @Action('collection/remove') remove!: CollectionActions['remove']
 
   categories: CategoryId[] = ['basic', 'explicit', 'extra', 'preview']
 
@@ -72,6 +86,13 @@ export default class Content extends Vue {
   }
 
   /**
+   * @method - 要素が選択されているか否かを返す
+   */
+  collected(name: string) {
+    return this.collection.items.includes(name)
+  }
+
+  /**
    * @method - 要素が検索クエリを正規表現にマッチするか否かを返す
    */
   matched(name: string) {
@@ -79,6 +100,18 @@ export default class Content extends Vue {
       return RegExp(this.ui.searchQuery).test(name)
     } catch (err) {
       console.log(err)
+    }
+  }
+
+  /**
+   * @method - 要素をクリックした時
+   */
+  handleClickItem(name: string) {
+    if (this.collected(name)) {
+      const index = this.collection.items.findIndex(item => item === name)
+      this.remove(index)
+    } else {
+      this.add(name)
     }
   }
 }
@@ -115,12 +148,15 @@ export default class Content extends Vue {
     border-radius: 4px
     line-height: 1
     text-align: center
+    transition: transform 0.1s ease-out
     &.-l
       padding: 10px
     &.-m
       padding: 5px
     &.-s
       padding: 3px
+    &.-collected
+      transform: scale3d(0.8,0.8,1)
 
     .theme--light &
       background-color: rgb(245,244,245)

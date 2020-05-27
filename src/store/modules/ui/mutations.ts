@@ -1,5 +1,7 @@
-import { DefinedMutationTree } from '@/store/models'
-import { UiMutationPayloads, UiState } from '@/store/modules/ui/models'
+import {
+  UiMutationPayloads as ThisMutationPayloads,
+  UiState as ThisState
+} from './models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
@@ -9,15 +11,19 @@ import {
   TOGGLE_REACTED,
   UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
-} from '@/store/modules/ui/mutation-types'
+} from './mutation-types'
+import { MutationTree } from 'vuex'
 
-export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
+export const mutations: MutationTree<ThisState> = {
   /**
    * グローバルのローディングキューを減少させる
    * @param state
    * @param length
    */
-  [DECREMENT_GLOBAL_LOADING_QUEUE](state, length = 1) {
+  [DECREMENT_GLOBAL_LOADING_QUEUE](
+    state,
+    length: ThisMutationPayloads[typeof DECREMENT_GLOBAL_LOADING_QUEUE] = 1
+  ) {
     if (length <= 0) {
       return
     }
@@ -33,7 +39,10 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
    * @param state
    * @param length
    */
-  [INCREMENT_GLOBAL_LOADING_QUEUE](state, length = 1) {
+  [INCREMENT_GLOBAL_LOADING_QUEUE](
+    state,
+    length: ThisMutationPayloads[typeof INCREMENT_GLOBAL_LOADING_QUEUE] = 1
+  ) {
     if (length <= 0) {
       return
     }
@@ -46,7 +55,10 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
    * @param state
    * @param payload
    */
-  [TOGGLE_CATEGORY](state, payload) {
+  [TOGGLE_CATEGORY](
+    state,
+    payload: ThisMutationPayloads[typeof TOGGLE_CATEGORY]
+  ) {
     state.category = {
       ...state.category,
       ...{
@@ -84,7 +96,10 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
    * @param state
    * @param payload
    */
-  [UPDATE_ICON_SIZE](state, payload) {
+  [UPDATE_ICON_SIZE](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_ICON_SIZE]
+  ) {
     state.iconSize = payload
   },
 
@@ -93,7 +108,10 @@ export const mutations: DefinedMutationTree<UiState, UiMutationPayloads> = {
    * @param state
    * @param payload
    */
-  [UPDATE_SEARCH_QUERY](state, payload) {
+  [UPDATE_SEARCH_QUERY](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_SEARCH_QUERY]
+  ) {
     state.searchQuery = payload
   }
 }
