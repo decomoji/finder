@@ -33,7 +33,6 @@
             :alt="name"
             :src="`/decomoji/${category}/${name}.png`"
             width="64"
-            height="64"
             :class="`__icon -${ui.iconSize}`"
           />
           <p v-show="nameShows" class="__name">:{{ name }}:</p>
@@ -176,13 +175,14 @@ export default class Content extends Vue {
         background-color: #1264a3
 
   .__icon
+    width: 100%
     vertical-align: top
+    &.-l
+      max-width: 64px
     &.-m
-      width: 32px
-      height: 32px
+      max-width: 32px
     &.-s
-      width: 16px
-      height: 16px
+      max-width: 16px
 
   .__name
     margin-top: 10px
