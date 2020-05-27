@@ -151,9 +151,9 @@ export default class Drawer extends Vue {
 <style lang="stylus" scoped>
 .Drawer
   .theme--light &
-    background-color: #301131
+    background-color: #300832
   .theme--dark &
-    background-color: #17161a
+    background-color: #141217
   .__check
     pointer-events: none
   .__desc
