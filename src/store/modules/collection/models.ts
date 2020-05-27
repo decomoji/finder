@@ -1,5 +1,8 @@
-import { DecomojiItem } from '@/models/DecomojiItem'
 import { DecomojiManagerList } from '@/models/DecomojiManagerList'
+import {
+  DecomojiCollection,
+  DecomojiCollectionItem
+} from '@/models/DecomojiCollection'
 import {
   ADD_TO_COLLECTION,
   REMOVE_FROM_COLLECTION,
@@ -13,7 +16,7 @@ import {
 } from '@/models/Vuex'
 
 export interface CollectionState {
-  items: DecomojiItem[]
+  items: DecomojiCollection
 }
 
 export interface CollectionViewModel extends CollectionState {
@@ -26,17 +29,17 @@ export interface CollectionGetters {
 }
 
 export type CollectionMutationPayloads = VuexMutationPayloads<{
-  [ADD_TO_COLLECTION]: string
-  [REMOVE_FROM_COLLECTION]: number
+  [ADD_TO_COLLECTION]: DecomojiCollectionItem
+  [REMOVE_FROM_COLLECTION]: DecomojiCollectionItem
   [CLEAR_COLLECTION]: void
-  [RECEIVE_COLLECTION]: DecomojiItem[]
+  [RECEIVE_COLLECTION]: DecomojiCollection
 }>
 
 export type CollectionActionPayloads = VuexActionPayloads<{
-  add: string
-  remove: number
-  clear: void
-  receive: DecomojiItem[]
+  add: CollectionMutationPayloads[typeof ADD_TO_COLLECTION]
+  remove: CollectionMutationPayloads[typeof REMOVE_FROM_COLLECTION]
+  clear: CollectionMutationPayloads[typeof CLEAR_COLLECTION]
+  receive: CollectionMutationPayloads[typeof RECEIVE_COLLECTION]
 }>
 
 export type CollectionActions = VuexActions<CollectionActionPayloads>

@@ -1,4 +1,4 @@
-import { CategoryId } from '@/models/CategoryId';
+import { CategoryId } from '@/models/CategoryId'
 
 export interface DecomojiCollectionItem {
   name: string
