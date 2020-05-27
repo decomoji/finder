@@ -22,6 +22,28 @@
           <VListTileContent>
             <VListTileTitle>コレクション</VListTileTitle>
           </VListTileContent>
+          <VListTileAction>
+            <VMenu bottom left>
+              <template v-slot:activator="{ on }">
+                <VBtn icon v-on="on">
+                  <VIcon>more_vert</VIcon>
+                </VBtn>
+              </template>
+
+              <VList>
+                <VListTile @click="handleClickDownloadManagerList">
+                  <VListTileTitle
+                    >追加・登録用 json をダウンロードする</VListTileTitle
+                  >
+                </VListTile>
+                <VListTile @click="handleClickDownloadAliasList">
+                  <VListTileTitle
+                    >エイリアス json をダウンロードする</VListTileTitle
+                  >
+                </VListTile>
+              </VList>
+            </VMenu>
+          </VListTileAction>
         </VListTile>
       </VList>
       <VDivider />
@@ -71,6 +93,9 @@ export default class Collection extends Vue {
   get width() {
     return window.innerWidth - document.documentElement.clientWidth ? 100 : 84
   }
+
+  handleClickDownloadManagerList() {}
+  handleClickDownloadAliasList() {}
 }
 </script>
 
