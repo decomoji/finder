@@ -81,7 +81,7 @@ import {
   CollectionActions,
   CollectionViewModel
 } from '@/store/modules/collection/models'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
 @Component
@@ -92,6 +92,11 @@ export default class Collection extends Vue {
 
   // アクションを引き当てる
   @Action('collection/remove') remove!: CollectionActions['remove']
+
+  /**
+   * 入力プロパティを定義する
+   */
+  @Prop() query!: any
 
   shrink = true
   value = true
