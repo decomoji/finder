@@ -43,7 +43,10 @@ export const getters: GetterTree<ThisState, RootState> = {
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (state, { managerList, queryStringifyValueOfCollection }: ThisGetter) => ({
+  viewModel: (
+    state,
+    { managerList, queryStringifyValueOfCollection }: ThisGetter
+  ) => ({
     ...pickState(defaultState, state),
     managerList,
     queryStringifyValueOfCollection
