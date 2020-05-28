@@ -1,20 +1,19 @@
 <template>
   <div class="GlobalLoading">
     <div class="__inner">
-      <VProgressCircular indeterminate color="primary" size="50" />
+      <div indeterminate color="primary" size="50" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class GlobalLoading extends Vue {}
 </script>
 
-<style lang="stylus" scoped>
-@import '~vuetify/src/stylus/app'
+<style lang="sass" scoped>
 
 .GlobalLoading
   position: fixed
@@ -23,7 +22,7 @@ export default class GlobalLoading extends Vue {}
   left: 0
   right: 0
   z-index: 1
-  background-color: $body-bg-color
+  background-color: #000
 
   .__inner
     position: absolute

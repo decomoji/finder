@@ -1,8 +1,8 @@
-import { RootState } from '@/store/models'
+import { RootState } from "@/store/models";
 import {
   UiActionPayloads as ThisActionPayloads,
   UiState as ThisState
-} from './models'
+} from "./models";
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
@@ -12,9 +12,9 @@ import {
   TOGGLE_REACTED,
   UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
-} from './mutation-types'
-import { isStringOfNotEmpty } from '@/utilities/isString'
-import { ActionTree } from 'vuex'
+} from "./mutation-types";
+import { isStringOfNotEmpty } from "@/utilities/isString";
+import { ActionTree } from "vuex";
 
 export const actions: ActionTree<ThisState, RootState> = {
   /**
@@ -24,9 +24,9 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   decrementGlobalLoadingQueue(
     { commit },
-    length?: ThisActionPayloads['decrementGlobalLoadingQueue']
+    length?: ThisActionPayloads["decrementGlobalLoadingQueue"]
   ) {
-    commit(DECREMENT_GLOBAL_LOADING_QUEUE, length)
+    commit(DECREMENT_GLOBAL_LOADING_QUEUE, length);
   },
 
   /**
@@ -36,9 +36,9 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   incrementGlobalLoadingQueue(
     { commit },
-    length?: ThisActionPayloads['incrementGlobalLoadingQueue']
+    length?: ThisActionPayloads["incrementGlobalLoadingQueue"]
   ) {
-    commit(INCREMENT_GLOBAL_LOADING_QUEUE, length)
+    commit(INCREMENT_GLOBAL_LOADING_QUEUE, length);
   },
 
   /**
@@ -46,8 +46,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  toggleCategory({ commit }, payload: ThisActionPayloads['toggleCategory']) {
-    commit(TOGGLE_CATEGORY, payload)
+  toggleCategory({ commit }, payload: ThisActionPayloads["toggleCategory"]) {
+    commit(TOGGLE_CATEGORY, payload);
   },
 
   /**
@@ -55,7 +55,7 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    */
   toggleDarkMode({ commit }) {
-    commit(TOGGLE_DARK_MODE)
+    commit(TOGGLE_DARK_MODE);
   },
 
   /**
@@ -63,7 +63,7 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    */
   toggleNameShows({ commit }) {
-    commit(TOGGLE_NAME_SHOWS)
+    commit(TOGGLE_NAME_SHOWS);
   },
 
   /**
@@ -71,7 +71,7 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    */
   toggleReacted({ commit }) {
-    commit(TOGGLE_REACTED)
+    commit(TOGGLE_REACTED);
   },
 
   /**
@@ -79,8 +79,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  updateIconSize({ commit }, payload: ThisActionPayloads['updateIconSize']) {
-    commit(UPDATE_ICON_SIZE, payload)
+  updateIconSize({ commit }, payload: ThisActionPayloads["updateIconSize"]) {
+    commit(UPDATE_ICON_SIZE, payload);
   },
 
   /**
@@ -90,8 +90,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   updateSearchQuery(
     { commit },
-    payload: ThisActionPayloads['updateSearchQuery']
+    payload: ThisActionPayloads["updateSearchQuery"]
   ) {
-    commit(UPDATE_SEARCH_QUERY, isStringOfNotEmpty(payload) ? payload : '')
+    commit(UPDATE_SEARCH_QUERY, isStringOfNotEmpty(payload) ? payload : "");
   }
-}
+};

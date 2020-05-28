@@ -1,1 +1,1 @@
-export type IconSizeId = 's' | 'm' | 'l'
+export type IconSizeId = "s" | "m" | "l";

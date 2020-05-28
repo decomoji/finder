@@ -1,1 +1,1 @@
-export const DecomojiExplicit = []
+export const DecomojiExplicit = [];

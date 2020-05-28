@@ -1,5 +1,5 @@
 <template>
-  <VContent class="Content">
+  <div class="Content">
     <div
       :class="[
         '__list',
@@ -40,67 +40,69 @@
         </button>
       </template>
     </div>
-  </VContent>
+  </div>
 </template>
 
 <script lang="ts">
-import { DecomojiBasic } from '@/configs/DecomojiBasic'
-import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
-import { DecomojiExtra } from '@/configs/DecomojiExtra'
-import { DecomojiPreview } from '@/configs/DecomojiPreview'
-import { DefaultIconSize } from '@/configs/DefaultIconSize'
-import { CategoryId } from '@/models/CategoryId'
+import { DecomojiBasic } from "@/configs/DecomojiBasic";
+import { DecomojiExplicit } from "@/configs/DecomojiExplicit";
+import { DecomojiExtra } from "@/configs/DecomojiExtra";
+import { DecomojiPreview } from "@/configs/DecomojiPreview";
+import { DefaultIconSize } from "@/configs/DefaultIconSize";
+import { CategoryId } from "@/models/CategoryId";
 import {
   DecomojiCollection,
   DecomojiCollectionItem
-} from '@/models/DecomojiCollection'
-import { DecomojiItem } from '@/models/DecomojiItem'
-import { UiViewModel } from '@/store/modules/ui/models'
+} from "@/models/DecomojiCollection";
+import { DecomojiItem } from "@/models/DecomojiItem";
+import { UiViewModel } from "@/store/modules/ui/models";
 import {
   CollectionActions,
   CollectionViewModel
-} from '@/store/modules/collection/models'
-import { Component, Vue } from 'vue-property-decorator'
-import { Action, Getter } from 'vuex-class'
+} from "@/store/modules/collection/models";
+import { Component, Vue } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
 @Component
 export default class Content extends Vue {
   // viewModel を引き当てる
-  @Getter('ui/viewModel') ui!: UiViewModel
-  @Getter('collection/viewModel') collection!: CollectionViewModel
+  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("collection/viewModel") collection!: CollectionViewModel;
 
   // アクションを引き当てる
-  @Action('collection/add') add!: CollectionActions['add']
-  @Action('collection/remove') remove!: CollectionActions['remove']
+  @Action("collection/add") add!: CollectionActions["add"];
+  @Action("collection/remove") remove!: CollectionActions["remove"];
 
-  categories: CategoryId[] = ['basic', 'explicit', 'extra', 'preview']
+  categories: CategoryId[] = ["basic", "explicit", "extra", "preview"];
 
   decomojis = Object.freeze({
     basic: DecomojiBasic as DecomojiItem[],
     extra: DecomojiExtra as DecomojiItem[],
     explicit: DecomojiExplicit as DecomojiItem[],
     preview: DecomojiPreview as DecomojiItem[]
-  })
+  });
 
   /**
    * @get - ファイル名を表示するか否かを返す
    */
   get nameShows() {
-    return this.ui.name && this.ui.iconSize === DefaultIconSize
+    return this.ui.name && this.ui.iconSize === DefaultIconSize;
   }
 
   /**
    * @method - コレクションにおける要素のインデックスを返す
    */
   getItemIndex(items: DecomojiCollection, name: string) {
-    return items.findIndex((item: DecomojiCollectionItem) => item.name === name)
+    return items.findIndex(
+      (item: DecomojiCollectionItem) => item.name === name
+    );
   }
 
   /**
    * @method - 要素が選択されているか否かを返す
    */
   collected(name: string) {
-    return this.getItemIndex(this.collection.items, name) > -1
+    return this.getItemIndex(this.collection.items, name) > -1;
   }
 
   /**
@@ -108,9 +110,9 @@ export default class Content extends Vue {
    */
   matched(name: string) {
     try {
-      return RegExp(this.ui.searchQuery).test(name)
+      return RegExp(this.ui.searchQuery).test(name);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -118,17 +120,18 @@ export default class Content extends Vue {
    * @method - 要素をクリックした時
    */
   handleClickItem(item: DecomojiCollectionItem) {
-    this.collected(item.name) ? this.remove(item) : this.add(item)
+    this.collected(item.name) ? this.remove(item) : this.add(item);
 
-    window.history.replaceState({}, '', '?' + this.collection.collectionQueries)
+    window.history.replaceState(
+      {},
+      "",
+      "?" + this.collection.collectionQueries
+    );
   }
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '~vuetify/src/stylus/settings/_colors'
-@import '~vuetify/src/stylus/settings/_variables'
-
+<style lang="sass" scoped>
 .Content
   .__list
     display: grid
@@ -201,7 +204,7 @@ export default class Content extends Vue {
       max-width: 16px
 
   .__name
-    display block
+    display: block
     margin-top: 10px
     margin-bottom: 0
     line-height: 1.2

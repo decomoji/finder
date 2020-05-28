@@ -1,3 +1,3 @@
-import { IconSizeId } from '@/models/IconSizeId'
+import { IconSizeId } from "@/models/IconSizeId";
 
-export const DefaultIconSize: IconSizeId = 'l'
+export const DefaultIconSize: IconSizeId = "l";

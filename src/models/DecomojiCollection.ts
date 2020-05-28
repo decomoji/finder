@@ -1,8 +1,8 @@
-import { CategoryId } from '@/models/CategoryId'
+import { CategoryId } from "@/models/CategoryId";
 
 export interface DecomojiCollectionItem {
-  name: string
-  category: CategoryId
+  name: string;
+  category: CategoryId;
 }
 
-export type DecomojiCollection = DecomojiCollectionItem[]
+export type DecomojiCollection = DecomojiCollectionItem[];

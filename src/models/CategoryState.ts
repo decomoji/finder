@@ -1,6 +1,6 @@
 export interface CategoryState {
-  basic: boolean
-  explicit: boolean
-  extra: boolean
-  preview: boolean
+  basic: boolean;
+  explicit: boolean;
+  extra: boolean;
+  preview: boolean;
 }

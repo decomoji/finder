@@ -1,15 +1,15 @@
 import {
   CollectionMutationPayloads as ThisMutationPayloads,
   CollectionState as ThisState
-} from './models'
+} from "./models";
 import {
   ADD_TO_COLLECTION,
   REMOVE_FROM_COLLECTION,
   CLEAR_COLLECTION,
   RECEIVE_COLLECTION
-} from './mutation-types'
-import { clearArray, replaceArray } from '@/utilities/array'
-import { MutationTree } from 'vuex'
+} from "./mutation-types";
+import { clearArray, replaceArray } from "@/utilities/array";
+import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<ThisState> = {
   /**
@@ -20,7 +20,7 @@ export const mutations: MutationTree<ThisState> = {
     state,
     payload: ThisMutationPayloads[typeof ADD_TO_COLLECTION]
   ) {
-    state.items.splice(state.items.length, 0, payload)
+    state.items.splice(state.items.length, 0, payload);
   },
 
   /**
@@ -32,8 +32,8 @@ export const mutations: MutationTree<ThisState> = {
     state,
     payload: ThisMutationPayloads[typeof REMOVE_FROM_COLLECTION]
   ) {
-    const index = state.items.findIndex(item => item.name === payload.name)
-    state.items.splice(index, 1)
+    const index = state.items.findIndex(item => item.name === payload.name);
+    state.items.splice(index, 1);
   },
 
   /**
@@ -41,7 +41,7 @@ export const mutations: MutationTree<ThisState> = {
    * @param state
    */
   [CLEAR_COLLECTION](state) {
-    clearArray(state.items)
+    clearArray(state.items);
   },
 
   /**
@@ -53,6 +53,6 @@ export const mutations: MutationTree<ThisState> = {
     state,
     payload: ThisMutationPayloads[typeof RECEIVE_COLLECTION]
   ) {
-    replaceArray(state.items, ...payload)
+    replaceArray(state.items, ...payload);
   }
-}
+};

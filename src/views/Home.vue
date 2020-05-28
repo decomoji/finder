@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts">
-import Collection from '@/components/Collection.vue'
-import Content from '@/components/Content.vue'
-import Drawer from '@/components/Drawer.vue'
-import Header from '@/components/Header.vue'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Collection from "@/components/Collection.vue";
+import Content from "@/components/Content.vue";
+import Drawer from "@/components/Drawer.vue";
+import Header from "@/components/Header.vue";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -26,6 +26,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
   }
 })
 export default class Home extends Vue {
-  @Prop() query!: any
+  @Prop() query!: any;
 }
 </script>

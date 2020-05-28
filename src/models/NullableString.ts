@@ -1,3 +1,3 @@
-import { Nullable } from '@/models/Nullable'
+import { Nullable } from "@/models/Nullable";
 
-export type NullableString = Nullable<string>
+export type NullableString = Nullable<string>;
