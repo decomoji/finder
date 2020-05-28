@@ -75,12 +75,16 @@
 
 <script lang="ts">
 import { DefaultIconSize } from '@/configs/DefaultIconSize'
-import { DecomojiCollectionItem } from '@/models/DecomojiCollection'
+import {
+  DecomojiCollection,
+  DecomojiCollectionItem
+} from '@/models/DecomojiCollection'
 import { UiViewModel } from '@/store/modules/ui/models'
 import {
   CollectionActions,
   CollectionViewModel
 } from '@/store/modules/collection/models'
+import { isStringOfNotEmpty } from '@/utilities/isString'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -92,6 +96,7 @@ export default class Collection extends Vue {
 
   // アクションを引き当てる
   @Action('collection/remove') remove!: CollectionActions['remove']
+  @Action('collection/receive') receive!: CollectionActions['receive']
 
   /**
    * 入力プロパティを定義する
@@ -116,14 +121,14 @@ export default class Collection extends Vue {
   }
 
   /**
-   * @method - button.dbclick
+   * @listens - button.dbclick
    */
   handleDbclickItem(item: DecomojiCollectionItem) {
     this.remove(item)
   }
 
   /**
-   * @mthod - button.keydown
+   * @listens - button.keydown
    */
   handleDeleteItem(item: DecomojiCollectionItem) {
     this.remove(item)
@@ -131,6 +136,43 @@ export default class Collection extends Vue {
 
   handleClickDownloadManagerList() {}
   handleClickDownloadAliasList() {}
+
+  created() {
+    const { n, c } = this.query
+
+    if (!isStringOfNotEmpty(n) || !isStringOfNotEmpty(c)) return
+
+    const names = n.split(',')
+    const categories = c.split(',')
+
+    // 名前とカテゴリーは長さが同じで1以上でなければならない
+    if (
+      names.length !== categories.length ||
+      names.length === 0 ||
+      categories.length === 0
+    )
+      return
+
+    let collection: DecomojiCollection = []
+
+    for (let i = 0; i < names.length; i++) {
+      const name = names[i]
+      const category = categories[i]
+      if (
+        isStringOfNotEmpty(name) &&
+        isStringOfNotEmpty(category) &&
+        // 未知のカテゴリーが含まれていないこと
+        (category === 'basic' ||
+          category === 'extra' ||
+          category === 'explicit' ||
+          category === 'preview')
+      ) {
+        collection.push({ name, category })
+      }
+    }
+
+    return this.receive(collection)
+  }
 }
 </script>
 
