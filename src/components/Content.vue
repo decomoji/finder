@@ -119,6 +119,7 @@ export default class Content extends Vue {
    */
   handleClickItem(item: DecomojiCollectionItem) {
     this.collected(item.name) ? this.remove(item) : this.add(item)
+    this.$router.push(`?${this.collection.queryStringifyValueOfCollection}`)
   }
 }
 </script>
