@@ -119,9 +119,9 @@ export default class Content extends Vue {
    */
   handleClickItem(item: DecomojiCollectionItem) {
     this.collected(item.name) ? this.remove(item) : this.add(item)
-    this.$router.replace(
-      `/?${this.collection.queryStringifyValueOfCollection}&y=${window.scrollY}`
-    )
+    this.$router.replace({
+      query: this.collection.collectionQueries
+    })
   }
 }
 </script>

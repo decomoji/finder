@@ -1,3 +1,4 @@
+import { CategoriesObject } from '@/models/CategoriesObject'
 import { DecomojiManagerList } from '@/models/DecomojiManagerList'
 import {
   DecomojiCollection,
@@ -21,12 +22,12 @@ export interface CollectionState {
 
 export interface CollectionViewModel extends CollectionState {
   managerList: CollectionGetters['managerList']
-  queryStringifyValueOfCollection: CollectionGetters['queryStringifyValueOfCollection']
+  collectionQueries: CollectionGetters['collectionQueries']
 }
 
 export interface CollectionGetters {
   managerList: DecomojiManagerList
-  queryStringifyValueOfCollection: string
+  collectionQueries: CategoriesObject
   viewModel: CollectionViewModel
 }
 
