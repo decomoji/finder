@@ -11,9 +11,9 @@ import { GetterTree } from 'vuex'
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
-   * 選択したデコモジリストから decomoji-manager で管理できる形式のリストを返す
+   * コレクションから decomoji-manager で管理できる形式のリストを返す
    */
-  formatedDecomojiManagerList: state => {
+  managerList: state => {
     const { items } = state
     return items.map<DecomojiManagerListItem>(
       (item: DecomojiCollectionItem) => {
@@ -32,8 +32,8 @@ export const getters: GetterTree<ThisState, RootState> = {
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (state, { formatedDecomojiManagerList }: ThisGetter) => ({
+  viewModel: (state, { managerList }: ThisGetter) => ({
     ...pickState(defaultState, state),
-    formatedDecomojiManagerList
+    managerList
   })
 }

@@ -20,11 +20,11 @@ export interface CollectionState {
 }
 
 export interface CollectionViewModel extends CollectionState {
-  formatedDecomojiManagerList: CollectionGetters['formatedDecomojiManagerList']
+  managerList: CollectionGetters['managerList']
 }
 
 export interface CollectionGetters {
-  formatedDecomojiManagerList: DecomojiManagerList
+  managerList: DecomojiManagerList
   viewModel: CollectionViewModel
 }
 
