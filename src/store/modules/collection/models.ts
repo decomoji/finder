@@ -1,4 +1,3 @@
-import { CategoriesObject } from '@/models/CategoriesObject'
 import { DecomojiManagerList } from '@/models/DecomojiManagerList'
 import {
   DecomojiCollection,
@@ -27,7 +26,7 @@ export interface CollectionViewModel extends CollectionState {
 
 export interface CollectionGetters {
   managerList: DecomojiManagerList
-  collectionQueries: CategoriesObject
+  collectionQueries: string
   viewModel: CollectionViewModel
 }
 
