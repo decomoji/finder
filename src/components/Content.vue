@@ -13,7 +13,7 @@
       ]"
     >
       <template v-for="category in categories">
-        <div
+        <button
           v-for="(name, i) in decomojis[category]"
           v-show="matched(name)"
           :key="`${name}_${category}_${i}`"
@@ -26,17 +26,18 @@
               '-collected': collected(name)
             }
           ]"
-          :tabindex="i"
           @click="handleClickItem({ name, category })"
         >
           <img
-            :alt="name"
+            :alt="nameShows ? '' : name"
+            :class="`__icon -${ui.iconSize}`"
             :src="`/decomoji/${category}/${name}.png`"
             width="64"
-            :class="`__icon -${ui.iconSize}`"
           />
-          <p v-show="nameShows" class="__name">:{{ name }}:</p>
-        </div>
+          <span v-show="nameShows" :aria-label="name" class="__name"
+            >:{{ name }}:</span
+          >
+        </button>
       </template>
     </div>
   </VContent>
@@ -153,7 +154,7 @@ export default class Content extends Vue {
     border-radius: 4px
     line-height: 1
     text-align: center
-    transition: transform 0.05s ease-out
+    transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
     &.-l
       padding: 10px
     &.-m
@@ -180,6 +181,13 @@ export default class Content extends Vue {
         background-color: #000000
         transform: scale3d(0.7,0.7,1)
 
+    &:focus
+      outline: 0;
+      .theme--light &
+        box-shadow: inset 0 0 0 4px #adbfca
+      .theme--dark &
+        box-shadow: inset 0 0 0 4px #5c7280
+
   .__icon
     width: 100%
     vertical-align: top
@@ -191,6 +199,7 @@ export default class Content extends Vue {
       max-width: 16px
 
   .__name
+    display block
     margin-top: 10px
     margin-bottom: 0
     line-height: 1.2
