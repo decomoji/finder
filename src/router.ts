@@ -1,16 +1,14 @@
-import { isStringOfNotEmpty } from '@/utilities/isString'
 import Home from '@/views/Home.vue'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import Router, { RouterOptions } from 'vue-router'
 
-const { BASE_URL, NODE_ENV } = process.env
+const { BASE_URL } = process.env
 
 /**
  * ルート
  */
 export const routes: RouterOptions['routes'] = [
-  // ホーム - プレビューモードでなければ NotFound にする
   {
     path: '/',
     name: 'home',
@@ -30,15 +28,7 @@ export const scrollBehavior: RouterOptions['scrollBehavior'] = (
   to,
   from,
   savedPosition
-) => {
-  if (savedPosition) return savedPosition
-  if (to.query.y)
-    return {
-      x: 0,
-      y: isStringOfNotEmpty(to.query.y) ? parseInt(to.query.y) : 0
-    }
-  return { x: 0, y: 0 }
-}
+) => savedPosition || { x: 0, y: 0 }
 
 /**
  * ルーターオプション
