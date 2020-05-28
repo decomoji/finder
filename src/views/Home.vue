@@ -6,7 +6,7 @@
 
     <Content />
 
-    <Collection />
+    <Collection :query="query" />
   </div>
 </template>
 
@@ -25,5 +25,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
     Header
   }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  @Prop() query!: any
+}
 </script>

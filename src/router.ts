@@ -1,4 +1,3 @@
-import NotFound from '@/views/404NotFound.vue'
 import Home from '@/views/Home.vue'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
@@ -14,7 +13,8 @@ export const routes: RouterOptions['routes'] = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    props: (route) => ({ query: route.query })
   }
 ]
 
