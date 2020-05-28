@@ -1,3 +1,4 @@
+import { isStringOfNotEmpty } from '@/utilities/isString'
 import Home from '@/views/Home.vue'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
@@ -29,7 +30,15 @@ export const scrollBehavior: RouterOptions['scrollBehavior'] = (
   to,
   from,
   savedPosition
-) => savedPosition || { x: 0, y: 0 }
+) => {
+  if (savedPosition) return savedPosition
+  if (to.query.y)
+    return {
+      x: 0,
+      y: isStringOfNotEmpty(to.query.y) ? parseInt(to.query.y) : 0
+    }
+  return { x: 0, y: 0 }
+}
 
 /**
  * ルーターオプション
