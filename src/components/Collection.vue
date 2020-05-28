@@ -124,14 +124,22 @@ export default class Collection extends Vue {
    * @listens - button.dbclick
    */
   handleDbclickItem(item: DecomojiCollectionItem) {
-    this.remove(item)
+    this.removeItem(item)
   }
 
   /**
    * @listens - button.keydown
    */
   handleDeleteItem(item: DecomojiCollectionItem) {
+    this.removeItem(item)
+  }
+
+  /**
+   * @method
+   */
+  removeItem(item: DecomojiCollectionItem) {
     this.remove(item)
+    this.$router.push(`?${this.collection.queryStringifyValueOfCollection}`)
   }
 
   handleClickDownloadManagerList() {}
