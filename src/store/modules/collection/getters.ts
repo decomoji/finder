@@ -28,12 +28,24 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * コレクションをパラメータ文字列に変換したものを返す
+   */
+  queryStringifyValueOfCollection: state => {
+    const { items } = state
+    const name = items.map(item => item.name).join(',')
+    const category = items.map(item => item.category).join(',')
+
+    return `n=${name}&c=${category}`
+  },
+
+  /**
    * ViewModel
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (state, { managerList }: ThisGetter) => ({
+  viewModel: (state, { managerList, queryStringifyValueOfCollection }: ThisGetter) => ({
     ...pickState(defaultState, state),
-    managerList
+    managerList,
+    queryStringifyValueOfCollection
   })
 }

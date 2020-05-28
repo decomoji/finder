@@ -21,10 +21,12 @@ export interface CollectionState {
 
 export interface CollectionViewModel extends CollectionState {
   managerList: CollectionGetters['managerList']
+  queryStringifyValueOfCollection: CollectionGetters['queryStringifyValueOfCollection']
 }
 
 export interface CollectionGetters {
   managerList: DecomojiManagerList
+  queryStringifyValueOfCollection: string
   viewModel: CollectionViewModel
 }
 
