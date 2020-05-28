@@ -45,20 +45,28 @@
         </VListTile>
       </VList>
       <VDivider />
-      <VList class="pa-0">
+      <VList>
+        <VListTile v-if="!shrink && collection.items.length > 0" dense>
+          <span class="body-1"
+            >デコモジをダブルクリックするか選択して delete
+            キーを押すとコレクションから外せます。</span
+          >
+        </VListTile>
         <div :class="['__list', `-${ui.iconSize}`]">
-          <div
+          <button
             v-for="(item, i) in collection.items"
-            :key="`${item}_${i}`"
+            :key="`${item.name}_${item.category}_${i}`"
             :class="['__item', `-${ui.iconSize}`]"
+            @dblclick="handleDbclickItem(item)"
+            @keydown.delete="handleDeleteItem(item)"
           >
             <img
               :alt="item.name"
               :src="`/decomoji/${item.category}/${item.name}.png`"
-              width="64"
               :class="`__icon -${ui.iconSize}`"
+              width="64"
             />
-          </div>
+          </button>
         </div>
       </VList>
     </div>
@@ -67,6 +75,7 @@
 
 <script lang="ts">
 import { DefaultIconSize } from '@/configs/DefaultIconSize'
+import { DecomojiCollectionItem } from '@/models/DecomojiCollection'
 import { UiViewModel } from '@/store/modules/ui/models'
 import {
   CollectionActions,
@@ -82,18 +91,37 @@ export default class Collection extends Vue {
   @Getter('collection/viewModel') collection!: CollectionViewModel
 
   // アクションを引き当てる
-  @Action('collection/add') add!: CollectionActions['add']
   @Action('collection/remove') remove!: CollectionActions['remove']
 
   shrink = true
   value = true
 
+  /**
+   * @get - ドロワーを閉じたときの最小幅を返す
+   */
   get width() {
     return window.innerWidth - document.documentElement.clientWidth ? 100 : 84
   }
 
+  /**
+   * @get - ドロワーの開閉ボタンのアイコン名を返す
+   */
   get expandIconName() {
     return this.shrink ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
+  }
+
+  /**
+   * @method - button.dbclick
+   */
+  handleDbclickItem(item: DecomojiCollectionItem) {
+    this.remove(item)
+  }
+
+  /**
+   * @mthod - button.keydown
+   */
+  handleDeleteItem(item: DecomojiCollectionItem) {
+    this.remove(item)
   }
 
   handleClickDownloadManagerList() {}
@@ -129,11 +157,27 @@ export default class Collection extends Vue {
       grid-template-columns: repeat(auto-fill, minmax(16px, 1fr))
 
   .__item
+    padding: 5px
     border: 1px solid transparent
     border-radius: 4px
     line-height: 1
     text-align: center
-    transition: transform 0.1s ease-out
+    transition: box-shadow 0.03s ease-out
+
+    &.-s
+      padding: 0
+
+    .theme--light &
+      background-color #ffffff
+    .theme--dark &
+      background-color #15171a
+
+    &:focus
+      outline: 0;
+      .theme--light &
+        box-shadow: inset 0 0 0 4px #adbfca
+      .theme--dark &
+        box-shadow: inset 0 0 0 4px #5c7280
 
   .__icon
     width: 100%
