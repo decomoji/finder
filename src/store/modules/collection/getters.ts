@@ -30,12 +30,32 @@ export const getters: GetterTree<ThisState, RootState> = {
   /**
    * コレクションをパラメータ文字列に変換したものを返す
    */
-  queryStringifyValueOfCollection: state => {
+  collectionQueries: state => {
     const { items } = state
-    const name = items.map(item => item.name).join(',')
-    const category = items.map(item => item.category).join(',')
 
-    return `n=${name}&c=${category}`
+    const basic: string = items
+      .filter(item => item.category === 'basic')
+      .map(item => item.name)
+      .join(',')
+    const extra: string = items
+      .filter(item => item.category === 'extra')
+      .map(item => item.name)
+      .join(',')
+    const explicit: string = items
+      .filter(item => item.category === 'explicit')
+      .map(item => item.name)
+      .join(',')
+    const preview: string = items
+      .filter(item => item.category === 'preview')
+      .map(item => item.name)
+      .join(',')
+
+    return {
+      basic,
+      extra,
+      explicit,
+      preview
+    }
   },
 
   /**
@@ -45,10 +65,10 @@ export const getters: GetterTree<ThisState, RootState> = {
    */
   viewModel: (
     state,
-    { managerList, queryStringifyValueOfCollection }: ThisGetter
+    { managerList, collectionQueries }: ThisGetter
   ) => ({
     ...pickState(defaultState, state),
     managerList,
-    queryStringifyValueOfCollection
+    collectionQueries
   })
 }

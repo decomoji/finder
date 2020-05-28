@@ -139,49 +139,35 @@ export default class Collection extends Vue {
    */
   removeItem(item: DecomojiCollectionItem) {
     this.remove(item)
-    this.$router.replace(
-      `/?${this.collection.queryStringifyValueOfCollection}&y=${window.scrollY}`
-    )
+    this.$router.replace({
+      query: this.collection.collectionQueries
+    })
   }
 
   handleClickDownloadManagerList() {}
   handleClickDownloadAliasList() {}
 
   created() {
-    const { n, c } = this.query
+    // パラメータをパースしてコレクションに追加する
+    const { basic, extra, explicit, preview } = this.query
+    const _basic = basic
+      ? basic.split(',').map((name: string) => ({ name, category: 'basic' }))
+      : []
+    const _extra = extra
+      ? extra.split(',').map((name: string) => ({ name, category: 'extra' }))
+      : []
+    const _explicit = explicit
+      ? explicit
+          .split(',')
+          .map((name: string) => ({ name, category: 'explicit' }))
+      : []
+    const _preview = preview
+      ? preview
+          .split(',')
+          .map((name: string) => ({ name, category: 'preview' }))
+      : []
 
-    if (!isStringOfNotEmpty(n) || !isStringOfNotEmpty(c)) return
-
-    const names = n.split(',')
-    const categories = c.split(',')
-
-    // 名前とカテゴリーは長さが同じで1以上でなければならない
-    if (
-      names.length !== categories.length ||
-      names.length === 0 ||
-      categories.length === 0
-    )
-      return
-
-    let collection: DecomojiCollection = []
-
-    for (let i = 0; i < names.length; i++) {
-      const name = names[i]
-      const category = categories[i]
-      if (
-        isStringOfNotEmpty(name) &&
-        isStringOfNotEmpty(category) &&
-        // 未知のカテゴリーが含まれていないこと
-        (category === 'basic' ||
-          category === 'extra' ||
-          category === 'explicit' ||
-          category === 'preview')
-      ) {
-        collection.push({ name, category })
-      }
-    }
-
-    return this.receive(collection)
+    return this.receive([..._basic, ..._extra, ..._explicit, ..._preview])
   }
 }
 </script>
