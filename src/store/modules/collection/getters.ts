@@ -50,12 +50,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       .map(item => item.name)
       .join(',')
 
-    return {
-      basic,
-      extra,
-      explicit,
-      preview
-    }
+    return `basic=${basic}&extra=${extra}&explicit=${explicit}&preview=${preview}`
   },
 
   /**
