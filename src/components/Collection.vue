@@ -12,24 +12,22 @@
   >
     <div class="__scrollable">
       <VList class="pa-0">
-        <VListTile avatar>
-          <VListTileAvatar>
+        <VListTile>
+          <VListTileAction>
             <VBtn icon @click.stop="shrink = !shrink">
-              <VIcon v-if="shrink">keyboard_arrow_left</VIcon>
-              <VIcon v-else>keyboard_arrow_right</VIcon>
+              <VIcon>{{ expandIconName }}</VIcon>
             </VBtn>
-          </VListTileAvatar>
+          </VListTileAction>
           <VListTileContent>
             <VListTileTitle>コレクション</VListTileTitle>
           </VListTileContent>
-          <VListTileAction>
-            <VMenu bottom left>
+          <VListTileAction v-if="!shrink">
+            <VMenu bottom left offset-y>
               <template v-slot:activator="{ on }">
                 <VBtn icon v-on="on">
                   <VIcon>more_vert</VIcon>
                 </VBtn>
               </template>
-
               <VList>
                 <VListTile @click="handleClickDownloadManagerList">
                   <VListTileTitle
@@ -92,6 +90,10 @@ export default class Collection extends Vue {
 
   get width() {
     return window.innerWidth - document.documentElement.clientWidth ? 100 : 84
+  }
+
+  get expandIconName() {
+    return this.shrink ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
   }
 
   handleClickDownloadManagerList() {}
