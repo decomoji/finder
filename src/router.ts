@@ -14,7 +14,7 @@ export const routes: RouterOptions['routes'] = [
     path: '/',
     name: 'home',
     component: Home,
-    props: (route) => ({ query: route.query })
+    props: route => ({ query: route.query })
   }
 ]
 
