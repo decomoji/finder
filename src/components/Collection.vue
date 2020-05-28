@@ -139,9 +139,8 @@ export default class Collection extends Vue {
    */
   removeItem(item: DecomojiCollectionItem) {
     this.remove(item)
-    this.$router.replace({
-      query: this.collection.collectionQueries
-    })
+
+    window.history.replaceState({}, '', '?' + this.collection.collectionQueries)
   }
 
   handleClickDownloadManagerList() {}
