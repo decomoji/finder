@@ -139,7 +139,9 @@ export default class Collection extends Vue {
    */
   removeItem(item: DecomojiCollectionItem) {
     this.remove(item)
-    this.$router.push(`?${this.collection.queryStringifyValueOfCollection}`)
+    this.$router.replace(
+      `/?${this.collection.queryStringifyValueOfCollection}&y=${window.scrollY}`
+    )
   }
 
   handleClickDownloadManagerList() {}
