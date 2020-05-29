@@ -10,10 +10,10 @@ import { Module } from 'vuex'
  */
 export const state: () => ThisState = () => ({
   category: {
-    basic: false,
+    basic: true,
     explicit: false,
     extra: false,
-    preview: true
+    preview: false
   },
   dark: false,
   globalLadingQueue: 0,
