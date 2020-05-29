@@ -1,6 +1,6 @@
 <template>
   <VToolbar app clipped-left dark class="Header">
-    <VToolbarTitle class="__title">decomoji-finder v1</VToolbarTitle>
+    <VToolbarTitle class="__title">decomoji-finder</VToolbarTitle>
     <VTextField
       :input-value="ui.searchQuery"
       clearable
@@ -13,24 +13,12 @@
       @input="debounceUpdateSearchQuery($event)"
     />
     <VSpacer />
-    <VToolbarItems>
-      <VBtn
-        v-for="(item, i) in items"
-        :key="i"
-        :href="item.href"
-        :rel="item.rel"
-        :target="item.target"
-        flat
-        class="__link"
-        >{{ item.title }}</VBtn
-      >
-    </VToolbarItems>
   </VToolbar>
 </template>
 
 <script lang="ts">
 import { HeaderLinks } from '@/configs/HeaderLinks'
-import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
+import { UiActions, UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -43,7 +31,7 @@ export default class Header extends Vue {
    * アクションを引き当てる
    */
   @Action('ui/updateSearchQuery')
-  updateSearchQuery!: UiActionDispatchers['updateSearchQuery']
+  updateSearchQuery!: UiActions['updateSearchQuery']
 
   /**
    * 内部プロパティを定義する
@@ -66,9 +54,12 @@ export default class Header extends Vue {
 @import '~vuetify/src/stylus/settings/_variables'
 
 .Header
-  background-color: #3b3642
+  .theme--light &
+    background-color: #290829
+  .theme--dark &
+    background-color: #0f0e12
   .__title
-    width: 286px
+    padding-right: 24px
   .__input
     max-width: 450px
   .__link

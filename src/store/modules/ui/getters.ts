@@ -1,9 +1,8 @@
-import { DefinedGetterTree } from '@/store/models'
-import { state as defaultState } from '@/store/modules/ui/index'
-import { UiGetterReturns, UiState } from '@/store/modules/ui/models'
-import { pickState } from '@/store/utilities'
+import { RootState } from '@/store/models'
+import { UiGetters as ThisGetter, UiState as ThisState } from './models'
+import { GetterTree } from 'vuex'
 
-export const getters: DefinedGetterTree<UiState, UiGetterReturns> = {
+export const getters: GetterTree<ThisState, RootState> = {
   /**
    * グローバルのローディングキューがあるか否かを返す
    * @param globalLadingQueue
@@ -11,12 +10,15 @@ export const getters: DefinedGetterTree<UiState, UiGetterReturns> = {
   hasGlobalLoadingQueue: ({ globalLadingQueue }) => globalLadingQueue > 0,
 
   /**
-   * ViewModel
+   * ViewModel を返す
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (state, { hasGlobalLoadingQueue }) => ({
-    ...pickState(defaultState, state),
+  viewModel: (
+    state,
+    { hasGlobalLoadingQueue }: ThisGetter
+  ): ThisGetter['viewModel'] => ({
+    ...state,
     hasGlobalLoadingQueue
   })
 }

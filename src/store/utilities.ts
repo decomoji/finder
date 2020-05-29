@@ -1,23 +1,20 @@
-import { StateCreator } from '@/store/models'
+type State = { [K: string]: any }
 
 /**
  * 直属のステートを取り出す
  * @param defaultState
  * @param actualState
  */
-export function pickState<T extends { [K: string]: any }>(
-  defaultState: StateCreator<T>,
+export function pickState<T extends State>(
+  defaultState: () => T,
   actualState: T
 ) {
   const state = defaultState()
 
-  return Object.keys(state).reduce<T>(
-    (memo: any, key) => {
-      if (state && state.hasOwnProperty(key)) {
-        memo[key] = actualState[key]
-      }
-      return memo
-    },
-    { ...state }
-  )
+  Object.keys(state).reduce((memo: T, key: keyof T) => {
+    memo[key] = actualState[key]
+    return memo
+  }, state)
+
+  return state
 }

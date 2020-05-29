@@ -1,26 +1,13 @@
 import { RootState } from '@/store/models'
 import { actions } from './actions'
 import { getters } from './getters'
-import { UiState as ThisState } from './models'
+import { CollectionState as ThisState } from './models'
 import { mutations } from './mutations'
 import { Module } from 'vuex'
 
-/**
- * 初期ステート
- */
+// ステートの初期値を返す
 export const state: () => ThisState = () => ({
-  category: {
-    basic: true,
-    explicit: false,
-    extra: false,
-    preview: false
-  },
-  dark: false,
-  globalLadingQueue: 0,
-  iconSize: 'l',
-  name: true,
-  reacted: false,
-  searchQuery: ''
+  items: []
 })
 
 export const storeModule: Module<ThisState, RootState> = {

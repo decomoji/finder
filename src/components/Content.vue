@@ -6,32 +6,38 @@
         {
           '-basic': ui.category.basic,
           '-explicit': ui.category.explicit,
-          '-extra': ui.category.extra
+          '-extra': ui.category.extra,
+          '-preview': ui.category.preview
         },
         `-${ui.iconSize}`
       ]"
     >
       <template v-for="category in categories">
-        <div
-          v-for="name in decomojis[category]"
+        <button
+          v-for="(name, i) in decomojis[category]"
           v-show="matched(name)"
-          :key="name"
+          :key="`${name}_${category}_${i}`"
           :class="[
             '__item',
             `-${category}`,
             `-${ui.iconSize}`,
-            { '-reacted': ui.reacted }
+            {
+              '-reacted': ui.reacted,
+              '-collected': collected(name)
+            }
           ]"
+          @click="handleClickItem({ name, category })"
         >
           <img
-            :alt="name"
+            :alt="nameShows ? '' : name"
+            :class="`__icon -${ui.iconSize}`"
             :src="`/decomoji/${category}/${name}.png`"
             width="64"
-            height="64"
-            :class="`__icon -${ui.iconSize}`"
           />
-          <p v-show="nameShows" class="__name">:{{ name }}:</p>
-        </div>
+          <span v-show="nameShows" :aria-label="name" class="__name"
+            >:{{ name }}:</span
+          >
+        </button>
       </template>
     </div>
   </VContent>
@@ -41,24 +47,39 @@
 import { DecomojiBasic } from '@/configs/DecomojiBasic'
 import { DecomojiExplicit } from '@/configs/DecomojiExplicit'
 import { DecomojiExtra } from '@/configs/DecomojiExtra'
+import { DecomojiPreview } from '@/configs/DecomojiPreview'
 import { DefaultIconSize } from '@/configs/DefaultIconSize'
 import { CategoryId } from '@/models/CategoryId'
+import {
+  DecomojiCollection,
+  DecomojiCollectionItem
+} from '@/models/DecomojiCollection'
 import { DecomojiItem } from '@/models/DecomojiItem'
 import { UiViewModel } from '@/store/modules/ui/models'
+import {
+  CollectionActions,
+  CollectionViewModel
+} from '@/store/modules/collection/models'
 import { Component, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Action, Getter } from 'vuex-class'
 
 @Component
 export default class Content extends Vue {
   // viewModel を引き当てる
   @Getter('ui/viewModel') ui!: UiViewModel
+  @Getter('collection/viewModel') collection!: CollectionViewModel
 
-  categories: CategoryId[] = ['basic', 'explicit', 'extra']
+  // アクションを引き当てる
+  @Action('collection/add') add!: CollectionActions['add']
+  @Action('collection/remove') remove!: CollectionActions['remove']
+
+  categories: CategoryId[] = ['basic', 'explicit', 'extra', 'preview']
 
   decomojis = Object.freeze({
     basic: DecomojiBasic as DecomojiItem[],
     extra: DecomojiExtra as DecomojiItem[],
-    explicit: DecomojiExplicit as DecomojiItem[]
+    explicit: DecomojiExplicit as DecomojiItem[],
+    preview: DecomojiPreview as DecomojiItem[]
   })
 
   /**
@@ -66,6 +87,20 @@ export default class Content extends Vue {
    */
   get nameShows() {
     return this.ui.name && this.ui.iconSize === DefaultIconSize
+  }
+
+  /**
+   * @method - コレクションにおける要素のインデックスを返す
+   */
+  getItemIndex(items: DecomojiCollection, name: string) {
+    return items.findIndex((item: DecomojiCollectionItem) => item.name === name)
+  }
+
+  /**
+   * @method - 要素が選択されているか否かを返す
+   */
+  collected(name: string) {
+    return this.getItemIndex(this.collection.items, name) > -1
   }
 
   /**
@@ -77,6 +112,15 @@ export default class Content extends Vue {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  /**
+   * @method - 要素をクリックした時
+   */
+  handleClickItem(item: DecomojiCollectionItem) {
+    this.collected(item.name) ? this.remove(item) : this.add(item)
+
+    window.history.replaceState({}, '', '?' + this.collection.collectionQueries)
   }
 }
 </script>
@@ -94,6 +138,7 @@ export default class Content extends Vue {
     &.-basic .__item.-basic
     &.-extra .__item.-extra
     &.-explicit .__item.-explicit
+    &.-preview .__item.-preview
       display: block
     &.-l
       gap: 10px
@@ -111,6 +156,7 @@ export default class Content extends Vue {
     border-radius: 4px
     line-height: 1
     text-align: center
+    transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
     &.-l
       padding: 10px
     &.-m
@@ -119,26 +165,43 @@ export default class Content extends Vue {
       padding: 3px
 
     .theme--light &
-      background-color: rgb(245,244,245)
+      background-color: #f4f4f4
       &.-reacted
-        border-color: #1d9bd1
-        background-color: #ebf5fb
+        border-color: #1d89c7
+        background-color: #e6f3fa
+      &.-collected
+        border-color: #727272
+        background-color: #ffffff
+        transform: scale3d(0.7,0.7,1)
     .theme--dark &
-      background-color: rgb(30,32,34)
+      background-color: #1a1c20
       &.-reacted
-        border-color: #1264a3
-        background-color: #1264a3
+        border-color: #135092
+        background-color: #135092
+      &.-collected
+        border-color: #424242
+        background-color: #000000
+        transform: scale3d(0.7,0.7,1)
+
+    &:focus
+      outline: 0;
+      .theme--light &
+        box-shadow: inset 0 0 0 4px #adbfca
+      .theme--dark &
+        box-shadow: inset 0 0 0 4px #5c7280
 
   .__icon
+    width: 100%
     vertical-align: top
+    &.-l
+      max-width: 64px
     &.-m
-      width: 32px
-      height: 32px
+      max-width: 32px
     &.-s
-      width: 16px
-      height: 16px
+      max-width: 16px
 
   .__name
+    display block
     margin-top: 10px
     margin-bottom: 0
     line-height: 1.2

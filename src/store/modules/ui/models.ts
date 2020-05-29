@@ -1,7 +1,10 @@
+import {
+  VuexActionPayloads,
+  VuexActions,
+  VuexMutationPayloads
+} from '@/models/Vuex'
 import { CategoryId } from '@/models/CategoryId'
 import { CategoryState } from '@/models/CategoryState'
-import { NullableString } from '@/models/NullableString'
-import { DefinedActionTree, VuexActionDispatchers } from '@/store/models'
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
@@ -11,7 +14,7 @@ import {
   TOGGLE_REACTED,
   UPDATE_ICON_SIZE,
   UPDATE_SEARCH_QUERY
-} from '@/store/modules/ui/mutation-types'
+} from './mutation-types'
 
 export interface UiState {
   category: CategoryState
@@ -24,15 +27,15 @@ export interface UiState {
 }
 
 export interface UiViewModel extends UiState {
-  hasGlobalLoadingQueue: UiGetterReturns['hasGlobalLoadingQueue']
+  hasGlobalLoadingQueue: UiGetters['hasGlobalLoadingQueue']
 }
 
-export interface UiGetterReturns {
+export interface UiGetters {
   hasGlobalLoadingQueue: boolean
   viewModel: UiViewModel
 }
 
-export interface UiMutationPayloads {
+export type UiMutationPayloads = VuexMutationPayloads<{
   [DECREMENT_GLOBAL_LOADING_QUEUE]: number | undefined
   [INCREMENT_GLOBAL_LOADING_QUEUE]: number | undefined
   [TOGGLE_CATEGORY]: CategoryId
@@ -41,23 +44,17 @@ export interface UiMutationPayloads {
   [TOGGLE_REACTED]: boolean
   [UPDATE_ICON_SIZE]: string
   [UPDATE_SEARCH_QUERY]: string
-}
+}>
 
-export interface UiActionPayloads {
-  decrementGlobalLoadingQueue: UiMutationPayloads[typeof DECREMENT_GLOBAL_LOADING_QUEUE]
-  incrementGlobalLoadingQueue: UiMutationPayloads[typeof INCREMENT_GLOBAL_LOADING_QUEUE]
-  toggleCategory: UiMutationPayloads[typeof TOGGLE_CATEGORY]
-  toggleDarkMode: UiMutationPayloads[typeof TOGGLE_DARK_MODE]
-  toggleNameShows: UiMutationPayloads[typeof TOGGLE_NAME_SHOWS]
-  toggleReacted: UiMutationPayloads[typeof TOGGLE_REACTED]
-  updateIconSize: UiMutationPayloads[typeof UPDATE_ICON_SIZE]
-  updateSearchQuery: UiMutationPayloads[typeof UPDATE_SEARCH_QUERY]
-}
+export type UiActionPayloads = VuexActionPayloads<{
+  decrementGlobalLoadingQueue: number | undefined
+  incrementGlobalLoadingQueue: number | undefined
+  toggleCategory: CategoryId
+  toggleDarkMode: boolean
+  toggleNameShows: boolean
+  toggleReacted: boolean
+  updateIconSize: string
+  updateSearchQuery: string
+}>
 
-export type UiActionTree = DefinedActionTree<UiState, UiActionPayloads>
-
-export type UiActionDispatchers = VuexActionDispatchers<
-  UiActionTree,
-  UiState,
-  UiActionPayloads
->
+export type UiActions = VuexActions<UiActionPayloads>

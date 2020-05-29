@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import GlobalLoading from '@/components/GlobalLoading.vue'
-import { UiActionDispatchers, UiViewModel } from '@/store/modules/ui/models'
+import { UiActions, UiViewModel } from '@/store/modules/ui/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
@@ -24,9 +24,9 @@ export default class App extends Vue {
    * アクションを引き当てる
    */
   @Action('ui/decrementGlobalLoadingQueue')
-  decrementGlobalLoadingQueue!: UiActionDispatchers['decrementGlobalLoadingQueue']
+  decrementGlobalLoadingQueue!: UiActions['decrementGlobalLoadingQueue']
   @Action('ui/incrementGlobalLoadingQueue')
-  incrementGlobalLoadingQueue!: UiActionDispatchers['incrementGlobalLoadingQueue']
+  incrementGlobalLoadingQueue!: UiActions['incrementGlobalLoadingQueue']
 
   /**
    * @lifecycles
@@ -37,7 +37,7 @@ export default class App extends Vue {
 <style lang="stylus" scoped>
 .App
   &.theme--light
-    background-color: rgb(255,255,255)
+    background-color: #ffffff
   &.theme--dark
-    background-color: rgb(24,26,28)
+    background-color: #15171a
 </style>

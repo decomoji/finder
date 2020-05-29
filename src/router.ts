@@ -1,20 +1,19 @@
-import NotFound from '@/views/404NotFound.vue'
 import Home from '@/views/Home.vue'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import Router, { RouterOptions } from 'vue-router'
 
-const { BASE_URL, NODE_ENV } = process.env
+const { BASE_URL } = process.env
 
 /**
  * ルート
  */
 export const routes: RouterOptions['routes'] = [
-  // ホーム - プレビューモードでなければ NotFound にする
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    props: route => ({ query: route.query })
   }
 ]
 

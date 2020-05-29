@@ -7,9 +7,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "postinstall": "node build_decomoji_module.js && npm run decomoji:copy",
-    "decomoji:copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
-    "decomoji:update": "cd node_modules/slack-reaction-decomoji && git pull origin master && cd - && npm run postinstall"
+    "set:decomoji-install": "git clone -b v5-preview git://github.com/decomoji/slack-reaction-decomoji.git node_modules/slack-reaction-decomoji",
+    "set:decomoji-copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
+    "update:decomoji": "rm -rf node_modules/slack-reaction-decomoji && npm run postinstall",
+    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy && npx prettier --write src/configs/*.ts"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
@@ -19,7 +20,6 @@
     "axios-mock-adapter": "^1.16.0",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
-    "slack-reaction-decomoji": "github:decomoji/slack-reaction-decomoji",
     "vue": "^2.6.6",
     "vue-class-component": "^7.1.0",
     "vue-property-decorator": "^8.2.1",

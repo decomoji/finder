@@ -1,1 +1,1 @@
-export type CategoryId = 'basic' | 'explicit' | 'extra'
+export type CategoryId = 'basic' | 'explicit' | 'extra' | 'preview'
