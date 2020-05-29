@@ -27,9 +27,7 @@ function generate_decomoji_ts(type) {
         err => {
           if (err) throw err;
           console.log(
-            `./src/configs/Decomoji${type}.ts (${
-              decomoji_array.length
-            } items) has been saved!`
+            `./src/configs/Decomoji${type}.ts (${decomoji_array.length} items) has been saved!`
           );
         }
       );
