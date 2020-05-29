@@ -10,7 +10,7 @@
     "set:decomoji-install": "git clone -b v5-preview git://github.com/decomoji/slack-reaction-decomoji.git node_modules/slack-reaction-decomoji",
     "set:decomoji-copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
     "update:decomoji": "rm -rf node_modules/slack-reaction-decomoji && npm run postinstall",
-    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy"
+    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy && npx prettier --write src/configs/*.ts"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
