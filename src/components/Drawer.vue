@@ -65,6 +65,16 @@
       <VListTile>
         <p class="__desc">テーマはSlackのAubergineをエミュレートしています。</p>
       </VListTile>
+      <VListTile>
+        <p class="__github">
+          <a
+            href="https://github.com/decomoji/decomoji-finder/"
+            target="_blacnk"
+            rel="noopener"
+            >GitHub</a
+          >
+        </p>
+      </VListTile>
     </VList>
   </VNavigationDrawer>
 </template>
@@ -158,4 +168,11 @@ export default class Drawer extends Vue {
     pointer-events: none
   .__desc
     margin-bottom: 0
+  .__github
+    margin-bottom: 0
+    a:link,
+    a:visited,
+    a:hover,
+    a:active
+      color: #ffffff
 </style>
