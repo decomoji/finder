@@ -1,6 +1,6 @@
 <template>
   <VToolbar app clipped-left dark class="Header">
-    <VToolbarTitle class="__title">decomoji-finder v1</VToolbarTitle>
+    <VToolbarTitle class="__title">decomoji-finder</VToolbarTitle>
     <VTextField
       :input-value="ui.searchQuery"
       clearable
@@ -59,7 +59,7 @@ export default class Header extends Vue {
   .theme--dark &
     background-color: #0f0e12
   .__title
-    width: 286px
+    padding-right: 24px
   .__input
     max-width: 450px
   .__link
