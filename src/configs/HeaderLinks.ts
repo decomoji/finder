@@ -19,10 +19,10 @@ export const HeaderLinks: LinkItem[] = [
   //   target: '_blank',
   //   rel: 'noopener'
   // },
-  {
-    title: 'GitHub',
-    href: 'https://github.com/decomoji/decomoji-finder/',
-    target: '_blank',
-    rel: 'noopener'
-  }
+  // {
+  //   title: 'GitHub',
+  //   href: 'https://github.com/decomoji/decomoji-finder/',
+  //   target: '_blank',
+  //   rel: 'noopener'
+  // }
 ]

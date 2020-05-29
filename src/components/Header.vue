@@ -13,18 +13,6 @@
       @input="debounceUpdateSearchQuery($event)"
     />
     <VSpacer />
-    <VToolbarItems>
-      <VBtn
-        v-for="(item, i) in items"
-        :key="i"
-        :href="item.href"
-        :rel="item.rel"
-        :target="item.target"
-        flat
-        class="__link"
-        >{{ item.title }}</VBtn
-      >
-    </VToolbarItems>
   </VToolbar>
 </template>
 
