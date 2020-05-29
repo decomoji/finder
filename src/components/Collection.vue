@@ -4,14 +4,13 @@
     :mini-variant.sync="shrink"
     :mini-variant-width="width"
     app
-    clipped
     fixed
     permanent
     right
     class="Collection"
   >
     <div class="__scrollable">
-      <VList class="pa-0">
+      <VList>
         <VListTile>
           <VListTileAction>
             <VBtn icon @click.stop="shrink = !shrink">
@@ -21,35 +20,13 @@
           <VListTileContent>
             <VListTileTitle>コレクション</VListTileTitle>
           </VListTileContent>
-          <VListTileAction v-if="!shrink">
-            <VMenu bottom left offset-y>
-              <template v-slot:activator="{ on }">
-                <VBtn icon v-on="on">
-                  <VIcon>more_vert</VIcon>
-                </VBtn>
-              </template>
-              <VList>
-                <VListTile @click="handleClickDownloadManagerList">
-                  <VListTileTitle
-                    >追加・登録用 json をダウンロードする</VListTileTitle
-                  >
-                </VListTile>
-                <VListTile @click="handleClickDownloadAliasList">
-                  <VListTileTitle
-                    >エイリアス json をダウンロードする</VListTileTitle
-                  >
-                </VListTile>
-              </VList>
-            </VMenu>
-          </VListTileAction>
         </VListTile>
       </VList>
       <VDivider />
       <VList>
-        <VListTile v-if="!shrink && collection.items.length > 0" dense>
+        <VListTile v-if="!shrink && collection.items.length > 0">
           <span class="body-1"
-            >デコモジをダブルクリックするか選択して delete
-            キーを押すとコレクションから外せます。</span
+            >ダブルクリックするか delete キーでコレクションから外せます。</span
           >
         </VListTile>
         <div :class="['__list', `-${ui.iconSize}`]">
