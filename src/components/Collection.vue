@@ -56,6 +56,7 @@ import {
   DecomojiCollection,
   DecomojiCollectionItem
 } from "@/models/DecomojiCollection";
+import { QueryObject } from "@/models/QueryObject";
 import { UiViewModel } from "@/store/modules/ui/models";
 import {
   CollectionActions,
@@ -78,7 +79,7 @@ export default class Collection extends Vue {
   /**
    * 入力プロパティを定義する
    */
-  @Prop() query!: any;
+  @Prop() query!: QueryObject;
 
   shrink = true;
   value = true;
