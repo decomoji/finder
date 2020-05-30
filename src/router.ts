@@ -1,4 +1,4 @@
-import Home from "@/views/Home.vue";
+import Top from "@/views/Top.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Router, { RouterOptions } from "vue-router";
@@ -12,8 +12,8 @@ export const routes: RouterOptions["routes"] = [
   // ホーム
   {
     path: "/",
-    name: "home",
-    component: Home
+    name: "top",
+    component: Top
   }
 ];
 

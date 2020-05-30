@@ -1,11 +1,7 @@
 <template>
   <div>
-    <Drawer />
-
-    <Header />
-
-    <Content />
-
+    <Header :query="query" />
+    <Content :query="query" />
     <Collection :query="query" />
   </div>
 </template>
@@ -25,7 +21,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     Header
   }
 })
-export default class Home extends Vue {
-  @Prop() query!: any;
+export default class Top extends Vue {
+  @Prop() query!: string;
 }
 </script>
