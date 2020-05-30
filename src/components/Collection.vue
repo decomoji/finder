@@ -56,6 +56,7 @@ import {
   DecomojiCollection,
   DecomojiCollectionItem
 } from "@/models/DecomojiCollection";
+import { CategoryId } from "@/models/CategoryId";
 import { QueryObject } from "@/models/QueryObject";
 import { UiViewModel } from "@/store/modules/ui/models";
 import {
@@ -130,22 +131,26 @@ export default class Collection extends Vue {
 
   created() {
     // パラメータをパースしてコレクションに追加する
-    const { basic, extra, explicit, preview } = this.query;
-    const _basic = basic
-      ? basic.split(",").map((name: string) => ({ name, category: "basic" }))
+    const { basic, extra, explicit, preview } = this.query || {};
+    const _basic = isStringOfNotEmpty(basic)
+      ? basic
+          .split(",")
+          .map((name: string) => ({ name, category: "basic" as CategoryId }))
       : [];
-    const _extra = extra
-      ? extra.split(",").map((name: string) => ({ name, category: "extra" }))
+    const _extra = isStringOfNotEmpty(extra)
+      ? extra
+          .split(",")
+          .map((name: string) => ({ name, category: "extra" as CategoryId }))
       : [];
-    const _explicit = explicit
+    const _explicit = isStringOfNotEmpty(explicit)
       ? explicit
           .split(",")
-          .map((name: string) => ({ name, category: "explicit" }))
+          .map((name: string) => ({ name, category: "explicit" as CategoryId }))
       : [];
-    const _preview = preview
+    const _preview = isStringOfNotEmpty(preview)
       ? preview
           .split(",")
-          .map((name: string) => ({ name, category: "preview" }))
+          .map((name: string) => ({ name, category: "preview" as CategoryId }))
       : [];
 
     return this.receive([..._basic, ..._extra, ..._explicit, ..._preview]);
