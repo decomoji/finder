@@ -13,9 +13,9 @@
       <div>
         <div>
           <div>
-            <VBtn icon @click.stop="shrink = !shrink">
+            <button icon @click.stop="shrink = !shrink">
               <div>{{ expandIconName }}</div>
-            </VBtn>
+            </button>
           </div>
           <div>
             <div>コレクション</div>

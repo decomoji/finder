@@ -73,6 +73,9 @@ export default class Content extends Vue {
   @Action("collection/add") add!: CollectionActions["add"];
   @Action("collection/remove") remove!: CollectionActions["remove"];
 
+  /**
+   * 内部プロパティを定義する
+   */
   categories: CategoryId[] = ["basic", "explicit", "extra", "preview"];
 
   decomojis = Object.freeze({

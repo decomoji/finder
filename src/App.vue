@@ -1,8 +1,8 @@
 <template>
-  <div :dark="ui.dark" class="App">
+  <body :dark="ui.dark" class="App font-sans">
     <RouterView role="main" class="mb-4" />
     <GlobalLoading v-if="ui.hasGlobalLoadingQueue" />
-  </div>
+  </body>
 </template>
 
 <script lang="ts">
