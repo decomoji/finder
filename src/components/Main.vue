@@ -1,8 +1,7 @@
 <template>
   <main
     :class="[
-      'Main',
-      'grid grid-flow-row p-3',
+      'Main grid grid-flow-row p-3',
       {
         '-basic': ui.category.basic,
         '-explicit': ui.category.explicit,
@@ -11,6 +10,7 @@
       },
       `-${ui.size}`
     ]"
+    :style="collection.marginBottom"
   >
     <template v-for="category in categories">
       <button
@@ -133,6 +133,7 @@ export default class Main extends Vue {
 
 <style lang="sass" scoped>
 .Main
+  margin-top: 4.25rem
   &.-basic .__item.-basic,
   &.-extra .__item.-extra,
   &.-explicit .__item.-explicit,

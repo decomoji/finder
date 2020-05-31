@@ -6,7 +6,8 @@ import {
   ADD_TO_COLLECTION,
   REMOVE_FROM_COLLECTION,
   CLEAR_COLLECTION,
-  RECEIVE_COLLECTION
+  RECEIVE_COLLECTION,
+  UPDATE_HEIGHT
 } from "./mutation-types";
 import { clearArray, replaceArray } from "@/utilities/array";
 import { MutationTree } from "vuex";
@@ -54,5 +55,14 @@ export const mutations: MutationTree<ThisState> = {
     payload: ThisMutationPayloads[typeof RECEIVE_COLLECTION]
   ) {
     replaceArray(state.items, ...payload);
+  },
+
+  /**
+   * コレクションを受領する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_HEIGHT](state, payload: ThisMutationPayloads[typeof UPDATE_HEIGHT]) {
+    state.height = payload;
   }
 };

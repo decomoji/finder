@@ -7,7 +7,8 @@ import {
   ADD_TO_COLLECTION,
   REMOVE_FROM_COLLECTION,
   CLEAR_COLLECTION,
-  RECEIVE_COLLECTION
+  RECEIVE_COLLECTION,
+  UPDATE_HEIGHT
 } from "./mutation-types";
 import {
   VuexActionPayloads,
@@ -17,16 +18,20 @@ import {
 
 export interface CollectionState {
   items: DecomojiCollection;
+  height: CollectionGetters["height"];
 }
 
 export interface CollectionViewModel extends CollectionState {
-  managerList: CollectionGetters["managerList"];
   collectionQueries: CollectionGetters["collectionQueries"];
+  managerList: CollectionGetters["managerList"];
+  marginBottom: CollectionGetters["marginBottom"];
 }
 
 export interface CollectionGetters {
-  managerList: DecomojiManagerList;
   collectionQueries: string;
+  height: number;
+  managerList: DecomojiManagerList;
+  marginBottom: string;
   viewModel: CollectionViewModel;
 }
 
@@ -35,6 +40,7 @@ export type CollectionMutationPayloads = VuexMutationPayloads<{
   [REMOVE_FROM_COLLECTION]: DecomojiCollectionItem;
   [CLEAR_COLLECTION]: void;
   [RECEIVE_COLLECTION]: DecomojiCollection;
+  [UPDATE_HEIGHT]: number;
 }>;
 
 export type CollectionActionPayloads = VuexActionPayloads<{
@@ -42,6 +48,7 @@ export type CollectionActionPayloads = VuexActionPayloads<{
   remove: CollectionMutationPayloads[typeof REMOVE_FROM_COLLECTION];
   clear: CollectionMutationPayloads[typeof CLEAR_COLLECTION];
   receive: CollectionMutationPayloads[typeof RECEIVE_COLLECTION];
+  height: CollectionMutationPayloads[typeof UPDATE_HEIGHT];
 }>;
 
 export type CollectionActions = VuexActions<CollectionActionPayloads>;
