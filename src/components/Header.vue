@@ -84,7 +84,13 @@
           ファイル名の表示
         </label>
         <label class="flex items-baseline">
-          <input type="checkbox" class="mr-2 leading-tight" />
+          <input
+            :value="ui.reacted"
+            :checked="ui.reacted"
+            type="checkbox"
+            class="mr-2 leading-tight"
+            @change="handleClickReacted"
+          />
           リアクション済みのスタイル
         </label>
         <label class="flex items-baseline">
