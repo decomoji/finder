@@ -18,9 +18,7 @@
         v-show="matched(name)"
         :key="`${name}_${category}_${i}`"
         :class="[
-          '__item',
-          'border border-solid border-transparent rounded leading-none text-center',
-          'focus:outline-none',
+          '__item border border-solid border-transparent rounded leading-none text-center focus:outline-none',
           `-${category}`,
           `-${ui.iconSize}`,
           {
@@ -32,7 +30,7 @@
       >
         <img
           :alt="nameShows ? '' : name"
-          :class="`__icon block m-auto w-full -${ui.iconSize}`"
+          :class="['__icon block m-auto w-full', `-${ui.iconSize}`]"
           :src="`/decomoji/${category}/${name}.png`"
           width="64"
         />
@@ -97,19 +95,14 @@ export default class Main extends Vue {
   }
 
   /**
-   * @method - コレクションにおける要素のインデックスを返す
-   */
-  getItemIndex(items: DecomojiCollection, name: string) {
-    return items.findIndex(
-      (item: DecomojiCollectionItem) => item.name === name
-    );
-  }
-
-  /**
    * @method - 要素が選択されているか否かを返す
    */
   collected(name: string) {
-    return this.getItemIndex(this.collection.items, name) > -1;
+    return (
+      this.collection.items.findIndex(
+        (item: DecomojiCollectionItem) => item.name === name
+      ) > -1
+    );
   }
 
   /**
