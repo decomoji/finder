@@ -9,7 +9,7 @@
         '-extra': ui.category.extra,
         '-preview': ui.category.preview
       },
-      `-${ui.iconSize}`
+      `-${ui.size}`
     ]"
   >
     <template v-for="category in categories">
@@ -20,7 +20,7 @@
         :class="[
           '__item hidden border border-solid border-transparent rounded leading-none text-center focus:outline-none',
           `-${category}`,
-          `-${ui.iconSize}`,
+          `-${ui.size}`,
           {
             '-reacted': ui.reacted,
             '-collected': collected(name)
@@ -30,7 +30,7 @@
       >
         <img
           :alt="nameShows ? '' : name"
-          :class="['__icon block m-auto w-full', `-${ui.iconSize}`]"
+          :class="['__icon block m-auto w-full', `-${ui.size}`]"
           :src="`/decomoji/${category}/${name}.png`"
           width="64"
         />
@@ -91,7 +91,7 @@ export default class Main extends Vue {
    * @get - ファイル名を表示するか否かを返す
    */
   get nameShows() {
-    return this.ui.name && this.ui.iconSize === DefaultSize;
+    return this.ui.name && this.ui.size === DefaultSize;
   }
 
   /**

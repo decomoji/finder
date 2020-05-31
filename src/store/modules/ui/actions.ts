@@ -10,8 +10,8 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
-  UPDATE_ICON_SIZE,
-  UPDATE_SEARCH_QUERY
+  UPDATE_SEARCH_QUERY,
+  UPDATE_SIZE
 } from "./mutation-types";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
@@ -75,15 +75,6 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * アイコンサイズを更新する
-   * @param commit
-   * @param payload
-   */
-  updateIconSize({ commit }, payload: ThisActionPayloads["updateIconSize"]) {
-    commit(UPDATE_ICON_SIZE, payload);
-  },
-
-  /**
    * 検索クエリを更新する
    * @param commit
    * @param payload
@@ -93,5 +84,14 @@ export const actions: ActionTree<ThisState, RootState> = {
     payload: ThisActionPayloads["updateSearchQuery"]
   ) {
     commit(UPDATE_SEARCH_QUERY, isStringOfNotEmpty(payload) ? payload : "");
+  },
+
+  /**
+   * アイコンサイズを更新する
+   * @param commit
+   * @param payload
+   */
+  updateSize({ commit }, payload: ThisActionPayloads["updateSize"]) {
+    commit(UPDATE_SIZE, payload);
   }
 };

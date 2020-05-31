@@ -33,11 +33,11 @@
         >
           <input
             :value="size.value"
-            :checked="size.value === ui.iconSize"
+            :checked="size.value === ui.size"
             type="radio"
-            name="iconSize"
+            name="size"
             class="mr-2 leading-tight"
-            @change="handleCangeIconSize(size.value)"
+            @change="handleCangeSize(size.value)"
           />
           {{ size.text }}
         </label>
@@ -76,7 +76,7 @@
           <input
             :value="ui.name"
             :checked="ui.name"
-            :disabled="!defaultIconSizeSelects"
+            :disabled="!isDefaultSize"
             type="checkbox"
             class="mr-2 leading-tight"
             @change="handleClickNameShows"
@@ -138,7 +138,7 @@ export default class Header extends Vue {
   @Action("ui/toggleDarkMode") toggleDarkMode!: UiActions["toggleDarkMode"];
   @Action("ui/toggleNameShows") toggleNameShows!: UiActions["toggleNameShows"];
   @Action("ui/toggleReacted") toggleReacted!: UiActions["toggleReacted"];
-  @Action("ui/updateIconSize") updateIconSize!: UiActions["updateIconSize"];
+  @Action("ui/updateSize") updateSize!: UiActions["updateSize"];
 
   /**
    * 内部プロパティを定義する
@@ -149,8 +149,8 @@ export default class Header extends Vue {
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
    */
-  get defaultIconSizeSelects() {
-    return this.ui.iconSize === DefaultSize;
+  get isDefaultSize() {
+    return this.ui.size === DefaultSize;
   }
 
   /**
@@ -168,12 +168,12 @@ export default class Header extends Vue {
     this.toggleCategory(categoryId);
   }
 
-  handleCangeIconSize(value: IconSizeId) {
-    this.updateIconSize(value);
+  handleCangeSize(value: IconSizeId) {
+    this.updateSize(value);
   }
 
   handleClickNameShows() {
-    if (!this.defaultIconSizeSelects) return;
+    if (!this.isDefaultSize) return;
     this.toggleNameShows(this.ui.name);
   }
 

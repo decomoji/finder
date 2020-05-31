@@ -17,10 +17,10 @@ export const state: () => ThisState = () => ({
   },
   dark: false,
   globalLadingQueue: 0,
-  iconSize: "l",
   name: true,
   reacted: false,
-  searchQuery: ""
+  searchQuery: "",
+  size: "l"
 });
 
 export const storeModule: Module<ThisState, RootState> = {

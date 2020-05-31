@@ -9,8 +9,8 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
-  UPDATE_ICON_SIZE,
-  UPDATE_SEARCH_QUERY
+  UPDATE_SEARCH_QUERY,
+  UPDATE_SIZE
 } from "./mutation-types";
 import { MutationTree } from "vuex";
 
@@ -92,18 +92,6 @@ export const mutations: MutationTree<ThisState> = {
   },
 
   /**
-   * アイコンサイズを更新する
-   * @param state
-   * @param payload
-   */
-  [UPDATE_ICON_SIZE](
-    state,
-    payload: ThisMutationPayloads[typeof UPDATE_ICON_SIZE]
-  ) {
-    state.iconSize = payload;
-  },
-
-  /**
    * 検索クエリを更新する
    * @param state
    * @param payload
@@ -113,5 +101,14 @@ export const mutations: MutationTree<ThisState> = {
     payload: ThisMutationPayloads[typeof UPDATE_SEARCH_QUERY]
   ) {
     state.searchQuery = payload;
+  },
+
+  /**
+   * アイコンサイズを更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_SIZE](state, payload: ThisMutationPayloads[typeof UPDATE_SIZE]) {
+    state.size = payload;
   }
 };
