@@ -133,9 +133,9 @@ export default class Main extends Vue {
 
 <style lang="sass" scoped>
 .Main
-  &.-basic .__item.-basic
-  &.-extra .__item.-extra
-  &.-explicit .__item.-explicit
+  &.-basic .__item.-basic,
+  &.-extra .__item.-extra,
+  &.-explicit .__item.-explicit,
   &.-preview .__item.-preview
     display: block
   &.-l
@@ -149,6 +149,7 @@ export default class Main extends Vue {
     grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
 
   .__item
+    background-color: #f4f4f4
     transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
     &.-l
       padding: 10px
@@ -157,13 +158,13 @@ export default class Main extends Vue {
     &.-s
       padding: 3px
 
-    background-color: #f4f4f4
     &.-reacted
       border-color: #1d89c7
       background-color: #e6f3fa
     &.-collected
       border-color: #727272
       background-color: #ffffff
+
     .-dark &
       background-color: #1a1c20
       &.-reacted
