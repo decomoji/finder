@@ -2,7 +2,7 @@
   <main
     :class="[
       'Main',
-      'grid grid-flow-row overflow-x-hidden',
+      'grid grid-flow-row p-3',
       {
         '-basic': ui.category.basic,
         '-explicit': ui.category.explicit,
@@ -140,30 +140,29 @@ export default class Main extends Vue {
 
 <style lang="sass" scoped>
 .Main
-  padding: 10px
   &.-basic .__item.-basic
   &.-extra .__item.-extra
   &.-explicit .__item.-explicit
   &.-preview .__item.-preview
     display: block
   &.-l
-    gap: 10px
+    @apply .gap-3
     grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
   &.-m
-    gap: 5px
+    @apply .gap-2
     grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
   &.-s
-    gap: 3px
+    @apply .gap-1
     grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
 
   .__item
     transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
     &.-l
-      padding: 10px
+      @apply .p-3
     &.-m
-      padding: 5px
+      @apply .p-2
     &.-s
-      padding: 3px
+      @apply .p-1
 
     background-color: #f4f4f4
     &.-reacted
