@@ -26,17 +26,20 @@
       <div
         class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
       >
-        <label class="flex items-baseline">
-          <input type="radio" name="iconSize" class="mr-2 leading-tight" />
-          64px
-        </label>
-        <label class="flex items-baseline">
-          <input type="radio" name="iconSize" class="mr-2 leading-tight" />
-          32px
-        </label>
-        <label class="flex items-baseline">
-          <input type="radio" name="iconSize" class="mr-2 leading-tight" />
-          16px
+        <label
+          v-for="size in drawerIconSizeList"
+          :key="size.value"
+          class="flex items-baseline"
+        >
+          <input
+            :value="size.value"
+            :checked="size.value === ui.iconSize"
+            type="radio"
+            name="iconSize"
+            class="mr-2 leading-tight"
+            @change="handleCangeIconSize(size.value)"
+          />
+          {{ size.text }}
         </label>
       </div>
     </div>

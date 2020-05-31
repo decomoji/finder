@@ -1,6 +1,6 @@
 import { IconSizeId } from "@/models/IconSizeId";
 
 export interface IconSizeItem {
-  label: string;
+  text: string;
   value: IconSizeId;
 }

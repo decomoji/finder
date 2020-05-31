@@ -2,15 +2,15 @@ import { IconSizeItem } from "@/models/IconSizeItem";
 
 export const DrawerIconSizeList: IconSizeItem[] = [
   {
-    label: "64px",
+    text: "64px",
     value: "l"
   },
   {
-    label: "32px",
+    text: "32px",
     value: "m"
   },
   {
-    label: "16px",
+    text: "16px",
     value: "s"
   }
 ];
