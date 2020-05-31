@@ -1,46 +1,50 @@
 <template>
-  <div class="Content">
-    <div
-      :class="[
-        '__list',
-        {
-          '-basic': ui.category.basic,
-          '-explicit': ui.category.explicit,
-          '-extra': ui.category.extra,
-          '-preview': ui.category.preview
-        },
-        `-${ui.iconSize}`
-      ]"
-    >
-      <template v-for="category in categories">
-        <button
-          v-for="(name, i) in decomojis[category]"
-          v-show="matched(name)"
-          :key="`${name}_${category}_${i}`"
-          :class="[
-            '__item',
-            `-${category}`,
-            `-${ui.iconSize}`,
-            {
-              '-reacted': ui.reacted,
-              '-collected': collected(name)
-            }
-          ]"
-          @click="handleClickItem({ name, category })"
+  <main
+    :class="[
+      'Main',
+      'grid grid-flow-row overflow-x-hidden',
+      {
+        '-basic': ui.category.basic,
+        '-explicit': ui.category.explicit,
+        '-extra': ui.category.extra,
+        '-preview': ui.category.preview
+      },
+      `-${ui.iconSize}`
+    ]"
+  >
+    <template v-for="category in categories">
+      <button
+        v-for="(name, i) in decomojis[category]"
+        v-show="matched(name)"
+        :key="`${name}_${category}_${i}`"
+        :class="[
+          '__item',
+          'border border-solid border-transparent rounded leading-none text-center',
+          'focus:outline-none',
+          `-${category}`,
+          `-${ui.iconSize}`,
+          {
+            '-reacted': ui.reacted,
+            '-collected': collected(name)
+          }
+        ]"
+        @click="handleClickItem({ name, category })"
+      >
+        <img
+          :alt="nameShows ? '' : name"
+          :class="`__icon block m-auto w-full -${ui.iconSize}`"
+          :src="`/decomoji/${category}/${name}.png`"
+          width="64"
+        />
+        <span
+          v-show="nameShows"
+          :aria-label="name"
+          class="block mt-1 leading-tight break-all"
+          >:{{ name }}:</span
         >
-          <img
-            :alt="nameShows ? '' : name"
-            :class="`__icon -${ui.iconSize}`"
-            :src="`/decomoji/${category}/${name}.png`"
-            width="64"
-          />
-          <span v-show="nameShows" :aria-label="name" class="__name"
-            >:{{ name }}:</span
-          >
-        </button>
-      </template>
-    </div>
-  </div>
+      </button>
+    </template>
+  </main>
 </template>
 
 <script lang="ts">
@@ -64,7 +68,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component
-export default class Content extends Vue {
+export default class Main extends Vue {
   // viewModel を引き当てる
   @Getter("ui/viewModel") ui!: UiViewModel;
   @Getter("collection/viewModel") collection!: CollectionViewModel;
@@ -135,33 +139,24 @@ export default class Content extends Vue {
 </script>
 
 <style lang="sass" scoped>
-.Content
-  .__list
-    display: grid
-    grid-auto-rows: auto
-    padding: 10px
-    overflow-x: hidden
-    &.-basic .__item.-basic
-    &.-extra .__item.-extra
-    &.-explicit .__item.-explicit
-    &.-preview .__item.-preview
-      display: block
-    &.-l
-      gap: 10px
-      grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
-    &.-m
-      gap: 5px
-      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
-    &.-s
-      gap: 3px
-      grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
+.Main
+  padding: 10px
+  &.-basic .__item.-basic
+  &.-extra .__item.-extra
+  &.-explicit .__item.-explicit
+  &.-preview .__item.-preview
+    display: block
+  &.-l
+    gap: 10px
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
+  &.-m
+    gap: 5px
+    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
+  &.-s
+    gap: 3px
+    grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
 
   .__item
-    display: none
-    border: 1px solid transparent
-    border-radius: 4px
-    line-height: 1
-    text-align: center
     transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
     &.-l
       padding: 10px
@@ -170,16 +165,14 @@ export default class Content extends Vue {
     &.-s
       padding: 3px
 
-    .theme--light &
-      background-color: #f4f4f4
-      &.-reacted
-        border-color: #1d89c7
-        background-color: #e6f3fa
-      &.-collected
-        border-color: #727272
-        background-color: #ffffff
-        transform: scale3d(0.7,0.7,1)
-    .theme--dark &
+    background-color: #f4f4f4
+    &.-reacted
+      border-color: #1d89c7
+      background-color: #e6f3fa
+    &.-collected
+      border-color: #727272
+      background-color: #ffffff
+    .-dark &
       background-color: #1a1c20
       &.-reacted
         border-color: #135092
@@ -187,29 +180,17 @@ export default class Content extends Vue {
       &.-collected
         border-color: #424242
         background-color: #000000
-        transform: scale3d(0.7,0.7,1)
 
     &:focus
-      outline: 0;
-      .theme--light &
-        box-shadow: inset 0 0 0 4px #adbfca
-      .theme--dark &
-        box-shadow: inset 0 0 0 4px #5c7280
+      box-shadow: 0 0 0 4px #adbfca
+      .-dark &
+        box-shadow: 0 0 0 4px #5c7280
 
   .__icon
-    width: 100%
-    vertical-align: top
     &.-l
       max-width: 64px
     &.-m
       max-width: 32px
     &.-s
       max-width: 16px
-
-  .__name
-    display: block
-    margin-top: 10px
-    margin-bottom: 0
-    line-height: 1.2
-    word-break: break-all
 </style>
