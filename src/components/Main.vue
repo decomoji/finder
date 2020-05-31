@@ -133,7 +133,9 @@ export default class Main extends Vue {
 
 <style lang="sass" scoped>
 .Main
-  margin-top: 4.25rem
+  margin-top: 6.5625rem
+  @media (min-width: 768px)
+    margin-top: 4.25rem
   &.-basic .__item.-basic,
   &.-extra .__item.-extra,
   &.-explicit .__item.-explicit,

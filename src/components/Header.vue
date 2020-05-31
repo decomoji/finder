@@ -1,110 +1,116 @@
 <template>
-  <header class="Header fixed inset-x-0 top-0 flex items-center p-4">
-    <h1>
-      <a class="text-xl text-gray-400" href="/">decomoji-finder</a>
-    </h1>
+  <header
+    class="Header fixed inset-x-0 top-0 md:flex md:items-center p-4 space-y-4 md:space-y-0 md:space-x-8"
+  >
+    <div class="flex items-center space-x-6">
+      <h1>
+        <a class="text-sm sm:text-xl text-gray-400" href="/">decomoji-finder</a>
+      </h1>
 
-    <div class="flex items-center ml-6">
-      <label class="sr-only" for="search">検索する</label>
-      <div class="relative">
-        <input
-          id="search"
-          :value="ui.search"
-          class="__searchInput appearance-none flex-auto rounded p-2 pr-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none"
-          type="text"
-          @input="debounceUpdateSearch($event.target.value)"
-        />
-        <Icon
-          value="search"
-          class="__searchIcon absolute top-0 right-0 mt-2 mr-2 text-gray-400"
-        />
+      <div class="flex-shrink flex items-center">
+        <label class="sr-only" for="search">検索する</label>
+        <div class="relative">
+          <input
+            id="search"
+            :value="ui.search"
+            class="__searchInput appearance-none flex-auto rounded p-2 pr-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none"
+            type="text"
+            @input="debounceUpdateSearch($event.target.value)"
+          />
+          <Icon
+            value="search"
+            class="__searchIcon absolute top-0 right-0 mt-2 mr-2 text-gray-400"
+          />
+        </div>
       </div>
     </div>
 
-    <details class="relative ml-8">
-      <summary class="text-gray-400 text-sm">サイズ</summary>
-      <div
-        class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
-      >
-        <label
-          v-for="size in displaySizeList"
-          :key="size.value"
-          class="flex items-baseline text-gray-400"
+    <div class="flex items-center space-x-8">
+      <details class="relative">
+        <summary class="text-gray-400 text-sm">サイズ</summary>
+        <div
+          class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
         >
-          <input
-            :value="size.value"
-            :checked="size.value === ui.size"
-            type="radio"
-            name="size"
-            class="mr-2 leading-tight"
-            @change="handleCangeSize(size.value)"
-          />
-          {{ size.text }}
-        </label>
-      </div>
-    </details>
+          <label
+            v-for="size in displaySizeList"
+            :key="size.value"
+            class="flex items-baseline text-gray-400"
+          >
+            <input
+              :value="size.value"
+              :checked="size.value === ui.size"
+              type="radio"
+              name="size"
+              class="mr-2 leading-tight"
+              @change="handleCangeSize(size.value)"
+            />
+            {{ size.text }}
+          </label>
+        </div>
+      </details>
 
-    <details class="relative ml-8">
-      <summary class="text-gray-400 text-sm">カテゴリー</summary>
-      <div
-        class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
-      >
-        <label
-          v-for="category in displayCategoryList"
-          :key="category.value"
-          class="flex items-baseline text-gray-400"
+      <details class="relative">
+        <summary class="text-gray-400 text-sm">カテゴリー</summary>
+        <div
+          class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
         >
-          <input
-            :value="category.value"
-            :checked="ui.category[category.value]"
-            type="checkbox"
-            name="category"
-            class="mr-2 leading-tight"
-            @change="handleClickCategory(category.value)"
-          />
-          {{ category.text }}
-        </label>
-      </div>
-    </details>
+          <label
+            v-for="category in displayCategoryList"
+            :key="category.value"
+            class="flex items-baseline text-gray-400"
+          >
+            <input
+              :value="category.value"
+              :checked="ui.category[category.value]"
+              type="checkbox"
+              name="category"
+              class="mr-2 leading-tight"
+              @change="handleClickCategory(category.value)"
+            />
+            {{ category.text }}
+          </label>
+        </div>
+      </details>
 
-    <details class="relative ml-8">
-      <summary class="text-gray-400 text-sm">オプション</summary>
-      <div
-        class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
-      >
-        <label class="flex items-baseline text-gray-400">
-          <input
-            :value="ui.name"
-            :checked="ui.name"
-            :disabled="!isDefaultSize"
-            type="checkbox"
-            class="mr-2 leading-tight"
-            @change="handleClickNameShows"
-          />
-          ファイル名の表示
-        </label>
-        <label class="flex items-baseline text-gray-400">
-          <input
-            :value="ui.reacted"
-            :checked="ui.reacted"
-            type="checkbox"
-            class="mr-2 leading-tight"
-            @change="handleClickReacted"
-          />
-          リアクション済みのスタイル
-        </label>
-        <label class="flex items-baseline text-gray-400">
-          <input
-            :value="ui.dark"
-            :checked="ui.dark"
-            type="checkbox"
-            class="mr-2 leading-tight"
-            @change="handleClickDarkMode"
-          />
-          ダークモード
-        </label>
-      </div>
-    </details>
+      <details class="relative">
+        <summary class="text-gray-400 text-sm">オプション</summary>
+        <div
+          class="__detailsPanel absolute right-0 md:right-auto mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
+        >
+          <label class="flex items-baseline text-gray-400">
+            <input
+              :value="ui.name"
+              :checked="ui.name"
+              :disabled="!isDefaultSize"
+              type="checkbox"
+              class="mr-2 leading-tight"
+              @change="handleClickNameShows"
+            />
+            ファイル名の表示
+          </label>
+          <label class="flex items-baseline text-gray-400">
+            <input
+              :value="ui.reacted"
+              :checked="ui.reacted"
+              type="checkbox"
+              class="mr-2 leading-tight"
+              @change="handleClickReacted"
+            />
+            リアクション済みのスタイル
+          </label>
+          <label class="flex items-baseline text-gray-400">
+            <input
+              :value="ui.dark"
+              :checked="ui.dark"
+              type="checkbox"
+              class="mr-2 leading-tight"
+              @change="handleClickDarkMode"
+            />
+            ダークモード
+          </label>
+        </div>
+      </details>
+    </div>
   </header>
 </template>
 
