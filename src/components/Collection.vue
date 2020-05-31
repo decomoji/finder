@@ -127,6 +127,7 @@ export default class Collection extends Vue {
 
 <style lang="sass" scoped>
 .Collection
+  max-height: 30vh
   background-color: #f4f4f4
   box-shadow: 0 -2px 4px rgba(0,0,0, 0.15), 0 -8px 8px rgba(0,0,0, 0.075)
   .-dark &
