@@ -6,14 +6,19 @@
 
     <div class="flex items-center ml-6">
       <label class="sr-only" for="search">検索する</label>
-      <input
-        id="search"
-        class="__search appearance-none flex-auto rounded p-2 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none"
-        type="text"
-        :value="ui.searchQuery"
-        @input="debounceUpdateSearchQuery($event)"
-      />
-      <Icon value="search" class="ml-2 text-white" />
+      <div class="relative">
+        <input
+          id="search"
+          v-model="ui.searchQuery"
+          class="__searchInput appearance-none flex-auto rounded p-2 pr-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none"
+          type="text"
+          @input="debounceUpdateSearchQuery($event)"
+        />
+        <Icon
+          value="search"
+          class="__searchIcon absolute top-0 right-0 mt-2 mr-2 text-white"
+        />
+      </div>
     </div>
 
     <div class="relative ml-6">
@@ -162,7 +167,9 @@ export default class Header extends Vue {
   .-dark &
     background-color: #0f0e12
 
-  .__search
+  .__searchInput
     &:focus
       box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
+      + .__searchIcon
+        @apply .text-current
 </style>
