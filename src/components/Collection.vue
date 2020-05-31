@@ -4,16 +4,15 @@
     ref="Collection"
     class="Collection fixed inset-x-0 bottom-0 p-4 overflow-y-auto scrolling-touch"
   >
-    <p class="__desc text-base">
+    <p class="__desc text-sm">
       ダブルクリックするか delete キーでコレクションから外せます。
     </p>
-    <div :class="['__list', 'grid grid-flow-row', `-${ui.size}`]">
+    <div :class="['__list grid grid-flow-row mt-4', `-${ui.size}`]">
       <button
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
         :class="[
-          '__item',
-          'p-1 rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
+          '__item p-1 rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
           `-${ui.size}`
         ]"
         @dblclick="removeItem(item)"
@@ -129,6 +128,7 @@ export default class Collection extends Vue {
 <style lang="sass" scoped>
 .Collection
   background-color: #f4f4f4
+  box-shadow: 0 -2px 4px rgba(0,0,0, 0.15), 0 -8px 8px rgba(0,0,0, 0.075)
   .-dark &
     background-color: #1a1c20
 
