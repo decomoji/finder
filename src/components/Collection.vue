@@ -3,24 +3,24 @@
     v-show="shows"
     class="Collection fixed inset-x-0 bottom-0 p-4 overflow-y-auto scrolling-touch"
   >
-    <p class="text-base">
+    <p class="__desc text-base">
       ダブルクリックするか delete キーでコレクションから外せます。
     </p>
-    <div :class="['__list', 'grid grid-flow-row', `-${ui.iconSize}`]">
+    <div :class="['__list', 'grid grid-flow-row', `-${ui.size}`]">
       <button
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
         :class="[
           '__item',
           'p-1 rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
-          `-${ui.iconSize}`
+          `-${ui.size}`
         ]"
         @dblclick="removeItem(item)"
         @keydown.delete="removeItem(item)"
       >
         <img
           :alt="item.name"
-          :class="['__icon block m-auto w-full', `-${ui.iconSize}`]"
+          :class="['__icon m-auto', `-${ui.size}`]"
           :src="`/decomoji/${item.category}/${item.name}.png`"
           width="64"
         />
@@ -115,6 +115,11 @@ export default class Collection extends Vue {
   background-color: #f4f4f4
   .-dark &
     background-color: #1a1c20
+
+  .__desc
+    .-dark &
+      @apply .text-gray-400
+
   .__list
     &.-l
       gap: 10px
@@ -143,9 +148,9 @@ export default class Collection extends Vue {
 
   .__icon
     &.-l
-      max-width: 64px
+      width: 64px
     &.-m
-      max-width: 32px
+      width: 32px
     &.-s
-      max-width: 16px
+      width: 16px
 </style>

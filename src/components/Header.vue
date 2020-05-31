@@ -1,7 +1,7 @@
 <template>
   <header class="Header flex items-center p-4">
     <h1>
-      <a class="text-xl text-white" href="/">decomoji-finder</a>
+      <a class="text-xl text-gray-400" href="/">decomoji-finder</a>
     </h1>
 
     <div class="flex items-center ml-6">
@@ -16,20 +16,20 @@
         />
         <Icon
           value="search"
-          class="__searchIcon absolute top-0 right-0 mt-2 mr-2 text-white"
+          class="__searchIcon absolute top-0 right-0 mt-2 mr-2 text-gray-400"
         />
       </div>
     </div>
 
     <details class="relative ml-8">
-      <summary class="text-white text-sm">サイズ</summary>
+      <summary class="text-gray-400 text-sm">サイズ</summary>
       <div
-        class="absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2 bg-white"
+        class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
       >
         <label
           v-for="size in displaySizeList"
           :key="size.value"
-          class="flex items-baseline"
+          class="flex items-baseline text-gray-400"
         >
           <input
             :value="size.value"
@@ -45,14 +45,14 @@
     </details>
 
     <details class="relative ml-8">
-      <summary class="text-white text-sm">カテゴリー</summary>
+      <summary class="text-gray-400 text-sm">カテゴリー</summary>
       <div
-        class="absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2 bg-white"
+        class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
       >
         <label
           v-for="category in displayCategoryList"
           :key="category.value"
-          class="flex items-baseline"
+          class="flex items-baseline text-gray-400"
         >
           <input
             :value="category.value"
@@ -68,11 +68,11 @@
     </details>
 
     <details class="relative ml-8">
-      <summary class="text-white text-sm">オプション</summary>
+      <summary class="text-gray-400 text-sm">オプション</summary>
       <div
-        class="absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2 bg-white"
+        class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
       >
-        <label class="flex items-baseline">
+        <label class="flex items-baseline text-gray-400">
           <input
             :value="ui.name"
             :checked="ui.name"
@@ -83,7 +83,7 @@
           />
           ファイル名の表示
         </label>
-        <label class="flex items-baseline">
+        <label class="flex items-baseline text-gray-400">
           <input
             :value="ui.reacted"
             :checked="ui.reacted"
@@ -93,7 +93,7 @@
           />
           リアクション済みのスタイル
         </label>
-        <label class="flex items-baseline">
+        <label class="flex items-baseline text-gray-400">
           <input
             :value="ui.dark"
             :checked="ui.dark"
@@ -189,13 +189,18 @@ export default class Header extends Vue {
 </script>
 <style lang="sass" scoped>
 .Header
-  background-color: #290829
+  background-color: #1f061f
   .-dark &
-    background-color: #0f0e12
+    background-color: #0e0d10
 
   .__searchInput
     &:focus
       box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
       + .__searchIcon
         @apply .text-current
+
+  .__detailsPanel
+    background-color: #240726
+    .-dark &
+      background-color: #110f13
 </style>

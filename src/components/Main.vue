@@ -30,14 +30,14 @@
       >
         <img
           :alt="nameShows ? '' : name"
-          :class="['__icon block m-auto w-full', `-${ui.size}`]"
+          :class="['__icon m-auto', `-${ui.size}`]"
           :src="`/decomoji/${category}/${name}.png`"
           width="64"
         />
         <span
           v-show="nameShows"
           :aria-label="name"
-          class="block mt-1 leading-tight break-all"
+          class="__name block mt-1 leading-tight break-all"
           >:{{ name }}:</span
         >
       </button>
@@ -185,4 +185,8 @@ export default class Main extends Vue {
       width: 32px
     &.-s
       width: 16px
+
+  .__name
+    .-dark &
+      @apply .text-gray-400
 </style>
