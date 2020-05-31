@@ -8,17 +8,15 @@
 
 <script lang="ts">
 import Collection from "@/components/Collection.vue";
-import Main from "@/components/Main.vue";
-import Drawer from "@/components/Drawer.vue";
 import Header from "@/components/Header.vue";
+import Main from "@/components/Main.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
     Collection,
-    Main,
-    Drawer,
-    Header
+    Header,
+    Main
   }
 })
 export default class Top extends Vue {
