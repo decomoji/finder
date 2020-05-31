@@ -1,5 +1,5 @@
 <template>
-  <header class="Header flex items-center p-4">
+  <header class="Header fixed inset-x-0 top-0 flex items-center p-4">
     <h1>
       <a class="text-xl text-gray-400" href="/">decomoji-finder</a>
     </h1>
@@ -190,6 +190,7 @@ export default class Header extends Vue {
 <style lang="sass" scoped>
 .Header
   background-color: #1f061f
+  box-shadow: 0 2px 4px rgba(0,0,0, 0.15), 0 8px 8px rgba(0,0,0, 0.075)
   .-dark &
     background-color: #0e0d10
 
