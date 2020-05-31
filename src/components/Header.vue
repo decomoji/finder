@@ -73,7 +73,14 @@
         class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
       >
         <label class="flex items-baseline">
-          <input type="checkbox" class="mr-2 leading-tight" />
+          <input
+            :value="ui.name"
+            :checked="ui.name"
+            :disabled="!defaultIconSizeSelects"
+            type="checkbox"
+            class="mr-2 leading-tight"
+            @change="handleClickNameShows"
+          />
           ファイル名の表示
         </label>
         <label class="flex items-baseline">
