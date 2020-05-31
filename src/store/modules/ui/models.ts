@@ -12,7 +12,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
-  UPDATE_SEARCH_QUERY,
+  UPDATE_SEARCH,
   UPDATE_SIZE
 } from "./mutation-types";
 
@@ -22,7 +22,7 @@ export interface UiState {
   globalLadingQueue: number;
   name: boolean;
   reacted: boolean;
-  searchQuery: string;
+  search: string;
   size: string;
 }
 
@@ -42,7 +42,7 @@ export type UiMutationPayloads = VuexMutationPayloads<{
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_NAME_SHOWS]: boolean;
   [TOGGLE_REACTED]: boolean;
-  [UPDATE_SEARCH_QUERY]: string;
+  [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
 }>;
 
@@ -53,7 +53,7 @@ export type UiActionPayloads = VuexActionPayloads<{
   toggleDarkMode: boolean;
   toggleNameShows: boolean;
   toggleReacted: boolean;
-  updateSearchQuery: string;
+  updateSearch: string;
   updateSize: string;
 }>;
 

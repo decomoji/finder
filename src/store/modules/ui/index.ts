@@ -19,7 +19,7 @@ export const state: () => ThisState = () => ({
   globalLadingQueue: 0,
   name: true,
   reacted: false,
-  searchQuery: "",
+  search: "",
   size: "l"
 });
 

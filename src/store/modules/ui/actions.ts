@@ -10,7 +10,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
-  UPDATE_SEARCH_QUERY,
+  UPDATE_SEARCH,
   UPDATE_SIZE
 } from "./mutation-types";
 import { isStringOfNotEmpty } from "@/utilities/isString";
@@ -79,11 +79,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  updateSearchQuery(
-    { commit },
-    payload: ThisActionPayloads["updateSearchQuery"]
-  ) {
-    commit(UPDATE_SEARCH_QUERY, isStringOfNotEmpty(payload) ? payload : "");
+  updateSearch({ commit }, payload: ThisActionPayloads["updateSearch"]) {
+    commit(UPDATE_SEARCH, isStringOfNotEmpty(payload) ? payload : "");
   },
 
   /**

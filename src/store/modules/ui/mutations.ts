@@ -9,7 +9,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
-  UPDATE_SEARCH_QUERY,
+  UPDATE_SEARCH,
   UPDATE_SIZE
 } from "./mutation-types";
 import { MutationTree } from "vuex";
@@ -96,11 +96,8 @@ export const mutations: MutationTree<ThisState> = {
    * @param state
    * @param payload
    */
-  [UPDATE_SEARCH_QUERY](
-    state,
-    payload: ThisMutationPayloads[typeof UPDATE_SEARCH_QUERY]
-  ) {
-    state.searchQuery = payload;
+  [UPDATE_SEARCH](state, payload: ThisMutationPayloads[typeof UPDATE_SEARCH]) {
+    state.search = payload;
   },
 
   /**

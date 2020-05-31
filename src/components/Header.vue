@@ -9,10 +9,10 @@
       <div class="relative">
         <input
           id="search"
-          v-model="ui.searchQuery"
+          :value="ui.search"
           class="__searchInput appearance-none flex-auto rounded p-2 pr-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none"
           type="text"
-          @input="debounceUpdateSearchQuery($event)"
+          @input="debounceUpdateSearch($event.target.value)"
         />
         <Icon
           value="search"
@@ -132,8 +132,8 @@ export default class Header extends Vue {
   /**
    * アクションを引き当てる
    */
-  @Action("ui/updateSearchQuery")
-  updateSearchQuery!: UiActions["updateSearchQuery"];
+  @Action("ui/updateSearch")
+  updateSearch!: UiActions["updateSearch"];
   @Action("ui/toggleCategory") toggleCategory!: UiActions["toggleCategory"];
   @Action("ui/toggleDarkMode") toggleDarkMode!: UiActions["toggleDarkMode"];
   @Action("ui/toggleNameShows") toggleNameShows!: UiActions["toggleNameShows"];
@@ -145,6 +145,7 @@ export default class Header extends Vue {
    */
   displayCategoryList = DisplayCategoryList;
   displaySizeList = DisplaySizeList;
+  timer: number = 0;
 
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
@@ -156,11 +157,11 @@ export default class Header extends Vue {
   /**
    * @method
    */
-  debounceUpdateSearchQuery(query: string) {
-    let timer;
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      this.updateSearchQuery(query);
+  debounceUpdateSearch(query: string) {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(query);
+      this.updateSearch(query);
     }, 300);
   }
 

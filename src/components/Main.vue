@@ -110,7 +110,7 @@ export default class Main extends Vue {
    */
   matched(name: string) {
     try {
-      return RegExp(this.ui.searchQuery).test(name);
+      return RegExp(this.ui.search).test(name);
     } catch (err) {
       console.log(err);
     }
