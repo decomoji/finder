@@ -49,17 +49,20 @@
       <div
         class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
       >
-        <label class="flex items-baseline">
-          <input type="checkbox" class="mr-2 leading-tight" />
-          Basic
-        </label>
-        <label class="flex items-baseline">
-          <input type="checkbox" class="mr-2 leading-tight" />
-          Extra
-        </label>
-        <label class="flex items-baseline">
-          <input type="checkbox" class="mr-2 leading-tight" />
-          Preview
+        <label
+          v-for="category in drawerCategoryList"
+          :key="category.value"
+          class="flex items-baseline"
+        >
+          <input
+            :value="category.value"
+            :checked="ui.category[category.value]"
+            type="checkbox"
+            name="category"
+            class="mr-2 leading-tight"
+            @change="handleClickCategory(category.value)"
+          />
+          {{ category.text }}
         </label>
       </div>
     </div>

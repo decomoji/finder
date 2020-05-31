@@ -2,19 +2,19 @@ import { CategoryItem } from "@/models/CategoryItem";
 
 export const DrawerCategoryList: CategoryItem[] = [
   {
-    id: "basic",
-    name: "基本セット"
+    text: "基本セット",
+    value: "basic"
   },
   {
-    id: "extra",
-    name: "拡張セット"
+    text: "拡張セット",
+    value: "extra"
   },
   // {
-  //   id: 'explicit',
-  //   name: '危険セット'
+  //   text: '危険セット',
+  //   value: 'explicit'
   // },
   {
-    id: "preview",
-    name: "v5プレビュー"
+    text: "v5プレビュー",
+    value: "preview"
   }
 ];
