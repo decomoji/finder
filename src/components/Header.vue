@@ -166,7 +166,6 @@ export default class Header extends Vue {
   debounceUpdateSearch(query: string) {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      console.log(query);
       this.updateSearch(query);
     }, 300);
   }
