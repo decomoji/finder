@@ -21,10 +21,10 @@
       </div>
     </div>
 
-    <div class="relative ml-6">
-      <p class="text-white text-sm">サイズ</p>
+    <details class="relative ml-8">
+      <summary class="text-white text-sm">サイズ</summary>
       <div
-        class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
+        class="absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2 bg-white"
       >
         <label
           v-for="size in displaySizeList"
@@ -42,12 +42,12 @@
           {{ size.text }}
         </label>
       </div>
-    </div>
+    </details>
 
-    <div class="relative ml-6">
-      <p class="text-white text-sm">カテゴリー</p>
+    <details class="relative ml-8">
+      <summary class="text-white text-sm">カテゴリー</summary>
       <div
-        class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
+        class="absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2 bg-white"
       >
         <label
           v-for="category in displayCategoryList"
@@ -65,12 +65,12 @@
           {{ category.text }}
         </label>
       </div>
-    </div>
+    </details>
 
-    <div class="relative ml-6">
-      <p class="text-white text-sm">オプション</p>
+    <details class="relative ml-8">
+      <summary class="text-white text-sm">オプション</summary>
       <div
-        class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
+        class="absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2 bg-white"
       >
         <label class="flex items-baseline">
           <input
@@ -104,7 +104,7 @@
           ダークモード
         </label>
       </div>
-    </div>
+    </details>
   </header>
 </template>
 
