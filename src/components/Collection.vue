@@ -118,23 +118,22 @@ export default class Collection extends Vue {
     background-color: #1a1c20
   .__list
     &.-l
-      @apply .gap-3
-      grid-template-columns: repeat(auto-fill, minmax(64px, 1fr))
+      gap: 10px
+      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr))
     &.-m
-      @apply .gap-2
-      grid-template-columns: repeat(auto-fill, minmax(32px, 1fr))
+      gap: 5px
+      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
     &.-s
-      @apply .gap-1
-      grid-template-columns: repeat(auto-fill, minmax(16px, 1fr))
+      gap: 3px
+      grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
 
   .__item
+    background-color: #ffffff
     transition: box-shadow 0.03s ease-out
 
     &.-s
-      @apply .p-0
+      padding: 0
 
-    .-light &
-      background-color: #ffffff
     .-dark &
       background-color: #15171a
 

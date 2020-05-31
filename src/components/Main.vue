@@ -139,23 +139,23 @@ export default class Main extends Vue {
   &.-preview .__item.-preview
     display: block
   &.-l
-    @apply .gap-3
+    gap: 10px
     grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
   &.-m
-    @apply .gap-2
+    gap: 5px
     grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
   &.-s
-    @apply .gap-1
+    gap: 3px
     grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
 
   .__item
     transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
     &.-l
-      @apply .p-3
+      padding: 10px
     &.-m
-      @apply .p-2
+      padding: 5px
     &.-s
-      @apply .p-1
+      padding: 3px
 
     background-color: #f4f4f4
     &.-reacted
@@ -180,9 +180,9 @@ export default class Main extends Vue {
 
   .__icon
     &.-l
-      max-width: 64px
+      width: 64px
     &.-m
-      max-width: 32px
+      width: 32px
     &.-s
-      max-width: 16px
+      width: 16px
 </style>
