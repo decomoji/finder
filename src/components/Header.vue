@@ -94,7 +94,13 @@
           リアクション済みのスタイル
         </label>
         <label class="flex items-baseline">
-          <input type="checkbox" class="mr-2 leading-tight" />
+          <input
+            :value="ui.dark"
+            :checked="ui.dark"
+            type="checkbox"
+            class="mr-2 leading-tight"
+            @change="handleClickDarkMode"
+          />
           ダークモード
         </label>
       </div>
@@ -162,10 +168,6 @@ export default class Header extends Vue {
     this.toggleCategory(categoryId);
   }
 
-  handleClickDarkMode() {
-    this.toggleDarkMode(this.ui.dark);
-  }
-
   handleCangeIconSize(value: IconSizeId) {
     this.updateIconSize(value);
   }
@@ -177,6 +179,10 @@ export default class Header extends Vue {
 
   handleClickReacted() {
     this.toggleReacted(this.ui.reacted);
+  }
+
+  handleClickDarkMode() {
+    this.toggleDarkMode(this.ui.dark);
   }
 }
 </script>
