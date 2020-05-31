@@ -27,7 +27,7 @@
         class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
       >
         <label
-          v-for="size in drawerIconSizeList"
+          v-for="size in displaySizeList"
           :key="size.value"
           class="flex items-baseline"
         >
@@ -50,7 +50,7 @@
         class="absolute bg-white bg-opacity-75 rounded py-2 px-3 text-sm whitespace-no-wrap space-y-1"
       >
         <label
-          v-for="category in drawerCategoryList"
+          v-for="category in displayCategoryList"
           :key="category.value"
           class="flex items-baseline"
         >
@@ -91,9 +91,9 @@
 
 <script lang="ts">
 import Icon from "@/components/Icon.vue";
-import { DefaultIconSize } from "@/configs/DefaultIconSize";
-import { DrawerCategoryList } from "@/configs/DrawerCategoryList";
-import { DrawerIconSizeList } from "@/configs/DrawerIconSizeList";
+import { DefaultSize } from "@/configs/DefaultSize";
+import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
+import { DisplaySizeList } from "@/configs/DisplaySizeList";
 import { CategoryId } from "@/models/CategoryId";
 import { IconSizeId } from "@/models/IconSizeId";
 import { IconSizeItem } from "@/models/IconSizeItem";
@@ -124,14 +124,14 @@ export default class Header extends Vue {
   /**
    * 内部プロパティを定義する
    */
-  drawerCategoryList = DrawerCategoryList;
-  drawerIconSizeList = DrawerIconSizeList;
+  displayCategoryList = DisplayCategoryList;
+  displaySizeList = DisplaySizeList;
 
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
    */
   get defaultIconSizeSelects() {
-    return this.ui.iconSize === DefaultIconSize;
+    return this.ui.iconSize === DefaultSize;
   }
 
   /**

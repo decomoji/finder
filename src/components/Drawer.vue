@@ -80,12 +80,12 @@
 </template>
 
 <script lang="ts">
-import { DefaultIconSize } from "@/configs/DefaultIconSize";
+import { DefaultSize } from "@/configs/DefaultSize";
 import { CategoryId } from "@/models/CategoryId";
 import { IconSizeId } from "@/models/IconSizeId";
 import { IconSizeItem } from "@/models/IconSizeItem";
-import { DrawerCategoryList } from "@/configs/DrawerCategoryList";
-import { DrawerIconSizeList } from "@/configs/DrawerIconSizeList";
+import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
+import { DisplaySizeList } from "@/configs/DisplaySizeList";
 import { UiActions, UiViewModel } from "@/store/modules/ui/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
@@ -107,14 +107,14 @@ export default class Drawer extends Vue {
   /**
    * 内部プロパティを定義する
    */
-  drawerCategoryList = DrawerCategoryList;
-  drawerIconSizeList = DrawerIconSizeList;
+  drawerCategoryList = DisplayCategoryList;
+  drawerIconSizeList = DisplaySizeList;
 
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
    */
   get defaultIconSizeSelects() {
-    return this.ui.iconSize === DefaultIconSize;
+    return this.ui.iconSize === DefaultSize;
   }
 
   /**

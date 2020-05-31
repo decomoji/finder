@@ -30,7 +30,6 @@
 </template>
 
 <script lang="ts">
-import { DefaultIconSize } from "@/configs/DefaultIconSize";
 import {
   DecomojiCollection,
   DecomojiCollectionItem

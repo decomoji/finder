@@ -18,7 +18,7 @@
         v-show="matched(name)"
         :key="`${name}_${category}_${i}`"
         :class="[
-          '__item border border-solid border-transparent rounded leading-none text-center focus:outline-none',
+          '__item hidden border border-solid border-transparent rounded leading-none text-center focus:outline-none',
           `-${category}`,
           `-${ui.iconSize}`,
           {
@@ -50,7 +50,7 @@ import { DecomojiBasic } from "@/configs/DecomojiBasic";
 import { DecomojiExplicit } from "@/configs/DecomojiExplicit";
 import { DecomojiExtra } from "@/configs/DecomojiExtra";
 import { DecomojiPreview } from "@/configs/DecomojiPreview";
-import { DefaultIconSize } from "@/configs/DefaultIconSize";
+import { DefaultSize } from "@/configs/DefaultSize";
 import { CategoryId } from "@/models/CategoryId";
 import {
   DecomojiCollection,
@@ -91,7 +91,7 @@ export default class Main extends Vue {
    * @get - ファイル名を表示するか否かを返す
    */
   get nameShows() {
-    return this.ui.name && this.ui.iconSize === DefaultIconSize;
+    return this.ui.name && this.ui.iconSize === DefaultSize;
   }
 
   /**

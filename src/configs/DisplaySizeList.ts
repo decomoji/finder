@@ -1,6 +1,6 @@
 import { IconSizeItem } from "@/models/IconSizeItem";
 
-export const DrawerIconSizeList: IconSizeItem[] = [
+export const DisplaySizeList: IconSizeItem[] = [
   {
     text: "64px",
     value: "l"
