@@ -1,5 +1,5 @@
 <template>
-  <body :dark="ui.dark" class="App font-sans">
+  <body :class="['App font-sans', { '-dark': ui.dark }]">
     <RouterView />
   </body>
 </template>
