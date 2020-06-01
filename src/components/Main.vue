@@ -37,7 +37,7 @@
         <span
           v-show="nameShows"
           :aria-label="name"
-          class="__name block mt-1 leading-tight break-all"
+          class="__name block mt-2 text-sm leading-tight break-all"
           >:{{ name }}:</span
         >
       </button>
