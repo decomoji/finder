@@ -13,13 +13,18 @@
           <input
             id="search"
             :value="ui.search"
-            class="__searchInput appearance-none flex-auto rounded p-2 pr-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none"
+            :class="[
+              '__searchInput appearance-none flex-auto rounded p-2 pl-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none',
+              {
+                '-hasValue': ui.search.length > 0
+              }
+            ]"
             type="text"
             @input="debounceUpdateSearch($event.target.value)"
           />
           <Icon
             value="search"
-            class="__searchIcon absolute top-0 right-0 mt-2 mr-2 text-gray-400"
+            class="__searchIcon absolute top-0 left-0 mt-2 ml-2 text-gray-400"
           />
         </div>
       </div>
@@ -200,10 +205,14 @@ export default class Header extends Vue {
     background-color: #0e0d10
 
   .__searchInput
+    &.-hasValue
+      @apply .text-gray-400
+      &:focus
+        @apply .text-current
     &:focus
       box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
       + .__searchIcon
-        @apply .text-current
+        color: #1f061f
 
   .__detailsPanel
     background-color: #240726
