@@ -4,7 +4,10 @@
   >
     <div class="flex items-center space-x-6">
       <h1 class="flex">
-        <a href="/" tile="decomoji-finder"
+        <a
+          class="Logo rounded-full focus:outline-none"
+          href="/"
+          tile="decomoji-finder"
           ><img
             class="rounded-full"
             src="/assets/images/logo.png"
@@ -40,8 +43,11 @@
     </div>
 
     <div class="flex items-center space-x-8">
-      <details class="relative">
-        <summary class="text-gray-400 text-sm">サイズ</summary>
+      <details class="Tooltip relative">
+        <summary
+          class="__summary rounded-md p-2 text-gray-400 text-sm focus:outline-none"
+          >サイズ</summary
+        >
         <div
           class="__detailsPanel absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
         >
@@ -63,8 +69,11 @@
         </div>
       </details>
 
-      <details class="relative">
-        <summary class="text-gray-400 text-sm">カテゴリー</summary>
+      <details class="Tooltip relative">
+        <summary
+          class="__summary rounded-md p-2 text-gray-400 text-sm focus:outline-none"
+          >カテゴリー</summary
+        >
         <div
           class="__detailsPanel absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
         >
@@ -86,8 +95,11 @@
         </div>
       </details>
 
-      <details class="relative">
-        <summary class="text-gray-400 text-sm">オプション</summary>
+      <details class="Tooltip relative">
+        <summary
+          class="__summary rounded-md p-2 text-gray-400 text-sm focus:outline-none"
+          >オプション</summary
+        >
         <div
           class="__detailsPanel absolute right-0 md:right-auto mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
         >
@@ -225,6 +237,17 @@ export default class Header extends Vue {
 
   .__detailsPanel
     background-color: #240726
+    box-shadow: 0 0 0 4px #240726
     .-dark &
       background-color: #110f13
+      box-shadow: 0 0 0 4px #110f13
+
+.Logo
+  &:focus
+    box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
+
+.Tooltip
+  .__summary
+    &:focus
+      box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
 </style>
