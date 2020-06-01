@@ -12,6 +12,7 @@
     ]"
     :style="collection.marginBottom"
   >
+    <h2 class="sr-only">デコモジ一覧</h2>
     <template v-for="category in categories">
       <button
         v-for="(name, i) in decomojis[category]"
