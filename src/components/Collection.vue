@@ -4,9 +4,12 @@
     ref="Collection"
     class="Collection fixed inset-x-0 bottom-0 p-4 overflow-y-auto scrolling-touch"
   >
-    <p class="__desc text-sm">
-      ダブルクリックするか delete キーでコレクションから外せます。
-    </p>
+    <div class="flex items-baseline space-x-4">
+      <h2 class="__heading">コレクション</h2>
+      <p class="__desc text-gray-800 text-sm">
+        ダブルクリックするか delete キーでコレクションから外せます
+      </p>
+    </div>
     <div :class="['__list grid grid-flow-row mt-4', `-${ui.size}`]">
       <button
         v-for="(item, i) in collection.items"
@@ -132,6 +135,10 @@ export default class Collection extends Vue {
   box-shadow: 0 -2px 4px rgba(0,0,0, 0.15), 0 -8px 8px rgba(0,0,0, 0.075)
   .-dark &
     background-color: #1a1c20
+
+  .__heading
+    .-dark &
+      @apply .text-gray-400
 
   .__desc
     .-dark &
