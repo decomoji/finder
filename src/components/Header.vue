@@ -3,8 +3,17 @@
     class="Header fixed inset-x-0 top-0 md:flex md:items-center p-4 space-y-4 md:space-y-0 md:space-x-8"
   >
     <div class="flex items-center space-x-6">
-      <h1>
-        <a class="text-sm sm:text-xl text-gray-400" href="/">decomoji-finder</a>
+      <h1 class="flex">
+        <a href="/" tile="decomoji-finder"
+          ><img
+            class="rounded-full"
+            src="/assets/images/logo.png"
+            width="32"
+            alt="デコモジロゴ"
+        /></a>
+        <span class="sr-only ml-4 text-sm sm:text-xl text-gray-400"
+          >decomoji-finder</span
+        >
       </h1>
 
       <div class="flex-shrink flex items-center">
