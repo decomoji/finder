@@ -1,5 +1,5 @@
 <template>
-  <body :class="['App font-sans', { '-dark': ui.dark }]">
+  <body :class="['App', { '-dark': ui.dark }]">
     <RouterView />
   </body>
 </template>
@@ -24,6 +24,7 @@ export default class App extends Vue {
 </script>
 <style lang="sass" scoped>
 .App
+  font-family: 'Noto Sans JP', sans-serif
   &.-dark
     background-color: #15171a
 </style>
