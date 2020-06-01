@@ -18,7 +18,7 @@
         v-show="matched(name)"
         :key="`${name}_${category}_${i}`"
         :class="[
-          '__item hidden border border-solid border-transparent rounded leading-none text-center focus:outline-none',
+          '__item hidden border border-solid border-transparent rounded-md leading-none text-center focus:outline-none',
           `-${category}`,
           `-${ui.size}`,
           {

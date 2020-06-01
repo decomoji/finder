@@ -23,7 +23,7 @@
             id="search"
             :value="ui.search"
             :class="[
-              '__searchInput appearance-none flex-auto rounded p-2 pl-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none',
+              '__searchInput appearance-none flex-auto rounded-md p-2 pl-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none',
               {
                 '-hasValue': ui.search.length > 0
               }
@@ -43,7 +43,7 @@
       <details class="relative">
         <summary class="text-gray-400 text-sm">サイズ</summary>
         <div
-          class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
+          class="__detailsPanel absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
         >
           <label
             v-for="size in displaySizeList"
@@ -66,7 +66,7 @@
       <details class="relative">
         <summary class="text-gray-400 text-sm">カテゴリー</summary>
         <div
-          class="__detailsPanel absolute mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
+          class="__detailsPanel absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
         >
           <label
             v-for="category in displayCategoryList"
@@ -89,7 +89,7 @@
       <details class="relative">
         <summary class="text-gray-400 text-sm">オプション</summary>
         <div
-          class="__detailsPanel absolute right-0 md:right-auto mt-2 py-2 px-3 rounded text-sm whitespace-no-wrap space-y-2"
+          class="__detailsPanel absolute right-0 md:right-auto mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
         >
           <label class="flex items-baseline text-gray-400">
             <input
