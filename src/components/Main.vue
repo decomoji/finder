@@ -19,14 +19,18 @@
         :class="[
           'border border-solid border-transparent rounded-md leading-none text-center focus:outline-none',
           {
-            'border-shade-400 bg-shade-100': collected(name) && !ui.dark,
-            'border-shade-600 bg-shade-1000': collected(name) && ui.dark,
+            'border-shade-400 bg-shade-100':
+              collected({ name, category }) && !ui.dark,
+            'border-shade-600 bg-shade-1000':
+              collected({ name, category }) && ui.dark,
             'border-sea-500 bg-sea-200':
-              !collected(name) && ui.reacted && !ui.dark,
+              !collected({ name, category }) && ui.reacted && !ui.dark,
             'border-sea-800 bg-sea-800':
-              !collected(name) && ui.reacted && ui.dark,
-            'bg-shade-200': !collected(name) && !ui.reacted && !ui.dark,
-            'bg-shade-800': !collected(name) && !ui.reacted && ui.dark,
+              !collected({ name, category }) && ui.reacted && ui.dark,
+            'bg-shade-200':
+              !collected({ name, category }) && !ui.reacted && !ui.dark,
+            'bg-shade-800':
+              !collected({ name, category }) && !ui.reacted && ui.dark,
             'focus:shadow-danube-200': !ui.dark,
             'focus:shadow-danube-600': ui.dark,
             'p-10px': ui.size === 'l',
@@ -117,10 +121,11 @@ export default class Main extends Vue {
   /**
    * @method - 要素が選択されているか否かを返す
    */
-  collected(name: string) {
+  collected(item: DecomojiCollectionItem) {
     return (
       this.collection.items.findIndex(
-        (item: DecomojiCollectionItem) => item.name === name
+        (colleted: DecomojiCollectionItem) =>
+          colleted.name === item.name && colleted.category === item.category
       ) > -1
     );
   }
@@ -163,7 +168,7 @@ export default class Main extends Vue {
    * @method - 要素をクリックした時
    */
   handleClickItem(item: DecomojiCollectionItem) {
-    this.collected(item.name) ? this.remove(item) : this.add(item);
+    this.collected(item) ? this.remove(item) : this.add(item);
 
     window.history.replaceState(
       {},
