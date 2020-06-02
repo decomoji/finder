@@ -1,32 +1,29 @@
 <template>
-  <VApp :dark="ui.dark" class="App">
-    <RouterView role="main" class="mb-4" />
-    <GlobalLoading v-if="ui.hasGlobalLoadingQueue" />
-  </VApp>
+  <body
+    :class="[
+      'App',
+      'font-noto-sans-jp',
+      {
+        'bg-shade-100': !ui.dark,
+        'bg-shade-900': ui.dark
+      }
+    ]"
+  >
+    <RouterView />
+  </body>
 </template>
 
 <script lang="ts">
-import GlobalLoading from '@/components/GlobalLoading.vue'
-import { UiActions, UiViewModel } from '@/store/modules/ui/models'
-import { Component, Vue } from 'vue-property-decorator'
-import { Action, Getter } from 'vuex-class'
+import { UiActions, UiViewModel } from "@/store/modules/ui/models";
+import { Component, Vue } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
-@Component({
-  components: {
-    GlobalLoading
-  }
-})
+@Component
 export default class App extends Vue {
-  // viewModel を引き当てる
-  @Getter('ui/viewModel') ui!: UiViewModel
-
   /**
-   * アクションを引き当てる
+   * UIストアの viewModel を引き当てる
    */
-  @Action('ui/decrementGlobalLoadingQueue')
-  decrementGlobalLoadingQueue!: UiActions['decrementGlobalLoadingQueue']
-  @Action('ui/incrementGlobalLoadingQueue')
-  incrementGlobalLoadingQueue!: UiActions['incrementGlobalLoadingQueue']
+  @Getter("ui/viewModel") ui!: UiViewModel;
 
   /**
    * @lifecycles
@@ -34,10 +31,3 @@ export default class App extends Vue {
   created() {}
 }
 </script>
-<style lang="stylus" scoped>
-.App
-  &.theme--light
-    background-color: #ffffff
-  &.theme--dark
-    background-color: #15171a
-</style>

@@ -3,5 +3,5 @@
  * @param val
  */
 export function getObjectClassName(val: any) {
-  return Object.prototype.toString.call(val)
+  return Object.prototype.toString.call(val);
 }

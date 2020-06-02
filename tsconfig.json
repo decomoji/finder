@@ -13,8 +13,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest",
-      "vuetify"
+      "jest"
     ],
     "paths": {
       "@/*": [

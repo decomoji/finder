@@ -1,4 +1,4 @@
-type State = { [K: string]: any }
+type State = { [K: string]: any };
 
 /**
  * 直属のステートを取り出す
@@ -9,12 +9,12 @@ export function pickState<T extends State>(
   defaultState: () => T,
   actualState: T
 ) {
-  const state = defaultState()
+  const state = defaultState();
 
   Object.keys(state).reduce((memo: T, key: keyof T) => {
-    memo[key] = actualState[key]
-    return memo
-  }, state)
+    memo[key] = actualState[key];
+    return memo;
+  }, state);
 
-  return state
+  return state;
 }

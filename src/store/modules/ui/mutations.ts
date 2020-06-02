@@ -1,7 +1,7 @@
 import {
   UiMutationPayloads as ThisMutationPayloads,
   UiState as ThisState
-} from './models'
+} from "./models";
 import {
   DECREMENT_GLOBAL_LOADING_QUEUE,
   INCREMENT_GLOBAL_LOADING_QUEUE,
@@ -9,10 +9,10 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
-  UPDATE_ICON_SIZE,
-  UPDATE_SEARCH_QUERY
-} from './mutation-types'
-import { MutationTree } from 'vuex'
+  UPDATE_SEARCH,
+  UPDATE_SIZE
+} from "./mutation-types";
+import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<ThisState> = {
   /**
@@ -25,13 +25,13 @@ export const mutations: MutationTree<ThisState> = {
     length: ThisMutationPayloads[typeof DECREMENT_GLOBAL_LOADING_QUEUE] = 1
   ) {
     if (length <= 0) {
-      return
+      return;
     }
 
     state.globalLadingQueue = Math.max(
       0,
       state.globalLadingQueue - Math.ceil(length)
-    )
+    );
   },
 
   /**
@@ -44,10 +44,10 @@ export const mutations: MutationTree<ThisState> = {
     length: ThisMutationPayloads[typeof INCREMENT_GLOBAL_LOADING_QUEUE] = 1
   ) {
     if (length <= 0) {
-      return
+      return;
     }
 
-    state.globalLadingQueue = state.globalLadingQueue + Math.ceil(length)
+    state.globalLadingQueue = state.globalLadingQueue + Math.ceil(length);
   },
 
   /**
@@ -64,7 +64,7 @@ export const mutations: MutationTree<ThisState> = {
       ...{
         [payload]: !state.category[payload]
       }
-    }
+    };
   },
 
   /**
@@ -72,7 +72,7 @@ export const mutations: MutationTree<ThisState> = {
    * @param state
    */
   [TOGGLE_DARK_MODE](state) {
-    state.dark = !state.dark
+    state.dark = !state.dark;
   },
 
   /**
@@ -80,7 +80,7 @@ export const mutations: MutationTree<ThisState> = {
    * @param state
    */
   [TOGGLE_NAME_SHOWS](state) {
-    state.name = !state.name
+    state.name = !state.name;
   },
 
   /**
@@ -88,19 +88,7 @@ export const mutations: MutationTree<ThisState> = {
    * @param state
    */
   [TOGGLE_REACTED](state) {
-    state.reacted = !state.reacted
-  },
-
-  /**
-   * アイコンサイズを更新する
-   * @param state
-   * @param payload
-   */
-  [UPDATE_ICON_SIZE](
-    state,
-    payload: ThisMutationPayloads[typeof UPDATE_ICON_SIZE]
-  ) {
-    state.iconSize = payload
+    state.reacted = !state.reacted;
   },
 
   /**
@@ -108,10 +96,16 @@ export const mutations: MutationTree<ThisState> = {
    * @param state
    * @param payload
    */
-  [UPDATE_SEARCH_QUERY](
-    state,
-    payload: ThisMutationPayloads[typeof UPDATE_SEARCH_QUERY]
-  ) {
-    state.searchQuery = payload
+  [UPDATE_SEARCH](state, payload: ThisMutationPayloads[typeof UPDATE_SEARCH]) {
+    state.search = payload;
+  },
+
+  /**
+   * アイコンサイズを更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_SIZE](state, payload: ThisMutationPayloads[typeof UPDATE_SIZE]) {
+    state.size = payload;
   }
-}
+};

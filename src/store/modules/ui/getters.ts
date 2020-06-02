@@ -1,6 +1,6 @@
-import { RootState } from '@/store/models'
-import { UiGetters as ThisGetter, UiState as ThisState } from './models'
-import { GetterTree } from 'vuex'
+import { RootState } from "@/store/models";
+import { UiGetters as ThisGetter, UiState as ThisState } from "./models";
+import { GetterTree } from "vuex";
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
@@ -17,8 +17,8 @@ export const getters: GetterTree<ThisState, RootState> = {
   viewModel: (
     state,
     { hasGlobalLoadingQueue }: ThisGetter
-  ): ThisGetter['viewModel'] => ({
+  ): ThisGetter["viewModel"] => ({
     ...state,
     hasGlobalLoadingQueue
   })
-}
+};

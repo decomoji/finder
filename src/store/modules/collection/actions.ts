@@ -1,15 +1,16 @@
-import { RootState } from '@/store/models'
+import { RootState } from "@/store/models";
 import {
   CollectionActionPayloads as ThisActionPayloads,
   CollectionState as ThisState
-} from './models'
+} from "./models";
 import {
   ADD_TO_COLLECTION,
   REMOVE_FROM_COLLECTION,
   CLEAR_COLLECTION,
-  RECEIVE_COLLECTION
-} from './mutation-types'
-import { ActionTree } from 'vuex'
+  RECEIVE_COLLECTION,
+  UPDATE_HEIGHT
+} from "./mutation-types";
+import { ActionTree } from "vuex";
 
 export const actions: ActionTree<ThisState, RootState> = {
   /**
@@ -17,8 +18,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  add({ commit }, payload: ThisActionPayloads['add']) {
-    commit(ADD_TO_COLLECTION, payload)
+  add({ commit }, payload: ThisActionPayloads["add"]) {
+    commit(ADD_TO_COLLECTION, payload);
   },
 
   /**
@@ -26,8 +27,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  remove({ commit }, payload: ThisActionPayloads['remove']) {
-    commit(REMOVE_FROM_COLLECTION, payload)
+  remove({ commit }, payload: ThisActionPayloads["remove"]) {
+    commit(REMOVE_FROM_COLLECTION, payload);
   },
 
   /**
@@ -36,7 +37,7 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param payload
    */
   clear({ commit }) {
-    commit(CLEAR_COLLECTION)
+    commit(CLEAR_COLLECTION);
   },
 
   /**
@@ -44,7 +45,16 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  receive({ commit }, payload: ThisActionPayloads['receive']) {
-    commit(RECEIVE_COLLECTION, payload)
+  receive({ commit }, payload: ThisActionPayloads["receive"]) {
+    commit(RECEIVE_COLLECTION, payload);
+  },
+
+  /**
+   * 選択済みデコモジリストコンテナの高さを更新する
+   * @param commit
+   * @param payload
+   */
+  height({ commit }, payload: ThisActionPayloads["height"]) {
+    commit(UPDATE_HEIGHT, payload);
   }
-}
+};

@@ -1,1 +1,1 @@
-export type DecomojiItem = string
+export type DecomojiItem = string;

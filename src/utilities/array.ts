@@ -4,14 +4,14 @@
  * - some
  * @param val
  */
-const iteratorForEveryOrSome = (val: any) => Boolean(val)
+const iteratorForEveryOrSome = (val: any) => Boolean(val);
 
 /**
  * 配列の中身を全て消去する
  * @param array
  */
 export function clearArray<T = any>(array: T[]) {
-  return replaceArray(array)
+  return replaceArray(array);
 }
 
 /**
@@ -20,7 +20,7 @@ export function clearArray<T = any>(array: T[]) {
  * @param iterator
  */
 export function every<T = any>(array: T[], iterator = iteratorForEveryOrSome) {
-  return array.every(iterator)
+  return array.every(iterator);
 }
 
 /**
@@ -28,7 +28,7 @@ export function every<T = any>(array: T[], iterator = iteratorForEveryOrSome) {
  * @param array
  */
 export function getLastOfArray<T = any>(array: T[]) {
-  return array[array.length - 1]
+  return array[array.length - 1];
 }
 
 /**
@@ -37,7 +37,7 @@ export function getLastOfArray<T = any>(array: T[]) {
  * @param items
  */
 export function replaceArray<T = any>(array: T[], ...items: T[]) {
-  return array.splice(0, array.length, ...items)
+  return array.splice(0, array.length, ...items);
 }
 
 /**
@@ -46,5 +46,5 @@ export function replaceArray<T = any>(array: T[], ...items: T[]) {
  * @param iterator
  */
 export function some<T = any>(array: T[], iterator = iteratorForEveryOrSome) {
-  return array.some(iterator)
+  return array.some(iterator);
 }
