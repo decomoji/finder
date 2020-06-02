@@ -16,11 +16,10 @@
     <template v-for="category in categories">
       <button
         v-for="(name, i) in decomojis[category]"
-        v-show="matched(name)"
+        v-show="matched(name, category)"
         :key="`${name}_${category}_${i}`"
         :class="[
-          '__item hidden border border-solid border-transparent rounded-md leading-none text-center focus:outline-none',
-          `-${category}`,
+          '__item border border-solid border-transparent rounded-md leading-none text-center focus:outline-none bg-item-light item-transition',
           `-${ui.size}`,
           {
             '-reacted': ui.reacted,
@@ -109,12 +108,25 @@ export default class Main extends Vue {
   /**
    * @method - 要素が検索クエリを正規表現にマッチするか否かを返す
    */
-  matched(name: string) {
+  nameMatched(name: string) {
     try {
       return RegExp(this.ui.search).test(name);
     } catch (err) {
       throw err;
     }
+  }
+
+  /**
+   * @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
+   */
+  categoryMatched(category: CategoryId) {
+    const { basic, extra, explicit, preview } = this.ui.category;
+    return (
+      (basic && category === "basic") ||
+      (explicit && category === "explicit") ||
+      (extra && category === "extra") ||
+      (preview && category === "preview")
+    );
   }
 
   /**
@@ -137,11 +149,6 @@ export default class Main extends Vue {
   margin-top: 6.5625rem
   @media (min-width: 768px)
     margin-top: 4.25rem
-  &.-basic .__item.-basic,
-  &.-extra .__item.-extra,
-  &.-explicit .__item.-explicit,
-  &.-preview .__item.-preview
-    display: block
   &.-l
     gap: 10px
     grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
