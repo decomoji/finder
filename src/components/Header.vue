@@ -1,17 +1,17 @@
 <template>
   <header
     :class="[
-      'fixed inset-x-0 top-0 md:flex md:items-center p-3 pb-1 md:p-4 space-y-1 md:space-y-0 md:space-x-6 shadow-header',
+      'fixed inset-x-0 top-0 md:flex md:items-center p-3 pb-1 md:p-4 space-y-1 md:space-y-0 md:space-x-6 shadow-bottom',
       {
-        'bg-header-light': !ui.dark,
-        'bg-header-dark': ui.dark
+        'bg-aubergine-900': !ui.dark,
+        'bg-night-900': ui.dark
       }
     ]"
   >
     <div class="md:w-1/2 flex items-center space-x-3 md:space-x-6">
       <h1 class="flex flex-shrink-0">
         <a
-          class="Logo rounded-full focus:outline-none focus:shadow-outline"
+          class="Logo rounded-full focus:outline-none focus:shadow-shade-100-op50"
           href="/"
           tile="デコモジファインダー"
           ><img
@@ -29,7 +29,7 @@
           <input
             id="search"
             :value="ui.search"
-            class="appearance-none rounded-md p-2 pl-10 w-full text-gray-300 leading-tight bg-white bg-opacity-25 focus:text-current focus:bg-white focus:outline-none focus:shadow-outline"
+            class="appearance-none rounded-md p-2 pl-10 w-full text-gray-300 leading-tight bg-white bg-opacity-25 focus:text-current focus:bg-white focus:outline-none focus:shadow-shade-100-op50"
             type="text"
             @input="debounceUpdateSearch($event.target.value)"
           />
@@ -43,15 +43,15 @@
     >
       <details class="relative">
         <summary
-          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-outline"
+          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-shade-100-op50"
           >サイズ</summary
         >
         <div
           :class="[
-            'absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2',
+            'absolute mt-2 py-4 px-5 rounded-md text-sm whitespace-no-wrap space-y-2',
             {
-              'bg-panel-light shadow-outline-panel-light': !ui.dark,
-              'bg-panel-dark shadow-outline-panel-dark': ui.dark
+              'bg-aubergine-800': !ui.dark,
+              'bg-night-800': ui.dark
             }
           ]"
         >
@@ -75,15 +75,15 @@
 
       <details class="relative">
         <summary
-          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-outline"
+          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-shade-100-op50"
           >カテゴリー</summary
         >
         <div
           :class="[
-            'absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2',
+            'absolute mt-2 py-4 px-5 rounded-md text-sm whitespace-no-wrap space-y-2',
             {
-              'bg-panel-light shadow-outline-panel-light': !ui.dark,
-              'bg-panel-dark shadow-outline-panel-dark': ui.dark
+              'bg-aubergine-800': !ui.dark,
+              'bg-night-800': ui.dark
             }
           ]"
         >
@@ -107,15 +107,15 @@
 
       <details class="relative">
         <summary
-          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-outline"
+          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-shade-100-op50"
           >オプション</summary
         >
         <div
           :class="[
-            'absolute right-0 mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2',
+            'absolute right-0 mt-2 py-4 px-5 rounded-md text-sm whitespace-no-wrap space-y-2',
             {
-              'bg-panel-light shadow-outline-panel-light': !ui.dark,
-              'bg-panel-dark shadow-outline-panel-dark': ui.dark
+              'bg-aubergine-800': !ui.dark,
+              'bg-night-800': ui.dark
             }
           ]"
         >

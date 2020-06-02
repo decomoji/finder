@@ -5,39 +5,45 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        body: {
-          light: "#ffffff",
-          dark: "#15171a"
+        // Slack のデフォルトテーマの紫
+        aubergine: {
+          800: "#240726",
+          900: "#1f061f"
         },
-        header: {
-          light: "#1f061f",
-          dark: "#0e0d10"
+        // くすんだブルー
+        danube: {
+          200: "#adbfca",
+          600: "#5c7280"
         },
-        panel: {
-          light: "#240726",
-          dark: "#110f13"
+        // 黒そうで黒くない、少しだけ青い黒
+        night: {
+          800: "#110f13",
+          900: "#0e0d10"
         },
-        item: {
-          light: "#f4f4f4",
-          dark: "#1a1c20"
+        // Slackで自分がリアクションしたときの青
+        sea: {
+          200: "#e6f3fa",
+          500: "#1d89c7",
+          800: "#135092"
         },
-        reacted: {
-          light: "#e6f3fa",
-          medium: "#1d89c7",
-          dark: "#135092"
-        },
-        "collected-border": {
-          light: "#727272",
-          dark: "#424242"
+        // 無彩色系
+        shade: {
+          100: "#ffffff",
+          200: "#f4f4f4",
+          400: "#727272",
+          600: "#424242",
+          800: "#1a1c20",
+          900: "#15171a",
+          1000: "#000000"
         }
       },
       fontFamily: {
         "noto-sans-jp": ['"Noto Sans JP"', "sans-serif"]
       },
       spacing: {
-        "header-high": "5.8125rem",
-        "header-low": "4.25rem",
-        collection: "30vh",
+        23: "5.8125rem",
+        17: "4.25rem",
+        "30vh": "30vh",
         "3px": "3px",
         "5px": "5px",
         "10px": "10px",
@@ -54,30 +60,21 @@ module.exports = {
   plugins: [
     plugin(function({ addUtilities, variants }) {
       const newUtilities = {
-        ".shadow-outline": {
+        ".shadow-shade-100-op50": {
           boxShadow: "0 0 0 4px rgba(255,255,255, 0.5)"
         },
-        ".shadow-outline-panel-light": {
-          boxShadow: "0 0 0 4px #240726"
-        },
-        ".shadow-outline-panel-dark": {
-          boxShadow: "0 0 0 4px #110f13"
-        },
-        ".shadow-outline-item-light": {
+        ".shadow-danube-200": {
           boxShadow: "0 0 0 4px #adbfca"
         },
-        ".shadow-outline-item-dark": {
+        ".shadow-danube-600": {
           boxShadow: "0 0 0 4px #5c7280"
         },
-        ".shadow-header": {
+        ".shadow-bottom": {
           boxShadow: "0 2px 4px rgba(0,0,0, 0.15), 0 8px 8px rgba(0,0,0, 0.075)"
         },
-        ".shadow-footer": {
+        ".shadow-top": {
           boxShadow:
             "0 -2px 4px rgba(0,0,0, 0.15), 0 -8px 8px rgba(0,0,0, 0.075)"
-        },
-        ".item-transition": {
-          transition: "box-shadow 0.03s ease-out"
         },
         ".grid-template-columns-xl": {
           gridTemplateColumns: "repeat(auto-fill, minmax(128px, 1fr))"

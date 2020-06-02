@@ -3,10 +3,10 @@
     v-show="shows"
     ref="Collection"
     :class="[
-      'fixed inset-x-0 bottom-0 p-4 max-h-collection overflow-y-auto scrolling-touch shadow-footer',
+      'fixed inset-x-0 bottom-0 p-4 max-h-30vh overflow-y-auto scrolling-touch shadow-top',
       {
-        'bg-item-light': !ui.dark,
-        'bg-item-dark': ui.dark
+        'bg-shade-200': !ui.dark,
+        'bg-shade-800': ui.dark
       }
     ]"
   >
@@ -49,8 +49,8 @@
           'rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
           {
             'p-1': ui.size !== 's',
-            'bg-white focus:shadow-outline-gray-light': !ui.dark,
-            'bg-black focus:shadow-outline-gray-dark': ui.dark
+            'bg-shade-100 focus:shadow-danube-200': !ui.dark,
+            'bg-shade-1000 focus:shadow-danube-600': ui.dark
           }
         ]"
         @dblclick="removeItem(item)"

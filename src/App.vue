@@ -4,8 +4,8 @@
       'App',
       'font-noto-sans-jp',
       {
-        'bg-body-ligth': !ui.dark,
-        'bg-body-dark': ui.dark
+        'bg-shade-100': !ui.dark,
+        'bg-shade-900': ui.dark
       }
     ]"
   >

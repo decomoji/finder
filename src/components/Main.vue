@@ -1,7 +1,7 @@
 <template>
   <main
     :class="[
-      'grid grid-flow-row mt-header-high md:mt-header-low p-3',
+      'grid grid-flow-row mt-23 md:mt-17 p-3',
       {
         'gap-10px grid-template-columns-xl': ui.size === 'l',
         'gap-5px grid-template-columns-m': ui.size === 'm',
@@ -19,15 +19,16 @@
         :class="[
           'border border-solid border-transparent rounded-md leading-none text-center focus:outline-none',
           {
-            'focus:shadow-outline-item-light': !ui.dark,
-            'focus:shadow-outline-item-dark': ui.dark,
-            'border-reacted-medium bg-reacted-light': ui.reacted && !ui.dark,
-            'border-reacted-dark bg-reacted-dark': ui.reacted && ui.dark,
-            'border-collected-border-light bg-white':
-              collected(name) && !ui.dark,
-            'border-collected-border-dark bg-black': collected(name) && ui.dark,
-            'bg-item-light': !collected(name) && !ui.dark,
-            'bg-item-dark': !collected(name) && ui.dark,
+            'border-shade-400 bg-shade-100': collected(name) && !ui.dark,
+            'border-shade-600 bg-shade-1000': collected(name) && ui.dark,
+            'border-sea-500 bg-sea-200':
+              !collected(name) && ui.reacted && !ui.dark,
+            'border-sea-800 bg-sea-800':
+              !collected(name) && ui.reacted && ui.dark,
+            'bg-shade-200': !collected(name) && !ui.reacted && !ui.dark,
+            'bg-shade-800': !collected(name) && !ui.reacted && ui.dark,
+            'focus:shadow-danube-200': !ui.dark,
+            'focus:shadow-danube-600': ui.dark,
             'p-10px': ui.size === 'l',
             'p-5px': ui.size === 'm',
             'p-3px': ui.size === 's'
