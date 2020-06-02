@@ -1,14 +1,12 @@
 <template>
   <main
     :class="[
-      'Main grid grid-flow-row p-3',
+      'grid grid-flow-row mt-header-high md:mt-header-low p-3',
       {
-        '-basic': ui.category.basic,
-        '-explicit': ui.category.explicit,
-        '-extra': ui.category.extra,
-        '-preview': ui.category.preview
-      },
-      `-${ui.size}`
+        'gap-10px grid-template-columns-xl': ui.size === 'l',
+        'gap-5px grid-template-columns-m': ui.size === 'm',
+        'gap-3px grid-template-columns-s': ui.size === 's'
+      }
     ]"
     :style="collection.marginBottom"
   >
@@ -19,25 +17,46 @@
         v-show="matched(name, category)"
         :key="`${name}_${category}_${i}`"
         :class="[
-          '__item border border-solid border-transparent rounded-md leading-none text-center focus:outline-none bg-item-light item-transition',
-          `-${ui.size}`,
+          'border border-solid border-transparent rounded-md leading-none text-center focus:outline-none',
           {
-            '-reacted': ui.reacted,
-            '-collected': collected(name)
+            'focus:shadow-outline-item-light': !ui.dark,
+            'focus:shadow-outline-item-dark': ui.dark,
+            'border-reacted-medium bg-reacted-light': ui.reacted && !ui.dark,
+            'border-reacted-dark bg-reacted-dark': ui.reacted && ui.dark,
+            'border-collected-border-light bg-white':
+              collected(name) && !ui.dark,
+            'border-collected-border-dark bg-black': collected(name) && ui.dark,
+            'bg-item-light': !collected(name) && !ui.dark,
+            'bg-item-dark': !collected(name) && ui.dark,
+            'p-10px': ui.size === 'l',
+            'p-5px': ui.size === 'm',
+            'p-3px': ui.size === 's'
           }
         ]"
         @click="handleClickItem({ name, category })"
       >
         <img
           :alt="nameShows ? '' : name"
-          :class="['__icon m-auto', `-${ui.size}`]"
+          :class="[
+            'm-auto',
+            {
+              'w-64px': ui.size === 'l',
+              'w-32px': ui.size === 'm',
+              'w-16px': ui.size === 's'
+            }
+          ]"
           :src="`/decomoji/${category}/${name}.png`"
           width="64"
         />
         <span
           v-show="nameShows"
           :aria-label="name"
-          class="__name block mt-2 text-sm leading-tight break-all"
+          :class="[
+            'block mt-2 text-sm leading-tight break-all',
+            {
+              'text-gray-400': ui.dark
+            }
+          ]"
           >:{{ name }}:</span
         >
       </button>
@@ -106,6 +125,16 @@ export default class Main extends Vue {
   }
 
   /**
+   * @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
+   */
+  matched(name: string, category: CategoryId) {
+    return (
+      (this.ui.search === "" || this.nameMatched(name)) &&
+      this.categoryMatched(category)
+    );
+  }
+
+  /**
    * @method - 要素が検索クエリを正規表現にマッチするか否かを返す
    */
   nameMatched(name: string) {
@@ -143,62 +172,3 @@ export default class Main extends Vue {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.Main
-  margin-top: 6.5625rem
-  @media (min-width: 768px)
-    margin-top: 4.25rem
-  &.-l
-    gap: 10px
-    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr))
-  &.-m
-    gap: 5px
-    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
-  &.-s
-    gap: 3px
-    grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
-
-  .__item
-    background-color: #f4f4f4
-    transition: transform 0.03s ease-out, box-shadow 0.03s ease-out
-    &.-l
-      padding: 10px
-    &.-m
-      padding: 5px
-    &.-s
-      padding: 3px
-
-    &.-reacted
-      border-color: #1d89c7
-      background-color: #e6f3fa
-    &.-collected
-      border-color: #727272
-      background-color: #ffffff
-
-    .-dark &
-      background-color: #1a1c20
-      &.-reacted
-        border-color: #135092
-        background-color: #135092
-      &.-collected
-        border-color: #424242
-        background-color: #000000
-
-    &:focus
-      box-shadow: 0 0 0 4px #adbfca
-      .-dark &
-        box-shadow: 0 0 0 4px #5c7280
-
-  .__icon
-    &.-l
-      width: 64px
-    &.-m
-      width: 32px
-    &.-s
-      width: 16px
-
-  .__name
-    .-dark &
-      @apply .text-gray-400
-</style>

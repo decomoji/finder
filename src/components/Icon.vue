@@ -1,5 +1,5 @@
 <template>
-  <i class="material-icons" aria-hidden="true">{{ value }}</i>
+  <i class="material-icons leading-none" aria-hidden="true">{{ value }}</i>
 </template>
 
 <script lang="ts">
@@ -10,8 +10,3 @@ export default class Icon extends Vue {
   @Prop({ required: true }) value!: string;
 }
 </script>
-
-<style lang="sass" scoped>
-.material-icons
-  line-heihgt: 1
-</style>

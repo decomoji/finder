@@ -1,55 +1,59 @@
 <template>
   <header
-    class="Header fixed inset-x-0 top-0 md:flex md:items-center p-4 space-y-4 md:space-y-0 md:space-x-8"
+    :class="[
+      'fixed inset-x-0 top-0 md:flex md:items-center p-3 pb-1 md:p-4 space-y-1 md:space-y-0 md:space-x-6 shadow-header',
+      {
+        'bg-header-light': !ui.dark,
+        'bg-header-dark': ui.dark
+      }
+    ]"
   >
-    <div class="flex items-center space-x-6">
-      <h1 class="flex">
+    <div class="md:w-1/2 flex items-center space-x-3 md:space-x-6">
+      <h1 class="flex flex-shrink-0">
         <a
-          class="Logo rounded-full focus:outline-none"
+          class="Logo rounded-full focus:outline-none focus:shadow-outline"
           href="/"
-          tile="decomoji-finder"
+          tile="デコモジファインダー"
           ><img
             class="rounded-full"
             src="/assets/images/logo.png"
             width="32"
-            alt="デコモジロゴ"
+            alt="デコモジ"
         /></a>
-        <span class="sr-only ml-4 text-sm sm:text-xl text-gray-400"
-          >decomoji-finder</span
-        >
+        <span class="sr-only">デコモジファインダー</span>
       </h1>
 
-      <div class="flex-shrink flex items-center">
+      <div class="flex-grow flex items-center">
         <label class="sr-only" for="search">検索する</label>
-        <div class="relative">
+        <div class="flex-grow relative text-gray-300 focus-within:text-current">
           <input
             id="search"
             :value="ui.search"
-            :class="[
-              '__searchInput appearance-none flex-auto rounded-md p-2 pl-10 leading-tight bg-white bg-opacity-25 focus:bg-white focus:outline-none',
-              {
-                '-hasValue': ui.search.length > 0
-              }
-            ]"
+            class="appearance-none rounded-md p-2 pl-10 w-full text-gray-300 leading-tight bg-white bg-opacity-25 focus:text-current focus:bg-white focus:outline-none focus:shadow-outline"
             type="text"
             @input="debounceUpdateSearch($event.target.value)"
           />
-          <Icon
-            value="search"
-            class="__searchIcon absolute top-0 left-0 mt-2 ml-2 text-gray-400"
-          />
+          <Icon class="absolute top-0 left-0 mt-2 ml-2" value="search" />
         </div>
       </div>
     </div>
 
-    <div class="flex items-center space-x-8">
-      <details class="Tooltip relative">
+    <div
+      class="flex-shrink flex items-center md:ml-auto space-x-3 md:space-x-8"
+    >
+      <details class="relative">
         <summary
-          class="__summary rounded-md p-2 text-gray-400 text-sm focus:outline-none"
+          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-outline"
           >サイズ</summary
         >
         <div
-          class="__detailsPanel absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
+          :class="[
+            'absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2',
+            {
+              'bg-panel-light shadow-outline-panel-light': !ui.dark,
+              'bg-panel-dark shadow-outline-panel-dark': ui.dark
+            }
+          ]"
         >
           <label
             v-for="size in displaySizeList"
@@ -69,13 +73,19 @@
         </div>
       </details>
 
-      <details class="Tooltip relative">
+      <details class="relative">
         <summary
-          class="__summary rounded-md p-2 text-gray-400 text-sm focus:outline-none"
+          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-outline"
           >カテゴリー</summary
         >
         <div
-          class="__detailsPanel absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
+          :class="[
+            'absolute mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2',
+            {
+              'bg-panel-light shadow-outline-panel-light': !ui.dark,
+              'bg-panel-dark shadow-outline-panel-dark': ui.dark
+            }
+          ]"
         >
           <label
             v-for="category in displayCategoryList"
@@ -95,13 +105,19 @@
         </div>
       </details>
 
-      <details class="Tooltip relative">
+      <details class="relative">
         <summary
-          class="__summary rounded-md p-2 text-gray-400 text-sm focus:outline-none"
+          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-outline"
           >オプション</summary
         >
         <div
-          class="__detailsPanel absolute right-0 md:right-auto mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2"
+          :class="[
+            'absolute right-0 mt-2 py-2 px-3 rounded-md text-sm whitespace-no-wrap space-y-2',
+            {
+              'bg-panel-light shadow-outline-panel-light': !ui.dark,
+              'bg-panel-dark shadow-outline-panel-dark': ui.dark
+            }
+          ]"
         >
           <label class="flex items-baseline text-gray-400">
             <input
@@ -196,58 +212,40 @@ export default class Header extends Vue {
     }, 300);
   }
 
+  /**
+   * @listen - 表示カテゴリーを選択する
+   */
   handleClickCategory(categoryId: CategoryId) {
     this.toggleCategory(categoryId);
   }
 
+  /**
+   * @listen - 表示サイズを選択する
+   */
   handleCangeSize(value: IconSizeId) {
     this.updateSize(value);
   }
 
+  /**
+   * @listen - ファイル名表示を選択する
+   */
   handleClickNameShows() {
     if (!this.isDefaultSize) return;
     this.toggleNameShows(this.ui.name);
   }
 
+  /**
+   * @listen - リアクション済み表示を選択する
+   */
   handleClickReacted() {
     this.toggleReacted(this.ui.reacted);
   }
 
+  /**
+   * @listen - ダークモード表示を選択する
+   */
   handleClickDarkMode() {
     this.toggleDarkMode(this.ui.dark);
   }
 }
 </script>
-<style lang="sass" scoped>
-.Header
-  background-color: #1f061f
-  box-shadow: 0 2px 4px rgba(0,0,0, 0.15), 0 8px 8px rgba(0,0,0, 0.075)
-  .-dark &
-    background-color: #0e0d10
-
-  .__searchInput
-    &.-hasValue
-      @apply .text-gray-400
-      &:focus
-        @apply .text-current
-    &:focus
-      box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
-      + .__searchIcon
-        color: #1f061f
-
-  .__detailsPanel
-    background-color: #240726
-    box-shadow: 0 0 0 4px #240726
-    .-dark &
-      background-color: #110f13
-      box-shadow: 0 0 0 4px #110f13
-
-.Logo
-  &:focus
-    box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
-
-.Tooltip
-  .__summary
-    &:focus
-      box-shadow: 0 0 0 4px rgba(255,255,255, 0.5)
-</style>

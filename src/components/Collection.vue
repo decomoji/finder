@@ -2,28 +2,70 @@
   <div
     v-show="shows"
     ref="Collection"
-    class="Collection fixed inset-x-0 bottom-0 p-4 overflow-y-auto scrolling-touch"
+    :class="[
+      'fixed inset-x-0 bottom-0 p-4 max-h-collection overflow-y-auto scrolling-touch shadow-footer',
+      {
+        'bg-item-light': !ui.dark,
+        'bg-item-dark': ui.dark
+      }
+    ]"
   >
     <div class="flex items-baseline space-x-4">
-      <h2 class="__heading">コレクション</h2>
-      <p class="__desc text-gray-800 text-sm">
+      <h2
+        :class="[
+          {
+            'text-gray-400': ui.dark
+          }
+        ]"
+      >
+        コレクション
+      </h2>
+      <p
+        :class="[
+          'text-sm',
+          {
+            'text-gray-800': !ui.dark,
+            'text-gray-400': ui.dark
+          }
+        ]"
+      >
         ダブルクリックするか delete キーでコレクションから外せます
       </p>
     </div>
-    <div :class="['__list grid grid-flow-row mt-4', `-${ui.size}`]">
+    <div
+      :class="[
+        'grid grid-flow-row mt-4',
+        {
+          'gap-10px grid-template-columns-l': ui.size === 'l',
+          'gap-5px grid-template-columns-m': ui.size === 'm',
+          'gap-3px grid-template-columns-s': ui.size === 's'
+        }
+      ]"
+    >
       <button
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
         :class="[
-          '__item p-1 rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
-          `-${ui.size}`
+          'rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
+          {
+            'p-1': ui.size !== 's',
+            'bg-white focus:shadow-outline-gray-light': !ui.dark,
+            'bg-black focus:shadow-outline-gray-dark': ui.dark
+          }
         ]"
         @dblclick="removeItem(item)"
         @keydown.delete="removeItem(item)"
       >
         <img
           :alt="item.name"
-          :class="['__icon m-auto', `-${ui.size}`]"
+          :class="[
+            'm-auto',
+            {
+              'w-64px': ui.size === 'l',
+              'w-32px': ui.size === 'm',
+              'w-16px': ui.size === 's'
+            }
+          ]"
           :src="`/decomoji/${item.category}/${item.name}.png`"
           width="64"
         />
@@ -127,54 +169,3 @@ export default class Collection extends Vue {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.Collection
-  max-height: 30vh
-  background-color: #f4f4f4
-  box-shadow: 0 -2px 4px rgba(0,0,0, 0.15), 0 -8px 8px rgba(0,0,0, 0.075)
-  .-dark &
-    background-color: #1a1c20
-
-  .__heading
-    .-dark &
-      @apply .text-gray-400
-
-  .__desc
-    .-dark &
-      @apply .text-gray-400
-
-  .__list
-    &.-l
-      gap: 10px
-      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr))
-    &.-m
-      gap: 5px
-      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr))
-    &.-s
-      gap: 3px
-      grid-template-columns: repeat(auto-fill, minmax(24px, 1fr))
-
-  .__item
-    background-color: #ffffff
-    transition: box-shadow 0.03s ease-out
-
-    &.-s
-      padding: 0
-
-    .-dark &
-      background-color: #15171a
-
-    &:focus
-      box-shadow: 0 0 0 4px #adbfca
-      .-dark &
-        box-shadow: 0 0 0 4px #5c7280
-
-  .__icon
-    &.-l
-      width: 64px
-    &.-m
-      width: 32px
-    &.-s
-      width: 16px
-</style>
