@@ -3,10 +3,13 @@
     v-show="shows"
     ref="Collection"
     :class="[
-      'fixed inset-x-0 bottom-0 p-4 max-h-30vh overflow-y-auto scrolling-touch shadow-top',
+      'fixed inset-x-0 bottom-0 p-4 overflow-y-auto scrolling-touch shadow-top',
       {
         'bg-shade-200': !ui.dark,
-        'bg-shade-800': ui.dark
+        'bg-shade-800': ui.dark,
+        'max-h-77': ui.size === 'l',
+        'max-h-52': ui.size === 'm',
+        'max-h-39': ui.size === 's'
       }
     ]"
   >

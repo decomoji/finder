@@ -40,10 +40,15 @@ module.exports = {
       fontFamily: {
         "noto-sans-jp": ['"Noto Sans JP"', "sans-serif"]
       },
+      maxHeight: (theme, { negative }) => ({
+        ...theme("spacing")
+      }),
       spacing: {
-        23: "5.8125rem",
         17: "4.25rem",
-        "30vh": "30vh",
+        23: "5.8125rem",
+        39: "9.5rem",
+        52: "13.7rem",
+        77: "21.625rem",
         "3px": "3px",
         "5px": "5px",
         "10px": "10px",
@@ -54,11 +59,10 @@ module.exports = {
     }
   },
   variants: {
-    focus: ["hover", "focus"],
     textColor: ["responsive", "hover", "focus", "focus-within"]
   },
   plugins: [
-    plugin(function({ addUtilities, variants }) {
+    plugin(function({ addUtilities }) {
       const newUtilities = {
         ".shadow-shade-100-op50": {
           boxShadow: "0 0 0 4px rgba(255,255,255, 0.5)"
@@ -89,7 +93,7 @@ module.exports = {
           gridTemplateColumns: "repeat(auto-fill, minmax(24px, 1fr))"
         }
       };
-      addUtilities(newUtilities, variants("focus"));
+      addUtilities(newUtilities, ["hover", "focus"]);
     })
   ]
 };
