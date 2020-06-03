@@ -13,7 +13,8 @@ export const routes: RouterOptions["routes"] = [
   {
     path: "/",
     name: "top",
-    component: Top
+    component: Top,
+    props: route => ({ query: route.query })
   }
 ];
 
