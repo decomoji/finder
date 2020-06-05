@@ -1,4 +1,6 @@
+import { CategoryId } from "@/models/CategoryId";
 import { RootState } from "@/store/models";
+import { isStringOfNotEmpty } from "@/utilities/isString";
 import {
   CollectionActionPayloads as ThisActionPayloads,
   CollectionState as ThisState
@@ -46,7 +48,35 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param payload
    */
   receive({ commit }, payload: ThisActionPayloads["receive"]) {
-    commit(RECEIVE_COLLECTION, payload);
+    // パラメータをパースしてコレクションに追加する
+    const { basic, extra, explicit, preview } = payload || {};
+    const _basic = isStringOfNotEmpty(basic)
+      ? basic
+          .split(",")
+          .map((name: string) => ({ name, category: "basic" as CategoryId }))
+      : [];
+    const _extra = isStringOfNotEmpty(extra)
+      ? extra
+          .split(",")
+          .map((name: string) => ({ name, category: "extra" as CategoryId }))
+      : [];
+    const _explicit = isStringOfNotEmpty(explicit)
+      ? explicit
+          .split(",")
+          .map((name: string) => ({ name, category: "explicit" as CategoryId }))
+      : [];
+    const _preview = isStringOfNotEmpty(preview)
+      ? preview
+          .split(",")
+          .map((name: string) => ({ name, category: "preview" as CategoryId }))
+      : [];
+
+    commit(RECEIVE_COLLECTION, [
+      ..._basic,
+      ..._extra,
+      ..._explicit,
+      ..._preview
+    ]);
   },
 
   /**

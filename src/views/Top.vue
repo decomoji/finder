@@ -10,7 +10,10 @@
 import Collection from "@/components/Collection.vue";
 import Header from "@/components/Header.vue";
 import Main from "@/components/Main.vue";
+import { CategoriesObject } from "@/models/CategoriesObject";
+import { CollectionActions } from "@/store/modules/collection/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
 @Component({
   components: {
@@ -20,6 +23,18 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   }
 })
 export default class Top extends Vue {
-  @Prop() query!: string;
+  // アクションを引き当てる
+  @Action("collection/receive")
+  receiveCollection!: CollectionActions["receive"];
+
+  // 入力プロパティを定義する
+  @Prop() query!: CategoriesObject;
+
+  /**
+   * @lifecyle
+   */
+  created() {
+    return this.receiveCollection(this.query);
+  }
 }
 </script>

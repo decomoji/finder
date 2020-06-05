@@ -1,3 +1,4 @@
+import { CategoriesObject } from "@/models/CategoriesObject";
 import { DecomojiManagerList } from "@/models/DecomojiManagerList";
 import {
   DecomojiCollection,
@@ -47,7 +48,7 @@ export type CollectionActionPayloads = VuexActionPayloads<{
   add: CollectionMutationPayloads[typeof ADD_TO_COLLECTION];
   remove: CollectionMutationPayloads[typeof REMOVE_FROM_COLLECTION];
   clear: CollectionMutationPayloads[typeof CLEAR_COLLECTION];
-  receive: CollectionMutationPayloads[typeof RECEIVE_COLLECTION];
+  receive: CategoriesObject;
   height: CollectionMutationPayloads[typeof UPDATE_HEIGHT];
 }>;
 

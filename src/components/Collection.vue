@@ -47,7 +47,6 @@ export default class Collection extends Vue {
 
   // アクションを引き当てる
   @Action("collection/remove") remove!: CollectionActions["remove"];
-  @Action("collection/receive") receive!: CollectionActions["receive"];
   @Action("collection/height") height!: CollectionActions["height"];
 
   /**
@@ -85,36 +84,6 @@ export default class Collection extends Vue {
       "",
       "?" + this.collection.collectionQueries
     );
-  }
-
-  /**
-   * @lifecyle
-   */
-  created() {
-    // パラメータをパースしてコレクションに追加する
-    const { basic, extra, explicit, preview } = this.query || {};
-    const _basic = isStringOfNotEmpty(basic)
-      ? basic
-          .split(",")
-          .map((name: string) => ({ name, category: "basic" as CategoryId }))
-      : [];
-    const _extra = isStringOfNotEmpty(extra)
-      ? extra
-          .split(",")
-          .map((name: string) => ({ name, category: "extra" as CategoryId }))
-      : [];
-    const _explicit = isStringOfNotEmpty(explicit)
-      ? explicit
-          .split(",")
-          .map((name: string) => ({ name, category: "explicit" as CategoryId }))
-      : [];
-    const _preview = isStringOfNotEmpty(preview)
-      ? preview
-          .split(",")
-          .map((name: string) => ({ name, category: "preview" as CategoryId }))
-      : [];
-
-    return this.receive([..._basic, ..._extra, ..._explicit, ..._preview]);
   }
 }
 </script>
