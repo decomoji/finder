@@ -36,6 +36,7 @@ import {
   CollectionActions,
   CollectionViewModel
 } from "@/store/modules/collection/models";
+import { replaceState } from "@/utilities/replaceState";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
@@ -119,12 +120,7 @@ export default class Main extends Vue {
    */
   handleClickItem(item: DecomojiCollectionItem) {
     this.collected(item) ? this.remove(item) : this.add(item);
-
-    window.history.replaceState(
-      {},
-      "",
-      "?" + this.collection.collectionQueries
-    );
+    replaceState(this.collection.collectionQueries);
   }
 }
 </script>

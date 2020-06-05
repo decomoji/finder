@@ -36,6 +36,7 @@ import {
   CollectionViewModel
 } from "@/store/modules/collection/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
+import { replaceState } from "@/utilities/replaceState";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
@@ -78,12 +79,7 @@ export default class Collection extends Vue {
    */
   removeItem(item: DecomojiCollectionItem) {
     this.remove(item);
-
-    window.history.replaceState(
-      {},
-      "",
-      "?" + this.collection.collectionQueries
-    );
+    replaceState(this.collection.collectionQueries);
   }
 }
 </script>
