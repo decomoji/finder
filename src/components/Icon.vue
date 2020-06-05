@@ -1,5 +1,5 @@
 <template>
-  <i class="material-icons leading-none" aria-hidden="true">{{ value }}</i>
+  <i class="material-icons" aria-hidden="true">{{ value }}</i>
 </template>
 
 <script lang="ts">

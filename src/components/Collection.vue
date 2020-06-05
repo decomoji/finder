@@ -1,74 +1,20 @@
 <template>
-  <div
-    v-show="shows"
-    ref="Collection"
-    :class="[
-      'fixed inset-x-0 bottom-0 p-4 overflow-y-auto scrolling-touch shadow-top',
-      {
-        'bg-shade-200': !ui.dark,
-        'bg-shade-800': ui.dark,
-        'max-h-77': ui.size === 'l',
-        'max-h-52': ui.size === 'm',
-        'max-h-39': ui.size === 's'
-      }
-    ]"
-  >
-    <div class="flex items-baseline space-x-4">
-      <h2
-        :class="[
-          {
-            'text-gray-400': ui.dark
-          }
-        ]"
-      >
-        コレクション
-      </h2>
-      <p
-        :class="[
-          'text-sm',
-          {
-            'text-gray-800': !ui.dark,
-            'text-gray-400': ui.dark
-          }
-        ]"
-      >
+  <div v-show="shows" ref="Collection">
+    <div>
+      <h2>コレクション</h2>
+      <p>
         ダブルクリックするか delete キーでコレクションから外せます
       </p>
     </div>
-    <div
-      :class="[
-        'grid grid-flow-row mt-4',
-        {
-          'gap-10px grid-template-columns-l': ui.size === 'l',
-          'gap-5px grid-template-columns-m': ui.size === 'm',
-          'gap-3px grid-template-columns-s': ui.size === 's'
-        }
-      ]"
-    >
+    <div>
       <button
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
-        :class="[
-          'rounded-md border border-solid border-transparent text-center leading-none focus:outline-none',
-          {
-            'p-1': ui.size !== 's',
-            'bg-shade-100 focus:shadow-danube-200': !ui.dark,
-            'bg-shade-1000 focus:shadow-danube-600': ui.dark
-          }
-        ]"
         @dblclick="removeItem(item)"
         @keydown.delete="removeItem(item)"
       >
         <img
           :alt="item.name"
-          :class="[
-            'm-auto',
-            {
-              'w-64px': ui.size === 'l',
-              'w-32px': ui.size === 'm',
-              'w-16px': ui.size === 's'
-            }
-          ]"
           :src="`/decomoji/${item.category}/${item.name}.png`"
           width="64"
         />

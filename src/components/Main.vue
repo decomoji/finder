@@ -1,69 +1,19 @@
 <template>
-  <main
-    :class="[
-      'grid grid-flow-row mt-23 md:mt-17 p-3',
-      {
-        'gap-10px grid-template-columns-xl': ui.size === 'l',
-        'gap-5px grid-template-columns-m': ui.size === 'm',
-        'gap-3px grid-template-columns-s': ui.size === 's'
-      }
-    ]"
-    :style="collection.marginBottom"
-  >
-    <h2 class="sr-only">デコモジ一覧</h2>
+  <main>
+    <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <template v-for="category in categories">
       <button
         v-for="(name, i) in decomojis[category]"
         v-show="matched(name, category)"
         :key="`${name}_${category}_${i}`"
-        :class="[
-          'border border-solid border-transparent rounded-md leading-none text-center focus:outline-none',
-          {
-            'border-shade-400 bg-shade-100':
-              collected({ name, category }) && !ui.dark,
-            'border-shade-600 bg-shade-1000':
-              collected({ name, category }) && ui.dark,
-            'border-sea-500 bg-sea-200':
-              !collected({ name, category }) && ui.reacted && !ui.dark,
-            'border-sea-800 bg-sea-800':
-              !collected({ name, category }) && ui.reacted && ui.dark,
-            'bg-shade-200':
-              !collected({ name, category }) && !ui.reacted && !ui.dark,
-            'bg-shade-800':
-              !collected({ name, category }) && !ui.reacted && ui.dark,
-            'focus:shadow-danube-200': !ui.dark,
-            'focus:shadow-danube-600': ui.dark,
-            'p-10px': ui.size === 'l',
-            'p-5px': ui.size === 'm',
-            'p-3px': ui.size === 's'
-          }
-        ]"
         @click="handleClickItem({ name, category })"
       >
         <img
           :alt="nameShows ? '' : name"
-          :class="[
-            'm-auto',
-            {
-              'w-64px': ui.size === 'l',
-              'w-32px': ui.size === 'm',
-              'w-16px': ui.size === 's'
-            }
-          ]"
           :src="`/decomoji/${category}/${name}.png`"
           width="64"
         />
-        <span
-          v-show="nameShows"
-          :aria-label="name"
-          :class="[
-            'block mt-2 text-sm leading-tight break-all',
-            {
-              'text-gray-400': ui.dark
-            }
-          ]"
-          >:{{ name }}:</span
-        >
+        <span v-show="nameShows" :aria-label="name">:{{ name }}:</span>
       </button>
     </template>
   </main>

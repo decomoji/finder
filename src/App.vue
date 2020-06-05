@@ -1,22 +1,13 @@
 <template>
-  <body
-    :class="[
-      'App',
-      'font-noto-sans-jp',
-      {
-        'bg-shade-100': !ui.dark,
-        'bg-shade-900': ui.dark
-      }
-    ]"
-  >
+  <body class="App">
     <RouterView />
   </body>
 </template>
 
 <script lang="ts">
-import { UiActions, UiViewModel } from "@/store/modules/ui/models";
+import { UiViewModel } from "@/store/modules/ui/models";
 import { Component, Vue } from "vue-property-decorator";
-import { Action, Getter } from "vuex-class";
+import { Getter } from "vuex-class";
 
 @Component
 export default class App extends Vue {

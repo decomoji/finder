@@ -1,71 +1,37 @@
 <template>
-  <header
-    :class="[
-      'fixed inset-x-0 top-0 md:flex md:items-center p-3 pb-1 md:p-4 space-y-1 md:space-y-0 md:space-x-6 shadow-bottom',
-      {
-        'bg-aubergine-900': !ui.dark,
-        'bg-night-900': ui.dark
-      }
-    ]"
-  >
-    <div class="md:w-1/2 flex items-center space-x-3 md:space-x-6">
-      <h1 class="flex flex-shrink-0">
-        <a
-          class="Logo rounded-full focus:outline-none focus:shadow-shade-100-op50"
-          href="/"
-          tile="デコモジファインダー"
-          ><img
-            class="rounded-full"
-            src="/assets/images/logo.png"
-            width="32"
-            alt="デコモジ"
+  <header class="Header">
+    <div>
+      <h1>
+        <a href="/" tile="デコモジファインダー"
+          ><img src="/assets/images/logo.png" width="32" alt="デコモジ"
         /></a>
-        <span class="sr-only">デコモジファインダー</span>
+        <span class="VisuallyHidden">デコモジファインダー</span>
       </h1>
 
-      <div class="flex-grow flex items-center">
-        <label class="sr-only" for="search">検索する</label>
-        <div class="flex-grow relative text-gray-300 focus-within:text-current">
+      <div>
+        <label class="VisuallyHidden" for="search">検索する</label>
+        <div>
           <input
             id="search"
             :value="ui.search"
-            class="appearance-none rounded-md p-2 pl-10 w-full text-gray-300 leading-tight bg-white bg-opacity-25 focus:text-current focus:bg-white focus:outline-none focus:shadow-shade-100-op50"
             type="text"
             @input="debounceUpdateSearch($event.target.value)"
           />
-          <Icon class="absolute top-0 left-0 mt-2 ml-2" value="search" />
+          <Icon value="search" />
         </div>
       </div>
     </div>
 
-    <div
-      class="flex-shrink flex items-center md:ml-auto space-x-3 md:space-x-8"
-    >
-      <details class="relative">
-        <summary
-          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-shade-100-op50"
-          >サイズ</summary
-        >
-        <div
-          :class="[
-            'absolute mt-2 py-4 px-5 rounded-md text-sm whitespace-no-wrap space-y-2',
-            {
-              'bg-aubergine-800': !ui.dark,
-              'bg-night-800': ui.dark
-            }
-          ]"
-        >
-          <label
-            v-for="size in displaySizeList"
-            :key="size.value"
-            class="flex items-baseline text-gray-400"
-          >
+    <div>
+      <details>
+        <summary>サイズ</summary>
+        <div>
+          <label v-for="size in displaySizeList" :key="size.value">
             <input
               :value="size.value"
               :checked="size.value === ui.size"
               type="radio"
               name="size"
-              class="mr-2 leading-tight"
               @change="handleCangeSize(size.value)"
             />
             {{ size.text }}
@@ -73,31 +39,15 @@
         </div>
       </details>
 
-      <details class="relative">
-        <summary
-          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-shade-100-op50"
-          >カテゴリー</summary
-        >
-        <div
-          :class="[
-            'absolute mt-2 py-4 px-5 rounded-md text-sm whitespace-no-wrap space-y-2',
-            {
-              'bg-aubergine-800': !ui.dark,
-              'bg-night-800': ui.dark
-            }
-          ]"
-        >
-          <label
-            v-for="category in displayCategoryList"
-            :key="category.value"
-            class="flex items-baseline text-gray-400"
-          >
+      <details>
+        <summary>カテゴリー</summary>
+        <div>
+          <label v-for="category in displayCategoryList" :key="category.value">
             <input
               :value="category.value"
               :checked="ui.category[category.value]"
               type="checkbox"
               name="category"
-              class="mr-2 leading-tight"
               @change="handleClickCategory(category.value)"
             />
             {{ category.text }}
@@ -105,47 +55,33 @@
         </div>
       </details>
 
-      <details class="relative">
-        <summary
-          class="rounded-md p-2 text-gray-400 text-sm focus:outline-none focus:shadow-shade-100-op50"
-          >オプション</summary
-        >
-        <div
-          :class="[
-            'absolute right-0 mt-2 py-4 px-5 rounded-md text-sm whitespace-no-wrap space-y-2',
-            {
-              'bg-aubergine-800': !ui.dark,
-              'bg-night-800': ui.dark
-            }
-          ]"
-        >
-          <label class="flex items-baseline text-gray-400">
+      <details>
+        <summary>オプション</summary>
+        <div>
+          <label>
             <input
               :value="ui.name"
               :checked="ui.name"
               :disabled="!isDefaultSize"
               type="checkbox"
-              class="mr-2 leading-tight"
               @change="handleClickNameShows"
             />
             ファイル名の表示
           </label>
-          <label class="flex items-baseline text-gray-400">
+          <label>
             <input
               :value="ui.reacted"
               :checked="ui.reacted"
               type="checkbox"
-              class="mr-2 leading-tight"
               @change="handleClickReacted"
             />
             リアクション済みのスタイル
           </label>
-          <label class="flex items-baseline text-gray-400">
+          <label>
             <input
               :value="ui.dark"
               :checked="ui.dark"
               type="checkbox"
-              class="mr-2 leading-tight"
               @change="handleClickDarkMode"
             />
             ダークモード
