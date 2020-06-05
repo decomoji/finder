@@ -6,21 +6,7 @@
     </div>
 
     <div>
-      <details>
-        <summary>サイズ</summary>
-        <div>
-          <label v-for="size in displaySizeList" :key="size.value">
-            <input
-              :value="size.value"
-              :checked="size.value === ui.size"
-              type="radio"
-              name="size"
-              @change="handleCangeSize(size.value)"
-            />
-            {{ size.text }}
-          </label>
-        </div>
-      </details>
+      <SizeSelector />
 
       <details>
         <summary>カテゴリー</summary>
@@ -78,12 +64,12 @@
 <script lang="ts">
 import Logo from "@/components/Logo.vue";
 import Search from "@/components/Search.vue";
+import SizeSelector from "@/components/SizeSelector.vue";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
-import { DisplaySizeList } from "@/configs/DisplaySizeList";
+
 import { CategoryId } from "@/models/CategoryId";
-import { IconSizeId } from "@/models/IconSizeId";
-import { IconSizeItem } from "@/models/IconSizeItem";
+
 import { UiActions, UiViewModel } from "@/store/modules/ui/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
@@ -91,7 +77,8 @@ import { Action, Getter } from "vuex-class";
 @Component({
   components: {
     Logo,
-    Search
+    Search,
+    SizeSelector
   }
 })
 export default class Header extends Vue {
@@ -105,13 +92,11 @@ export default class Header extends Vue {
   @Action("ui/toggleDarkMode") toggleDarkMode!: UiActions["toggleDarkMode"];
   @Action("ui/toggleNameShows") toggleNameShows!: UiActions["toggleNameShows"];
   @Action("ui/toggleReacted") toggleReacted!: UiActions["toggleReacted"];
-  @Action("ui/updateSize") updateSize!: UiActions["updateSize"];
 
   /**
    * 内部プロパティを定義する
    */
   displayCategoryList = DisplayCategoryList;
-  displaySizeList = DisplaySizeList;
 
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
@@ -125,13 +110,6 @@ export default class Header extends Vue {
    */
   handleClickCategory(categoryId: CategoryId) {
     this.toggleCategory(categoryId);
-  }
-
-  /**
-   * @listen - 表示サイズを選択する
-   */
-  handleCangeSize(value: IconSizeId) {
-    this.updateSize(value);
   }
 
   /**
