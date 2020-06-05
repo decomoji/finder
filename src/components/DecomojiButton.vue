@@ -1,5 +1,9 @@
 <template>
-  <button @click="$emit('add', $event)">
+  <button
+    @click="$emit('add', $event)"
+    @dblclick="$emit('remove', $event)"
+    @keydown.delete="$emit('remove', $event)"
+  >
     <img
       :alt="nameShows ? '' : name"
       :src="`/decomoji/${category}/${name}.png`"

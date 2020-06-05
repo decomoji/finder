@@ -7,23 +7,19 @@
       </p>
     </div>
     <div>
-      <button
+      <DecomojiButton
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
-        @dblclick="removeItem(item)"
-        @keydown.delete="removeItem(item)"
-      >
-        <img
-          :alt="item.name"
-          :src="`/decomoji/${item.category}/${item.name}.png`"
-          width="64"
-        />
-      </button>
+        :category="item.category"
+        :name="item.name"
+        @remove="handleRemove(item)"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import DecomojiButton from "@/components/DecomojiButton.vue";
 import {
   DecomojiCollection,
   DecomojiCollectionItem
@@ -40,7 +36,11 @@ import { replaceState } from "@/utilities/replaceState";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
-@Component
+@Component({
+  components: {
+    DecomojiButton
+  }
+})
 export default class Collection extends Vue {
   // viewModel を引き当てる
   @Getter("ui/viewModel") ui!: UiViewModel;
@@ -77,7 +77,7 @@ export default class Collection extends Vue {
   /**
    * @method - コレクションからアイテムを削除する
    */
-  removeItem(item: DecomojiCollectionItem) {
+  handleRemove(item: DecomojiCollectionItem) {
     this.remove(item);
     replaceState(this.collection.collectionQueries);
   }
