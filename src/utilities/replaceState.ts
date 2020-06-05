@@ -4,4 +4,4 @@
  */
 export const replaceState = (param: string) => {
   window.history.replaceState({}, "", "?" + param);
-}
+};

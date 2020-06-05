@@ -1,5 +1,5 @@
 <template>
-  <body class="App">
+  <body :class="['App', { '-dark': ui.dark }]">
     <RouterView />
   </body>
 </template>
