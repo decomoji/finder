@@ -2,24 +2,21 @@
   <main>
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <template v-for="category in categories">
-      <button
+      <DecomojiButton
         v-for="(name, i) in decomojis[category]"
         v-show="matched(name, category)"
         :key="`${name}_${category}_${i}`"
-        @click="handleClickItem({ name, category })"
-      >
-        <img
-          :alt="nameShows ? '' : name"
-          :src="`/decomoji/${category}/${name}.png`"
-          width="64"
-        />
-        <span v-show="nameShows" :aria-label="name">:{{ name }}:</span>
-      </button>
+        :category="category"
+        :name="name"
+        :name-shows="nameShows"
+        @add="handleAdd({ name, category })"
+      />
     </template>
   </main>
 </template>
 
 <script lang="ts">
+import DecomojiButton from "@/components/DecomojiButton.vue";
 import { DecomojiBasic } from "@/configs/DecomojiBasic";
 import { DecomojiExplicit } from "@/configs/DecomojiExplicit";
 import { DecomojiExtra } from "@/configs/DecomojiExtra";
@@ -40,7 +37,11 @@ import { replaceState } from "@/utilities/replaceState";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
-@Component
+@Component({
+  components: {
+    DecomojiButton
+  }
+})
 export default class Main extends Vue {
   // viewModel を引き当てる
   @Getter("ui/viewModel") ui!: UiViewModel;
@@ -118,7 +119,7 @@ export default class Main extends Vue {
   /**
    * @method - 要素をクリックした時
    */
-  handleClickItem(item: DecomojiCollectionItem) {
+  handleAdd(item: DecomojiCollectionItem) {
     this.collected(item) ? this.remove(item) : this.add(item);
     replaceState(this.collection.collectionQueries);
   }
