@@ -8,21 +8,7 @@
     <div>
       <SizeSelector />
 
-      <details>
-        <summary>カテゴリー</summary>
-        <div>
-          <label v-for="category in displayCategoryList" :key="category.value">
-            <input
-              :value="category.value"
-              :checked="ui.category[category.value]"
-              type="checkbox"
-              name="category"
-              @change="handleClickCategory(category.value)"
-            />
-            {{ category.text }}
-          </label>
-        </div>
-      </details>
+      <CategorySelector />
 
       <details>
         <summary>オプション</summary>
@@ -62,6 +48,7 @@
 </template>
 
 <script lang="ts">
+import CategorySelector from "@/components/CategorySelector.vue";
 import Logo from "@/components/Logo.vue";
 import Search from "@/components/Search.vue";
 import SizeSelector from "@/components/SizeSelector.vue";
@@ -76,6 +63,7 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
+    CategorySelector,
     Logo,
     Search,
     SizeSelector
@@ -88,7 +76,7 @@ export default class Header extends Vue {
   /**
    * アクションを引き当てる
    */
-  @Action("ui/toggleCategory") toggleCategory!: UiActions["toggleCategory"];
+
   @Action("ui/toggleDarkMode") toggleDarkMode!: UiActions["toggleDarkMode"];
   @Action("ui/toggleNameShows") toggleNameShows!: UiActions["toggleNameShows"];
   @Action("ui/toggleReacted") toggleReacted!: UiActions["toggleReacted"];
@@ -96,20 +84,12 @@ export default class Header extends Vue {
   /**
    * 内部プロパティを定義する
    */
-  displayCategoryList = DisplayCategoryList;
 
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
    */
   get isDefaultSize() {
     return this.ui.size === DefaultSize;
-  }
-
-  /**
-   * @listen - 表示カテゴリーを選択する
-   */
-  handleClickCategory(categoryId: CategoryId) {
-    this.toggleCategory(categoryId);
   }
 
   /**
