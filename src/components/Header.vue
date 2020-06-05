@@ -8,18 +8,7 @@
         <span class="VisuallyHidden">デコモジファインダー</span>
       </h1>
 
-      <div>
-        <label class="VisuallyHidden" for="search">検索する</label>
-        <div>
-          <input
-            id="search"
-            :value="ui.search"
-            type="text"
-            @input="debounceUpdateSearch($event.target.value)"
-          />
-          <Icon value="search" />
-        </div>
-      </div>
+      <Search />
     </div>
 
     <div>
@@ -93,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import Icon from "@/components/Icon.vue";
+import Search from "@/components/Search.vue";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
 import { DisplaySizeList } from "@/configs/DisplaySizeList";
@@ -106,7 +95,7 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    Icon
+    Search
   }
 })
 export default class Header extends Vue {
@@ -116,8 +105,6 @@ export default class Header extends Vue {
   /**
    * アクションを引き当てる
    */
-  @Action("ui/updateSearch")
-  updateSearch!: UiActions["updateSearch"];
   @Action("ui/toggleCategory") toggleCategory!: UiActions["toggleCategory"];
   @Action("ui/toggleDarkMode") toggleDarkMode!: UiActions["toggleDarkMode"];
   @Action("ui/toggleNameShows") toggleNameShows!: UiActions["toggleNameShows"];
@@ -129,23 +116,12 @@ export default class Header extends Vue {
    */
   displayCategoryList = DisplayCategoryList;
   displaySizeList = DisplaySizeList;
-  timer: number = 0;
 
   /**
    * @get - デフォルトのアイコンサイズが選択されてるか否かを返す
    */
   get isDefaultSize() {
     return this.ui.size === DefaultSize;
-  }
-
-  /**
-   * @method
-   */
-  debounceUpdateSearch(query: string) {
-    clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
-      this.updateSearch(query);
-    }, 300);
   }
 
   /**
