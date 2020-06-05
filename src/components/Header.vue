@@ -1,13 +1,7 @@
 <template>
   <header class="Header">
     <div>
-      <h1>
-        <a href="/" tile="デコモジファインダー"
-          ><img src="/assets/images/logo.png" width="32" alt="デコモジ"
-        /></a>
-        <span class="VisuallyHidden">デコモジファインダー</span>
-      </h1>
-
+      <Logo />
       <Search />
     </div>
 
@@ -82,6 +76,7 @@
 </template>
 
 <script lang="ts">
+import Logo from "@/components/Logo.vue";
 import Search from "@/components/Search.vue";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
@@ -95,6 +90,7 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
+    Logo,
     Search
   }
 })
