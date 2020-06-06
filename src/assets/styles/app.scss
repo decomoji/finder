@@ -1,27 +1,4 @@
-:root {
-  // Slack Aubergine テーマの紫
-  --aubergine-800: #240726;
-  --aubergine-900: #1f061f;
-    // くすんだブルー
-  --danube-200: #adbfca;
-  --danube-600: #5c7280;
-  // 黒そうで黒くない、少しだけ青い黒
-  --night-800: #110f13;
-  --night-900: #0e0d10;
-  // Slack で自分がリアクションしたときの青
-  --sea-200: #e6f3fa;
-  --sea-500: #1d89c7;
-  --sea-800: #135092;
-  // 無彩色系
-  --shade-100: #ffffff;
-  --shade-200: #f4f4f4;
-  --shade-400: #727272;
-  --shade-500: #424242;
-  --shade-700: #1a1c20;
-  --shade-800: #15171a;
-  --shade-900: #000000;
-}
-
+@import './components/root';
 @import '../../../node_modules/normalize.css/normalize.css';
 
 *,::before,::after {
