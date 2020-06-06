@@ -4,7 +4,7 @@
     <template v-for="category in categories">
       <DecomojiButton
         v-for="(name, i) in decomojis[category]"
-        v-show="matched(name, category)"
+        v-show="matches(name, category)"
         :key="`${name}_${category}_${i}`"
         :category="category"
         :name="name"
@@ -85,17 +85,17 @@ export default class Main extends Vue {
   /**
    * @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
    */
-  matched(name: string, category: CategoryId) {
+  matches(name: string, category: CategoryId) {
     return (
-      (this.ui.search === "" || this.nameMatched(name)) &&
-      this.categoryMatched(category)
+      (this.ui.search === "" || this.nameMatches(name)) &&
+      this.categoryMatches(category)
     );
   }
 
   /**
    * @method - 要素が検索クエリを正規表現にマッチするか否かを返す
    */
-  nameMatched(name: string) {
+  nameMatches(name: string) {
     try {
       return RegExp(this.ui.search).test(name);
     } catch (err) {
@@ -106,7 +106,7 @@ export default class Main extends Vue {
   /**
    * @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
    */
-  categoryMatched(category: CategoryId) {
+  categoryMatches(category: CategoryId) {
     const { basic, extra, explicit, preview } = this.ui.category;
     return (
       (basic && category === "basic") ||
