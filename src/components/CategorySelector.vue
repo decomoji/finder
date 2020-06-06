@@ -2,12 +2,17 @@
   <details class="Tooltip">
     <summary class="__summary">カテゴリー</summary>
     <div class="__panel">
-      <label v-for="category in displayCategoryList" :key="category.value">
+      <label
+        v-for="category in displayCategoryList"
+        :key="category.value"
+        class="__label"
+      >
         <input
           :value="category.value"
           :checked="ui.category[category.value]"
-          type="checkbox"
+          class="__checkbox"
           name="category"
+          type="checkbox"
           @change="handleCange(category.value)"
         />
         {{ category.text }}

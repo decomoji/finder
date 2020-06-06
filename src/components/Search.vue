@@ -5,6 +5,7 @@
       id="search"
       :value="ui.search"
       class="__input"
+      name="search"
       type="text"
       @input="debouncedUpdateSearch($event.target.value)"
     />

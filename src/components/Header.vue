@@ -1,11 +1,11 @@
 <template>
   <header class="Header">
-    <div>
+    <div class="__inner">
       <Logo />
       <Search />
     </div>
 
-    <div>
+    <div class="__inner">
       <SizeSelector />
       <CategorySelector />
       <OptionSelector />

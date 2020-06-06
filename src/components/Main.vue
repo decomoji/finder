@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <section id="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <template v-for="category in categories">
       <DecomojiButton
@@ -12,22 +12,20 @@
         @add="handleAdd({ name, category })"
       />
     </template>
-  </main>
+  </section>
 </template>
 
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
-import { DecomojiBasic } from "@/configs/DecomojiBasic";
-import { DecomojiExplicit } from "@/configs/DecomojiExplicit";
-import { DecomojiExtra } from "@/configs/DecomojiExtra";
-import { DecomojiPreview } from "@/configs/DecomojiPreview";
+import { AvailableCategories } from "@/configs/AvailableCategories";
+import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { CategoryId } from "@/models/CategoryId";
 import {
   DecomojiCollection,
   DecomojiCollectionItem
 } from "@/models/DecomojiCollection";
-import { DecomojiItem } from "@/models/DecomojiItem";
+
 import { UiViewModel } from "@/store/modules/ui/models";
 import {
   CollectionActions,
@@ -51,28 +49,16 @@ export default class Main extends Vue {
   @Action("collection/add") add!: CollectionActions["add"];
   @Action("collection/remove") remove!: CollectionActions["remove"];
 
-  /**
-   * 内部プロパティを定義する
-   */
-  categories: CategoryId[] = ["basic", "explicit", "extra", "preview"];
+  // 内部プロパティを定義する
+  categories = AvailableCategories;
+  decomojis = AvailableDecomojis;
 
-  decomojis = Object.freeze({
-    basic: DecomojiBasic as DecomojiItem[],
-    extra: DecomojiExtra as DecomojiItem[],
-    explicit: DecomojiExplicit as DecomojiItem[],
-    preview: DecomojiPreview as DecomojiItem[]
-  });
-
-  /**
-   * @get - ファイル名を表示するか否かを返す
-   */
+  // @get - ファイル名を表示するか否かを返す
   get nameShows() {
     return this.ui.name && this.ui.size === DefaultSize;
   }
 
-  /**
-   * @method - 要素が選択されているか否かを返す
-   */
+  // @method - 要素が選択されているか否かを返す
   collected(item: DecomojiCollectionItem) {
     return (
       this.collection.items.findIndex(
@@ -82,9 +68,7 @@ export default class Main extends Vue {
     );
   }
 
-  /**
-   * @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
-   */
+  // @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
   matches(name: string, category: CategoryId) {
     return (
       (this.ui.search === "" || this.nameMatches(name)) &&
@@ -92,9 +76,7 @@ export default class Main extends Vue {
     );
   }
 
-  /**
-   * @method - 要素が検索クエリを正規表現にマッチするか否かを返す
-   */
+  // @method - 要素が検索クエリを正規表現にマッチするか否かを返す
   nameMatches(name: string) {
     try {
       return RegExp(this.ui.search).test(name);
@@ -103,9 +85,7 @@ export default class Main extends Vue {
     }
   }
 
-  /**
-   * @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
-   */
+  // @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
   categoryMatches(category: CategoryId) {
     const { basic, extra, explicit, preview } = this.ui.category;
     return (
@@ -116,9 +96,7 @@ export default class Main extends Vue {
     );
   }
 
-  /**
-   * @method - 要素をクリックした時
-   */
+  // @listen - 要素をクリックした時
   handleAdd(item: DecomojiCollectionItem) {
     this.collected(item) ? this.remove(item) : this.add(item);
     replaceState(this.collection.collectionQueries);

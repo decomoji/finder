@@ -1,9 +1,11 @@
 <template>
-  <h1 class="Logo">
-    <a href="/"
-      ><img src="/assets/images/logo.png" alt="デコモジファインダー" width="32"
-    /></a>
-  </h1>
+  <a class="Logo" href="/"
+    ><img
+      class="__img"
+      src="/assets/images/logo.png"
+      alt="デコモジファインダー"
+      width="32"
+  /></a>
 </template>
 
 <script lang="ts">

@@ -1,12 +1,12 @@
 <template>
-  <div v-show="shows" ref="Collection">
-    <div>
-      <h2>コレクション</h2>
+  <section v-show="shows" ref="Collection" class="Collection">
+    <div class="__header">
+      <h2 class="__heading">コレクション</h2>
       <p>
         ダブルクリックするか delete キーでコレクションから外せます
       </p>
     </div>
-    <div>
+    <div class="__body">
       <DecomojiButton
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
@@ -15,7 +15,7 @@
         @remove="handleRemove(item)"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -50,14 +50,7 @@ export default class Collection extends Vue {
   @Action("collection/remove") remove!: CollectionActions["remove"];
   @Action("collection/height") height!: CollectionActions["height"];
 
-  /**
-   * 入力プロパティを定義する
-   */
-  @Prop() query!: QueryObject;
-
-  /**
-   *
-   */
+  // コレクションのアイテム数を監視する
   @Watch("collectionLength")
   handleWatchCollection() {
     this.$nextTick().then(() => {
@@ -65,6 +58,7 @@ export default class Collection extends Vue {
     });
   }
 
+  // @get - コレクションのアイテム数を返す
   get collectionLength() {
     return this.collection.items.length;
   }
@@ -74,9 +68,7 @@ export default class Collection extends Vue {
     return this.collectionLength > 0;
   }
 
-  /**
-   * @method - コレクションからアイテムを削除する
-   */
+  // @listen - コレクションからアイテムを削除する
   handleRemove(item: DecomojiCollectionItem) {
     this.remove(item);
     replaceState(this.collection.collectionQueries);

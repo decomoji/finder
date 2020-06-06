@@ -2,29 +2,35 @@
   <details class="Tooltip">
     <summary class="__summary">オプション</summary>
     <div class="__panel">
-      <label>
+      <label class="__label">
         <input
           :value="ui.name"
           :checked="ui.name"
           :disabled="!isDefaultSize"
+          class="__checkbox"
+          name="option"
           type="checkbox"
           @change="handleChangeNameShows"
         />
         ファイル名の表示
       </label>
-      <label>
+      <label class="__label">
         <input
           :value="ui.reacted"
           :checked="ui.reacted"
+          class="__checkbox"
+          name="option"
           type="checkbox"
           @change="handleChangeReacted"
         />
         リアクション済みのスタイル
       </label>
-      <label>
+      <label class="__label">
         <input
           :value="ui.dark"
           :checked="ui.dark"
+          class="__checkbox"
+          name="option"
           type="checkbox"
           @change="handleChangeDarkMode"
         />

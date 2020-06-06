@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <Header :query="query" />
-    <Main :query="query" />
-    <Collection :query="query" />
-  </div>
+  <main>
+    <h1 class="VisuallyHidden">デコモジファインダー</h1>
+    <Header />
+    <Main />
+    <Collection />
+  </main>
 </template>
 
 <script lang="ts">
@@ -25,7 +26,7 @@ import { Action } from "vuex-class";
 export default class Top extends Vue {
   // アクションを引き当てる
   @Action("collection/receive")
-  receiveCollection!: CollectionActions["receive"];
+  receive!: CollectionActions["receive"];
 
   // 入力プロパティを定義する
   @Prop() query!: CategoriesObject;
@@ -34,7 +35,7 @@ export default class Top extends Vue {
    * @lifecyle
    */
   created() {
-    return this.receiveCollection(this.query);
+    return this.receive(this.query);
   }
 }
 </script>

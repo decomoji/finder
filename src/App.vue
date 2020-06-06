@@ -15,10 +15,5 @@ export default class App extends Vue {
    * UIストアの viewModel を引き当てる
    */
   @Getter("ui/viewModel") ui!: UiViewModel;
-
-  /**
-   * @lifecycles
-   */
-  created() {}
 }
 </script>

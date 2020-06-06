@@ -1,5 +1,6 @@
 <template>
   <button
+    class="Decomoji"
     @click="$emit('add', $event)"
     @dblclick="$emit('remove', $event)"
     @keydown.delete="$emit('remove', $event)"
@@ -7,9 +8,12 @@
     <img
       :alt="nameShows ? '' : name"
       :src="`/decomoji/${category}/${name}.png`"
+      class="__img"
       width="64"
     />
-    <span v-show="nameShows" :aria-label="name">{{ colonedName }}</span>
+    <span v-show="nameShows" :aria-label="name" class="__name">{{
+      colonedName
+    }}</span>
   </button>
 </template>
 

@@ -2,12 +2,13 @@
   <details class="Tooltip">
     <summary class="__summary">表示サイズ</summary>
     <div class="__panel">
-      <label v-for="size in displaySizeList" :key="size.value">
+      <label v-for="size in displaySizeList" :key="size.value" class="__label">
         <input
           :value="size.value"
           :checked="size.value === ui.size"
-          type="radio"
+          class="__radio"
           name="size"
+          type="radio"
           @change="handleCange(size.value)"
         />
         {{ size.text }}
