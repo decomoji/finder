@@ -1,5 +1,6 @@
 @import './components/root';
 @import '../../../node_modules/normalize.css/normalize.css';
+@import 'components/VisuallyHidden';
 
 *,::before,::after {
   box-sizing: border-box;
