@@ -1,25 +1,27 @@
 <template>
-  <section
-    :class="[
-      'Main',
-      `-${ui.size}`,
-      {
-        '-reacted': ui.reacted
-      }
-    ]"
-  >
+  <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
-    <template v-for="category in categories">
-      <DecomojiButton
-        v-for="(name, i) in decomojis[category]"
-        v-show="matches(name, category)"
-        :key="`${name}_${category}_${i}`"
-        :category="category"
-        :name="name"
-        :name-shows="nameShows"
-        @add="handleAdd({ name, category })"
-      />
-    </template>
+    <div
+      :class="[
+        '__body',
+        `-${ui.size}`,
+        {
+          '-reacted': ui.reacted
+        }
+      ]"
+    >
+      <template v-for="category in categories">
+        <DecomojiButton
+          v-for="(name, i) in decomojis[category]"
+          v-show="matches(name, category)"
+          :key="`${name}_${category}_${i}`"
+          :category="category"
+          :name="name"
+          :name-shows="nameShows"
+          @add="handleAdd({ name, category })"
+        />
+      </template>
+    </div>
   </section>
 </template>
 
