@@ -1,0 +1,27 @@
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: var(--paddingHeader);
+  width: 100%;
+  color: var(--colorHeader);
+  background-color: var(--bgHeader);
+
+  @include min {
+    display: flex;
+  }
+
+  & > * + * {
+    margin-top: var(--betweenHeaderVertical);
+    margin-left: var(--betweenHeaderHorizon);
+  }
+
+  .__inner {
+    display: flex;
+    align-items: center;
+
+    & > * + * {
+      margin-left: var(--betweenHeaderVertical);
+    }
+  }
+}

@@ -32,9 +32,24 @@
   // 中間ラベル
   --bgBody: var(--shade-200);
   --colorBody: var(--shade-800);
+  --bgHeader: var(--aubergine-900);
+  --colorHeader: var(--shade-200);
+
+  --paddingHeader: var(--space-sm);
+  --betweenHeaderVertical: var(--space-sm);
+  --betweenHeaderHorizon: 0;
+}
+
+@include min {
+  :root {
+    --paddingHeader: var(--space-md);
+    --betweenHeaderVertical: 0;
+    --betweenHeaderHorizon: var(--space-md);
+  }
 }
 
 .-dark {
   --bgBody: var(--shade-800);
   --colorBody: var(--shade-200);
+  --bgHeader: var(--night-200);
 }
