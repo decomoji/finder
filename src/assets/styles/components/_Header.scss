@@ -6,14 +6,15 @@
   width: 100%;
   color: var(--colorHeader);
   background-color: var(--bgHeader);
+  box-shadow: 0 2px 4px rgba(0,0,0, 0.15), 0 8px 8px rgba(0,0,0, 0.075);
 
   @include min {
     display: flex;
   }
 
   & > * + * {
-    margin-top: var(--betweenHeaderVertical);
-    margin-left: var(--betweenHeaderHorizon);
+    margin-top: var(--betweenVertical);
+    margin-left: var(--betweenHorizon);
   }
 
   .__inner {
