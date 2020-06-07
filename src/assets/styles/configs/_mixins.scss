@@ -3,8 +3,16 @@
     @content;
   }
 }
+
 @mixin min($bp: 769px) {
   @media (min-width: $bp) {
     @content;
+  }
+}
+
+@mixin focusHeader {
+  &:focus {
+    outline: none;
+    box-shadow: var(--focusHeader);
   }
 }

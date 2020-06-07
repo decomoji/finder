@@ -21,6 +21,8 @@
   --shade-800: #15171a;
   --shade-900: #000000;
 
+  --outline-white-05: 0 0 0 4px rgba(255,255,255, 0.5);
+
   // Spacing
   --space-xs: 0.5rem;
   --space-sm: 0.625rem;
@@ -34,6 +36,8 @@
   --colorBody: var(--shade-800);
   --bgHeader: var(--aubergine-900);
   --colorHeader: var(--shade-200);
+
+  --focusHeader: var(--outline-white-05);
 
   --paddingHeader: var(--space-sm);
   --betweenHeaderVertical: var(--space-sm);
