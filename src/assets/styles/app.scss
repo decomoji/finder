@@ -6,3 +6,12 @@
 *,::before,::after {
   box-sizing: border-box;
 }
+
+html {
+  font-family: "Noto Sans JP", serif;
+}
+
+body {
+  color: var(--colorBody);
+  background-color: var(--bgBody);
+}
