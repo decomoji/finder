@@ -1,4 +1,5 @@
-@import './components/root';
+@import 'configs/mixins';
+@import 'components/root';
 @import '../../../node_modules/normalize.css/normalize.css';
 @import 'components/VisuallyHidden';
 
