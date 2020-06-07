@@ -1,5 +1,5 @@
 <template>
-  <details class="Tooltip">
+  <details class="Detail">
     <summary class="__summary">カテゴリー</summary>
     <div class="__panel">
       <label

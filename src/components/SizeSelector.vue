@@ -1,5 +1,5 @@
 <template>
-  <details class="Tooltip">
+  <details class="Detail">
     <summary class="__summary">表示サイズ</summary>
     <div class="__panel">
       <label v-for="size in displaySizeList" :key="size.value" class="__label">
