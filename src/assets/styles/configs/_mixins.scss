@@ -16,3 +16,10 @@
     box-shadow: var(--focusHeader);
   }
 }
+
+@mixin focusDecomoji {
+  &:focus {
+    outline: none;
+    box-shadow: var(--focusDecomoji);
+  }
+}

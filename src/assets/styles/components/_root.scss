@@ -22,6 +22,8 @@
   --shade-900: #000000;
 
   --outline-white-05: 0 0 0 4px rgba(255,255,255, 0.5);
+  --outline-danube-200: 0 0 0 4px var(--danube-200);
+  --outline-danube-600: 0 0 0 4px var(--danube-600);
 
   // Spacing
   --space-xs: 0.5rem;
@@ -32,17 +34,24 @@
   --space-xxl: 1.75rem;
 
   // 中間ラベル
-  --bgBody: var(--shade-200);
+  --bgBody: var(--shade-100);
   --colorBody: var(--shade-800);
   --bgHeader: var(--aubergine-900);
   --colorHeader: var(--shade-200);
   --bgPanel: var(--aubergine-800);
-
-  --focusHeader: var(--outline-white-05);
+  --bgDecomoji: var(--shade-200);
+  --bgDecomojiReacted: var(--sea-200);
+  --borderDecomojiReacted: var(--sea-500);
+  --bgDecomojiCollected: var(--shade-100);
+  --borderDecomojiCollected: var(--shade-400);
+  --colorDecomoji: var(--shade-800);
 
   --paddingHeader: var(--space-sm);
   --betweenHeaderVertical: var(--space-sm);
   --betweenHeaderHorizon: 0;
+
+  --focusHeader: var(--outline-white-05);
+  --focusDecomoji: var(--outline-danube-200);
 }
 
 @include min {
@@ -58,4 +67,11 @@
   --colorBody: var(--shade-200);
   --bgHeader: var(--night-900);
   --bgPanel: var(--night-800);
+  --bgDecomoji: var(--shade-700);
+  --bgDecomojiReacted: var(--sea-800);
+  --borderDecomojiReacted: var(--sea-800);
+  --bgDecomojiCollected: var(--shade-900);
+  --borderDecomojiCollected: var(--shade-500);
+  --colorDecomoji: var(--shade-200);
+  --focusDecomoji: var(--outline-danube-600);
 }

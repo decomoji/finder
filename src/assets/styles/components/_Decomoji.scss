@@ -1,0 +1,52 @@
+.Decomoji {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  background-color: var(--bgDecomoji);
+
+  @include focusDecomoji;
+
+  .-reacted & {
+    border-color: var(--borderDecomojiReacted);
+    background-color: var(--bgDecomojiReacted);
+  }
+
+  .-reacted &.-collected,
+  &.-collected {
+    border-color: var(--borderDecomojiCollected);
+    background-color: var(--bgDecomojiCollected);
+  }
+
+  .-l & {
+    padding: 10px;
+  }
+  .-m & {
+    padding: 5px;
+  }
+  .-s & {
+    padding: 3px;
+  }
+
+  .__img {
+    height: auto;
+    line-height: 1;
+    vertical-align: top;
+
+    .-l & {
+      width: 64px;
+    }
+    .-m & {
+      width: 32px;
+    }
+    .-s & {
+      width: 16px;
+    }
+  }
+
+  .__name {
+    display: block;
+    margin-top: var(--space-sm);
+    color: var(--colorDecomoji);
+    word-break: break-all;
+  }
+}
