@@ -1,5 +1,5 @@
 <template>
-  <section id="Main">
+  <section id="Main" :class="['Main', `-${ui.size}`]">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <template v-for="category in categories">
       <DecomojiButton
@@ -25,7 +25,6 @@ import {
   DecomojiCollection,
   DecomojiCollectionItem
 } from "@/models/DecomojiCollection";
-
 import { UiViewModel } from "@/store/modules/ui/models";
 import {
   CollectionActions,

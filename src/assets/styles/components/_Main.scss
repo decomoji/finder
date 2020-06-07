@@ -1,0 +1,20 @@
+.Main {
+  display: grid;
+  grid-auto-flow: row;
+
+  &.-l {
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+    padding: 10px;
+  }
+  &.-m {
+    gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    padding: 5px;
+  }
+  &.-s {
+    gap: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(24px, 1fr));
+    padding: 3px;
+  }
+}
