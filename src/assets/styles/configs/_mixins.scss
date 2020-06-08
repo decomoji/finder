@@ -1,0 +1,25 @@
+@mixin max($bp: 768px) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+@mixin min($bp: 769px) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin focusHeader {
+  &:focus {
+    outline: none;
+    box-shadow: var(--focusHeader);
+  }
+}
+
+@mixin focusDecomoji {
+  &:focus {
+    outline: none;
+    box-shadow: var(--focusDecomoji);
+  }
+}

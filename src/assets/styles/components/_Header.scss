@@ -1,0 +1,34 @@
+.Header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: var(--paddingHeader);
+  width: 100%;
+  color: var(--colorHeader);
+  background-color: var(--bgHeader);
+  box-shadow: 0 2px 4px rgba(0,0,0, 0.15), 0 8px 8px rgba(0,0,0, 0.075);
+
+  @include min {
+    display: flex;
+  }
+
+  & > * + * {
+    margin-top: var(--betweenVertical);
+    margin-left: var(--betweenHorizon);
+  }
+
+  .__inner {
+    display: flex;
+    align-items: center;
+
+    @include min {
+      &:first-child {
+        width: 50%;
+      }
+    }
+
+    & > * + * {
+      margin-left: var(--space-lg);
+    }
+  }
+}

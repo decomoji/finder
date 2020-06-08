@@ -1,0 +1,39 @@
+.Search {
+  --opacityInput: 0.25;
+  --colorInput: var(--shade-200);
+  --colorIcon: var(--shade-200);
+
+  flex: 1 0 auto;
+  position: relative;
+
+  &:focus-within {
+    --opacityInput: 1;
+    --colorInput: var(--shade-800);
+    --colorIcon: var(--shade-800);
+  }
+
+  .__input {
+    appearance: none;
+    padding: var(--space-sm) var(--space-md);
+    padding-left: calc(1.5rem + var(--space-md));
+    border: 0 none;
+    border-radius: 0.375rem;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--colorInput);
+    background-color: rgba(255,255,255, var(--opacityInput));
+
+    @include focusHeader;
+  }
+
+  .__icon {
+    position: absolute;
+    top: 1px;
+    bottom: 0;
+    left: var(--space-xs);
+    margin: auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--colorIcon);
+  }
+}
