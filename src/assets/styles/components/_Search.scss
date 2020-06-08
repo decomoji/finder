@@ -1,5 +1,5 @@
 .Search {
-  --opacityInput: 0.5;
+  --opacityInput: 0.25;
   --colorInput: var(--shade-200);
   --colorIcon: var(--shade-200);
 
@@ -14,10 +14,12 @@
 
   .__input {
     appearance: none;
-    padding: var(--space-sm) calc(1.5rem + var(--space-md)) var(--space-sm) var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    padding-left: calc(1.5rem + var(--space-md));
     border: 0 none;
     border-radius: 0.375rem;
     width: 100%;
+    font-size: 1rem;
     color: var(--colorInput);
     background-color: rgba(255,255,255, var(--opacityInput));
 
@@ -26,9 +28,9 @@
 
   .__icon {
     position: absolute;
-    top: 0;
+    top: 1px;
     bottom: 0;
-    right: var(--space-xs);
+    left: var(--space-xs);
     margin: auto;
     width: 1.5rem;
     height: 1.5rem;
