@@ -2,7 +2,7 @@
   <section v-show="shows" ref="Collection" class="Collection">
     <div class="__header">
       <h2 class="__heading">コレクション</h2>
-      <p>
+      <p class="__desc">
         ダブルクリックするか delete キーでコレクションから外せます
       </p>
     </div>
