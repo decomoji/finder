@@ -1,6 +1,6 @@
 <template>
   <details class="Detail">
-    <summary class="__summary">表示サイズ</summary>
+    <summary class="__summary">サイズ</summary>
     <div class="__panel">
       <label v-for="size in displaySizeList" :key="size.value" class="__label">
         <input
