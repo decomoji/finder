@@ -1,7 +1,7 @@
 <template>
   <details class="Detail">
     <summary class="__summary">オプション</summary>
-    <div class="__panel">
+    <div class="__panel -option">
       <label class="__label">
         <input
           :value="ui.name"
