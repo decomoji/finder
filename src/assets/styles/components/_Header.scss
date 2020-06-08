@@ -21,8 +21,14 @@
     display: flex;
     align-items: center;
 
+    @include min {
+      &:first-child {
+        width: 50%;
+      }
+    }
+
     & > * + * {
-      margin-left: var(--space-sm);
+      margin-left: var(--space-lg);
     }
   }
 }
