@@ -43,17 +43,17 @@
     display: grid;
     grid-auto-flow: row;
 
-    &.-l {
+    .-l & {
       gap: 10px;
       grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
       padding: 10px;
     }
-    &.-m {
+    .-m & {
       gap: 5px;
       grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
       padding: 5px;
     }
-    &.-s {
+    .-s & {
       gap: 3px;
       grid-template-columns: repeat(auto-fill, minmax(24px, 1fr));
       padding: 3px;

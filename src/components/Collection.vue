@@ -6,7 +6,7 @@
         ダブルクリックするか delete キーでコレクションから外せます
       </p>
     </div>
-    <div :class="['__body', `-${ui.size}`]">
+    <div class="__body">
       <DecomojiButton
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"

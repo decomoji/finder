@@ -1,15 +1,7 @@
 <template>
   <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
-    <div
-      :class="[
-        '__body',
-        `-${ui.size}`,
-        {
-          '-reacted': ui.reacted
-        }
-      ]"
-    >
+    <div class="__body">
       <template v-for="category in categories">
         <DecomojiButton
           v-for="(name, i) in decomojis[category]"

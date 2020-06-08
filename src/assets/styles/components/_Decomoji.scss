@@ -6,21 +6,15 @@
 
   @include focusDecomoji;
 
-  .-reacted & {
+  .-reacted .Main & {
+    border-color: var(--borderDecomojiReacted);
     background-color: var(--bgDecomojiReacted);
-
-    .Main & {
-      border-color: var(--borderDecomojiReacted);
-    }
   }
 
-  .-reacted &.-collected,
-  &.-collected {
+  .-reacted .Main &.-collected,
+  .Main &.-collected {
+    border-color: var(--borderDecomojiCollected);
     background-color: var(--bgDecomojiCollected);
-
-    .Main & {
-      border-color: var(--borderDecomojiCollected);
-    }
   }
 
   .-l & {

@@ -1,5 +1,14 @@
 <template>
-  <body :class="['App', { '-dark': ui.dark }]">
+  <body
+    :class="[
+      'App',
+      `-${ui.size}`,
+      {
+        '-dark': ui.dark,
+        '-reacted': ui.reacted
+      }
+    ]"
+  >
     <RouterView />
   </body>
 </template>
