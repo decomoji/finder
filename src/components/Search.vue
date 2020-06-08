@@ -5,7 +5,7 @@
       id="search"
       :value="ui.search"
       class="__input"
-      name="search"
+      name="decomoji_search"
       type="text"
       @input="debouncedUpdateSearch($event.target.value)"
     />
