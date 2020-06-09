@@ -9,8 +9,7 @@ import {
   ADD_TO_COLLECTION,
   REMOVE_FROM_COLLECTION,
   CLEAR_COLLECTION,
-  RECEIVE_COLLECTION,
-  UPDATE_HEIGHT
+  RECEIVE_COLLECTION
 } from "./mutation-types";
 import { ActionTree } from "vuex";
 
@@ -77,14 +76,5 @@ export const actions: ActionTree<ThisState, RootState> = {
       ..._explicit,
       ..._preview
     ]);
-  },
-
-  /**
-   * 選択済みデコモジリストコンテナの高さを更新する
-   * @param commit
-   * @param payload
-   */
-  height({ commit }, payload: ThisActionPayloads["height"]) {
-    commit(UPDATE_HEIGHT, payload);
   }
 };

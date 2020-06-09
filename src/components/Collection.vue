@@ -1,5 +1,5 @@
 <template>
-  <section v-show="shows" ref="Collection" class="Collection">
+  <section v-show="shows" class="Collection">
     <div class="__header">
       <h2 class="__heading">コレクション</h2>
       <p class="__desc">
@@ -48,15 +48,6 @@ export default class Collection extends Vue {
 
   // アクションを引き当てる
   @Action("collection/remove") remove!: CollectionActions["remove"];
-  @Action("collection/height") height!: CollectionActions["height"];
-
-  // コレクションのアイテム数を監視する
-  @Watch("collectionLength")
-  handleWatchCollection() {
-    this.$nextTick().then(() => {
-      this.height((this.$refs.Collection as HTMLDivElement).clientHeight);
-    });
-  }
 
   // @get - コレクションのアイテム数を返す
   get collectionLength() {

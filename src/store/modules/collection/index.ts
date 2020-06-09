@@ -7,8 +7,7 @@ import { Module } from "vuex";
 
 // ステートの初期値を返す
 export const state: () => ThisState = () => ({
-  items: [],
-  height: 0
+  items: []
 });
 
 export const storeModule: Module<ThisState, RootState> = {

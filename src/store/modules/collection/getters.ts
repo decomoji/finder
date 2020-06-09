@@ -37,41 +37,12 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
-   * コレクションから decomoji-manager で管理できる形式のリストを返す
-   */
-  managerList: state => {
-    const { items } = state;
-    return items.map<DecomojiManagerListItem>(
-      (item: DecomojiCollectionItem) => {
-        const { name, category } = item;
-        return {
-          name,
-          category,
-          path: `./decomoji/${category}/${name}.png`
-        };
-      }
-    );
-  },
-
-  /**
-   * コレクションコンテナの高さを値にした margin-bottom プロパティを返す
-   */
-  marginBottom: state => {
-    return `margin-bottom: ${state.height}px`;
-  },
-
-  /**
    * ViewModel
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (
-    state,
-    { collectionQueries, managerList, marginBottom }: ThisGetter
-  ) => ({
+  viewModel: (state, { collectionQueries }: ThisGetter) => ({
     ...pickState(defaultState, state),
-    collectionQueries,
-    managerList,
-    marginBottom
+    collectionQueries
   })
 };
