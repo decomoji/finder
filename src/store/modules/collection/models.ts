@@ -31,7 +31,7 @@ export interface CollectionGetters {
 
 export type CollectionMutationPayloads = VuexMutationPayloads<{
   [ADD_TO_COLLECTION]: DecomojiCollectionItem;
-  [REMOVE_FROM_COLLECTION]: DecomojiCollectionItem;
+  [REMOVE_FROM_COLLECTION]: number;
   [CLEAR_COLLECTION]: void;
   [RECEIVE_COLLECTION]: DecomojiCollection;
 }>;

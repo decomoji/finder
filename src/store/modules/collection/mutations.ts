@@ -32,10 +32,7 @@ export const mutations: MutationTree<ThisState> = {
     state,
     payload: ThisMutationPayloads[typeof REMOVE_FROM_COLLECTION]
   ) {
-    const index = state.items.findIndex(
-      item => item.name === payload.name && item.category === payload.category
-    );
-    state.items.splice(index, 1);
+    state.items.splice(payload, 1);
   },
 
   /**
