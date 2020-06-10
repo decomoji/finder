@@ -16,7 +16,6 @@ export const state: () => ThisState = () => ({
     preview: false
   },
   dark: false,
-  globalLadingQueue: 0,
   name: true,
   reacted: false,
   search: "",

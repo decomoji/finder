@@ -4,8 +4,6 @@ import {
   UiState as ThisState
 } from "./models";
 import {
-  DECREMENT_GLOBAL_LOADING_QUEUE,
-  INCREMENT_GLOBAL_LOADING_QUEUE,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
@@ -17,30 +15,6 @@ import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
 
 export const actions: ActionTree<ThisState, RootState> = {
-  /**
-   * グローバルのローディングキューを減少させる
-   * @param commit
-   * @param length
-   */
-  decrementGlobalLoadingQueue(
-    { commit },
-    length?: ThisActionPayloads["decrementGlobalLoadingQueue"]
-  ) {
-    commit(DECREMENT_GLOBAL_LOADING_QUEUE, length);
-  },
-
-  /**
-   * グローバルのローディングキューを増加させる
-   * @param commit
-   * @param length
-   */
-  incrementGlobalLoadingQueue(
-    { commit },
-    length?: ThisActionPayloads["incrementGlobalLoadingQueue"]
-  ) {
-    commit(INCREMENT_GLOBAL_LOADING_QUEUE, length);
-  },
-
   /**
    * カテゴリーをトグルする
    * @param commit
