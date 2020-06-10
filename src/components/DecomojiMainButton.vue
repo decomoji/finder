@@ -7,8 +7,6 @@
       }
     ]"
     @click="$emit('add', $event)"
-    @dblclick="$emit('remove', $event)"
-    @keydown.delete="$emit('remove', $event)"
   >
     <img
       :alt="nameShows ? '' : name"
@@ -16,9 +14,9 @@
       class="__img"
       width="64"
     />
-    <span v-show="nameShows" :aria-label="name" class="__name">{{
-      colonedName
-    }}</span>
+    <span v-show="nameShows" :aria-label="name" class="__name"
+      >:{{ name }}:</span
+    >
   </button>
 </template>
 
