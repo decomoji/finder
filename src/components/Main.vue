@@ -10,6 +10,7 @@
           :category="category"
           :name="name"
           :name-shows="nameShows"
+          :collected="collected(name, category)"
           @add="handleAdd({ name, category })"
         />
       </template>
@@ -60,12 +61,9 @@ export default class Main extends Vue {
   }
 
   // @method - 要素が選択されているか否かを返す
-  collected(item: DecomojiCollectionItem) {
-    return (
-      this.collection.items.findIndex(
-        (colleted: DecomojiCollectionItem) =>
-          colleted.name === item.name && colleted.category === item.category
-      ) > -1
+  collected(name: string, category: CategoryId) {
+    return this.collection.items.find(
+      (v: DecomojiCollectionItem) => v.name === name && v.category === category
     );
   }
 
@@ -99,7 +97,8 @@ export default class Main extends Vue {
 
   // @listen - 要素をクリックした時
   handleAdd(item: DecomojiCollectionItem) {
-    this.collected(item) ? this.remove(item) : this.add(item);
+    const { name, category } = item;
+    this.collected(name, category) ? this.remove(item) : this.add(item);
     replaceState(this.collection.collectionQueries);
   }
 }

@@ -41,21 +41,11 @@ export default class DecomojiButton extends Vue {
   @Prop() category!: CategoryId;
   @Prop() name!: DecomojiItem;
   @Prop({ default: false }) nameShows!: boolean;
+  @Prop({ default: false }) collected!: boolean;
 
   // @get - コロン記号で挟んだ name を返す
   get colonedName() {
     return `:${this.name}:`;
-  }
-
-  // @get - 自身がコレクションに含まれているかを返す
-  get collected() {
-    const { name, category } = this;
-    return (
-      this.collection.items.findIndex(
-        (colleted: DecomojiCollectionItem) =>
-          colleted.name === name && colleted.category === category
-      ) > -1
-    );
   }
 }
 </script>
