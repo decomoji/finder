@@ -7,19 +7,19 @@
       </p>
     </div>
     <div class="__body">
-      <DecomojiButton
+      <DecomojiCollectionButton
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
         :category="item.category"
         :name="item.name"
-        @remove="handleRemove(item)"
+        @remove="handleRemove(i)"
       />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import DecomojiButton from "@/components/DecomojiButton.vue";
+import DecomojiCollectionButton from "@/components/DecomojiCollectionButton.vue";
 import {
   DecomojiCollection,
   DecomojiCollectionItem
@@ -38,7 +38,7 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiButton
+    DecomojiCollectionButton
   }
 })
 export default class Collection extends Vue {
@@ -60,8 +60,8 @@ export default class Collection extends Vue {
   }
 
   // @listen - コレクションからアイテムを削除する
-  handleRemove(item: DecomojiCollectionItem) {
-    this.remove(item);
+  handleRemove(index: number) {
+    this.remove(index);
     replaceState(this.collection.collectionQueries);
   }
 }
