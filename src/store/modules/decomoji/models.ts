@@ -5,6 +5,7 @@ import {
 } from "@/models/Vuex";
 import { CategoryName } from "@/models/CategoryName";
 import { CategoriesState } from "@/models/CategoriesState";
+import { Collection } from "@/models/Collection";
 import {
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
@@ -16,6 +17,7 @@ import {
 
 export interface DecomojiState {
   category: CategoriesState;
+  collection: Collection;
   dark: boolean;
   name: boolean;
   reacted: boolean;

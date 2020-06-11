@@ -15,6 +15,7 @@ export const state: () => ThisState = () => ({
     extra: false,
     preview: false
   },
+  collection: [],
   dark: false,
   name: true,
   reacted: false,
