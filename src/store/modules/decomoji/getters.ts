@@ -8,7 +8,6 @@ import {
 import { GetterTree } from "vuex";
 import { CategorizedItems } from "@/models/CategorizedItems";
 import { CategoryName } from "@/models/CategoryName";
-import { DecomojiName } from "@/models/DecomojiName";
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
@@ -26,7 +25,7 @@ export const getters: GetterTree<ThisState, RootState> = {
     const paramaterizedArray = (Object.keys(
       categorizedItems
     ) as CategoryName[]).map(
-      (key: CategoryName) => `${key}=${categorizedItems[key].join(",")}`
+      key => `${key}=${categorizedItems[key].join(",")}`
     );
 
     return paramaterizedArray.join("&");
