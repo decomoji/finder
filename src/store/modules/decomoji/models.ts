@@ -30,9 +30,12 @@ export interface DecomojiState {
   size: string;
 }
 
-export interface DecomojiViewModel extends DecomojiState {}
+export interface DecomojiViewModel extends DecomojiState {
+  collectionQueries: DecomojiGetters["collectionQueries"];
+}
 
 export interface DecomojiGetters {
+  collectionQueries: string;
   viewModel: DecomojiViewModel;
 }
 
