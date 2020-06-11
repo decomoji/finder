@@ -1,11 +1,12 @@
+import { CategoriesObject } from "@/models/CategoriesObject";
+import { CategoryName } from "@/models/CategoryName";
+import { CategoriesState } from "@/models/CategoriesState";
+import { Collection, CollectionItem } from "@/models/Collection";
 import {
   VuexActionPayloads,
   VuexActions,
   VuexMutationPayloads
 } from "@/models/Vuex";
-import { CategoryName } from "@/models/CategoryName";
-import { CategoriesState } from "@/models/CategoriesState";
-import { Collection, CollectionItem } from "@/models/Collection";
 import {
   ADD_TO_COLLECTION,
   CLEAR_COLLECTION,
@@ -49,6 +50,10 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
 }>;
 
 export type DecomojiActionPayloads = VuexActionPayloads<{
+  add: CollectionItem;
+  clear: void;
+  remove: CollectionItem;
+  receive: CategoriesObject;
   toggleCategory: CategoryName;
   toggleDarkMode: boolean;
   toggleNameShows: boolean;
