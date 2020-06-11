@@ -11,7 +11,8 @@
           :name="name"
           :name-shows="nameShows"
           :collected="matches(name, category) && collected(name, category)"
-          @click="handleClick({ name, category }, $event)"
+          @add="handleAdd({ name, category })"
+          @remove="handleRemove({ name, category })"
         />
       </template>
     </div>
@@ -90,9 +91,15 @@ export default class Main extends Vue {
     );
   }
 
-  // @listen - デコモジがクリックされたらコレクション済みかどうかで処理を分ける
-  handleClick(item: CollectionItem, collected: boolean) {
-    collected ? this.remove(item) : this.add(item);
+  // @listen - デコモジがをコレクションに追加する
+  handleAdd(item: CollectionItem) {
+    this.add(item);
+    replaceState(this.decomoji.collectionQueries);
+  }
+
+  // @listen - デコモジをコレクションから削除する
+  handleRemove(item: CollectionItem) {
+    this.remove(item);
     replaceState(this.decomoji.collectionQueries);
   }
 }
