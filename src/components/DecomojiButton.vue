@@ -6,7 +6,7 @@
         '-collected': collected
       }
     ]"
-    @click="$emit('add', $event)"
+    @click="$emit('click', collected)"
     @dblclick="$emit('remove', $event)"
     @keydown.delete="$emit('remove', $event)"
   >
