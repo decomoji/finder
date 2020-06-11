@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="__body">
-      <DecomojiCollectionButton
+      <DecomojiButton
         v-for="(item, i) in collection.items"
         :key="`${item.name}_${item.category}_${i}`"
         :category="item.category"
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import DecomojiCollectionButton from "@/components/DecomojiCollectionButton.vue";
+import DecomojiButton from "@/components/DecomojiButton.vue";
 import {
   DecomojiCollection,
   DecomojiCollectionItem
@@ -39,7 +39,7 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiCollectionButton
+    DecomojiButton
   }
 })
 export default class Collection extends Vue {

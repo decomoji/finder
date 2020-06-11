@@ -7,6 +7,8 @@
       }
     ]"
     @click="$emit('add', $event)"
+    @dblclick="$emit('remove', $event)"
+    @keydown.delete="$emit('remove', $event)"
   >
     <img
       :alt="nameShows ? '' : name"

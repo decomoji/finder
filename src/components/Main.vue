@@ -3,7 +3,7 @@
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <div class="__body">
       <template v-for="category in categories">
-        <DecomojiMainButton
+        <DecomojiButton
           v-for="(name, i) in decomojis[category]"
           v-show="matches(name, category)"
           :key="`${name}_${category}_${i}`"
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import DecomojiMainButton from "@/components/DecomojiMainButton.vue";
+import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
@@ -39,7 +39,7 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiMainButton
+    DecomojiButton
   }
 })
 export default class Main extends Vue {
