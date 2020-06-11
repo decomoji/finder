@@ -3,6 +3,10 @@ import {
   DecomojiState as ThisState
 } from "./models";
 import {
+  ADD_TO_COLLECTION,
+  REMOVE_FROM_COLLECTION,
+  CLEAR_COLLECTION,
+  RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
@@ -10,9 +14,56 @@ import {
   UPDATE_SEARCH,
   UPDATE_SIZE
 } from "./mutation-types";
+import { clearArray, replaceArray } from "@/utilities/array";
 import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<ThisState> = {
+  /**
+   * 選択したデコモジをコレクションに追加する
+   * @param state
+   */
+  [ADD_TO_COLLECTION](
+    state,
+    payload: ThisMutationPayloads[typeof ADD_TO_COLLECTION]
+  ) {
+    state.collection.splice(state.collection.length, 0, payload);
+  },
+
+  /**
+   * 選択したデコモジをコレクションから削除する
+   * @param state
+   * @param payload
+   */
+  [REMOVE_FROM_COLLECTION](
+    state,
+    payload: ThisMutationPayloads[typeof REMOVE_FROM_COLLECTION]
+  ) {
+    const index = state.collection.findIndex(
+      item => item.name === payload.name && item.category === payload.category
+    );
+    state.collection.splice(index, 1);
+  },
+
+  /**
+   * コレクションを消去する
+   * @param state
+   */
+  [CLEAR_COLLECTION](state) {
+    clearArray(state.collection);
+  },
+
+  /**
+   * コレクションを受領する
+   * @param state
+   * @param payload
+   */
+  [RECEIVE_COLLECTION](
+    state,
+    payload: ThisMutationPayloads[typeof RECEIVE_COLLECTION]
+  ) {
+    replaceArray(state.collection, ...payload);
+  },
+
   /**
    * カテゴリーをトグルする
    * @param state
