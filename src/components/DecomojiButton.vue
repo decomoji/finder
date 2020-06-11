@@ -23,16 +23,16 @@
 </template>
 
 <script lang="ts">
-import { CategoryId } from "@/models/CategoryId";
-import { DecomojiCollectionItem } from "@/models/DecomojiCollection";
-import { DecomojiItem } from "@/models/DecomojiItem";
+import { CategoryName } from "@/models/CategoryName";
+import { CollectionItem } from "@/models/Collection";
+import { DecomojiName } from "@/models/DecomojiName";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class DecomojiButton extends Vue {
   // 入力プロパティを定義する
-  @Prop() category!: CategoryId;
-  @Prop() name!: DecomojiItem;
+  @Prop() category!: CategoryName;
+  @Prop() name!: DecomojiName;
   @Prop({ default: false }) nameShows!: boolean;
   @Prop({ default: false }) collected!: boolean;
 

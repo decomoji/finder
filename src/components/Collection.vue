@@ -21,12 +21,9 @@
 
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
-import {
-  DecomojiCollection,
-  DecomojiCollectionItem
-} from "@/models/DecomojiCollection";
-import { CategoryId } from "@/models/CategoryId";
-import { QueryObject } from "@/models/QueryObject";
+import { CollectionItem } from "@/models/Collection";
+import { CategoryName } from "@/models/CategoryName";
+import { QueriesObject } from "@/models/QueriesObject";
 import { UiViewModel } from "@/store/modules/ui/models";
 import {
   CollectionActions,
@@ -64,14 +61,14 @@ export default class Collection extends Vue {
   collected(name: string, category: string) {
     return (
       this.collection.items.findIndex(
-        (colleted: DecomojiCollectionItem) =>
+        (colleted: CollectionItem) =>
           colleted.name === name && colleted.category === category
       ) > -1
     );
   }
 
   // @listen - コレクションからアイテムを削除する
-  handleRemove(item: DecomojiCollectionItem) {
+  handleRemove(item: CollectionItem) {
     this.remove(item);
     replaceState(this.collection.collectionQueries);
   }

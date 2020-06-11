@@ -1,5 +1,3 @@
-import { DecomojiManagerListItem } from "@/models/DecomojiManagerList";
-import { DecomojiCollectionItem } from "@/models/DecomojiCollection";
 import { RootState } from "@/store/models";
 import { pickState } from "@/store/utilities";
 import { state as defaultState } from "./index";

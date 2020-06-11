@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
-import { CategoryId } from "@/models/CategoryId";
+import { CategoryName } from "@/models/CategoryName";
 import { CategoryItem } from "@/models/CategoryItem";
 import { UiActions, UiViewModel } from "@/store/modules/ui/models";
 import { Component, Vue } from "vue-property-decorator";
@@ -41,7 +41,7 @@ export default class CategorySelector extends Vue {
   displayCategoryList: CategoryItem[] = DisplayCategoryList;
 
   // @listen - 表示カテゴリーを選択する
-  handleCange(categoryId: CategoryId) {
+  handleCange(categoryId: CategoryName) {
     this.toggleCategory(categoryId);
   }
 }

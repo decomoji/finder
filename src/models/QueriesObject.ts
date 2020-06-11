@@ -1,3 +1,3 @@
 import { CategoriesObject } from "@/models/CategoriesObject";
 
-export interface QueryObject extends CategoriesObject {}
+export interface QueriesObject extends CategoriesObject {}

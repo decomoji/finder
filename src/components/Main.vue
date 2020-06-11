@@ -23,11 +23,8 @@ import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
-import { CategoryId } from "@/models/CategoryId";
-import {
-  DecomojiCollection,
-  DecomojiCollectionItem
-} from "@/models/DecomojiCollection";
+import { CategoryName } from "@/models/CategoryName";
+import { CollectionItem } from "@/models/Collection";
 import { UiViewModel } from "@/store/modules/ui/models";
 import {
   CollectionActions,
@@ -68,7 +65,7 @@ export default class Main extends Vue {
   }
 
   // @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
-  matches(name: string, category: CategoryId) {
+  matches(name: string, category: CategoryName) {
     return (
       (this.ui.search === "" || this.nameMatches(name)) &&
       this.categoryMatches(category)
@@ -85,7 +82,7 @@ export default class Main extends Vue {
   }
 
   // @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
-  categoryMatches(category: CategoryId) {
+  categoryMatches(category: CategoryName) {
     const { basic, extra, explicit, preview } = this.ui.category;
     return (
       (basic && category === "basic") ||
@@ -99,14 +96,14 @@ export default class Main extends Vue {
   collected(name: string, category: string) {
     return (
       this.collection.items.findIndex(
-        (colleted: DecomojiCollectionItem) =>
+        (colleted: CollectionItem) =>
           colleted.name === name && colleted.category === category
       ) > -1
     );
   }
 
   // @listen - 要素をクリックした時
-  handleAdd(item: DecomojiCollectionItem) {
+  handleAdd(item: CollectionItem) {
     const { name, category } = item;
     this.collected(name, category) ? this.remove(item) : this.add(item);
     replaceState(this.collection.collectionQueries);

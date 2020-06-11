@@ -1,4 +1,4 @@
-import { CategoryId } from "@/models/CategoryId";
+import { CategoryName } from "@/models/CategoryName";
 import { RootState } from "@/store/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import {
@@ -52,22 +52,24 @@ export const actions: ActionTree<ThisState, RootState> = {
     const _basic = isStringOfNotEmpty(basic)
       ? basic
           .split(",")
-          .map((name: string) => ({ name, category: "basic" as CategoryId }))
+          .map((name: string) => ({ name, category: "basic" as CategoryName }))
       : [];
     const _extra = isStringOfNotEmpty(extra)
       ? extra
           .split(",")
-          .map((name: string) => ({ name, category: "extra" as CategoryId }))
+          .map((name: string) => ({ name, category: "extra" as CategoryName }))
       : [];
     const _explicit = isStringOfNotEmpty(explicit)
-      ? explicit
-          .split(",")
-          .map((name: string) => ({ name, category: "explicit" as CategoryId }))
+      ? explicit.split(",").map((name: string) => ({
+          name,
+          category: "explicit" as CategoryName
+        }))
       : [];
     const _preview = isStringOfNotEmpty(preview)
-      ? preview
-          .split(",")
-          .map((name: string) => ({ name, category: "preview" as CategoryId }))
+      ? preview.split(",").map((name: string) => ({
+          name,
+          category: "preview" as CategoryName
+        }))
       : [];
 
     commit(RECEIVE_COLLECTION, [

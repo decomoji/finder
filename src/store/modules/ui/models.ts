@@ -3,8 +3,8 @@ import {
   VuexActions,
   VuexMutationPayloads
 } from "@/models/Vuex";
-import { CategoryId } from "@/models/CategoryId";
-import { CategoryState } from "@/models/CategoryState";
+import { CategoryName } from "@/models/CategoryName";
+import { CategoriesState } from "@/models/CategoriesState";
 import {
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
@@ -15,7 +15,7 @@ import {
 } from "./mutation-types";
 
 export interface UiState {
-  category: CategoryState;
+  category: CategoriesState;
   dark: boolean;
   name: boolean;
   reacted: boolean;
@@ -30,7 +30,7 @@ export interface UiGetters {
 }
 
 export type UiMutationPayloads = VuexMutationPayloads<{
-  [TOGGLE_CATEGORY]: CategoryId;
+  [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_NAME_SHOWS]: boolean;
   [TOGGLE_REACTED]: boolean;
@@ -39,7 +39,7 @@ export type UiMutationPayloads = VuexMutationPayloads<{
 }>;
 
 export type UiActionPayloads = VuexActionPayloads<{
-  toggleCategory: CategoryId;
+  toggleCategory: CategoryName;
   toggleDarkMode: boolean;
   toggleNameShows: boolean;
   toggleReacted: boolean;
