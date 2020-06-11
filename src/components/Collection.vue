@@ -12,7 +12,8 @@
         :key="`${item.name}_${item.category}_${i}`"
         :category="item.category"
         :name="item.name"
-        @remove="handleRemove(i)"
+        :collected="collected(item.name, item.category)"
+        @remove="handleRemove(item)"
       />
     </div>
   </section>
@@ -59,9 +60,19 @@ export default class Collection extends Vue {
     return this.collectionLength > 0;
   }
 
+  // @method - 要素が選択されているか否かを返す
+  collected(name: string, category: string) {
+    return (
+      this.collection.items.findIndex(
+        (colleted: DecomojiCollectionItem) =>
+          colleted.name === name && colleted.category === category
+      ) > -1
+    );
+  }
+
   // @listen - コレクションからアイテムを削除する
-  handleRemove(index: number) {
-    this.remove(index);
+  handleRemove(item: DecomojiCollectionItem) {
+    this.remove(item);
     replaceState(this.collection.collectionQueries);
   }
 }

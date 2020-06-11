@@ -95,6 +95,16 @@ export default class Main extends Vue {
     );
   }
 
+  // @method - 要素が選択されているか否かを返す
+  collected(name: string, category: string) {
+    return (
+      this.collection.items.findIndex(
+        (colleted: DecomojiCollectionItem) =>
+          colleted.name === name && colleted.category === category
+      ) > -1
+    );
+  }
+
   // @listen - 要素をクリックした時
   handleAdd(item: DecomojiCollectionItem) {
     const { name, category } = item;
