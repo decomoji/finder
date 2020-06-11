@@ -12,7 +12,6 @@
         :key="`${item.name}_${item.category}_${i}`"
         :category="item.category"
         :name="item.name"
-        :collected="collected(item.name, item.category)"
         @remove="handleRemove(item)"
       />
     </div>
@@ -55,16 +54,6 @@ export default class Collection extends Vue {
   // @get - コレクションを表示するか否かを返す
   get shows() {
     return this.collectionLength > 0;
-  }
-
-  // @method - 要素が選択されているか否かを返す
-  collected(name: string, category: string) {
-    return (
-      this.collection.items.findIndex(
-        (colleted: CollectionItem) =>
-          colleted.name === name && colleted.category === category
-      ) > -1
-    );
   }
 
   // @listen - コレクションからアイテムを削除する
