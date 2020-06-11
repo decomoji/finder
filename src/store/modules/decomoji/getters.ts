@@ -6,32 +6,34 @@ import {
   DecomojiState as ThisState
 } from "./models";
 import { GetterTree } from "vuex";
+import { CategorizedItems } from "@/models/CategorizedItems";
+import { CategoryName } from "@/models/CategoryName";
+import { DecomojiName } from "@/models/DecomojiName";
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
    * コレクションをパラメータ文字列に変換したものを返す
    */
   collectionQueries: state => {
-    const { collection } = state;
+    const categorizedItems = state.collection.reduce<CategorizedItems>(
+      (
+        acc,
+        { name, category }: { name: DecomojiName; category: CategoryName }
+      ) => {
+        acc[category].push(name);
+        return acc;
+      },
+      {} as CategorizedItems
+    );
 
-    const basic: string = collection
-      .filter(item => item.category === "basic")
-      .map(item => item.name)
-      .join(",");
-    const extra: string = collection
-      .filter(item => item.category === "extra")
-      .map(item => item.name)
-      .join(",");
-    const explicit: string = collection
-      .filter(item => item.category === "explicit")
-      .map(item => item.name)
-      .join(",");
-    const preview: string = collection
-      .filter(item => item.category === "preview")
-      .map(item => item.name)
-      .join(",");
+    const paramsArray = (Object.keys(categorizedItems) as CategoryName[]).map(
+      (key: CategoryName) => {
+        const value = categorizedItems[key].join(",");
+        return `${key}=${value}`;
+      }
+    );
 
-    return `basic=${basic}&extra=${extra}&explicit=${explicit}&preview=${preview}`;
+    return paramsArray.join("&");
   },
 
   /**
