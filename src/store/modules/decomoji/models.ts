@@ -5,8 +5,12 @@ import {
 } from "@/models/Vuex";
 import { CategoryName } from "@/models/CategoryName";
 import { CategoriesState } from "@/models/CategoriesState";
-import { Collection } from "@/models/Collection";
+import { Collection, CollectionItem } from "@/models/Collection";
 import {
+  ADD_TO_COLLECTION,
+  CLEAR_COLLECTION,
+  REMOVE_FROM_COLLECTION,
+  RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
@@ -32,6 +36,10 @@ export interface DecomojiGetters {
 }
 
 export type DecomojiMutationPayloads = VuexMutationPayloads<{
+  [ADD_TO_COLLECTION]: CollectionItem;
+  [CLEAR_COLLECTION]: void;
+  [REMOVE_FROM_COLLECTION]: CollectionItem;
+  [RECEIVE_COLLECTION]: Collection;
   [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_NAME_SHOWS]: boolean;
