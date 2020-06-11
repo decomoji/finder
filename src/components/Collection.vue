@@ -8,7 +8,7 @@
     </div>
     <div class="__body">
       <DecomojiButton
-        v-for="(item, i) in collection.items"
+        v-for="(item, i) in decomoji.collection"
         :key="`${item.name}_${item.category}_${i}`"
         :category="item.category"
         :name="item.name"
@@ -23,11 +23,10 @@ import DecomojiButton from "@/components/DecomojiButton.vue";
 import { CollectionItem } from "@/models/Collection";
 import { CategoryName } from "@/models/CategoryName";
 import { QueriesObject } from "@/models/QueriesObject";
-import { DecomojiViewModel } from "@/store/modules/decomoji/models";
 import {
-  CollectionActions,
-  CollectionViewModel
-} from "@/store/modules/collection/models";
+  DecomojiAction,
+  DecomojiViewModel
+} from "@/store/modules/decomoji/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { replaceState } from "@/utilities/replaceState";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
@@ -41,14 +40,13 @@ import { Action, Getter } from "vuex-class";
 export default class Collection extends Vue {
   // viewModel を引き当てる
   @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
-  @Getter("collection/viewModel") collection!: CollectionViewModel;
 
   // アクションを引き当てる
-  @Action("collection/remove") remove!: CollectionActions["remove"];
+  @Action("decomoji/remove") remove!: DecomojiAction["remove"];
 
   // @get - コレクションのアイテム数を返す
   get collectionLength() {
-    return this.collection.items.length;
+    return this.decomoji.collection.length;
   }
 
   // @get - コレクションを表示するか否かを返す
@@ -59,7 +57,7 @@ export default class Collection extends Vue {
   // @listen - コレクションからアイテムを削除する
   handleRemove(item: CollectionItem) {
     this.remove(item);
-    replaceState(this.collection.collectionQueries);
+    replaceState(this.decomoji.collectionQueries);
   }
 }
 </script>

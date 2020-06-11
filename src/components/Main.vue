@@ -25,11 +25,10 @@ import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
-import { DecomojiViewModel } from "@/store/modules/decomoji/models";
 import {
-  CollectionActions,
-  CollectionViewModel
-} from "@/store/modules/collection/models";
+  DecomojiAction,
+  DecomojiViewModel
+} from "@/store/modules/decomoji/models";
 import { replaceState } from "@/utilities/replaceState";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
@@ -42,11 +41,10 @@ import { Action, Getter } from "vuex-class";
 export default class Main extends Vue {
   // viewModel を引き当てる
   @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
-  @Getter("collection/viewModel") collection!: CollectionViewModel;
 
   // アクションを引き当てる
-  @Action("collection/add") add!: CollectionActions["add"];
-  @Action("collection/remove") remove!: CollectionActions["remove"];
+  @Action("decomoji/add") add!: DecomojiAction["add"];
+  @Action("decomoji/remove") remove!: DecomojiAction["remove"];
 
   // 内部プロパティを定義する
   categories = AvailableCategories;
@@ -87,7 +85,7 @@ export default class Main extends Vue {
 
   // @method - 要素が選択されているか否かを返す
   collected(name: string, category: CategoryName) {
-    return this.collection.items.find(
+    return this.decomoji.collection.find(
       (v: CollectionItem) => v.name === name && v.category === category
     );
   }
@@ -96,7 +94,7 @@ export default class Main extends Vue {
   handleAdd(item: CollectionItem) {
     const { name, category } = item;
     this.collected(name, category) ? this.remove(item) : this.add(item);
-    replaceState(this.collection.collectionQueries);
+    replaceState(this.decomoji.collectionQueries);
   }
 }
 </script>
