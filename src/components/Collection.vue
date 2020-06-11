@@ -22,7 +22,6 @@
 import DecomojiButton from "@/components/DecomojiButton.vue";
 import { CollectionItem } from "@/models/Collection";
 import { CategoryName } from "@/models/CategoryName";
-import { QueriesObject } from "@/models/QueriesObject";
 import {
   DecomojiAction,
   DecomojiViewModel
