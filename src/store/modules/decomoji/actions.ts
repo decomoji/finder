@@ -18,6 +18,7 @@ import {
 } from "./mutation-types";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
+import { Collection } from "@/models/Collection";
 
 export const actions: ActionTree<ThisState, RootState> = {
   /**
@@ -53,37 +54,19 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param payload
    */
   receive({ commit }, payload: ThisActionPayloads["receive"]) {
+    type IdentifiedArray = [CategoryName, string];
     // パラメータをパースしてコレクションに追加する
-    const { basic, extra, explicit, preview } = payload || {};
-    const _basic = isStringOfNotEmpty(basic)
-      ? basic
-          .split(",")
-          .map((name: string) => ({ name, category: "basic" as CategoryName }))
-      : [];
-    const _extra = isStringOfNotEmpty(extra)
-      ? extra
-          .split(",")
-          .map((name: string) => ({ name, category: "extra" as CategoryName }))
-      : [];
-    const _explicit = isStringOfNotEmpty(explicit)
-      ? explicit.split(",").map((name: string) => ({
-          name,
-          category: "explicit" as CategoryName
-        }))
-      : [];
-    const _preview = isStringOfNotEmpty(preview)
-      ? preview.split(",").map((name: string) => ({
-          name,
-          category: "preview" as CategoryName
-        }))
-      : [];
+    const parsedParams = payload || {};
 
-    commit(RECEIVE_COLLECTION, [
-      ..._basic,
-      ..._extra,
-      ..._explicit,
-      ..._preview
-    ]);
+    const collection = (Object.entries(parsedParams) as IdentifiedArray[])
+      .map<Collection>((parsedParam: IdentifiedArray) => {
+        const [category, rest] = parsedParam;
+        const decomojis: string[] = rest ? rest.split(",") : [];
+        return decomojis.map(name => ({ name, category }));
+      })
+      .flat();
+
+    commit(RECEIVE_COLLECTION, collection);
   },
 
   /**
