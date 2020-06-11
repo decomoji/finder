@@ -9,7 +9,7 @@
       >
         <input
           :value="category.value"
-          :checked="ui.category[category.value]"
+          :checked="decomoji.category[category.value]"
           class="__checkbox"
           name="category"
           type="checkbox"
@@ -25,17 +25,21 @@
 import { DisplayCategoryList } from "@/configs/DisplayCategoryList";
 import { CategoryName } from "@/models/CategoryName";
 import { CategoryItem } from "@/models/CategoryItem";
-import { UiActions, UiViewModel } from "@/store/modules/ui/models";
+import {
+  DecomojiAction,
+  DecomojiViewModel
+} from "@/store/modules/decomoji/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component
 export default class CategorySelector extends Vue {
   // viewModel を引き当てる
-  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
-  @Action("ui/toggleCategory") toggleCategory!: UiActions["toggleCategory"];
+  @Action("decomoji/toggleCategory")
+  toggleCategory!: DecomojiAction["toggleCategory"];
 
   // 内部プロパティを定義する
   displayCategoryList: CategoryItem[] = DisplayCategoryList;

@@ -23,7 +23,7 @@ import DecomojiButton from "@/components/DecomojiButton.vue";
 import { CollectionItem } from "@/models/Collection";
 import { CategoryName } from "@/models/CategoryName";
 import { QueriesObject } from "@/models/QueriesObject";
-import { UiViewModel } from "@/store/modules/ui/models";
+import { DecomojiViewModel } from "@/store/modules/decomoji/models";
 import {
   CollectionActions,
   CollectionViewModel
@@ -40,7 +40,7 @@ import { Action, Getter } from "vuex-class";
 })
 export default class Collection extends Vue {
   // viewModel を引き当てる
-  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
   @Getter("collection/viewModel") collection!: CollectionViewModel;
 
   // アクションを引き当てる

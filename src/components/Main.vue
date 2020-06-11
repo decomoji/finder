@@ -25,7 +25,7 @@ import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
-import { UiViewModel } from "@/store/modules/ui/models";
+import { DecomojiViewModel } from "@/store/modules/decomoji/models";
 import {
   CollectionActions,
   CollectionViewModel
@@ -41,7 +41,7 @@ import { Action, Getter } from "vuex-class";
 })
 export default class Main extends Vue {
   // viewModel を引き当てる
-  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
   @Getter("collection/viewModel") collection!: CollectionViewModel;
 
   // アクションを引き当てる
@@ -54,13 +54,13 @@ export default class Main extends Vue {
 
   // @get - ファイル名を表示するか否かを返す
   get nameShows() {
-    return this.ui.name && this.ui.size === DefaultSize;
+    return this.decomoji.name && this.decomoji.size === DefaultSize;
   }
 
   // @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
   matches(name: string, category: CategoryName) {
     return (
-      (this.ui.search === "" || this.nameMatches(name)) &&
+      (this.decomoji.search === "" || this.nameMatches(name)) &&
       this.categoryMatches(category)
     );
   }
@@ -68,7 +68,7 @@ export default class Main extends Vue {
   // @method - 要素が検索クエリを正規表現にマッチするか否かを返す
   nameMatches(name: string) {
     try {
-      return RegExp(this.ui.search).test(name);
+      return RegExp(this.decomoji.search).test(name);
     } catch (err) {
       throw err;
     }
@@ -76,7 +76,7 @@ export default class Main extends Vue {
 
   // @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
   categoryMatches(category: CategoryName) {
-    const { basic, extra, explicit, preview } = this.ui.category;
+    const { basic, extra, explicit, preview } = this.decomoji.category;
     return (
       (basic && category === "basic") ||
       (explicit && category === "explicit") ||

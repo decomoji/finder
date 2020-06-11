@@ -1,7 +1,7 @@
 import { RootState } from "@/store/models";
 import { actions } from "./actions";
 import { getters } from "./getters";
-import { UiState as ThisState } from "./models";
+import { DecomojiState as ThisState } from "./models";
 import { mutations } from "./mutations";
 import { Module } from "vuex";
 

@@ -1,6 +1,6 @@
 import {
-  UiMutationPayloads as ThisMutationPayloads,
-  UiState as ThisState
+  DecomojiMutationPayloads as ThisMutationPayloads,
+  DecomojiState as ThisState
 } from "./models";
 import {
   TOGGLE_CATEGORY,

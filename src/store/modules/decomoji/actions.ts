@@ -1,7 +1,7 @@
 import { RootState } from "@/store/models";
 import {
-  UiActionPayloads as ThisActionPayloads,
-  UiState as ThisState
+  DecomojiActionPayloads as ThisActionPayloads,
+  DecomojiState as ThisState
 } from "./models";
 import {
   TOGGLE_CATEGORY,

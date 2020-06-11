@@ -14,7 +14,7 @@ import {
   UPDATE_SIZE
 } from "./mutation-types";
 
-export interface UiState {
+export interface DecomojiState {
   category: CategoriesState;
   dark: boolean;
   name: boolean;
@@ -23,13 +23,13 @@ export interface UiState {
   size: string;
 }
 
-export interface UiViewModel extends UiState {}
+export interface DecomojiViewModel extends DecomojiState {}
 
-export interface UiGetters {
-  viewModel: UiViewModel;
+export interface DecomojiGetters {
+  viewModel: DecomojiViewModel;
 }
 
-export type UiMutationPayloads = VuexMutationPayloads<{
+export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_NAME_SHOWS]: boolean;
@@ -38,7 +38,7 @@ export type UiMutationPayloads = VuexMutationPayloads<{
   [UPDATE_SIZE]: string;
 }>;
 
-export type UiActionPayloads = VuexActionPayloads<{
+export type DecomojiActionPayloads = VuexActionPayloads<{
   toggleCategory: CategoryName;
   toggleDarkMode: boolean;
   toggleNameShows: boolean;
@@ -47,4 +47,4 @@ export type UiActionPayloads = VuexActionPayloads<{
   updateSize: string;
 }>;
 
-export type UiActions = VuexActions<UiActionPayloads>;
+export type DecomojiAction = VuexActions<DecomojiActionPayloads>;
