@@ -1,25 +1,32 @@
 <template>
   <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
-    <div class="__body">
-      <template v-for="category in categories">
-        <DecomojiButton
-          v-for="(name, i) in decomojis[category]"
-          v-show="matches(name, category)"
-          :key="`${name}_${category}_${i}`"
-          :category="category"
-          :name="name"
-          :name-shows="nameShows"
-          :collected="matches(name, category) && collected(name, category)"
-          @add="handleAdd({ name, category })"
-          @remove="handleRemove({ name, category })"
-        />
+    <DynamicScroller :items="decomojis" :min-item-size="24" class="scroller">
+      <template v-slot="{ item, index, active }">
+        <DynamicScrollerItem
+          :item="item"
+          :active="active"
+          :size-dependencies="[item.name]"
+          :data-index="index"
+        >
+          <!-- <DecomojiButton
+            v-show="matches(item.name, item.category)"
+            :category="item.category"
+            :name="item.name"
+            :name-shows="nameShows"
+            :collected="matches(item.name, item.category) && collected(item.name, item.category)"
+            @add="handleAdd(item)"
+            @remove="handleRemove(item)"
+          /> -->
+          {{ index }}: {{ item }} _ {{ active }}
+        </DynamicScrollerItem>
       </template>
-    </div>
+    </DynamicScroller>
   </section>
 </template>
 
 <script lang="ts">
+// import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
@@ -48,7 +55,6 @@ export default class Main extends Vue {
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
 
   // 内部プロパティを定義する
-  categories = AvailableCategories;
   decomojis = AvailableDecomojis;
 
   // @get - ファイル名を表示するか否かを返す
@@ -104,3 +110,9 @@ export default class Main extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.scroller {
+  height: 100%;
+}
+</style>
