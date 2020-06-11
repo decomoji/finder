@@ -10,7 +10,7 @@
           :category="category"
           :name="name"
           :name-shows="nameShows"
-          :collected="collected(name, category)"
+          :collected="matches(name, category) && collected(name, category)"
           @add="handleAdd({ name, category })"
         />
       </template>
