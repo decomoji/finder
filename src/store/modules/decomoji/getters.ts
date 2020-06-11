@@ -16,24 +16,20 @@ export const getters: GetterTree<ThisState, RootState> = {
    */
   collectionQueries: state => {
     const categorizedItems = state.collection.reduce<CategorizedItems>(
-      (
-        acc,
-        { name, category }: { name: DecomojiName; category: CategoryName }
-      ) => {
-        acc[category].push(name);
+      (acc, { name, category }) => {
+        acc[category] ? acc[category].push(name) : (acc[category] = []);
         return acc;
       },
-      {} as CategorizedItems
+      {}
     );
 
-    const paramsArray = (Object.keys(categorizedItems) as CategoryName[]).map(
-      (key: CategoryName) => {
-        const value = categorizedItems[key].join(",");
-        return `${key}=${value}`;
-      }
+    const paramaterizedArray = (Object.keys(
+      categorizedItems
+    ) as CategoryName[]).map(
+      (key: CategoryName) => `${key}=${categorizedItems[key].join(",")}`
     );
 
-    return paramsArray.join("&");
+    return paramaterizedArray.join("&");
   },
 
   /**
