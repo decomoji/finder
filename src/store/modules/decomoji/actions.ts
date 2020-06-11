@@ -54,36 +54,15 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   receive({ commit }, payload: ThisActionPayloads["receive"]) {
     // パラメータをパースしてコレクションに追加する
-    const { basic, extra, explicit, preview } = payload || {};
-    const _basic = isStringOfNotEmpty(basic)
-      ? basic
-          .split(",")
-          .map((name: string) => ({ name, category: "basic" as CategoryName }))
-      : [];
-    const _extra = isStringOfNotEmpty(extra)
-      ? extra
-          .split(",")
-          .map((name: string) => ({ name, category: "extra" as CategoryName }))
-      : [];
-    const _explicit = isStringOfNotEmpty(explicit)
-      ? explicit.split(",").map((name: string) => ({
-          name,
-          category: "explicit" as CategoryName
-        }))
-      : [];
-    const _preview = isStringOfNotEmpty(preview)
-      ? preview.split(",").map((name: string) => ({
-          name,
-          category: "preview" as CategoryName
-        }))
-      : [];
+    const parsedParams = payload || {};
 
-    commit(RECEIVE_COLLECTION, [
-      ..._basic,
-      ..._extra,
-      ..._explicit,
-      ..._preview
-    ]);
+    const collection = Object.entries(parsedParams).map(parsedParam => {
+      const [category, valueStr] = parsedParam;
+      const values = valueStr ? valueStr.split(",") : [];
+      return values.map(name => ({ name, category }));
+    }).flat();
+
+    commit(RECEIVE_COLLECTION, collection);
   },
 
   /**
