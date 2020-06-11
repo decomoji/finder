@@ -16,7 +16,7 @@ export const getters: GetterTree<ThisState, RootState> = {
   collectionQueries: state => {
     const categorizedItems = state.collection.reduce<CategorizedItems>(
       (acc, { name, category }) => {
-        acc[category] ? acc[category].push(name) : (acc[category] = []);
+        acc[category] ? acc[category].push(name) : (acc[category] = [name]);
         return acc;
       },
       {}
