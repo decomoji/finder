@@ -56,7 +56,7 @@ export default class Main extends Vue {
     return this.decomoji.name && this.decomoji.size === DefaultSize;
   }
 
-  // @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
+  // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す
   matches(name: string, category: CategoryName) {
     return (
       (this.decomoji.search === "" || this.nameMatches(name)) &&
@@ -64,7 +64,7 @@ export default class Main extends Vue {
     );
   }
 
-  // @method - 要素が検索クエリを正規表現にマッチするか否かを返す
+  // @method - デコモジが検索クエリを正規表現にマッチするか否かを返す
   nameMatches(name: string) {
     try {
       return RegExp(this.decomoji.search).test(name);
@@ -73,7 +73,7 @@ export default class Main extends Vue {
     }
   }
 
-  // @method - 要素のカテゴリーが表示カテゴリーであるか否かを返す
+  // @method - デコモジのカテゴリーが表示カテゴリーであるか否かを返す
   categoryMatches(category: CategoryName) {
     const { basic, extra, explicit, preview } = this.decomoji.category;
     return (
@@ -84,7 +84,7 @@ export default class Main extends Vue {
     );
   }
 
-  // @method - 要素が選択されているか否かを返す
+  // @method - デコモジがコレクションされているか否かを返す
   collected(name: string, category: CategoryName) {
     return this.decomoji.collection.find(
       (v: CollectionItem) => v.name === name && v.category === category
