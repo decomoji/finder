@@ -57,13 +57,6 @@ export default class Main extends Vue {
     return this.ui.name && this.ui.size === DefaultSize;
   }
 
-  // @method - 要素が選択されているか否かを返す
-  collected(name: string, category: CategoryId) {
-    return this.collection.items.find(
-      (v: DecomojiCollectionItem) => v.name === name && v.category === category
-    );
-  }
-
   // @method - 検索クエリが空か要素が検索クエリにマッチするかし、カテゴリー選択にマッチすれば true を返す
   matches(name: string, category: CategoryName) {
     return (
@@ -93,12 +86,9 @@ export default class Main extends Vue {
   }
 
   // @method - 要素が選択されているか否かを返す
-  collected(name: string, category: string) {
-    return (
-      this.collection.items.findIndex(
-        (colleted: CollectionItem) =>
-          colleted.name === name && colleted.category === category
-      ) > -1
+  collected(name: string, category: CategoryName) {
+    return this.collection.items.find(
+      (v: CollectionItem) => v.name === name && v.category === category
     );
   }
 
