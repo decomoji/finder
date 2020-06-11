@@ -18,6 +18,7 @@ import {
 } from "./mutation-types";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
+import { Collection } from "@/models/Collection";
 
 export const actions: ActionTree<ThisState, RootState> = {
   /**
@@ -53,14 +54,17 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param payload
    */
   receive({ commit }, payload: ThisActionPayloads["receive"]) {
+    type IdentifiedArray = [CategoryName, string];
     // パラメータをパースしてコレクションに追加する
     const parsedParams = payload || {};
 
-    const collection = Object.entries(parsedParams).map(parsedParam => {
-      const [category, valueStr] = parsedParam;
-      const values = valueStr ? valueStr.split(",") : [];
-      return values.map(name => ({ name, category }));
-    }).flat();
+    const collection = (Object.entries(parsedParams) as IdentifiedArray[])
+      .map<Collection>((parsedParam: IdentifiedArray) => {
+        const [category, rest] = parsedParam;
+        const decomojis: string[] = rest ? rest.split(",") : [];
+        return decomojis.map(name => ({ name, category }));
+      })
+      .flat();
 
     commit(RECEIVE_COLLECTION, collection);
   },
