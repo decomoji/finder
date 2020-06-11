@@ -23,8 +23,7 @@ export interface UiState {
   size: string;
 }
 
-export interface UiViewModel extends UiState {
-}
+export interface UiViewModel extends UiState {}
 
 export interface UiGetters {
   viewModel: UiViewModel;
