@@ -16,6 +16,10 @@
     background-color: var(--bgDecomojiCollected);
   }
 
+  .Collection & {
+    background-color: var(--bgDecomojiCollected);
+  }
+
   .-l & {
     padding: 10px;
   }
