@@ -1,7 +1,12 @@
 <template>
   <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
-    <DynamicScroller :items="decomojis" :min-item-size="24" class="scroller">
+    <DynamicScroller
+      :items="decomojis"
+      :min-item-size="113"
+      page-mode
+      class="scroller"
+    >
       <template v-slot="{ item, index, active }">
         <DynamicScrollerItem
           :item="item"
@@ -9,16 +14,18 @@
           :size-dependencies="[item.name]"
           :data-index="index"
         >
-          <!-- <DecomojiButton
+          <DecomojiButton
             v-show="matches(item.name, item.category)"
             :category="item.category"
             :name="item.name"
             :name-shows="nameShows"
-            :collected="matches(item.name, item.category) && collected(item.name, item.category)"
+            :collected="
+              matches(item.name, item.category) &&
+                collected(item.name, item.category)
+            "
             @add="handleAdd(item)"
             @remove="handleRemove(item)"
-          /> -->
-          {{ index }}: {{ item }} _ {{ active }}
+          />
         </DynamicScrollerItem>
       </template>
     </DynamicScroller>
