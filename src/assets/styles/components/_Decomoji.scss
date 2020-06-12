@@ -3,6 +3,7 @@
   border: 1px solid transparent;
   border-radius: 0.375rem;
   background-color: var(--bgDecomoji);
+  height: 130px;
   @include focusDecomoji;
 
   .-reacted .Main & {
@@ -31,12 +32,15 @@
     vertical-align: text-top;
 
     .-l & {
+      height: 64px;
       width: 64px;
     }
     .-m & {
+      height: 32px;
       width: 32px;
     }
     .-s & {
+      height: 16px;
       width: 16px;
     }
   }

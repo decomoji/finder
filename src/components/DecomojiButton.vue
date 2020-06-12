@@ -14,6 +14,7 @@
       :alt="nameShows ? '' : name"
       :src="`/decomoji/${category}/${name}.png`"
       class="__img"
+      height="64"
       width="64"
     />
     <span v-show="nameShows" :aria-label="name" class="__name">{{
