@@ -2,8 +2,9 @@
   <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <DynamicScroller
-      :items="decomojis"
-      :min-item-size="113"
+      v-if="numColumns > 0"
+      :items="dummyRowsForVirtualScroll"
+      :min-item-size="135"
       page-mode
       class="scroller"
     >
@@ -14,18 +15,21 @@
           :size-dependencies="[item.name]"
           :data-index="index"
         >
-          <DecomojiButton
-            v-show="matches(item.name, item.category)"
-            :category="item.category"
-            :name="item.name"
-            :name-shows="nameShows"
-            :collected="
-              matches(item.name, item.category) &&
-                collected(item.name, item.category)
-            "
-            @add="handleAdd(item)"
-            @remove="handleRemove(item)"
-          />
+          <div class="__decomojiRow">
+            <DecomojiButton
+              v-for="item in getRowDecomojis(index)"
+              :key="item.id"
+              :category="item.category"
+              :name="item.name"
+              :name-shows="nameShows"
+              :collected="
+                matches(item.name, item.category) &&
+                  collected(item.name, item.category)
+              "
+              @add="handleAdd(item)"
+              @remove="handleRemove(item)"
+            />
+          </div>
         </DynamicScrollerItem>
       </template>
     </DynamicScroller>
@@ -64,9 +68,74 @@ export default class Main extends Vue {
   // 内部プロパティを定義する
   decomojis = AvailableDecomojis;
 
+  // 一覧領域の幅
+  containerWidth = 0;
+
+  // @get - 一覧に表示するデコモジ
+  get filteredDecomojis() {
+    return AvailableDecomojis.filter(v => this.matches(v.name, v.category));
+  }
+
+  // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
+  get dummyRowsForVirtualScroll() {
+    const length = Math.ceil(this.filteredDecomojis.length / this.numColumns);
+    return Array.from({ length }).fill(0);
+  }
+
+  // @get - CSSの設定値
+  get minItemWidth() {
+    // TODO
+    return 128;
+  }
+
+  // @get - CSSの設定値
+  get itemGap() {
+    // TODO
+    return 10;
+  }
+
+  // @get - CSSの設定値
+  get containerPadding() {
+    // TODO
+    return 10;
+  }
+
+  // @get - 1行に入る項目数
+  get numColumns() {
+    const itemWidth = this.minItemWidth + this.itemGap;
+    const containerVirtualWidth =
+      this.containerWidth + this.itemGap - this.containerPadding * 2;
+    return Math.floor(containerVirtualWidth / itemWidth);
+  }
+
+  // @get - 1行分のデコモジ情報配列を得る関数
+  get getRowDecomojis() {
+    // TODO memoize
+    return (index: number) => {
+      const start = this.numColumns * index;
+      const end = start + this.numColumns;
+      return this.filteredDecomojis.slice(start, end);
+    };
+  }
+
   // @get - ファイル名を表示するか否かを返す
   get nameShows() {
     return this.decomoji.name && this.decomoji.size === DefaultSize;
+  }
+
+  mounted() {
+    window.addEventListener("resize", this.updateContainerWidth);
+    this.updateContainerWidth();
+  }
+
+  destroyed() {
+    window.removeEventListener("resize", this.updateContainerWidth);
+  }
+
+  // @method - 一覧領域の幅情報を更新
+  updateContainerWidth() {
+    const el = this.$el;
+    this.containerWidth = el.clientWidth;
   }
 
   // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す
