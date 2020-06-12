@@ -5,7 +5,7 @@
       v-if="numColumns > 0"
       v-slot="{ index: row }"
       :items="dummyRowsForVirtualScroll"
-      :item-size="135"
+      :item-size="140"
       class="scroller"
       key-field="id"
       page-mode
