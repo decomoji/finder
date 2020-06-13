@@ -1,38 +1,31 @@
 <template>
   <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
-    <DynamicScroller
+    <RecycleScroller
       v-if="numColumns > 0"
+      v-slot="{ index: row }"
       :items="dummyRowsForVirtualScroll"
-      :min-item-size="135"
-      page-mode
+      :item-size="140"
       class="scroller"
+      key-field="id"
+      page-mode
     >
-      <template v-slot="{ item, index, active }">
-        <DynamicScrollerItem
-          :item="item"
-          :active="active"
-          :size-dependencies="[item.name]"
-          :data-index="index"
-        >
-          <div class="__decomojiRow">
-            <DecomojiButton
-              v-for="item in getRowDecomojis(index)"
-              :key="item.id"
-              :category="item.category"
-              :name="item.name"
-              :name-shows="nameShows"
-              :collected="
-                matches(item.name, item.category) &&
-                  collected(item.name, item.category)
-              "
-              @add="handleAdd(item)"
-              @remove="handleRemove(item)"
-            />
-          </div>
-        </DynamicScrollerItem>
-      </template>
-    </DynamicScroller>
+      <div class="__decomojiRow">
+        <DecomojiButton
+          v-for="item in getRowDecomojis(row)"
+          :key="item.id"
+          :category="item.category"
+          :name="item.name"
+          :name-shows="nameShows"
+          :collected="
+            matches(item.name, item.category) &&
+              collected(item.name, item.category)
+          "
+          @add="handleAdd(item)"
+          @remove="handleRemove(item)"
+        />
+      </div>
+    </RecycleScroller>
   </section>
 </template>
 
@@ -79,7 +72,11 @@ export default class Main extends Vue {
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
   get dummyRowsForVirtualScroll() {
     const length = Math.ceil(this.filteredDecomojis.length / this.numColumns);
-    return Array.from({ length }).fill(0);
+    const arr = [];
+    for (let i = 0; i < length; i++) {
+      arr.push({ id: i, name: `#${i}` });
+    }
+    return arr;
   }
 
   // @get - CSSの設定値
