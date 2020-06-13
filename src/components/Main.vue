@@ -189,28 +189,3 @@ export default class Main extends Vue {
   }
 }
 </script>
-
-<style>
-.scroller {
-  height: 100%;
-}
-.vue-recycle-scroller__item-wrapper {
-  display: grid;
-  grid-auto-flow: row;
-}
-.-l .vue-recycle-scroller__item-wrapper {
-  gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
-  padding: 10px;
-}
-.-m .vue-recycle-scroller__item-wrapper {
-  gap: 5px;
-  grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
-  padding: 5px;
-}
-.-s .vue-recycle-scroller__item-wrapper {
-  gap: 3px;
-  grid-template-columns: repeat(auto-fill, minmax(24px, 1fr));
-  padding: 3px;
-}
-</style>
