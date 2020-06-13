@@ -35,6 +35,11 @@ import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
+import {
+  GridContainerPaddingValue,
+  GridItemGapValue,
+  GridMinItemWidthValue
+} from "@/configs/GridSizeValue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
 import {
@@ -79,22 +84,19 @@ export default class Main extends Vue {
     return arr;
   }
 
-  // @get - CSSの設定値
+  // @get - CSS Grid item 幅の最小値を返す
   get minItemWidth() {
-    // TODO
-    return 128;
+    return GridMinItemWidthValue[this.decomoji.size];
   }
 
-  // @get - CSSの設定値
+  // @get - CSS Grid item の gap 値を返す
   get itemGap() {
-    // TODO
-    return 10;
+    return GridItemGapValue[this.decomoji.size];
   }
 
-  // @get - CSSの設定値
+  // @get - CSS Grid container の padding 値を返す
   get containerPadding() {
-    // TODO
-    return 10;
+    return GridContainerPaddingValue[this.decomoji.size];
   }
 
   // @get - 1行に入る項目数
