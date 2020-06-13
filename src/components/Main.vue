@@ -30,7 +30,6 @@
 </template>
 
 <script lang="ts">
-import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
 import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";

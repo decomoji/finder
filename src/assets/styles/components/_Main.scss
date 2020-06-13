@@ -1,4 +1,14 @@
 .Main {
+  .-l & {
+    padding-bottom: 10px;
+  }
+  .-m & {
+    padding-bottom: 5px;
+  }
+  .-s & {
+    padding-bottom: 3px;
+  }
+
   .__decomojiRow {
     display: grid;
     grid-auto-flow: row;
