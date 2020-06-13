@@ -1,5 +1,6 @@
 @import 'configs/mixins';
-@import 'components/root';
+@import 'configs/root';
+@import 'configs/base';
 @import '../../../node_modules/normalize.css/normalize.css';
 @import 'components/Header';
 @import 'components/Logo';
@@ -9,17 +10,3 @@
 @import 'components/Decomoji';
 @import 'components/Collection';
 @import 'components/VisuallyHidden';
-
-*,::before,::after {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: "Noto Sans JP", serif;
-}
-
-body {
-  font-size: 0.875rem;
-  color: var(--colorBody);
-  background-color: var(--bgBody);
-}
