@@ -32,7 +32,10 @@
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
-import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
+import {
+  AvailableDecomoji,
+  AvailableDecomojis
+} from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
 import {
   GridContainerPaddingValue,
@@ -47,7 +50,7 @@ import {
   DecomojiViewModel
 } from "@/store/modules/decomoji/models";
 import { replaceState } from "@/utilities/replaceState";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
@@ -127,6 +130,28 @@ export default class Main extends Vue {
   // @get - ファイル名を表示するか否かを返す
   get nameShows() {
     return this.decomoji.name && this.decomoji.size === DefaultSize;
+  }
+
+  // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
+  @Watch("filteredDecomojis")
+  scrollToSeeList(newList: AvailableDecomoji[], oldList: AvailableDecomoji[]) {
+    if (newList.length > oldList.length) {
+      return;
+    }
+
+    const el = document.documentElement;
+    const screenHeight = el.clientHeight;
+
+    if (!(this.$el instanceof HTMLElement)) {
+      throw new Error("Component must be rendered as an HTMLElement");
+    }
+    const headerHeight = this.$el.offsetTop; // ということにする
+
+    const numOfRows = this.dummyRowsForVirtualScroll.length;
+    const listHeight = this.gridRowHeight * numOfRows;
+    const maxScrollTop = headerHeight + listHeight - screenHeight; // 下部paddingは省略
+
+    el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
   }
 
   // @method - 一覧領域の幅情報を更新
