@@ -17,3 +17,9 @@ export const GridMinItemWidthValue: StringKeyNumberValueSignature = {
   m: 42,
   s: 24
 };
+
+export const GridRowHeightValue: StringKeyNumberValueSignature = {
+  l: 139,
+  m: 50,
+  s: 28
+};

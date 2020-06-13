@@ -5,7 +5,7 @@
       v-if="gridColumnLength > 0"
       v-slot="{ index: row }"
       :items="dummyRowsForVirtualScroll"
-      :item-size="140"
+      :item-size="gridRowHeight"
       class="scroller"
       key-field="id"
       page-mode
@@ -38,7 +38,8 @@ import { DefaultSize } from "@/configs/DefaultSize";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
-  GridMinItemWidthValue
+  GridMinItemWidthValue,
+  GridRowHeightValue
 } from "@/configs/GridSizeValue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
@@ -107,6 +108,11 @@ export default class Main extends Vue {
       this.gridItemGap -
       this.gridContainerPadding * 2;
     return Math.floor(gridContainerVirtualWidth / gridItemWidth);
+  }
+
+  // @get - 1行分の高さを返す
+  get gridRowHeight() {
+    return GridRowHeightValue[this.decomoji.size];
   }
 
   // @get - 1行分のデコモジ情報配列を得る関数
