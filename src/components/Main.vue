@@ -2,7 +2,7 @@
   <section class="Main">
     <h2 class="VisuallyHidden">デコモジ一覧</h2>
     <RecycleScroller
-      v-if="numColumns > 0"
+      v-if="gridColumnLength > 0"
       v-slot="{ index: row }"
       :items="dummyRowsForVirtualScroll"
       :item-size="140"
@@ -65,9 +65,7 @@ export default class Main extends Vue {
 
   // 内部プロパティを定義する
   decomojis = AvailableDecomojis;
-
-  // 一覧領域の幅
-  containerWidth = 0;
+  gridContainerWidth = 0;
 
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
@@ -76,7 +74,9 @@ export default class Main extends Vue {
 
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
   get dummyRowsForVirtualScroll() {
-    const length = Math.ceil(this.filteredDecomojis.length / this.numColumns);
+    const length = Math.ceil(
+      this.filteredDecomojis.length / this.gridColumnLength
+    );
     const arr = [];
     for (let i = 0; i < length; i++) {
       arr.push({ id: i, name: `#${i}` });
@@ -84,35 +84,37 @@ export default class Main extends Vue {
     return arr;
   }
 
-  // @get - CSS Grid item 幅の最小値を返す
-  get minItemWidth() {
-    return GridMinItemWidthValue[this.decomoji.size];
-  }
-
-  // @get - CSS Grid item の gap 値を返す
-  get itemGap() {
-    return GridItemGapValue[this.decomoji.size];
-  }
-
   // @get - CSS Grid container の padding 値を返す
-  get containerPadding() {
+  get gridContainerPadding() {
     return GridContainerPaddingValue[this.decomoji.size];
   }
 
+  // @get - CSS Grid item の gap 値を返す
+  get gridItemGap() {
+    return GridItemGapValue[this.decomoji.size];
+  }
+
+  // @get - CSS Grid item 幅の最小値を返す
+  get gridMinItemWidth() {
+    return GridMinItemWidthValue[this.decomoji.size];
+  }
+
   // @get - 1行に入る項目数
-  get numColumns() {
-    const itemWidth = this.minItemWidth + this.itemGap;
-    const containerVirtualWidth =
-      this.containerWidth + this.itemGap - this.containerPadding * 2;
-    return Math.floor(containerVirtualWidth / itemWidth);
+  get gridColumnLength() {
+    const gridItemWidth = this.gridMinItemWidth + this.gridItemGap;
+    const gridContainerVirtualWidth =
+      this.gridContainerWidth +
+      this.gridItemGap -
+      this.gridContainerPadding * 2;
+    return Math.floor(gridContainerVirtualWidth / gridItemWidth);
   }
 
   // @get - 1行分のデコモジ情報配列を得る関数
   get getRowDecomojis() {
     // TODO memoize
     return (index: number) => {
-      const start = this.numColumns * index;
-      const end = start + this.numColumns;
+      const start = this.gridColumnLength * index;
+      const end = start + this.gridColumnLength;
       return this.filteredDecomojis.slice(start, end);
     };
   }
@@ -122,19 +124,10 @@ export default class Main extends Vue {
     return this.decomoji.name && this.decomoji.size === DefaultSize;
   }
 
-  mounted() {
-    window.addEventListener("resize", this.updateContainerWidth);
-    this.updateContainerWidth();
-  }
-
-  destroyed() {
-    window.removeEventListener("resize", this.updateContainerWidth);
-  }
-
   // @method - 一覧領域の幅情報を更新
-  updateContainerWidth() {
+  updateGridContainerWidth() {
     const el = this.$el;
-    this.containerWidth = el.clientWidth;
+    this.gridContainerWidth = el.clientWidth;
   }
 
   // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す
@@ -182,6 +175,17 @@ export default class Main extends Vue {
   handleRemove(item: CollectionItem) {
     this.remove(item);
     replaceState(this.decomoji.collectionQueries);
+  }
+
+  // @lifecycle
+  mounted() {
+    window.addEventListener("resize", this.updateGridContainerWidth);
+    this.updateGridContainerWidth();
+  }
+
+  // @lifecycle
+  destroyed() {
+    window.removeEventListener("resize", this.updateGridContainerWidth);
   }
 }
 </script>
