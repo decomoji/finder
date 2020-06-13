@@ -3,7 +3,6 @@
   border: 1px solid transparent;
   border-radius: 0.375rem;
   background-color: var(--bgDecomoji);
-  height: 130px;
   @include focusDecomoji;
 
   .-reacted .Main & {
@@ -21,14 +20,21 @@
     background-color: var(--bgDecomojiCollected);
   }
 
-  .-l & {
+  .-l .Main & {
     padding: 10px;
+    height: 129px;
+  }
+  .-l .Collection & {
+    padding: 10px;
+    height: 87px;
   }
   .-m & {
     padding: 5px;
+    height: 45px;
   }
   .-s & {
     padding: 3px;
+    height: 25px;
   }
 
   .__img {
