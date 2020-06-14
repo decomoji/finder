@@ -10,13 +10,7 @@
     @dblclick="$emit('remove', $event)"
     @keydown.delete="$emit('remove', $event)"
   >
-    <img
-      :alt="nameShows ? '' : name"
-      :src="`/decomoji/${category}/${name}.png`"
-      class="__img"
-      height="64"
-      width="64"
-    />
+    <DecomojiImg :category="category" :name="name" />
     <span v-show="nameShows" :aria-label="name" class="__name"
       >:{{ name }}:</span
     >
@@ -24,12 +18,17 @@
 </template>
 
 <script lang="ts">
+import DecomojiImg from "@/components/DecomojiImg.vue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
 import { DecomojiName } from "@/models/DecomojiName";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
+@Component({
+  components: {
+    DecomojiImg
+  }
+})
 export default class DecomojiButton extends Vue {
   // 入力プロパティを定義する
   @Prop() category!: CategoryName;
