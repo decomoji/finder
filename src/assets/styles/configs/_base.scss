@@ -1,0 +1,13 @@
+*,::before,::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Noto Sans JP", serif;
+}
+
+body {
+  font-size: 0.875rem;
+  color: var(--colorBody);
+  background-color: var(--bgBody);
+}
