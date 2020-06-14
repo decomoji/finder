@@ -1,13 +1,26 @@
 import { RootState } from "@/store/models";
 import { actions } from "./actions";
 import { getters } from "./getters";
-import { CollectionState as ThisState } from "./models";
+import { DecomojiState as ThisState } from "./models";
 import { mutations } from "./mutations";
 import { Module } from "vuex";
 
-// ステートの初期値を返す
+/**
+ * 初期ステート
+ */
 export const state: () => ThisState = () => ({
-  items: []
+  category: {
+    basic: true,
+    explicit: false,
+    extra: false,
+    preview: false
+  },
+  collection: [],
+  dark: false,
+  name: true,
+  reacted: false,
+  search: "",
+  size: "l"
 });
 
 export const storeModule: Module<ThisState, RootState> = {

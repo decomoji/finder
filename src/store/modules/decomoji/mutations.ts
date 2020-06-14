@@ -1,10 +1,12 @@
 import {
-  UiMutationPayloads as ThisMutationPayloads,
-  UiState as ThisState
+  DecomojiMutationPayloads as ThisMutationPayloads,
+  DecomojiState as ThisState
 } from "./models";
 import {
-  DECREMENT_GLOBAL_LOADING_QUEUE,
-  INCREMENT_GLOBAL_LOADING_QUEUE,
+  ADD_TO_COLLECTION,
+  REMOVE_FROM_COLLECTION,
+  CLEAR_COLLECTION,
+  RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
@@ -12,42 +14,54 @@ import {
   UPDATE_SEARCH,
   UPDATE_SIZE
 } from "./mutation-types";
+import { clearArray, replaceArray } from "@/utilities/array";
 import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<ThisState> = {
   /**
-   * グローバルのローディングキューを減少させる
+   * 選択したデコモジをコレクションに追加する
    * @param state
-   * @param length
    */
-  [DECREMENT_GLOBAL_LOADING_QUEUE](
+  [ADD_TO_COLLECTION](
     state,
-    length: ThisMutationPayloads[typeof DECREMENT_GLOBAL_LOADING_QUEUE] = 1
+    payload: ThisMutationPayloads[typeof ADD_TO_COLLECTION]
   ) {
-    if (length <= 0) {
-      return;
-    }
-
-    state.globalLadingQueue = Math.max(
-      0,
-      state.globalLadingQueue - Math.ceil(length)
-    );
+    state.collection.splice(state.collection.length, 0, payload);
   },
 
   /**
-   * グローバルのローディングキューを増加させる
+   * 選択したデコモジをコレクションから削除する
    * @param state
-   * @param length
+   * @param payload
    */
-  [INCREMENT_GLOBAL_LOADING_QUEUE](
+  [REMOVE_FROM_COLLECTION](
     state,
-    length: ThisMutationPayloads[typeof INCREMENT_GLOBAL_LOADING_QUEUE] = 1
+    payload: ThisMutationPayloads[typeof REMOVE_FROM_COLLECTION]
   ) {
-    if (length <= 0) {
-      return;
-    }
+    const index = state.collection.findIndex(
+      item => item.name === payload.name && item.category === payload.category
+    );
+    state.collection.splice(index, 1);
+  },
 
-    state.globalLadingQueue = state.globalLadingQueue + Math.ceil(length);
+  /**
+   * コレクションを消去する
+   * @param state
+   */
+  [CLEAR_COLLECTION](state) {
+    clearArray(state.collection);
+  },
+
+  /**
+   * コレクションを受領する
+   * @param state
+   * @param payload
+   */
+  [RECEIVE_COLLECTION](
+    state,
+    payload: ThisMutationPayloads[typeof RECEIVE_COLLECTION]
+  ) {
+    replaceArray(state.collection, ...payload);
   },
 
   /**

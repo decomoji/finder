@@ -6,7 +6,7 @@
         '-collected': collected
       }
     ]"
-    @click="$emit('add', $event)"
+    @click="$emit(collected ? 'remove' : 'add', $event)"
     @dblclick="$emit('remove', $event)"
     @keydown.delete="$emit('remove', $event)"
   >
@@ -14,32 +14,26 @@
       :alt="nameShows ? '' : name"
       :src="`/decomoji/${category}/${name}.png`"
       class="__img"
+      height="64"
       width="64"
     />
-    <span v-show="nameShows" :aria-label="name" class="__name">{{
-      colonedName
-    }}</span>
+    <span v-show="nameShows" :aria-label="name" class="__name"
+      >:{{ name }}:</span
+    >
   </button>
 </template>
 
 <script lang="ts">
-import { CategoryId } from "@/models/CategoryId";
-import { DecomojiCollectionItem } from "@/models/DecomojiCollection";
-import { DecomojiItem } from "@/models/DecomojiItem";
-import { CollectionViewModel } from "@/store/modules/collection/models";
-import { UiViewModel } from "@/store/modules/ui/models";
+import { CategoryName } from "@/models/CategoryName";
+import { CollectionItem } from "@/models/Collection";
+import { DecomojiName } from "@/models/DecomojiName";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Getter } from "vuex-class";
 
 @Component
 export default class DecomojiButton extends Vue {
-  // viewModel を引き当てる
-  @Getter("ui/viewModel") ui!: UiViewModel;
-  @Getter("collection/viewModel") collection!: CollectionViewModel;
-
   // 入力プロパティを定義する
-  @Prop() category!: CategoryId;
-  @Prop() name!: DecomojiItem;
+  @Prop() category!: CategoryName;
+  @Prop() name!: DecomojiName;
   @Prop({ default: false }) nameShows!: boolean;
   @Prop({ default: false }) collected!: boolean;
 

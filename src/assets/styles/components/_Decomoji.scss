@@ -16,14 +16,25 @@
     background-color: var(--bgDecomojiCollected);
   }
 
-  .-l & {
+  .Collection & {
+    background-color: var(--bgDecomojiCollected);
+  }
+
+  .-l .Main & {
     padding: 10px;
+    height: 129px;
+  }
+  .-l .Collection & {
+    padding: 8px;
+    height: 83px;
   }
   .-m & {
     padding: 5px;
+    height: 45px;
   }
   .-s & {
     padding: 3px;
+    height: 25px;
   }
 
   .__img {
@@ -31,12 +42,15 @@
     vertical-align: text-top;
 
     .-l & {
+      height: 64px;
       width: 64px;
     }
     .-m & {
+      height: 32px;
       width: 32px;
     }
     .-s & {
+      height: 16px;
       width: 16px;
     }
   }

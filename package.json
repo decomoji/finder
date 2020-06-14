@@ -1,6 +1,6 @@
 {
   "name": "decomoji-finder",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +10,7 @@
     "set:decomoji-install": "git clone -b v5-preview git://github.com/decomoji/slack-reaction-decomoji.git node_modules/slack-reaction-decomoji",
     "set:decomoji-copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
     "update:decomoji": "rm -rf node_modules/slack-reaction-decomoji && npm run postinstall",
-    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy && npx prettier --write src/configs/*.ts"
+    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
@@ -26,6 +26,7 @@
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.4.0",
     "vue-router": "^3.1.5",
+    "vue-virtual-scroller": "^1.0.10",
     "vuex": "^3.1.2",
     "vuex-class": "^0.3.2",
     "vuex-type-helper": "^1.2.1"
@@ -43,8 +44,11 @@
     "@vue/test-utils": "^1.0.0-beta.31",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",
+    "commitizen": "^4.1.2",
+    "cz-customizable": "^6.2.0",
     "eslint": "^5.13.0",
     "eslint-plugin-vue": "^5.2.1",
+    "husky": "^4.2.5",
     "jest": "^24.8.0",
     "lint-staged": "^8.2.1",
     "node-sass": "^4.14.1",
@@ -59,13 +63,23 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "vue-cli-service lint",
-      "git add"
-    ],
-    "*.vue": [
-      "vue-cli-service lint",
+    "*.(js|ts|vue|scss)": [
+      "vue-cli-service lint --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "vue-cli-service lint --fix",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.js"
+    }
   }
 }

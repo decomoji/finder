@@ -5,7 +5,7 @@
       <label v-for="size in displaySizeList" :key="size.value" class="__label">
         <input
           :value="size.value"
-          :checked="size.value === ui.size"
+          :checked="size.value === decomoji.size"
           class="__radio"
           name="size"
           type="radio"
@@ -21,17 +21,20 @@
 import { DisplaySizeList } from "@/configs/DisplaySizeList";
 import { IconSizeId } from "@/models/IconSizeId";
 import { IconSizeItem } from "@/models/IconSizeItem";
-import { UiActions, UiViewModel } from "@/store/modules/ui/models";
+import {
+  DecomojiAction,
+  DecomojiViewModel
+} from "@/store/modules/decomoji/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component
 export default class SizeSelector extends Vue {
   // viewModel を引き当てる
-  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
-  @Action("ui/updateSize") updateSize!: UiActions["updateSize"];
+  @Action("decomoji/updateSize") updateSize!: DecomojiAction["updateSize"];
 
   // 内部プロパティを定義する
   displaySizeList: IconSizeItem[] = DisplaySizeList;

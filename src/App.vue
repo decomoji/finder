@@ -2,10 +2,10 @@
   <body
     :class="[
       'App',
-      `-${ui.size}`,
+      `-${decomoji.size}`,
       {
-        '-dark': ui.dark,
-        '-reacted': ui.reacted
+        '-dark': decomoji.dark,
+        '-reacted': decomoji.reacted
       }
     ]"
   >
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { UiViewModel } from "@/store/modules/ui/models";
+import { DecomojiViewModel } from "@/store/modules/decomoji/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Getter } from "vuex-class";
 
@@ -23,6 +23,6 @@ export default class App extends Vue {
   /**
    * UIストアの viewModel を引き当てる
    */
-  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 }
 </script>

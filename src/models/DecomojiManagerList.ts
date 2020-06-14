@@ -1,8 +1,8 @@
-import { CategoryId } from "@/models/CategoryId";
+import { CategoryName } from "@/models/CategoryName";
 
 export interface DecomojiManagerListItem {
   name: string;
-  category: CategoryId;
+  category: CategoryName;
   path: string;
 }
 

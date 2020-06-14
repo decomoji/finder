@@ -23,7 +23,9 @@ function generate_decomoji_ts(type) {
 
       fs.writeFile(
         `./src/configs/Decomoji${type}.ts`,
-        `export const Decomoji${type} = ` + JSON.stringify(decomoji_array),
+        `export const Decomoji${type} = ` +
+          JSON.stringify(decomoji_array) +
+          ";",
         err => {
           if (err) throw err;
           console.log(

@@ -12,7 +12,7 @@ import Collection from "@/components/Collection.vue";
 import Header from "@/components/Header.vue";
 import Main from "@/components/Main.vue";
 import { CategoriesObject } from "@/models/CategoriesObject";
-import { CollectionActions } from "@/store/modules/collection/models";
+import { DecomojiAction } from "@/store/modules/decomoji/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action } from "vuex-class";
 
@@ -25,8 +25,8 @@ import { Action } from "vuex-class";
 })
 export default class Top extends Vue {
   // アクションを引き当てる
-  @Action("collection/receive")
-  receive!: CollectionActions["receive"];
+  @Action("decomoji/receive")
+  receive!: DecomojiAction["receive"];
 
   // 入力プロパティを定義する
   @Prop() query!: CategoriesObject;

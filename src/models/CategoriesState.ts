@@ -1,4 +1,4 @@
-export interface CategoryState {
+export interface CategoriesState {
   basic: boolean;
   explicit: boolean;
   extra: boolean;

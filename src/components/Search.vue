@@ -3,7 +3,7 @@
     <label class="VisuallyHidden" for="search">検索する</label>
     <input
       id="search"
-      :value="ui.search"
+      :value="decomoji.search"
       class="__input"
       name="decomoji_search"
       type="text"
@@ -15,7 +15,10 @@
 
 <script lang="ts">
 import Icon from "@/components/Icon.vue";
-import { UiActions, UiViewModel } from "@/store/modules/ui/models";
+import {
+  DecomojiAction,
+  DecomojiViewModel
+} from "@/store/modules/decomoji/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
@@ -26,10 +29,11 @@ import { Action, Getter } from "vuex-class";
 })
 export default class Search extends Vue {
   // viewModel を引き当てる
-  @Getter("ui/viewModel") ui!: UiViewModel;
+  @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
-  @Action("ui/updateSearch") updateSearch!: UiActions["updateSearch"];
+  @Action("decomoji/updateSearch")
+  updateSearch!: DecomojiAction["updateSearch"];
 
   // 内部プロパティを定義する
   timer: number = 0;

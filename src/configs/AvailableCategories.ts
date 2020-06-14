@@ -1,6 +1,6 @@
-import { CategoryId } from "@/models/CategoryId";
+import { CategoryName } from "@/models/CategoryName";
 
-export const AvailableCategories: CategoryId[] = [
+export const AvailableCategories: CategoryName[] = [
   "basic",
   "explicit",
   "extra",

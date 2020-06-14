@@ -1,6 +1,6 @@
-import { CategoryId } from "@/models/CategoryId";
+import { CategoryName } from "@/models/CategoryName";
 
 export interface CategoryItem {
   text: string;
-  value: CategoryId;
+  value: CategoryName;
 }
