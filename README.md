@@ -4,7 +4,7 @@ https://finder.decomoji.dev
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d92c4975-0578-44fa-a005-3d53c1d7363b/deploy-status)](https://app.netlify.com/sites/decomoji-finder/deploys)
 
-オリジナルSlack用カスタムリアクション絵文字「[デコモジ（decomoji）](https://git.io/decomoji)」がたくさんありすぎて、何が何だかわからなくなっていませんか？
+オリジナル Slack 用カスタムリアクション絵文字「[デコモジ（decomoji）](https://git.io/decomoji)」がたくさんありすぎて、何が何だかわからなくなっていませんか？
 
 デコモジファインダーは、デコモジに含まれているものを閲覧・条件検索できるツールです。
 
@@ -14,7 +14,7 @@ https://finder.decomoji.dev
 
 - インクリメンタルサーチできる！
 - 正規表現で絞り込める！
-- 基本セット、拡張セット、v5プレビューの表示と検索対象切り替えられる！
+- 基本セット、拡張セット、v5 プレビューの表示と検索対象切り替えられる！
 - ダークモード表示のエミュレートができる！
 - コレクションを作って固有のパーマリンクで共有できる！
 

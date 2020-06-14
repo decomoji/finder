@@ -10,7 +10,7 @@
     "set:decomoji-install": "git clone -b v5-preview git://github.com/decomoji/slack-reaction-decomoji.git node_modules/slack-reaction-decomoji",
     "set:decomoji-copy": "cpx 'node_modules/slack-reaction-decomoji/decomoji/{basic,extra,explicit,preview}/*.png' public/decomoji/",
     "update:decomoji": "rm -rf node_modules/slack-reaction-decomoji && npm run postinstall",
-    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy && npx prettier --write src/configs/*.ts"
+    "postinstall": "npm run set:decomoji-install && node build_decomoji_module.js && npm run set:decomoji-copy"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
@@ -63,17 +63,14 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "vue-cli-service lint",
-      "git add"
-    ],
-    "*.vue": [
-      "vue-cli-service lint",
+    "*.(js|ts|vue|scss)": [
+      "vue-cli-service lint --fix",
       "git add"
     ]
   },
   "husky": {
     "hooks": {
+      "pre-commit": "vue-cli-service lint --fix",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   },
