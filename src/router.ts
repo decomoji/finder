@@ -1,4 +1,6 @@
 import Top from "@/views/Top.vue";
+import Sprite from "@/views/Sprite.vue";
+import Sprite2 from "@/views/Sprite2.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Router, { RouterOptions } from "vue-router";
@@ -15,6 +17,16 @@ export const routes: RouterOptions["routes"] = [
     name: "top",
     component: Top,
     props: route => ({ query: route.query })
+  },
+  {
+    path: "/sprites",
+    name: "sprites",
+    component: Sprite
+  },
+  {
+    path: "/sprites2",
+    name: "sprites2",
+    component: Sprite2
   }
 ];
 

@@ -3,6 +3,7 @@ node_modules
 coverage
 dist
 public/decomoji
+!public/decomoji/sprites
 
 # Log files
 npm-debug.log*
