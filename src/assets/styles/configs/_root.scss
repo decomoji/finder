@@ -52,6 +52,8 @@
   --betweenVertical: var(--space-sm);
   --betweenHorizon: 0;
 
+  --betweenLogoSearch: var(--space-sm);
+
   --focusHeader: var(--outline-white-05);
   --focusDecomoji: var(--outline-danube-200);
 }
@@ -61,6 +63,7 @@
     --paddingHeader: var(--space-md);
     --betweenVertical: 0;
     --betweenHorizon: var(--space-lg);
+    --betweenLogoSearch: var(--space-md);
   }
 }
 
