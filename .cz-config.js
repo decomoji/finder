@@ -45,13 +45,15 @@ module.exports = {
     }
   ],
   scopes: [
-    { name: "assets" },
+    { name: "public" },
+    { name: "assets/styles" },
     { name: "component" },
     { name: "configs" },
     { name: "models" },
     { name: "store" },
     { name: "utilities" },
     { name: "views" },
+    { name: "env" },
     { name: "_" } // その他
   ],
   messages: {
