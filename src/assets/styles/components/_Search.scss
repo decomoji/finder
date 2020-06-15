@@ -21,7 +21,7 @@
     width: 100%;
     font-size: 1rem;
     color: var(--colorInput);
-    background-color: rgba(255,255,255, var(--opacityInput));
+    background-color: rgba(255, 255, 255, var(--opacityInput));
 
     @include focusHeader;
   }
