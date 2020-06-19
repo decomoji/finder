@@ -20,8 +20,8 @@ import { Action } from "vuex-class";
   components: {
     Collection,
     Header,
-    Main
-  }
+    Main,
+  },
 })
 export default class Top extends Vue {
   // アクションを引き当てる

@@ -5,8 +5,8 @@
       `-${decomoji.size}`,
       {
         '-dark': decomoji.dark,
-        '-reacted': decomoji.reacted
-      }
+        '-reacted': decomoji.reacted,
+      },
     ]"
   >
     <RouterView />

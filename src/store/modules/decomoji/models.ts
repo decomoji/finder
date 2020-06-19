@@ -5,7 +5,7 @@ import { Collection, CollectionItem } from "@/models/Collection";
 import {
   VuexActionPayloads,
   VuexActions,
-  VuexMutationPayloads
+  VuexMutationPayloads,
 } from "@/models/Vuex";
 import {
   ADD_TO_COLLECTION,
@@ -17,7 +17,7 @@ import {
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
   UPDATE_SEARCH,
-  UPDATE_SIZE
+  UPDATE_SIZE,
 } from "./mutation-types";
 
 export interface DecomojiState {

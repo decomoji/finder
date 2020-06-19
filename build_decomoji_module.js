@@ -26,7 +26,7 @@ function generate_decomoji_ts(type) {
         `export const Decomoji${type} = ` +
           JSON.stringify(decomoji_array) +
           ";",
-        err => {
+        (err) => {
           if (err) throw err;
           console.log(
             `./src/configs/Decomoji${type}.ts (${decomoji_array.length} items) has been saved!`
@@ -37,4 +37,4 @@ function generate_decomoji_ts(type) {
   );
 }
 
-category.forEach(item => generate_decomoji_ts(item));
+category.forEach((item) => generate_decomoji_ts(item));

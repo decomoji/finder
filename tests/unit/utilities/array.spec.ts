@@ -3,7 +3,7 @@ import {
   every,
   getLastOfArray,
   replaceArray,
-  some
+  some,
 } from "@/utilities/array";
 
 describe("clearArray()", () => {
@@ -20,7 +20,7 @@ describe("every()", () => {
   });
 
   it("true を返す", () => {
-    expect(every([false, false, false], val => !val)).toBe(true);
+    expect(every([false, false, false], (val) => !val)).toBe(true);
   });
 
   it("false を返す", () => {
@@ -28,7 +28,7 @@ describe("every()", () => {
   });
 
   it("false を返す", () => {
-    expect(every([false, false, true], val => !val)).toBe(false);
+    expect(every([false, false, true], (val) => !val)).toBe(false);
   });
 });
 
@@ -52,7 +52,7 @@ describe("some()", () => {
   });
 
   it("true を返す", () => {
-    expect(some([false, true, true], val => !val)).toBe(true);
+    expect(some([false, true, true], (val) => !val)).toBe(true);
   });
 
   it("false を返す", () => {
@@ -60,6 +60,6 @@ describe("some()", () => {
   });
 
   it("false を返す", () => {
-    expect(some([true, true, true], val => !val)).toBe(false);
+    expect(some([true, true, true], (val) => !val)).toBe(false);
   });
 });

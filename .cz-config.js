@@ -3,46 +3,46 @@ module.exports = {
     {
       name: "feat: A new feature",
       title: "feat",
-      value: "feat"
+      value: "feat",
     },
     {
       name: "fix: A bug fix",
       title: "fix",
-      value: "fix"
+      value: "fix",
     },
     {
       name: "docs: Documentation only changes",
       title: "docs",
-      value: "docs"
+      value: "docs",
     },
     {
       name:
         "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
       title: "style",
-      value: "style"
+      value: "style",
     },
     {
       name:
         "refactor: A code change that neither fixes a bug nor adds a feature",
       title: "refactor",
-      value: "refactor"
+      value: "refactor",
     },
     {
       name: "perf: A code change that improves performance",
       title: "perf",
-      value: "perf"
+      value: "perf",
     },
     {
       name: "test: Adding missing tests or correcting existing tests",
       title: "test",
-      value: "test"
+      value: "test",
     },
     {
       name:
         "chore: Changes to the build process or auxiliary tools and libraries such as documentation generation",
       title: "chore",
-      value: "chore"
-    }
+      value: "chore",
+    },
   ],
   scopes: [
     { name: "public" },
@@ -54,9 +54,9 @@ module.exports = {
     { name: "utilities" },
     { name: "views" },
     { name: "env" },
-    { name: "_" } // その他
+    { name: "_" }, // その他
   ],
   messages: {
-    scope: "Scope of changes:\n"
-  }
+    scope: "Scope of changes:\n",
+  },
 };

@@ -27,8 +27,8 @@ import { Component, Vue } from "vue-property-decorator";
     Logo,
     OptionSelector,
     Search,
-    SizeSelector
-  }
+    SizeSelector,
+  },
 })
 export default class Header extends Vue {}
 </script>

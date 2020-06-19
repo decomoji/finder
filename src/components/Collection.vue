@@ -24,7 +24,7 @@ import { CollectionItem } from "@/models/Collection";
 import { CategoryName } from "@/models/CategoryName";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { replaceState } from "@/utilities/replaceState";
@@ -33,8 +33,8 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiButton
-  }
+    DecomojiButton,
+  },
 })
 export default class Collection extends Vue {
   // viewModel を引き当てる

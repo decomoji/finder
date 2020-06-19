@@ -19,7 +19,7 @@
           :name-shows="nameShows"
           :collected="
             matches(item.name, item.category) &&
-              collected(item.name, item.category)
+            collected(item.name, item.category)
           "
           @add="handleAdd(item)"
           @remove="handleRemove(item)"
@@ -34,20 +34,20 @@ import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import {
   AvailableDecomoji,
-  AvailableDecomojis
+  AvailableDecomojis,
 } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
   GridMinItemWidthValue,
-  GridRowHeightValue
+  GridRowHeightValue,
 } from "@/configs/GridSizeValue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { replaceState } from "@/utilities/replaceState";
 import { Component, Vue, Watch } from "vue-property-decorator";
@@ -55,8 +55,8 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiButton
-  }
+    DecomojiButton,
+  },
 })
 export default class Main extends Vue {
   // viewModel を引き当てる
@@ -72,7 +72,7 @@ export default class Main extends Vue {
 
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
-    return AvailableDecomojis.filter(v => this.matches(v.name, v.category));
+    return AvailableDecomojis.filter((v) => this.matches(v.name, v.category));
   }
 
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので

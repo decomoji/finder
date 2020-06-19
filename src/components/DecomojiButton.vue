@@ -3,8 +3,8 @@
     :class="[
       'Decomoji',
       {
-        '-collected': collected
-      }
+        '-collected': collected,
+      },
     ]"
     @click="$emit(collected ? 'remove' : 'add', $event)"
     @dblclick="$emit('remove', $event)"

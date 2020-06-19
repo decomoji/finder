@@ -118,5 +118,5 @@ export const DecomojiBasic = [
   "yosasou",
   "yuusyou",
   "zigohoukoku",
-  "zikokaiketu"
+  "zikokaiketu",
 ];

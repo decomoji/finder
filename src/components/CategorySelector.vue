@@ -27,7 +27,7 @@ import { CategoryName } from "@/models/CategoryName";
 import { CategoryItem } from "@/models/CategoryItem";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
