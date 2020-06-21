@@ -1,10 +1,10 @@
 <template>
-  <main>
+  <div class="Container">
     <h1 class="VisuallyHidden">デコモジファインダー</h1>
     <Header />
     <Main />
     <Collection />
-  </main>
+  </div>
 </template>
 
 <script lang="ts">

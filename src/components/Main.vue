@@ -156,8 +156,9 @@ export default class Main extends Vue {
 
   // @method - 一覧領域の幅情報を更新
   updateGridContainerWidth() {
-    const el = this.$el;
-    this.gridContainerWidth = el.clientWidth;
+    this.$nextTick(() => {
+      this.gridContainerWidth = this.$el.clientWidth;
+    });
   }
 
   // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す
