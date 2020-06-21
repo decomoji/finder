@@ -28,7 +28,7 @@ import {
 } from "@/store/modules/decomoji/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { replaceState } from "@/utilities/replaceState";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({

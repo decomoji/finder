@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import { CategoryName } from "@/models/CategoryName";
-import { CollectionItem } from "@/models/Collection";
 import { DecomojiName } from "@/models/DecomojiName";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
@@ -33,10 +32,5 @@ export default class DecomojiButton extends Vue {
   @Prop() category!: CategoryName;
   @Prop() name!: DecomojiName;
   @Prop({ default: false }) collected!: boolean;
-
-  // @get - コロン記号で挟んだ name を返す
-  get colonedName() {
-    return `:${this.name}:`;
-  }
 }
 </script>
