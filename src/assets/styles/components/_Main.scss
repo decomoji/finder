@@ -1,5 +1,8 @@
 .Main {
   .-l & {
+    padding-bottom: 8px;
+  }
+  .-l.-name & {
     padding-bottom: 10px;
   }
   .-m & {
@@ -14,6 +17,11 @@
     grid-auto-flow: row;
 
     .-l & {
+      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      padding: 8px;
+    }
+    .-l.-name & {
       gap: 10px;
       grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
       padding: 10px;

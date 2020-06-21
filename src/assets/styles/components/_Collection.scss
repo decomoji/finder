@@ -43,9 +43,9 @@
     grid-auto-flow: row;
 
     .-l & {
-      gap: 10px;
-      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
-      padding: 10px;
+      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      padding: 8px;
     }
     .-m & {
       gap: 5px;

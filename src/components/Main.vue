@@ -69,6 +69,12 @@ export default class Main extends Vue {
   decomojis = AvailableDecomojis;
   gridContainerWidth = 0;
 
+  // @get - GridSizeValue からサイズを引き当てるためのキーを返す
+  get gridSizeKey() {
+    const { name, size } = this.decomoji;
+    return size === "l" && name ? "namedL" : size;
+  }
+
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
     return AvailableDecomojis.filter((v) => this.matches(v.name, v.category));
@@ -88,17 +94,17 @@ export default class Main extends Vue {
 
   // @get - CSS Grid container の padding 値を返す
   get gridContainerPadding() {
-    return GridContainerPaddingValue[this.decomoji.size];
+    return GridContainerPaddingValue[this.gridSizeKey];
   }
 
   // @get - CSS Grid item の gap 値を返す
   get gridItemGap() {
-    return GridItemGapValue[this.decomoji.size];
+    return GridItemGapValue[this.gridSizeKey];
   }
 
   // @get - CSS Grid item 幅の最小値を返す
   get gridMinItemWidth() {
-    return GridMinItemWidthValue[this.decomoji.size];
+    return GridMinItemWidthValue[this.gridSizeKey];
   }
 
   // @get - 1行に入る項目数
