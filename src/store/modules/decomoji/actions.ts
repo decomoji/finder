@@ -13,6 +13,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -100,6 +101,14 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   toggleReacted({ commit }) {
     commit(TOGGLE_REACTED);
+  },
+
+  /**
+   * 垂直分割表示をトグルする
+   * @param commit
+   */
+  toggleVerticalDivine({ commit }) {
+    commit(TOGGLE_VERTICAL_DIVINE);
   },
 
   /**

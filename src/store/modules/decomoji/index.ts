@@ -21,6 +21,7 @@ export const state: () => ThisState = () => ({
   reacted: false,
   search: "",
   size: "l",
+  vertical: false,
 });
 
 export const storeModule: Module<ThisState, RootState> = {

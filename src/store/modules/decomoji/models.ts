@@ -16,6 +16,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -28,6 +29,7 @@ export interface DecomojiState {
   reacted: boolean;
   search: string;
   size: string;
+  vertical: boolean;
 }
 
 export interface DecomojiViewModel extends DecomojiState {
@@ -48,6 +50,7 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_NAME_SHOWS]: boolean;
   [TOGGLE_REACTED]: boolean;
+  [TOGGLE_VERTICAL_DIVINE]: boolean;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
 }>;
@@ -61,6 +64,7 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   toggleDarkMode: boolean;
   toggleNameShows: boolean;
   toggleReacted: boolean;
+  toggleVerticalDivine: boolean;
   updateSearch: string;
   updateSize: string;
 }>;

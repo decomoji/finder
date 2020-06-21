@@ -11,6 +11,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -103,6 +104,14 @@ export const mutations: MutationTree<ThisState> = {
    */
   [TOGGLE_REACTED](state) {
     state.reacted = !state.reacted;
+  },
+
+  /**
+   * リアクション済みをトグルする
+   * @param state
+   */
+  [TOGGLE_VERTICAL_DIVINE](state) {
+    state.vertical = !state.vertical;
   },
 
   /**
