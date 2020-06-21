@@ -56,9 +56,13 @@
   }
 
   .__name {
-    display: block;
+    display: none;
     margin-top: var(--space-sm);
     color: var(--colorDecomoji);
     word-break: break-all;
+
+    .-l.-name .Main & {
+      display: block;
+    }
   }
 }

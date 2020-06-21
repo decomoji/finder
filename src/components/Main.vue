@@ -16,7 +16,6 @@
           :key="item.id"
           :category="item.category"
           :name="item.name"
-          :name-shows="nameShows"
           :collected="
             matches(item.name, item.category) &&
             collected(item.name, item.category)
@@ -125,11 +124,6 @@ export default class Main extends Vue {
       const end = start + this.gridColumnLength;
       return this.filteredDecomojis.slice(start, end);
     };
-  }
-
-  // @get - ファイル名を表示するか否かを返す
-  get nameShows() {
-    return this.decomoji.name && this.decomoji.size === DefaultSize;
   }
 
   // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
