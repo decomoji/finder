@@ -11,6 +11,10 @@
 
   @include min {
     display: flex;
+
+    .-vertical & {
+      grid-column: 1 / 3;
+    }
   }
 
   & > * + * {
