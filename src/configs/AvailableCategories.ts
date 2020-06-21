@@ -4,5 +4,5 @@ export const AvailableCategories: CategoryName[] = [
   "basic",
   "explicit",
   "extra",
-  "preview"
+  "preview",
 ];

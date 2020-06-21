@@ -3,14 +3,14 @@ import { IconSizeItem } from "@/models/IconSizeItem";
 export const DisplaySizeList: IconSizeItem[] = [
   {
     text: "64px",
-    value: "l"
+    value: "l",
   },
   {
     text: "32px",
-    value: "m"
+    value: "m",
   },
   {
     text: "16px",
-    value: "s"
-  }
+    value: "s",
+  },
 ];

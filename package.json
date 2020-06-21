@@ -50,8 +50,9 @@
     "eslint-plugin-vue": "^5.2.1",
     "husky": "^4.2.5",
     "jest": "^24.8.0",
-    "lint-staged": "^8.2.1",
     "node-sass": "^4.14.1",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
     "sass-loader": "^8.0.2",
     "terser": "^4.6.3",
     "terser-webpack-plugin": "^1.4.3",
@@ -59,18 +60,9 @@
     "typescript": "^3.7.5",
     "vue-template-compiler": "^2.6.11"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.(js|ts|vue|scss)": [
-      "vue-cli-service lint --fix",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "vue-cli-service lint --fix",
+      "pre-commit": "pretty-quick --staged",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   },

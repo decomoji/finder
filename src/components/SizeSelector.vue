@@ -23,7 +23,7 @@ import { IconSizeId } from "@/models/IconSizeId";
 import { IconSizeItem } from "@/models/IconSizeItem";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";

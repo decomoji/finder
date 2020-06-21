@@ -14,8 +14,8 @@ export const routes: RouterOptions["routes"] = [
     path: "/",
     name: "top",
     component: Top,
-    props: route => ({ query: route.query })
-  }
+    props: (route) => ({ query: route.query }),
+  },
 ];
 
 /**
@@ -38,7 +38,7 @@ export const routerOptions: RouterOptions = {
   mode: "history",
   base: BASE_URL,
   routes,
-  scrollBehavior
+  scrollBehavior,
 };
 
 /**
@@ -49,7 +49,7 @@ export function useRouter(ctx = Vue) {
   Component.registerHooks([
     "beforeRouteEnter",
     "beforeRouteLeave",
-    "beforeRouteUpdate"
+    "beforeRouteUpdate",
   ]);
 
   return ctx.use(Router);

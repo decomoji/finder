@@ -7,9 +7,9 @@ export const storeOptions: StoreOptions<RootState> = {
   strict: process.env.NODE_ENV === "development",
   state: {},
   modules: {
-    decomoji
+    decomoji,
   },
-  plugins: []
+  plugins: [],
 };
 
 /**

@@ -1,6 +1,6 @@
 import {
   DecomojiMutationPayloads as ThisMutationPayloads,
-  DecomojiState as ThisState
+  DecomojiState as ThisState,
 } from "./models";
 import {
   ADD_TO_COLLECTION,
@@ -11,8 +11,9 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
-  UPDATE_SIZE
+  UPDATE_SIZE,
 } from "./mutation-types";
 import { clearArray, replaceArray } from "@/utilities/array";
 import { MutationTree } from "vuex";
@@ -39,7 +40,7 @@ export const mutations: MutationTree<ThisState> = {
     payload: ThisMutationPayloads[typeof REMOVE_FROM_COLLECTION]
   ) {
     const index = state.collection.findIndex(
-      item => item.name === payload.name && item.category === payload.category
+      (item) => item.name === payload.name && item.category === payload.category
     );
     state.collection.splice(index, 1);
   },
@@ -76,8 +77,8 @@ export const mutations: MutationTree<ThisState> = {
     state.category = {
       ...state.category,
       ...{
-        [payload]: !state.category[payload]
-      }
+        [payload]: !state.category[payload],
+      },
     };
   },
 
@@ -106,6 +107,14 @@ export const mutations: MutationTree<ThisState> = {
   },
 
   /**
+   * リアクション済みをトグルする
+   * @param state
+   */
+  [TOGGLE_VERTICAL_DIVINE](state) {
+    state.vertical = !state.vertical;
+  },
+
+  /**
    * 検索クエリを更新する
    * @param state
    * @param payload
@@ -121,5 +130,5 @@ export const mutations: MutationTree<ThisState> = {
    */
   [UPDATE_SIZE](state, payload: ThisMutationPayloads[typeof UPDATE_SIZE]) {
     state.size = payload;
-  }
+  },
 };

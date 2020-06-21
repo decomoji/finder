@@ -2,7 +2,7 @@ import { CategoryName } from "@/models/CategoryName";
 import { RootState } from "@/store/models";
 import {
   DecomojiActionPayloads as ThisActionPayloads,
-  DecomojiState as ThisState
+  DecomojiState as ThisState,
 } from "./models";
 import {
   ADD_TO_COLLECTION,
@@ -13,8 +13,9 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
+  TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
-  UPDATE_SIZE
+  UPDATE_SIZE,
 } from "./mutation-types";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
@@ -62,7 +63,7 @@ export const actions: ActionTree<ThisState, RootState> = {
       .map<Collection>((parsedParam: IdentifiedArray) => {
         const [category, rest] = parsedParam;
         const decomojis: string[] = rest ? rest.split(",") : [];
-        return decomojis.map(name => ({ name, category }));
+        return decomojis.map((name) => ({ name, category }));
       })
       .flat();
 
@@ -103,6 +104,14 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
+   * 垂直分割表示をトグルする
+   * @param commit
+   */
+  toggleVerticalDivine({ commit }) {
+    commit(TOGGLE_VERTICAL_DIVINE);
+  },
+
+  /**
    * 検索クエリを更新する
    * @param commit
    * @param payload
@@ -118,5 +127,5 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   updateSize({ commit }, payload: ThisActionPayloads["updateSize"]) {
     commit(UPDATE_SIZE, payload);
-  }
+  },
 };

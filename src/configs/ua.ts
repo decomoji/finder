@@ -14,9 +14,9 @@ export const isIOS = every([
       // UAに 'macintosh', 'safari' のどちらも含まれている
       every(["macintosh", "safari"], matchUserAgent),
       // かつ、`navigator.standalone` である
-      (navigator as any).standalone
-    ])
-  ])
+      (navigator as any).standalone,
+    ]),
+  ]),
 ]);
 
 /**

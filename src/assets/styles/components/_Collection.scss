@@ -11,17 +11,30 @@
 
   @include min {
     max-height: 18rem;
+
+    // 垂直分割表示は画面幅が広い時だけ適用させる
+    .-vertical & {
+      top: 4.375rem;
+      right: 0;
+      bottom: auto;
+      left: auto;
+      max-height: calc(100vh - 4.375rem);
+    }
   }
 
   .__header {
-    padding: var(--space-md) var(--space-sm) var(--space-xs);
+    position: relative;
+    padding: var(--space-md) calc(var(--space-lg) * 2) var(--space-xs)
+      var(--space-sm);
 
     @include min {
-      display: flex;
-      align-items: baseline;
+      :not(.-vertical) & {
+        display: flex;
+        align-items: baseline;
 
-      & > * + * {
-        margin-left: var(--betweenHorizon);
+        & > * + * {
+          margin-left: var(--betweenHorizon);
+        }
       }
     }
 
@@ -35,6 +48,28 @@
       margin-top: var(--betweenVertical);
       margin-bottom: 0;
       font-size: 0.875rem;
+
+      .-vertical & {
+        margin-top: var(--space-sm);
+      }
+    }
+
+    .__toggle {
+      @extend %reset-Button;
+      display: none;
+      position: absolute;
+      top: 0.6rem;
+      right: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0.375rem;
+      width: 2rem;
+      height: 2rem;
+      @include focusDecomoji;
+
+      @include min {
+        display: flex;
+      }
     }
   }
 
@@ -43,9 +78,9 @@
     grid-auto-flow: row;
 
     .-l & {
-      gap: 10px;
-      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
-      padding: 10px;
+      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      padding: 8px;
     }
     .-m & {
       gap: 5px;

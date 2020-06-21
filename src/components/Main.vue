@@ -16,10 +16,9 @@
           :key="item.id"
           :category="item.category"
           :name="item.name"
-          :name-shows="nameShows"
           :collected="
             matches(item.name, item.category) &&
-              collected(item.name, item.category)
+            collected(item.name, item.category)
           "
           @add="handleAdd(item)"
           @remove="handleRemove(item)"
@@ -34,20 +33,20 @@ import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
 import {
   AvailableDecomoji,
-  AvailableDecomojis
+  AvailableDecomojis,
 } from "@/configs/AvailableDecomojis";
 import { DefaultSize } from "@/configs/DefaultSize";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
   GridMinItemWidthValue,
-  GridRowHeightValue
+  GridRowHeightValue,
 } from "@/configs/GridSizeValue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { replaceState } from "@/utilities/replaceState";
 import { Component, Vue, Watch } from "vue-property-decorator";
@@ -55,8 +54,8 @@ import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiButton
-  }
+    DecomojiButton,
+  },
 })
 export default class Main extends Vue {
   // viewModel を引き当てる
@@ -70,9 +69,15 @@ export default class Main extends Vue {
   decomojis = AvailableDecomojis;
   gridContainerWidth = 0;
 
+  // @get - GridSizeValue からサイズを引き当てるためのキーを返す
+  get gridSizeKey() {
+    const { name, size } = this.decomoji;
+    return size === "l" && name ? "namedL" : size;
+  }
+
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
-    return AvailableDecomojis.filter(v => this.matches(v.name, v.category));
+    return AvailableDecomojis.filter((v) => this.matches(v.name, v.category));
   }
 
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
@@ -89,17 +94,22 @@ export default class Main extends Vue {
 
   // @get - CSS Grid container の padding 値を返す
   get gridContainerPadding() {
-    return GridContainerPaddingValue[this.decomoji.size];
+    return GridContainerPaddingValue[this.gridSizeKey];
   }
 
   // @get - CSS Grid item の gap 値を返す
   get gridItemGap() {
-    return GridItemGapValue[this.decomoji.size];
+    return GridItemGapValue[this.gridSizeKey];
   }
 
   // @get - CSS Grid item 幅の最小値を返す
   get gridMinItemWidth() {
-    return GridMinItemWidthValue[this.decomoji.size];
+    return GridMinItemWidthValue[this.gridSizeKey];
+  }
+
+  // @get - 1行分の高さを返す
+  get gridRowHeight() {
+    return GridRowHeightValue[this.gridSizeKey];
   }
 
   // @get - 1行に入る項目数
@@ -112,11 +122,6 @@ export default class Main extends Vue {
     return Math.floor(gridContainerVirtualWidth / gridItemWidth);
   }
 
-  // @get - 1行分の高さを返す
-  get gridRowHeight() {
-    return GridRowHeightValue[this.decomoji.size];
-  }
-
   // @get - 1行分のデコモジ情報配列を得る関数
   get getRowDecomojis() {
     // TODO memoize
@@ -125,11 +130,6 @@ export default class Main extends Vue {
       const end = start + this.gridColumnLength;
       return this.filteredDecomojis.slice(start, end);
     };
-  }
-
-  // @get - ファイル名を表示するか否かを返す
-  get nameShows() {
-    return this.decomoji.name && this.decomoji.size === DefaultSize;
   }
 
   // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
@@ -156,8 +156,9 @@ export default class Main extends Vue {
 
   // @method - 一覧領域の幅情報を更新
   updateGridContainerWidth() {
-    const el = this.$el;
-    this.gridContainerWidth = el.clientWidth;
+    this.$nextTick(() => {
+      this.gridContainerWidth = this.$el.clientWidth;
+    });
   }
 
   // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す

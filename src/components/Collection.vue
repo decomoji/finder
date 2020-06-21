@@ -5,6 +5,13 @@
       <p class="__desc">
         ダブルクリックするか delete キーでコレクションから外せます
       </p>
+      <button
+        aria-label="垂直分割表示を切り替える"
+        class="__toggle"
+        @click="handleClickToggleVerticalDivine"
+      >
+        <Icon :value="toggleVerticalDivineIconValue" />
+      </button>
     </div>
     <div class="__body">
       <DecomojiButton
@@ -20,21 +27,23 @@
 
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
+import Icon from "@/components/Icon.vue";
 import { CollectionItem } from "@/models/Collection";
 import { CategoryName } from "@/models/CategoryName";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { replaceState } from "@/utilities/replaceState";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    DecomojiButton
-  }
+    DecomojiButton,
+    Icon,
+  },
 })
 export default class Collection extends Vue {
   // viewModel を引き当てる
@@ -42,6 +51,8 @@ export default class Collection extends Vue {
 
   // アクションを引き当てる
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
+  @Action("decomoji/toggleVerticalDivine")
+  toggleVerticalDivine!: DecomojiAction["toggleVerticalDivine"];
 
   // @get - コレクションのアイテム数を返す
   get collectionLength() {
@@ -51,6 +62,18 @@ export default class Collection extends Vue {
   // @get - コレクションを表示するか否かを返す
   get shows() {
     return this.collectionLength > 0;
+  }
+
+  // @get - 垂直分割表示のトグルアイコン文字列を返す
+  get toggleVerticalDivineIconValue() {
+    return this.decomoji.vertical ? "south_west" : "north_east";
+  }
+
+  // @listen - 垂直分割表示をトグルする
+  handleClickToggleVerticalDivine() {
+    this.toggleVerticalDivine();
+    // Main.vue の updateGridContainerWidth() を呼び出すために resize イベントを発行する
+    window.dispatchEvent(new Event("resize"));
   }
 
   // @listen - コレクションからアイテムを削除する

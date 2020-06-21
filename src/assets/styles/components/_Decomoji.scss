@@ -20,13 +20,13 @@
     background-color: var(--bgDecomojiCollected);
   }
 
-  .-l .Main & {
+  .-l & {
+    padding: 8px;
+    height: 80px;
+  }
+  .-l.-name .Main & {
     padding: 10px;
     height: 129px;
-  }
-  .-l .Collection & {
-    padding: 8px;
-    height: 83px;
   }
   .-m & {
     padding: 5px;
@@ -39,7 +39,7 @@
 
   .__img {
     line-height: 1;
-    vertical-align: text-top;
+    vertical-align: top;
 
     .-l & {
       height: 64px;
@@ -56,9 +56,13 @@
   }
 
   .__name {
-    display: block;
+    display: none;
     margin-top: var(--space-sm);
     color: var(--colorDecomoji);
     word-break: break-all;
+
+    .-l.-name .Main & {
+      display: block;
+    }
   }
 }

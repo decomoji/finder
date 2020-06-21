@@ -48,6 +48,8 @@
   --colorCollection: var(--shade-800);
   --bgCollection: var(--shade-200);
 
+  --heightHeader: 6.5rem;
+
   --paddingHeader: var(--space-sm);
   --betweenVertical: var(--space-sm);
   --betweenHorizon: 0;
@@ -60,6 +62,7 @@
 
 @include min {
   :root {
+    --heightHeader: 4.375rem;
     --paddingHeader: var(--space-md);
     --betweenVertical: 0;
     --betweenHorizon: var(--space-lg);

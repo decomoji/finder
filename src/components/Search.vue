@@ -17,15 +17,15 @@
 import Icon from "@/components/Icon.vue";
 import {
   DecomojiAction,
-  DecomojiViewModel
+  DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
   components: {
-    Icon
-  }
+    Icon,
+  },
 })
 export default class Search extends Vue {
   // viewModel を引き当てる

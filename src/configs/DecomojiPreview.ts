@@ -5436,5 +5436,5 @@ export const DecomojiPreview = [
   "zuruizo",
   "zuttoame",
   "zuttomo",
-  "zutuugaitai"
+  "zutuugaitai",
 ];

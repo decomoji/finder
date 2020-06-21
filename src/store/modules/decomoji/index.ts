@@ -13,14 +13,15 @@ export const state: () => ThisState = () => ({
     basic: true,
     explicit: false,
     extra: false,
-    preview: false
+    preview: false,
   },
   collection: [],
   dark: false,
   name: true,
   reacted: false,
   search: "",
-  size: "l"
+  size: "l",
+  vertical: false,
 });
 
 export const storeModule: Module<ThisState, RootState> = {
@@ -28,5 +29,5 @@ export const storeModule: Module<ThisState, RootState> = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

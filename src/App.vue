@@ -5,8 +5,10 @@
       `-${decomoji.size}`,
       {
         '-dark': decomoji.dark,
-        '-reacted': decomoji.reacted
-      }
+        '-reacted': decomoji.reacted,
+        '-name': decomoji.name,
+        '-vertical': decomoji.vertical,
+      },
     ]"
   >
     <RouterView />

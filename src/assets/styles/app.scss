@@ -1,7 +1,9 @@
 @import "configs/mixins";
+@import "configs/placeholders";
 @import "configs/root";
 @import "configs/base";
 @import "../../../node_modules/normalize.css/normalize.css";
+@import "components/Container";
 @import "components/Header";
 @import "components/Logo";
 @import "components/Search";
