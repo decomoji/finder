@@ -88,7 +88,10 @@ export default class Collection extends Vue {
     ) {
       this.clear();
       replaceState(this.decomoji.collectionQueries);
-      this.handleClickToggleVerticalDivine();
+      if (this.decomoji.vertical) {
+        this.toggleVerticalDivine();
+      }
+      window.dispatchEvent(new Event("resize"));
     }
   }
 
