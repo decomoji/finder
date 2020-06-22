@@ -6,6 +6,7 @@
       v-slot="{ index: row }"
       :items="dummyRowsForVirtualScroll"
       :item-size="gridRowHeight"
+      :buffer="bufferHeight"
       class="scroller"
       key-field="id"
       page-mode
@@ -110,6 +111,13 @@ export default class Main extends Vue {
   // @get - 1行分の高さを返す
   get gridRowHeight() {
     return GridRowHeightValue[this.gridSizeKey];
+  }
+
+  // @get - バッファの高さを返す
+  get bufferHeight() {
+    const { size } = this.decomoji;
+    const selectedSize = size === "l" ? 64 : size === "m" ? 32 : 16;
+    return this.gridRowHeight * 5 * (64 / selectedSize);
   }
 
   // @get - 1行に入る項目数
