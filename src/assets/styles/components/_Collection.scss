@@ -23,52 +23,50 @@
   }
 
   .__header {
-    position: relative;
-    padding: var(--space-md) calc(var(--space-lg) * 2) var(--space-xs)
-      var(--space-sm);
+    display: flex;
+    padding: var(--space-sm);
 
-    @include min {
-      :not(.-vertical) & {
-        display: flex;
-        align-items: baseline;
+    > * + * {
+      margin-left: auto;
+    }
 
-        & > * + * {
-          margin-left: var(--betweenHorizon);
-        }
-      }
+    .__textCol {
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      align-items: baseline;
     }
 
     .__heading {
-      margin-top: 0;
-      margin-bottom: 0;
+      flex-grow: 1;
+      margin: 0 var(--space-sm) var(--space-sm) 0;
       font-size: 1rem;
+      line-height: 1.4;
     }
 
     .__desc {
-      margin-top: var(--betweenVertical);
-      margin-bottom: 0;
+      // @see - https://joren.co/flex-grow-9999-hack/
+      flex-grow: 9999;
+      margin: 0 var(--space-sm) var(--space-sm) 0;
       font-size: 0.875rem;
+      line-height: 1.4;
+    }
 
-      .-vertical & {
-        margin-top: var(--space-sm);
-      }
+    .__actionCol {
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .__clear {
+      @include collectionActionButton;
     }
 
     .__toggle {
-      @extend %reset-Button;
+      @include collectionActionButton;
       display: none;
-      position: absolute;
-      top: 0.6rem;
-      right: 0.5rem;
-      justify-content: center;
-      align-items: center;
-      border-radius: 0.375rem;
-      width: 2rem;
-      height: 2rem;
-      @include focusDecomoji;
-
+      margin-left: var(--space-sm);
       @include min {
-        display: flex;
+        display: inline-flex;
       }
     }
   }
