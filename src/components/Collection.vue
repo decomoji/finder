@@ -1,17 +1,28 @@
 <template>
   <section v-show="shows" class="Collection">
     <div class="__header">
-      <h2 class="__heading">コレクション</h2>
-      <p class="__desc">
-        ダブルクリックするか delete キーでコレクションから外せます
-      </p>
-      <button
-        aria-label="垂直分割表示を切り替える"
-        class="__toggle"
-        @click="handleClickToggleVerticalDivine"
-      >
-        <Icon :value="toggleVerticalDivineIconValue" />
-      </button>
+      <div class="__textCol">
+        <h2 class="__heading">コレクション</h2>
+        <p class="__desc">
+          ダブルクリックするか delete キーでコレクションから外せます。
+        </p>
+      </div>
+      <div class="__actionCol">
+        <button
+          aria-label="コレクションを空にする"
+          class="__clear"
+          @click="handleClickClearCollection"
+        >
+          <Icon value="delete_forever" />
+        </button>
+        <button
+          aria-label="垂直分割表示を切り替える"
+          class="__toggle"
+          @click="handleClickToggleVerticalDivine"
+        >
+          <Icon :value="toggleVerticalDivineIconValue" />
+        </button>
+      </div>
     </div>
     <div class="__body">
       <DecomojiButton
@@ -50,6 +61,7 @@ export default class Collection extends Vue {
   @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
+  @Action("decomoji/clear") clear!: DecomojiAction["clear"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
   @Action("decomoji/toggleVerticalDivine")
   toggleVerticalDivine!: DecomojiAction["toggleVerticalDivine"];
@@ -69,10 +81,20 @@ export default class Collection extends Vue {
     return this.decomoji.vertical ? "south_west" : "north_east";
   }
 
+  // @listen - コレクションを空にする
+  handleClickClearCollection() {
+    if (
+      window.confirm("コレクションを空にしますか？（この操作は取り消せません）")
+    ) {
+      this.clear();
+      replaceState(this.decomoji.collectionQueries);
+      this.handleClickToggleVerticalDivine();
+    }
+  }
+
   // @listen - 垂直分割表示をトグルする
   handleClickToggleVerticalDivine() {
     this.toggleVerticalDivine();
-    // Main.vue の updateGridContainerWidth() を呼び出すために resize イベントを発行する
     window.dispatchEvent(new Event("resize"));
   }
 
