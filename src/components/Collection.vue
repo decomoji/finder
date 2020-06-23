@@ -105,6 +105,11 @@ export default class Collection extends Vue {
   handleRemove(item: CollectionItem) {
     this.remove(item);
     replaceState(this.decomoji.collectionQueries);
+    // アイテムが空になったら垂直分割表示をやめる
+    if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
+      this.toggleVerticalDivine();
+      window.dispatchEvent(new Event("resize"));
+    }
   }
 }
 </script>
