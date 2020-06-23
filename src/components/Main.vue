@@ -68,7 +68,8 @@ export default class Main extends Vue {
 
   // 内部プロパティを定義する
   decomojis = AvailableDecomojis;
-  gridContainerWidth = 0;
+  gridContainerWidth = window.innerWidth;
+  bufferHeight = window.innerHeight / 2;
 
   // @get - GridSizeValue からサイズを引き当てるためのキーを返す
   get gridSizeKey() {
@@ -113,13 +114,6 @@ export default class Main extends Vue {
     return GridRowHeightValue[this.gridSizeKey];
   }
 
-  // @get - バッファの高さを返す
-  get bufferHeight() {
-    const { size } = this.decomoji;
-    const selectedSize = size === "l" ? 64 : size === "m" ? 32 : 16;
-    return this.gridRowHeight * 5 * (64 / selectedSize);
-  }
-
   // @get - 1行に入る項目数
   get gridColumnLength() {
     const gridItemWidth = this.gridMinItemWidth + this.gridItemGap;
@@ -162,10 +156,11 @@ export default class Main extends Vue {
     el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
   }
 
-  // @method - 一覧領域の幅情報を更新
-  updateGridContainerWidth() {
+  // @method - 一覧領域の幅と高さを更新
+  updateGridContainerSize() {
     this.$nextTick(() => {
       this.gridContainerWidth = this.$el.clientWidth;
+      this.bufferHeight = window.innerHeight / 2;
     });
   }
 
@@ -218,13 +213,13 @@ export default class Main extends Vue {
 
   // @lifecycle
   mounted() {
-    window.addEventListener("resize", this.updateGridContainerWidth);
-    this.updateGridContainerWidth();
+    window.addEventListener("resize", this.updateGridContainerSize);
+    this.updateGridContainerSize();
   }
 
   // @lifecycle
   destroyed() {
-    window.removeEventListener("resize", this.updateGridContainerWidth);
+    window.removeEventListener("resize", this.updateGridContainerSize);
   }
 }
 </script>
