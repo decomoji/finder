@@ -34,10 +34,12 @@ export interface DecomojiState {
 
 export interface DecomojiViewModel extends DecomojiState {
   collectionQueries: DecomojiGetters["collectionQueries"];
+  formattedJson: DecomojiGetters["formattedJson"];
 }
 
 export interface DecomojiGetters {
   collectionQueries: string;
+  formattedJson: any;
   viewModel: DecomojiViewModel;
 }
 

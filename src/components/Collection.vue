@@ -2,7 +2,7 @@
   <section v-show="shows" class="Collection">
     <div class="__header">
       <div class="__textCol">
-        <h2 class="__heading">コレクション</h2>
+        <h2 class="__heading">コレクション（{{ collectionLength }}）</h2>
         <p class="__desc">
           ダブルクリックするか delete キーでコレクションから外せます。
         </p>

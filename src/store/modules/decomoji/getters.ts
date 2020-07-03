@@ -10,6 +10,12 @@ import { CategorizedItems } from "@/models/CategorizedItems";
 import { CategoryName } from "@/models/CategoryName";
 
 export const getters: GetterTree<ThisState, RootState> = {
+  formattedJson: (state) => {
+    return state.collection.map((item) => ({
+      name: item.name,
+      path: `./decomoji/${item.category}/${item.name}.png`,
+    }));
+  },
   /**
    * コレクションをパラメータ文字列に変換したものを返す
    */
@@ -36,8 +42,9 @@ export const getters: GetterTree<ThisState, RootState> = {
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (state, { collectionQueries }: ThisGetter) => ({
+  viewModel: (state, { collectionQueries, formattedJson }: ThisGetter) => ({
     ...pickState(defaultState, state),
     collectionQueries,
+    formattedJson,
   }),
 };
