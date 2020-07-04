@@ -13,6 +13,12 @@
         </p>
       </div>
       <div class="__actionCol">
+        <a :href="downloadURL" class="__dl" download="my-collection.json">
+          <span class="VisuallyHidden"
+            >コレクションをJSON形式でダウンロードする</span
+          >
+          <Icon value="save_alt" />
+        </a>
         <button
           aria-label="コレクションを空にする"
           class="__clear"
@@ -84,6 +90,13 @@ export default class Collection extends Vue {
   // @get - 垂直分割表示のトグルアイコン文字列を返す
   get toggleVerticalDivineIconValue() {
     return this.decomoji.vertical ? "south_west" : "north_east";
+  }
+
+  // @get - コレクションのJSONをblob形式で返す
+  get downloadURL() {
+    const jsonString = JSON.stringify(this.decomoji.formattedJson);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    return window.URL.createObjectURL(blob);
   }
 
   // @listen - コレクションを空にする

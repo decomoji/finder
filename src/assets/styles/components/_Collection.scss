@@ -57,8 +57,13 @@
       flex-shrink: 0;
     }
 
+    .__dl {
+      @include collectionActionButton;
+    }
+
     .__clear {
       @include collectionActionButton;
+      margin-left: var(--space-sm);
     }
 
     .__toggle {
