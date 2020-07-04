@@ -13,7 +13,7 @@
         </p>
       </div>
       <div class="__actionCol">
-        <a :href="downloadURL" class="__dl" download="my-collection.json">
+        <a :href="downloadURL" class="__button" download="my-collection.json">
           <span class="VisuallyHidden"
             >コレクションをJSON形式でダウンロードする</span
           >
@@ -21,14 +21,14 @@
         </a>
         <button
           aria-label="コレクションを空にする"
-          class="__clear"
+          class="__button"
           @click="handleClickClearCollection"
         >
           <Icon value="delete_forever" />
         </button>
         <button
           aria-label="垂直分割表示を切り替える"
-          class="__toggle"
+          class="__button -hideInTight"
           @click="handleClickToggleVerticalDivine"
         >
           <Icon :value="toggleVerticalDivineIconValue" />

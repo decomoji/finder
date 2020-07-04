@@ -55,23 +55,19 @@
     .__actionCol {
       display: flex;
       flex-shrink: 0;
+
+      > * + * {
+        margin-left: var(--space-sm);
+      }
     }
 
-    .__dl {
+    .__button {
       @include collectionActionButton;
-    }
-
-    .__clear {
-      @include collectionActionButton;
-      margin-left: var(--space-sm);
-    }
-
-    .__toggle {
-      @include collectionActionButton;
-      display: none;
-      margin-left: var(--space-sm);
-      @include min {
-        display: inline-flex;
+      &.-hideInTight {
+        display: none;
+        @include min {
+          display: inline-flex;
+        }
       }
     }
   }
