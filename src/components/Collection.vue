@@ -13,6 +13,13 @@
         </p>
       </div>
       <div class="__actionCol">
+        <button
+          aria-label="コレクションリンクをクリップボードにコピーする"
+          class="__button"
+          @click="handleClickCopyCollectionLink"
+        >
+          <Icon value="link" />
+        </button>
         <a :href="downloadURL" class="__button" download="my-collection.json">
           <span class="VisuallyHidden"
             >コレクションをJSON形式でダウンロードする</span
@@ -97,6 +104,13 @@ export default class Collection extends Vue {
     const jsonString = JSON.stringify(this.decomoji.formattedJson);
     const blob = new Blob([jsonString], { type: "application/json" });
     return window.URL.createObjectURL(blob);
+  }
+
+  // @listen - コレクションリンクをクリップボードにコピーする
+  handleClickCopyCollectionLink() {
+    window.navigator.clipboard.writeText(window.location.href).then(() => {
+      window.alert("コレクションリンクをクリップボードにコピーしました");
+    });
   }
 
   // @listen - コレクションを空にする
