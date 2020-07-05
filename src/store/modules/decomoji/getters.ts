@@ -64,18 +64,32 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * 表示サイズをパラメータ文字列に変換したものを返す
+   */
+  sizeParam: (state) => {
+    return `s=${state.size}`;
+  },
+
+  /**
    * ViewModel
    * @param state
    * @param hasGlobalLoadingQueue
    */
   viewModel: (
     state,
-    { collectionParam, formattedJson, optionParam, searchParam }: ThisGetter
+    {
+      collectionParam,
+      formattedJson,
+      optionParam,
+      searchParam,
+      sizeParam,
+    }: ThisGetter
   ) => ({
     ...pickState(defaultState, state),
     collectionParam,
     formattedJson,
     optionParam,
     searchParam,
+    sizeParam,
   }),
 };

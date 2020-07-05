@@ -40,6 +40,7 @@ export interface DecomojiGetters {
   formattedJson: any;
   optionParam: string;
   searchParam: string;
+  sizeParam: string;
   viewModel: DecomojiViewModel;
 }
 
