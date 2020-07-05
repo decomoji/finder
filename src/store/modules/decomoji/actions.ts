@@ -9,6 +9,7 @@ import {
   CLEAR_COLLECTION,
   RECEIVE_COLLECTION,
   REMOVE_FROM_COLLECTION,
+  REPLACE_URL_PARAMS,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
@@ -26,8 +27,9 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  add({ commit }, payload: ThisActionPayloads["add"]) {
+  add({ commit, getters }, payload: ThisActionPayloads["add"]) {
     commit(ADD_TO_COLLECTION, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -35,8 +37,9 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  clear({ commit }) {
+  clear({ commit, getters }) {
     commit(CLEAR_COLLECTION);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -44,8 +47,9 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  remove({ commit }, payload: ThisActionPayloads["remove"]) {
+  remove({ commit, getters }, payload: ThisActionPayloads["remove"]) {
     commit(REMOVE_FROM_COLLECTION, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -53,7 +57,7 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  receive({ commit }, payload: ThisActionPayloads["receive"]) {
+  receive({ commit, getters }, payload: ThisActionPayloads["receive"]) {
     type IdentifiedArray = [CategoryName, string];
     // パラメータをパースしてコレクションに追加する
     const parsedParams = payload || {};
@@ -67,6 +71,7 @@ export const actions: ActionTree<ThisState, RootState> = {
       .flat();
 
     commit(RECEIVE_COLLECTION, collection);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -74,32 +79,39 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  toggleCategory({ commit }, payload: ThisActionPayloads["toggleCategory"]) {
+  toggleCategory(
+    { commit, getters },
+    payload: ThisActionPayloads["toggleCategory"]
+  ) {
     commit(TOGGLE_CATEGORY, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
    * ダークモードをトグルする
    * @param commit
    */
-  toggleDarkMode({ commit }) {
+  toggleDarkMode({ commit, getters }) {
     commit(TOGGLE_DARK_MODE);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
    * リアクション済みをトグルする
    * @param commit
    */
-  toggleReacted({ commit }) {
+  toggleReacted({ commit, getters }) {
     commit(TOGGLE_REACTED);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
    * 垂直分割表示をトグルする
    * @param commit
    */
-  toggleVerticalDivine({ commit }) {
+  toggleVerticalDivine({ commit, getters }) {
     commit(TOGGLE_VERTICAL_DIVINE);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -107,8 +119,12 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  updateSearch({ commit }, payload: ThisActionPayloads["updateSearch"]) {
+  updateSearch(
+    { commit, getters },
+    payload: ThisActionPayloads["updateSearch"]
+  ) {
     commit(UPDATE_SEARCH, isStringOfNotEmpty(payload) ? payload : "");
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -116,7 +132,8 @@ export const actions: ActionTree<ThisState, RootState> = {
    * @param commit
    * @param payload
    */
-  updateSize({ commit }, payload: ThisActionPayloads["updateSize"]) {
+  updateSize({ commit, getters }, payload: ThisActionPayloads["updateSize"]) {
     commit(UPDATE_SIZE, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 };
