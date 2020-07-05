@@ -64,7 +64,6 @@ import {
   DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
 import { isStringOfNotEmpty } from "@/utilities/isString";
-import { replaceState } from "@/utilities/replaceState";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
@@ -119,7 +118,6 @@ export default class Collection extends Vue {
       window.confirm("コレクションを空にしますか？（この操作は取り消せません）")
     ) {
       this.clear();
-      replaceState(this.decomoji.collectionParam);
       if (this.decomoji.vertical) {
         this.toggleVerticalDivine();
       }
@@ -136,7 +134,6 @@ export default class Collection extends Vue {
   // @listen - コレクションからアイテムを削除する
   handleRemove(item: CollectionItem) {
     this.remove(item);
-    replaceState(this.decomoji.collectionParam);
     // アイテムが空になったら垂直分割表示をやめる
     if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
       this.toggleVerticalDivine();

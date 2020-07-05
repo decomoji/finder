@@ -49,7 +49,6 @@ import {
   DecomojiAction,
   DecomojiViewModel,
 } from "@/store/modules/decomoji/models";
-import { replaceState } from "@/utilities/replaceState";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
@@ -198,13 +197,11 @@ export default class Main extends Vue {
   // @listen - デコモジがをコレクションに追加する
   handleAdd(item: CollectionItem) {
     this.add(item);
-    replaceState(this.decomoji.collectionParam);
   }
 
   // @listen - デコモジをコレクションから削除する
   handleRemove(item: CollectionItem) {
     this.remove(item);
-    replaceState(this.decomoji.collectionParam);
     // アイテムが空になったら垂直分割表示をやめる
     if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
       this.toggleVerticalDivine();
