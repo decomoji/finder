@@ -17,7 +17,6 @@ export const state: () => ThisState = () => ({
   },
   collection: [],
   dark: false,
-  name: true,
   reacted: false,
   search: "",
   size: "l",

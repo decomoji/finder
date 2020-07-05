@@ -14,7 +14,6 @@ import {
   RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
-  TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
@@ -25,7 +24,6 @@ export interface DecomojiState {
   category: CategoriesState;
   collection: Collection;
   dark: boolean;
-  name: boolean;
   reacted: boolean;
   search: string;
   size: string;
@@ -50,7 +48,6 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [RECEIVE_COLLECTION]: Collection;
   [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
-  [TOGGLE_NAME_SHOWS]: boolean;
   [TOGGLE_REACTED]: boolean;
   [TOGGLE_VERTICAL_DIVINE]: boolean;
   [UPDATE_SEARCH]: string;
@@ -64,7 +61,6 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   receive: CategoriesObject;
   toggleCategory: CategoryName;
   toggleDarkMode: boolean;
-  toggleNameShows: boolean;
   toggleReacted: boolean;
   toggleVerticalDivine: boolean;
   updateSearch: string;

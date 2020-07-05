@@ -11,7 +11,6 @@ import {
   RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
-  TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
@@ -85,14 +84,6 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   toggleDarkMode({ commit }) {
     commit(TOGGLE_DARK_MODE);
-  },
-
-  /**
-   * デコモジ名の表示をトグルする
-   * @param commit
-   */
-  toggleNameShows({ commit }) {
-    commit(TOGGLE_NAME_SHOWS);
   },
 
   /**

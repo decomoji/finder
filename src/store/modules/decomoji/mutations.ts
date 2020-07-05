@@ -9,7 +9,6 @@ import {
   RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
-  TOGGLE_NAME_SHOWS,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
   UPDATE_SEARCH,
@@ -88,14 +87,6 @@ export const mutations: MutationTree<ThisState> = {
    */
   [TOGGLE_DARK_MODE](state) {
     state.dark = !state.dark;
-  },
-
-  /**
-   * デコモジ名の表示をトグルする
-   * @param state
-   */
-  [TOGGLE_NAME_SHOWS](state) {
-    state.name = !state.name;
   },
 
   /**
