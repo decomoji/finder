@@ -2,6 +2,7 @@ import { CategoriesObject } from "@/models/CategoriesObject";
 import { CategoryName } from "@/models/CategoryName";
 import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
+import { NullableString } from "@/models/NullableString";
 import {
   VuexActionPayloads,
   VuexActions,
@@ -38,8 +39,9 @@ export interface DecomojiViewModel extends DecomojiState {
 export interface DecomojiGetters {
   categoryParam: string;
   collectionParam: string;
+  darkParam: NullableString;
   formattedJson: any;
-  optionParam: string;
+  reactedParam: NullableString;
   searchParam: string;
   sizeParam: string;
   viewModel: DecomojiViewModel;

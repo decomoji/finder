@@ -42,6 +42,13 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * ダークモード表示か否かをパラメータ文字列に変換したものを返す
+   */
+  darkParam: (state) => {
+    return state.dark ? "dark" : null;
+  },
+
+  /**
    * コレクションを decomoji-manager 向けの json 形式に変換したものを返す
    */
   formattedJson: (state) => {
@@ -52,14 +59,10 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
-   * 表示オプションをパラメータ文字列に変換したものを返す
+   * リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
    */
-  optionParam: (state) => {
-    const arrayedOptions = (Object.keys({
-      dark: state.dark,
-      reacted: state.reacted,
-    }) as ("dark" | "reacted")[]).filter((key) => state[key]);
-    return `c=${arrayedOptions.join(",")}`;
+  reactedParam: (state) => {
+    return state.reacted ? "reacted" : null;
   },
 
   /**
@@ -86,8 +89,9 @@ export const getters: GetterTree<ThisState, RootState> = {
     {
       categoryParam,
       collectionParam,
+      darkParam,
       formattedJson,
-      optionParam,
+      reactedParam,
       searchParam,
       sizeParam,
     }: ThisGetter
@@ -95,8 +99,9 @@ export const getters: GetterTree<ThisState, RootState> = {
     ...pickState(defaultState, state),
     categoryParam,
     collectionParam,
+    darkParam,
     formattedJson,
-    optionParam,
+    reactedParam,
     searchParam,
     sizeParam,
   }),
