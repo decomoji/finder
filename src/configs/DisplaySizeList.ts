@@ -2,6 +2,10 @@ import { IconSizeItem } from "@/models/IconSizeItem";
 
 export const DisplaySizeList: IconSizeItem[] = [
   {
+    text: "64px＆デコモジ名",
+    value: "ll",
+  },
+  {
     text: "64px",
     value: "l",
   },
