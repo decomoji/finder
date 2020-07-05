@@ -55,15 +55,11 @@ export const getters: GetterTree<ThisState, RootState> = {
    * 表示オプションをパラメータ文字列に変換したものを返す
    */
   optionParam: (state) => {
-    const { dark, reacted } = state;
-    let options: string[] = [];
-    if (dark) {
-      options.push("dark");
-    }
-    if (reacted) {
-      options.push("reacted");
-    }
-    return `o=${options.join(",")}`;
+    const arrayedOptions = (Object.keys({
+      dark: state.dark,
+      reacted: state.reacted,
+    }) as ("dark" | "reacted")[]).filter((key) => state[key]);
+    return `c=${arrayedOptions.join(",")}`;
   },
 
   /**
