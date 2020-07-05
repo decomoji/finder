@@ -119,7 +119,7 @@ export default class Collection extends Vue {
       window.confirm("コレクションを空にしますか？（この操作は取り消せません）")
     ) {
       this.clear();
-      replaceState(this.decomoji.collectionQueries);
+      replaceState(this.decomoji.collectionParam);
       if (this.decomoji.vertical) {
         this.toggleVerticalDivine();
       }
@@ -136,7 +136,7 @@ export default class Collection extends Vue {
   // @listen - コレクションからアイテムを削除する
   handleRemove(item: CollectionItem) {
     this.remove(item);
-    replaceState(this.decomoji.collectionQueries);
+    replaceState(this.decomoji.collectionParam);
     // アイテムが空になったら垂直分割表示をやめる
     if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
       this.toggleVerticalDivine();

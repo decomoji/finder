@@ -23,7 +23,7 @@ export const getters: GetterTree<ThisState, RootState> = {
   /**
    * コレクションをパラメータ文字列に変換したものを返す
    */
-  collectionQueries: (state) => {
+  collectionParam: (state) => {
     const categorizedItems = state.collection.reduce<CategorizedItems>(
       (acc, { name, category }) => {
         acc[category] ? acc[category].push(name) : (acc[category] = [name]);
@@ -46,9 +46,9 @@ export const getters: GetterTree<ThisState, RootState> = {
    * @param state
    * @param hasGlobalLoadingQueue
    */
-  viewModel: (state, { collectionQueries, formattedJson }: ThisGetter) => ({
+  viewModel: (state, { collectionParam, formattedJson }: ThisGetter) => ({
     ...pickState(defaultState, state),
-    collectionQueries,
+    collectionParam,
     formattedJson,
   }),
 };

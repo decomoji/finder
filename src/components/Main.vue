@@ -198,13 +198,13 @@ export default class Main extends Vue {
   // @listen - デコモジがをコレクションに追加する
   handleAdd(item: CollectionItem) {
     this.add(item);
-    replaceState(this.decomoji.collectionQueries);
+    replaceState(this.decomoji.collectionParam);
   }
 
   // @listen - デコモジをコレクションから削除する
   handleRemove(item: CollectionItem) {
     this.remove(item);
-    replaceState(this.decomoji.collectionQueries);
+    replaceState(this.decomoji.collectionParam);
     // アイテムが空になったら垂直分割表示をやめる
     if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
       this.toggleVerticalDivine();

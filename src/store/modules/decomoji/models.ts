@@ -31,12 +31,12 @@ export interface DecomojiState {
 }
 
 export interface DecomojiViewModel extends DecomojiState {
-  collectionQueries: DecomojiGetters["collectionQueries"];
+  collectionParam: DecomojiGetters["collectionParam"];
   formattedJson: DecomojiGetters["formattedJson"];
 }
 
 export interface DecomojiGetters {
-  collectionQueries: string;
+  collectionParam: string;
   formattedJson: any;
   viewModel: DecomojiViewModel;
 }
