@@ -29,7 +29,7 @@ export default class Top extends Vue {
   receive!: DecomojiAction["receive"];
 
   // 入力プロパティを定義する
-  @Prop() query!: CategoriesObject;
+  @Prop() query!: any;
 
   /**
    * @lifecyle

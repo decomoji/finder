@@ -19,7 +19,7 @@ export const state: () => ThisState = () => ({
   dark: false,
   reacted: false,
   search: "",
-  size: "l",
+  size: "ll",
   vertical: false,
 });
 

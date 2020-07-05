@@ -17,7 +17,7 @@ export const getters: GetterTree<ThisState, RootState> = {
     const arrayedCategories = (Object.keys(
       state.category
     ) as CategoryName[]).filter((key) => state.category[key]);
-    return `c=${arrayedCategories.join(",")}`;
+    return `category=${arrayedCategories.join(",")}`;
   },
 
   /**
@@ -38,6 +38,8 @@ export const getters: GetterTree<ThisState, RootState> = {
       (key) => `${key}=${categorizedItems[key].join(",")}`
     );
 
+    // @TODO v5-preview まではカテゴリごとに持つが、元からカテゴリを跨いで一意な名前なので
+    // v5 をリリースした後に `collection=name,name,name...` の形に変更する
     return paramaterizedArray.join("&");
   },
 
@@ -69,14 +71,14 @@ export const getters: GetterTree<ThisState, RootState> = {
    * 検索クエリをパラメータ文字列に変換したものを返す
    */
   searchParam: (state) => {
-    return `q=${encodeURIComponent(state.search)}`;
+    return `search=${encodeURIComponent(state.search)}`;
   },
 
   /**
    * 表示サイズをパラメータ文字列に変換したものを返す
    */
   sizeParam: (state) => {
-    return `s=${state.size}`;
+    return `size=${state.size}`;
   },
 
   /**
