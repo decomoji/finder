@@ -13,6 +13,7 @@ import {
   CLEAR_COLLECTION,
   RECEIVE_COLLECTION,
   REMOVE_FROM_COLLECTION,
+  REPLACE_URL_PARAMS,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
@@ -32,8 +33,16 @@ export interface DecomojiState {
 }
 
 export interface DecomojiViewModel extends DecomojiState {
+  categoryParam: DecomojiGetters["categoryParam"];
   collectionParam: DecomojiGetters["collectionParam"];
+  darkParam: DecomojiGetters["darkParam"];
   formattedJson: DecomojiGetters["formattedJson"];
+  reactedParam: DecomojiGetters["reactedParam"];
+  searchParam: DecomojiGetters["searchParam"];
+  sizeParam: DecomojiGetters["sizeParam"];
+  urlParams: DecomojiGetters["urlParams"];
+  verticalParam: DecomojiGetters["verticalParam"];
+  viewModel: DecomojiGetters["viewModel"];
 }
 
 export interface DecomojiGetters {
@@ -54,6 +63,7 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [CLEAR_COLLECTION]: void;
   [RECEIVE_COLLECTION]: Collection;
   [REMOVE_FROM_COLLECTION]: CollectionItem;
+  [REPLACE_URL_PARAMS]: string;
   [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_REACTED]: boolean;
