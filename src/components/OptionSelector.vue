@@ -4,18 +4,6 @@
     <div class="__panel -option">
       <label class="__label">
         <input
-          :value="decomoji.name"
-          :checked="decomoji.name"
-          :disabled="!isDefaultSize"
-          class="__checkbox"
-          name="option"
-          type="checkbox"
-          @change="handleChangeNameShows"
-        />
-        ファイル名の表示
-      </label>
-      <label class="__label">
-        <input
           :value="decomoji.reacted"
           :checked="decomoji.reacted"
           class="__checkbox"
@@ -57,20 +45,8 @@ export default class OptionSelector extends Vue {
   // アクションを引き当てる
   @Action("decomoji/toggleDarkMode")
   toggleDarkMode!: DecomojiAction["toggleDarkMode"];
-  @Action("decomoji/toggleNameShows")
-  toggleNameShows!: DecomojiAction["toggleNameShows"];
   @Action("decomoji/toggleReacted")
   toggleReacted!: DecomojiAction["toggleReacted"];
-
-  // @get - デフォルトのアイコンサイズが選択されてるか否かを返す
-  get isDefaultSize() {
-    return this.decomoji.size === DefaultSize;
-  }
-
-  // @listen - ファイル名表示を選択する
-  handleChangeNameShows() {
-    this.toggleNameShows(this.decomoji.name);
-  }
 
   // @listen - リアクション済み表示を選択する
   handleChangeReacted() {
