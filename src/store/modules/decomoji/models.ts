@@ -36,6 +36,7 @@ export interface DecomojiViewModel extends DecomojiState {
 }
 
 export interface DecomojiGetters {
+  categoryParam: string;
   collectionParam: string;
   formattedJson: any;
   optionParam: string;

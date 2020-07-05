@@ -11,6 +11,16 @@ import { CategoryName } from "@/models/CategoryName";
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
+   * 表示カテゴリーをパラメータ文字列に変換したものを返す
+   */
+  categoryParam: (state) => {
+    const arrayedCategories = (Object.keys(
+      state.category
+    ) as CategoryName[]).filter((key) => state.category[key]);
+    return `c=${arrayedCategories.join(",")}`;
+  },
+
+  /**
    * コレクションをパラメータ文字列に変換したものを返す
    */
   collectionParam: (state) => {
@@ -78,6 +88,7 @@ export const getters: GetterTree<ThisState, RootState> = {
   viewModel: (
     state,
     {
+      categoryParam,
       collectionParam,
       formattedJson,
       optionParam,
@@ -86,6 +97,7 @@ export const getters: GetterTree<ThisState, RootState> = {
     }: ThisGetter
   ) => ({
     ...pickState(defaultState, state),
+    categoryParam,
     collectionParam,
     formattedJson,
     optionParam,
