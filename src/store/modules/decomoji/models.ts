@@ -44,6 +44,7 @@ export interface DecomojiGetters {
   reactedParam: NullableString;
   searchParam: string;
   sizeParam: string;
+  urlParams: string;
   verticalParam: NullableString;
   viewModel: DecomojiViewModel;
 }

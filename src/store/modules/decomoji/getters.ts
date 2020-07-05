@@ -80,6 +80,34 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * 各パラメータ文字列を連結したものを返す
+   */
+  urlParams: (
+    _,
+    {
+      categoryParam,
+      collectionParam,
+      darkParam,
+      reactedParam,
+      searchParam,
+      sizeParam,
+      verticalParam,
+    }
+  ) => {
+    return [
+      sizeParam,
+      categoryParam,
+      darkParam,
+      reactedParam,
+      verticalParam,
+      searchParam,
+      collectionParam,
+    ]
+      .filter((v) => !!v)
+      .join("&");
+  },
+
+  /**
    * コレクションが垂直分割表示か否かをパラメータ文字列に変換したものを返す
    */
   verticalParam: (state) => {
@@ -101,6 +129,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       reactedParam,
       searchParam,
       sizeParam,
+      urlParams,
       verticalParam,
     }: ThisGetter
   ) => ({
@@ -112,6 +141,7 @@ export const getters: GetterTree<ThisState, RootState> = {
     reactedParam,
     searchParam,
     sizeParam,
+    urlParams,
     verticalParam,
   }),
 };
