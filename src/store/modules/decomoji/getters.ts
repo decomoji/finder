@@ -80,6 +80,13 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * コレクションが垂直分割表示か否かをパラメータ文字列に変換したものを返す
+   */
+  verticalParam: (state) => {
+    return state.vertical ? "vertical" : null;
+  },
+
+  /**
    * ViewModel
    * @param state
    * @param hasGlobalLoadingQueue
@@ -94,6 +101,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       reactedParam,
       searchParam,
       sizeParam,
+      verticalParam,
     }: ThisGetter
   ) => ({
     ...pickState(defaultState, state),
@@ -104,5 +112,6 @@ export const getters: GetterTree<ThisState, RootState> = {
     reactedParam,
     searchParam,
     sizeParam,
+    verticalParam,
   }),
 };
