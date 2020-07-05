@@ -6,7 +6,6 @@
       {
         '-dark': decomoji.dark,
         '-reacted': decomoji.reacted,
-        '-name': decomoji.name,
         '-vertical': decomoji.vertical,
       },
     ]"
