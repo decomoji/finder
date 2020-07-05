@@ -38,6 +38,7 @@ export interface DecomojiViewModel extends DecomojiState {
 export interface DecomojiGetters {
   collectionParam: string;
   formattedJson: any;
+  optionParam: string;
   viewModel: DecomojiViewModel;
 }
 
