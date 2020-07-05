@@ -57,17 +57,25 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * 検索クエリをパラメータ文字列に変換したものを返す
+   */
+  searchParam: (state) => {
+    return `q=${encodeURIComponent(state.search)}`;
+  },
+
+  /**
    * ViewModel
    * @param state
    * @param hasGlobalLoadingQueue
    */
   viewModel: (
     state,
-    { collectionParam, formattedJson, optionParam }: ThisGetter
+    { collectionParam, formattedJson, optionParam, searchParam }: ThisGetter
   ) => ({
     ...pickState(defaultState, state),
     collectionParam,
     formattedJson,
     optionParam,
+    searchParam,
   }),
 };
