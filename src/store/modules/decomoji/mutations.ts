@@ -7,6 +7,7 @@ import {
   CLEAR_COLLECTION,
   REMOVE_FROM_COLLECTION,
   RECEIVE_COLLECTION,
+  REPLACE_URL_PARAMS,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
@@ -16,6 +17,7 @@ import {
 } from "./mutation-types";
 import { clearArray, replaceArray } from "@/utilities/array";
 import { MutationTree } from "vuex";
+import { replaceState } from "@/utilities/replaceState";
 
 export const mutations: MutationTree<ThisState> = {
   /**
@@ -62,6 +64,18 @@ export const mutations: MutationTree<ThisState> = {
     payload: ThisMutationPayloads[typeof RECEIVE_COLLECTION]
   ) {
     replaceArray(state.collection, ...payload);
+  },
+
+  /**
+   * URLパラメータを replaceState する
+   * @param _
+   * @param payload
+   */
+  [REPLACE_URL_PARAMS](
+    _,
+    payload: ThisMutationPayloads[typeof REPLACE_URL_PARAMS]
+  ) {
+    replaceState(payload);
   },
 
   /**
