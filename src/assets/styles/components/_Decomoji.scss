@@ -20,13 +20,17 @@
     background-color: var(--bgDecomojiCollected);
   }
 
-  .-l & {
+  .-ll .Main & {
+    padding: 10px;
+    height: 129px;
+  }
+  .-ll .Collection & {
     padding: 8px;
     height: 80px;
   }
-  .-l.-name .Main & {
-    padding: 10px;
-    height: 129px;
+  .-l & {
+    padding: 8px;
+    height: 80px;
   }
   .-m & {
     padding: 5px;
@@ -61,7 +65,7 @@
     color: var(--colorDecomoji);
     word-break: break-all;
 
-    .-l.-name .Main & {
+    .-ll .Main & {
       display: block;
     }
   }

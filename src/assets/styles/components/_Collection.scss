@@ -76,6 +76,7 @@
     display: grid;
     grid-auto-flow: row;
 
+    .-ll &,
     .-l & {
       gap: 8px;
       grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
