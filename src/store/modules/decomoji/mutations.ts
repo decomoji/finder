@@ -4,8 +4,8 @@ import {
 } from "./models";
 import {
   ADD_TO_COLLECTION,
-  REMOVE_FROM_COLLECTION,
   CLEAR_COLLECTION,
+  REMOVE_FROM_COLLECTION,
   RECEIVE_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
@@ -30,6 +30,14 @@ export const mutations: MutationTree<ThisState> = {
   },
 
   /**
+   * コレクションを消去する
+   * @param state
+   */
+  [CLEAR_COLLECTION](state) {
+    clearArray(state.collection);
+  },
+
+  /**
    * 選択したデコモジをコレクションから削除する
    * @param state
    * @param payload
@@ -42,14 +50,6 @@ export const mutations: MutationTree<ThisState> = {
       (item) => item.name === payload.name && item.category === payload.category
     );
     state.collection.splice(index, 1);
-  },
-
-  /**
-   * コレクションを消去する
-   * @param state
-   */
-  [CLEAR_COLLECTION](state) {
-    clearArray(state.collection);
   },
 
   /**

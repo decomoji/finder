@@ -11,8 +11,8 @@ import {
 import {
   ADD_TO_COLLECTION,
   CLEAR_COLLECTION,
-  REMOVE_FROM_COLLECTION,
   RECEIVE_COLLECTION,
+  REMOVE_FROM_COLLECTION,
   TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
@@ -52,8 +52,8 @@ export interface DecomojiGetters {
 export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [ADD_TO_COLLECTION]: CollectionItem;
   [CLEAR_COLLECTION]: void;
-  [REMOVE_FROM_COLLECTION]: CollectionItem;
   [RECEIVE_COLLECTION]: Collection;
+  [REMOVE_FROM_COLLECTION]: CollectionItem;
   [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_REACTED]: boolean;
