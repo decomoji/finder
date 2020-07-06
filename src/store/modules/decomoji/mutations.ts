@@ -8,12 +8,12 @@ import {
   REMOVE_FROM_COLLECTION,
   RECEIVE_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_VERTICAL_DIVINE,
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERTICAL,
 } from "./mutation-types";
 import { clearArray, replaceArray } from "@/utilities/array";
 import { MutationTree } from "vuex";
@@ -79,14 +79,6 @@ export const mutations: MutationTree<ThisState> = {
   },
 
   /**
-   * リアクション済みをトグルする
-   * @param state
-   */
-  [TOGGLE_VERTICAL_DIVINE](state) {
-    state.vertical = !state.vertical;
-  },
-
-  /**
    * 表示カテゴリーを更新する
    * @param state
    * @param payload
@@ -135,5 +127,17 @@ export const mutations: MutationTree<ThisState> = {
    */
   [UPDATE_SIZE](state, payload: ThisMutationPayloads[typeof UPDATE_SIZE]) {
     state.size = payload;
+  },
+
+  /**
+   * 垂直分割表示を更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_VERTICAL](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_VERTICAL]
+  ) {
+    state.vertical = payload;
   },
 };

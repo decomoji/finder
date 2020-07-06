@@ -14,12 +14,12 @@ import {
   RECEIVE_COLLECTION,
   REMOVE_FROM_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_VERTICAL_DIVINE,
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERTICAL,
 } from "./mutation-types";
 
 export interface DecomojiState {
@@ -64,12 +64,12 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [RECEIVE_COLLECTION]: Collection;
   [REMOVE_FROM_COLLECTION]: CollectionItem;
   [REPLACE_URL_PARAMS]: string;
-  [TOGGLE_VERTICAL_DIVINE]: boolean;
   [UPDATE_CATEGORY]: CategoryNameValue;
   [UPDATE_DARK]: boolean;
   [UPDATE_REACTED]: boolean;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
+  [UPDATE_VERTICAL]: boolean;
 }>;
 
 export type DecomojiActionPayloads = VuexActionPayloads<{
