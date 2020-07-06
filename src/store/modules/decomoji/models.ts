@@ -83,6 +83,7 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   updateCategory: CategoryNameValue;
   updateDark: boolean;
   updateReacted: boolean;
+  updateResult: number;
   updateSearch: string;
   updateSize: string;
   updateVertical: boolean;

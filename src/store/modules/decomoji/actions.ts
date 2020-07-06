@@ -17,6 +17,7 @@ import {
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
+  UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
   UPDATE_VERTICAL,
@@ -156,6 +157,14 @@ export const actions: ActionTree<ThisState, RootState> = {
   ) {
     commit(UPDATE_REACTED, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * 検索結果件数を更新する
+   * @param commit
+   */
+  updateResult({ commit }, payload: ThisActionPayloads["updateResult"]) {
+    commit(UPDATE_RESULT, payload);
   },
 
   /**
