@@ -14,6 +14,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
+  UPDATE_CATEGORY,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -111,6 +112,19 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   toggleVerticalDivine({ commit, getters }) {
     commit(TOGGLE_VERTICAL_DIVINE);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * 表示カテゴリーを更新する
+   * @param commit
+   * @param payload
+   */
+  updateCategory(
+    { commit, getters },
+    payload: ThisActionPayloads["updateCategory"]
+  ) {
+    commit(UPDATE_CATEGORY, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
