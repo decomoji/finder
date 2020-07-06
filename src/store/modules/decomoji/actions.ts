@@ -10,12 +10,12 @@ import {
   RECEIVE_COLLECTION,
   REMOVE_FROM_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_VERTICAL_DIVINE,
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERTICAL,
 } from "./mutation-types";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
@@ -91,13 +91,6 @@ export const actions: ActionTree<ThisState, RootState> = {
 
   },
 
-  /**
-   * 垂直分割表示をトグルする
-   * @param commit
-   */
-  toggleVerticalDivine({ commit, getters }) {
-    commit(TOGGLE_VERTICAL_DIVINE);
-    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -155,6 +148,18 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   updateSize({ commit, getters }, payload: ThisActionPayloads["updateSize"]) {
     commit(UPDATE_SIZE, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * 垂直分割表示をトグルする
+   * @param commit
+   */
+  updateVertical(
+    { commit, getters },
+    payload: ThisActionPayloads["updateVertical"]
+  ) {
+    commit(UPDATE_VERTICAL, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 };
