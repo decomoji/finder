@@ -10,7 +10,7 @@ import { Module } from "vuex";
  */
 export const state: () => ThisState = () => ({
   category: {
-    basic: true,
+    basic: false,
     explicit: false,
     extra: false,
     preview: false,
