@@ -46,12 +46,12 @@ export interface DecomojiViewModel extends DecomojiState {
 }
 
 export interface DecomojiGetters {
-  categoryParam: string;
-  collectionParam: string;
+  categoryParam: NullableString;
+  collectionParam: NullableString;
   darkParam: NullableString;
   formattedJson: any;
   reactedParam: NullableString;
-  searchParam: string;
+  searchParam: NullableString;
   sizeParam: string;
   urlParams: string;
   verticalParam: NullableString;

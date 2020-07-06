@@ -8,6 +8,7 @@ import {
 import { GetterTree } from "vuex";
 import { CategorizedItems } from "@/models/CategorizedItems";
 import { CategoryName } from "@/models/CategoryName";
+import { isStringOfNotEmpty } from "@/utilities/isString";
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
@@ -17,7 +18,9 @@ export const getters: GetterTree<ThisState, RootState> = {
     const arrayedCategories = (Object.keys(
       state.category
     ) as CategoryName[]).filter((key) => state.category[key]);
-    return `category=${arrayedCategories.join(",")}`;
+    return arrayedCategories.length > 0
+      ? `category=${arrayedCategories.join(",")}`
+      : null;
   },
 
   /**
@@ -40,14 +43,14 @@ export const getters: GetterTree<ThisState, RootState> = {
 
     // @TODO v5-preview まではカテゴリごとに持つが、元からカテゴリを跨いで一意な名前なので
     // v5 をリリースした後に `collection=name,name,name...` の形に変更する
-    return paramaterizedArray.join("&");
+    return paramaterizedArray.length > 0 ? paramaterizedArray.join("&") : null;
   },
 
   /**
    * ダークモード表示か否かをパラメータ文字列に変換したものを返す
    */
   darkParam: (state) => {
-    return state.dark ? "dark" : null;
+    return state.dark ? "dark=true" : null;
   },
 
   /**
@@ -64,14 +67,16 @@ export const getters: GetterTree<ThisState, RootState> = {
    * リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
    */
   reactedParam: (state) => {
-    return state.reacted ? "reacted" : null;
+    return state.reacted ? "reacted=true" : null;
   },
 
   /**
    * 検索クエリをパラメータ文字列に変換したものを返す
    */
   searchParam: (state) => {
-    return `search=${encodeURIComponent(state.search)}`;
+    return isStringOfNotEmpty(state.search)
+      ? `search=${encodeURIComponent(state.search)}`
+      : null;
   },
 
   /**
@@ -113,7 +118,7 @@ export const getters: GetterTree<ThisState, RootState> = {
    * コレクションが垂直分割表示か否かをパラメータ文字列に変換したものを返す
    */
   verticalParam: (state) => {
-    return state.vertical ? "vertical" : null;
+    return state.vertical ? "vertical=true" : null;
   },
 
   /**
