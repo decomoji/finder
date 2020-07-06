@@ -38,15 +38,19 @@ export default class CategorySelector extends Vue {
   @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
-  @Action("decomoji/toggleCategory")
-  toggleCategory!: DecomojiAction["toggleCategory"];
+  @Action("decomoji/updateCategory")
+  updateCategory!: DecomojiAction["updateCategory"];
 
   // 内部プロパティを定義する
   displayCategoryList: CategoryItem[] = DisplayCategoryList;
 
   // @listen - 表示カテゴリーを選択する
-  handleCange(categoryId: CategoryName) {
-    this.toggleCategory(categoryId);
+  handleCange(categoryName: CategoryName) {
+    // 更新前の値を反転してアクションに渡す
+    this.updateCategory({
+      name: categoryName,
+      value: !this.decomoji.category[categoryName],
+    });
   }
 }
 </script>
