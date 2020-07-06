@@ -10,6 +10,7 @@
       @input="debouncedUpdateSearch($event.target.value)"
     />
     <Icon class="__icon" value="search" />
+    <span class="__result">{{ searchResult }}</span>
   </div>
 </template>
 
@@ -37,6 +38,11 @@ export default class Search extends Vue {
 
   // 内部プロパティを定義する
   timer: number = 0;
+
+  // @get - 検索クエリのヒット件数文字列を返す
+  get searchResult() {
+    return `${this.decomoji.result}件が該当`;
+  }
 
   /**
    * @method - 検索クエリの更新処理を間引いて実行する
