@@ -27,6 +27,7 @@ export interface DecomojiState {
   collection: Collection;
   dark: boolean;
   reacted: boolean;
+  result: number;
   search: string;
   size: string;
   vertical: boolean;
