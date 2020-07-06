@@ -36,7 +36,6 @@ import {
   AvailableDecomoji,
   AvailableDecomojis,
 } from "@/configs/AvailableDecomojis";
-import { DefaultSize } from "@/configs/DefaultSize";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,

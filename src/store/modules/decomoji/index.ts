@@ -7,6 +7,7 @@ import { Module } from "vuex";
 
 /**
  * 初期ステート
+ * recieve() アクションで size = "ll" と category.basic = true を設定しているよ
  */
 export const state: () => ThisState = () => ({
   category: {
@@ -20,7 +21,7 @@ export const state: () => ThisState = () => ({
   reacted: false,
   result: 0,
   search: "",
-  size: "ll",
+  size: "",
   vertical: false,
 });
 

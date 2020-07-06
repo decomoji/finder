@@ -148,7 +148,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * リアクション済み表示をトグルする
+   * リアクション済み表示を更新する
    * @param commit
    */
   updateReacted(

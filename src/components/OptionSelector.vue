@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts">
-import { DefaultSize } from "@/configs/DefaultSize";
 import {
   DecomojiAction,
   DecomojiViewModel,

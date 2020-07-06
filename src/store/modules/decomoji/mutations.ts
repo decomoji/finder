@@ -104,6 +104,7 @@ export const mutations: MutationTree<ThisState> = {
   /**
    * リアクション済み表示を更新する
    * @param state
+   * @param payload
    */
   [UPDATE_REACTED](
     state,
