@@ -43,8 +43,8 @@ export default class OptionSelector extends Vue {
   @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
-  @Action("decomoji/toggleDarkMode")
-  toggleDarkMode!: DecomojiAction["toggleDarkMode"];
+  @Action("decomoji/updateDark")
+  updateDark!: DecomojiAction["updateDark"];
   @Action("decomoji/toggleReacted")
   toggleReacted!: DecomojiAction["toggleReacted"];
 
@@ -53,9 +53,9 @@ export default class OptionSelector extends Vue {
     this.toggleReacted(this.decomoji.reacted);
   }
 
-  // @listen - ダークモード表示を選択する
+  // @listen - ダークモード表示を更新する
   handleChangeDarkMode() {
-    this.toggleDarkMode(this.decomoji.dark);
+    this.updateDark(!this.decomoji.dark);
   }
 }
 </script>
