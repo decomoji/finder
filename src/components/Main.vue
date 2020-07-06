@@ -64,8 +64,8 @@ export default class Main extends Vue {
   // アクションを引き当てる
   @Action("decomoji/add") add!: DecomojiAction["add"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
-  @Action("decomoji/toggleVerticalDivine")
-  toggleVerticalDivine!: DecomojiAction["toggleVerticalDivine"];
+  @Action("decomoji/updateVertical")
+  updateVertical!: DecomojiAction["updateVertical"];
 
   // 内部プロパティを定義する
   decomojis = AvailableDecomojis;
@@ -203,8 +203,8 @@ export default class Main extends Vue {
   handleRemove(item: CollectionItem) {
     this.remove(item);
     // アイテムが空になったら垂直分割表示をやめる
-    if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
-      this.toggleVerticalDivine();
+    if (this.decomoji.collection.length === 0) {
+      this.updateVertical(false);
       window.dispatchEvent(new Event("resize"));
     }
   }

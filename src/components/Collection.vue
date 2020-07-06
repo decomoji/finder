@@ -36,9 +36,9 @@
         <button
           aria-label="垂直分割表示を切り替える"
           class="__button -hideInTight"
-          @click="handleClickToggleVerticalDivine"
+          @click="handleClickupdateVertical"
         >
-          <Icon :value="toggleVerticalDivineIconValue" />
+          <Icon :value="updateVerticalIconValue" />
         </button>
       </div>
     </div>
@@ -80,8 +80,8 @@ export default class Collection extends Vue {
   // アクションを引き当てる
   @Action("decomoji/clear") clear!: DecomojiAction["clear"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
-  @Action("decomoji/toggleVerticalDivine")
-  toggleVerticalDivine!: DecomojiAction["toggleVerticalDivine"];
+  @Action("decomoji/updateVertical")
+  updateVertical!: DecomojiAction["updateVertical"];
 
   // @get - コレクションのアイテム数を返す
   get collectionLength() {
@@ -94,7 +94,7 @@ export default class Collection extends Vue {
   }
 
   // @get - 垂直分割表示のトグルアイコン文字列を返す
-  get toggleVerticalDivineIconValue() {
+  get updateVerticalIconValue() {
     return this.decomoji.vertical ? "south_west" : "north_east";
   }
 
@@ -118,16 +118,14 @@ export default class Collection extends Vue {
       window.confirm("コレクションを空にしますか？（この操作は取り消せません）")
     ) {
       this.clear();
-      if (this.decomoji.vertical) {
-        this.toggleVerticalDivine();
-      }
+      this.updateVertical(false);
       window.dispatchEvent(new Event("resize"));
     }
   }
 
-  // @listen - 垂直分割表示をトグルする
-  handleClickToggleVerticalDivine() {
-    this.toggleVerticalDivine();
+  // @listen - 垂直分割表示を更新する
+  handleClickupdateVertical() {
+    this.updateVertical(!this.decomoji.vertical);
     window.dispatchEvent(new Event("resize"));
   }
 
@@ -135,8 +133,8 @@ export default class Collection extends Vue {
   handleRemove(item: CollectionItem) {
     this.remove(item);
     // アイテムが空になったら垂直分割表示をやめる
-    if (this.decomoji.collection.length === 0 && this.decomoji.vertical) {
-      this.toggleVerticalDivine();
+    if (this.decomoji.collection.length === 0) {
+      this.updateVertical(false);
       window.dispatchEvent(new Event("resize"));
     }
   }
