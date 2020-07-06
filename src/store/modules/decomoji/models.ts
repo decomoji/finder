@@ -84,6 +84,7 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   toggleDarkMode: boolean;
   toggleReacted: boolean;
   toggleVerticalDivine: boolean;
+  updateCategory: CategoryNameValue;
   updateSearch: string;
   updateSize: string;
 }>;
