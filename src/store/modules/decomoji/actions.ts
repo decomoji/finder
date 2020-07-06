@@ -10,10 +10,10 @@ import {
   RECEIVE_COLLECTION,
   REMOVE_FROM_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
   UPDATE_CATEGORY,
+  UPDATE_DARK,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -87,13 +87,6 @@ export const actions: ActionTree<ThisState, RootState> = {
     commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
-  /**
-   * ダークモードをトグルする
-   * @param commit
-   */
-  toggleDarkMode({ commit, getters }) {
-    commit(TOGGLE_DARK_MODE);
-    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
@@ -124,6 +117,16 @@ export const actions: ActionTree<ThisState, RootState> = {
     payload: ThisActionPayloads["updateCategory"]
   ) {
     commit(UPDATE_CATEGORY, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * ダークモードを更新する
+   * @param commit
+   * @param payload
+   */
+  updateDark({ commit, getters }, payload: ThisActionPayloads["updateDark"]) {
+    commit(UPDATE_DARK, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 

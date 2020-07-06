@@ -77,10 +77,10 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   clear: void;
   remove: CollectionItem;
   receive: CategoriesObject;
-  toggleDarkMode: boolean;
   toggleReacted: boolean;
   toggleVerticalDivine: boolean;
   updateCategory: CategoryNameValue;
+  updateDark: boolean;
   updateSearch: string;
   updateSize: string;
 }>;
