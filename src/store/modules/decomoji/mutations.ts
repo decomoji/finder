@@ -11,6 +11,7 @@ import {
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
+  UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
   UPDATE_VERTICAL,
@@ -109,6 +110,15 @@ export const mutations: MutationTree<ThisState> = {
     payload: ThisMutationPayloads[typeof UPDATE_REACTED]
   ) {
     state.reacted = payload;
+  },
+
+  /**
+   * 検索結果件数を更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_RESULT](state, payload: ThisMutationPayloads[typeof UPDATE_RESULT]) {
+    state.result = payload;
   },
 
   /**
