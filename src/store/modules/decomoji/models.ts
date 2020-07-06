@@ -1,8 +1,8 @@
-import { CategoriesObject } from "@/models/CategoriesObject";
 import { CategoryNameValue } from "@/models/CategoryNameValue";
 import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
 import { NullableString } from "@/models/NullableString";
+import { ParsedParamsObject } from "@/models/ParsedParamsObject";
 import {
   VuexActionPayloads,
   VuexActions,
@@ -76,7 +76,7 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   add: CollectionItem;
   clear: void;
   remove: CollectionItem;
-  receive: CategoriesObject;
+  receive: ParsedParamsObject;
   updateCategory: CategoryNameValue;
   updateDark: boolean;
   updateReacted: boolean;
