@@ -12,6 +12,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
+  UPDATE_CATEGORY,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -117,6 +118,19 @@ export const mutations: MutationTree<ThisState> = {
    */
   [TOGGLE_VERTICAL_DIVINE](state) {
     state.vertical = !state.vertical;
+  },
+
+  /**
+   * 表示カテゴリーを更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_CATEGORY](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_CATEGORY]
+  ) {
+    const { name, value } = payload;
+    state.category[name] = value;
   },
 
   /**
