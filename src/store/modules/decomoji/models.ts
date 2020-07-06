@@ -1,5 +1,4 @@
 import { CategoriesObject } from "@/models/CategoriesObject";
-import { CategoryName } from "@/models/CategoryName";
 import { CategoryNameValue } from "@/models/CategoryNameValue";
 import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
@@ -15,7 +14,6 @@ import {
   RECEIVE_COLLECTION,
   REMOVE_FROM_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
@@ -66,7 +64,6 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [RECEIVE_COLLECTION]: Collection;
   [REMOVE_FROM_COLLECTION]: CollectionItem;
   [REPLACE_URL_PARAMS]: string;
-  [TOGGLE_CATEGORY]: CategoryName;
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_REACTED]: boolean;
   [TOGGLE_VERTICAL_DIVINE]: boolean;
@@ -80,7 +77,6 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   clear: void;
   remove: CollectionItem;
   receive: CategoriesObject;
-  toggleCategory: CategoryName;
   toggleDarkMode: boolean;
   toggleReacted: boolean;
   toggleVerticalDivine: boolean;

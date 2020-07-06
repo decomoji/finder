@@ -8,7 +8,6 @@ import {
   REMOVE_FROM_COLLECTION,
   RECEIVE_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_CATEGORY,
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
@@ -77,23 +76,6 @@ export const mutations: MutationTree<ThisState> = {
     payload: ThisMutationPayloads[typeof REPLACE_URL_PARAMS]
   ) {
     replaceState(payload);
-  },
-
-  /**
-   * カテゴリーをトグルする
-   * @param state
-   * @param payload
-   */
-  [TOGGLE_CATEGORY](
-    state,
-    payload: ThisMutationPayloads[typeof TOGGLE_CATEGORY]
-  ) {
-    state.category = {
-      ...state.category,
-      ...{
-        [payload]: !state.category[payload],
-      },
-    };
   },
 
   /**
