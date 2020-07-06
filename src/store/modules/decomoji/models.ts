@@ -1,5 +1,6 @@
 import { CategoriesObject } from "@/models/CategoriesObject";
 import { CategoryName } from "@/models/CategoryName";
+import { CategoryNameValue } from "@/models/CategoryNameValue";
 import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
 import { NullableString } from "@/models/NullableString";
@@ -18,6 +19,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
+  UPDATE_CATEGORY,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -68,6 +70,7 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [TOGGLE_DARK_MODE]: boolean;
   [TOGGLE_REACTED]: boolean;
   [TOGGLE_VERTICAL_DIVINE]: boolean;
+  [UPDATE_CATEGORY]: CategoryNameValue;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
 }>;
