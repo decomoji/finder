@@ -8,10 +8,10 @@ import {
   REMOVE_FROM_COLLECTION,
   RECEIVE_COLLECTION,
   REPLACE_URL_PARAMS,
-  TOGGLE_REACTED,
   TOGGLE_VERTICAL_DIVINE,
   UPDATE_CATEGORY,
   UPDATE_DARK,
+  UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
 } from "./mutation-types";
@@ -82,14 +82,6 @@ export const mutations: MutationTree<ThisState> = {
    * リアクション済みをトグルする
    * @param state
    */
-  [TOGGLE_REACTED](state) {
-    state.reacted = !state.reacted;
-  },
-
-  /**
-   * リアクション済みをトグルする
-   * @param state
-   */
   [TOGGLE_VERTICAL_DIVINE](state) {
     state.vertical = !state.vertical;
   },
@@ -114,6 +106,17 @@ export const mutations: MutationTree<ThisState> = {
    */
   [UPDATE_DARK](state, payload: ThisMutationPayloads[typeof UPDATE_DARK]) {
     state.dark = payload;
+  },
+
+  /**
+   * リアクション済み表示を更新する
+   * @param state
+   */
+  [UPDATE_REACTED](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_REACTED]
+  ) {
+    state.reacted = payload;
   },
 
   /**
