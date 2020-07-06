@@ -1,5 +1,9 @@
-import { CategoryName } from "@/models/CategoryName";
+import { DefaultCategory } from "@/configs/DefaultCategory";
+import { DefaultSize } from "@/configs/DefaultSize";
+import { Collection } from "@/models/Collection";
+import { CollectionEntry } from "@/models/CollectionEntry";
 import { RootState } from "@/store/models";
+import { isStringOfNotEmpty } from "@/utilities/isString";
 import {
   DecomojiActionPayloads as ThisActionPayloads,
   DecomojiState as ThisState,
@@ -17,9 +21,7 @@ import {
   UPDATE_SIZE,
   UPDATE_VERTICAL,
 } from "./mutation-types";
-import { isStringOfNotEmpty } from "@/utilities/isString";
 import { ActionTree } from "vuex";
-import { Collection } from "@/models/Collection";
 
 export const actions: ActionTree<ThisState, RootState> = {
   /**
@@ -53,44 +55,72 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * 選択済みデコモジリストを受領する
+   * URLパラメータを受領する
    * @param commit
    * @param payload
    */
   receive({ commit, getters }, payload: ThisActionPayloads["receive"]) {
-    type IdentifiedArray = [CategoryName, string];
-    // パラメータをパースしてコレクションに追加する
-    const parsedParams = payload || {};
+    const {
+      basic,
+      extra,
+      explicit,
+      preview,
+      category,
+      dark,
+      reacted,
+      search,
+      size,
+      vertical,
+    } = payload || {};
 
-    const collection = (Object.entries(parsedParams) as IdentifiedArray[])
-      .map<Collection>((parsedParam: IdentifiedArray) => {
-        const [category, rest] = parsedParam;
+    // コレクションを受領する
+    const collection = (Object.entries({
+      basic,
+      extra,
+      explicit,
+      preview,
+    }) as CollectionEntry[])
+      .map<Collection>((collectionEntry: CollectionEntry) => {
+        const [category, rest] = collectionEntry;
         const decomojis: string[] = rest ? rest.split(",") : [];
         return decomojis.map((name) => ({ name, category }));
       })
       .flat();
-
     commit(RECEIVE_COLLECTION, collection);
+
+    // 表示カテゴリーを受領する
+    const displayCategories = category ? category.split(",") : [];
+    // 表示カテゴリーのパラメータがない時はデフォルトとして basic を表示する
+    if (displayCategories.length === 0) {
+      commit(UPDATE_CATEGORY, { name: DefaultCategory, value: true });
+    }
+    // 表示カテゴリーのパラメータがある時はそれに従う
+    else {
+      displayCategories.forEach((name) => {
+        commit(UPDATE_CATEGORY, { name, value: true });
+      });
+    }
+
+    // ダークモードを受領する
+    commit(UPDATE_DARK, !!dark);
+
+    // リアクション済み表示を受領する
+    commit(UPDATE_REACTED, !!reacted);
+
+    // 検索クエリを受領する
+    commit(
+      UPDATE_SEARCH,
+      isStringOfNotEmpty(search) ? decodeURIComponent(search) : ""
+    );
+
+    // 表示サイズを受領する
+    commit(UPDATE_SIZE, size || DefaultSize);
+
+    // リアクション済み表示を受領する
+    commit(UPDATE_VERTICAL, !!vertical);
+
+    // URLパラメータを更新する
     commit(REPLACE_URL_PARAMS, getters.urlParams);
-  },
-
-  /**
-   * カテゴリーをトグルする
-   * @param commit
-   * @param payload
-   */
-  toggleCategory(
-    { commit, getters },
-    payload: ThisActionPayloads["toggleCategory"]
-  ) {
-    commit(TOGGLE_CATEGORY, payload);
-    commit(REPLACE_URL_PARAMS, getters.urlParams);
-  },
-
-  },
-
-  },
-
   },
 
   /**
