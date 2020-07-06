@@ -45,12 +45,12 @@ export default class OptionSelector extends Vue {
   // アクションを引き当てる
   @Action("decomoji/updateDark")
   updateDark!: DecomojiAction["updateDark"];
-  @Action("decomoji/toggleReacted")
-  toggleReacted!: DecomojiAction["toggleReacted"];
+  @Action("decomoji/updateReacted")
+  updateReacted!: DecomojiAction["updateReacted"];
 
-  // @listen - リアクション済み表示を選択する
+  // @listen - リアクション済み表示を更新する
   handleChangeReacted() {
-    this.toggleReacted(this.decomoji.reacted);
+    this.updateReacted(!this.decomoji.reacted);
   }
 
   // @listen - ダークモード表示を更新する
