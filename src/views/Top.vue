@@ -12,6 +12,7 @@ import Collection from "@/components/Collection.vue";
 import Header from "@/components/Header.vue";
 import Main from "@/components/Main.vue";
 import { CategoriesObject } from "@/models/CategoriesObject";
+import { ParsedParamsObject } from "@/models/ParsedParamsObject";
 import { DecomojiAction } from "@/store/modules/decomoji/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Action } from "vuex-class";
@@ -29,7 +30,7 @@ export default class Top extends Vue {
   receive!: DecomojiAction["receive"];
 
   // 入力プロパティを定義する
-  @Prop() query!: any;
+  @Prop() query!: ParsedParamsObject;
 
   /**
    * @lifecyle
