@@ -64,6 +64,8 @@ export default class Main extends Vue {
   // アクションを引き当てる
   @Action("decomoji/add") add!: DecomojiAction["add"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
+  @Action("decomoji/updateResult")
+  updateResult!: DecomojiAction["updateResult"];
   @Action("decomoji/updateVertical")
   updateVertical!: DecomojiAction["updateVertical"];
 
@@ -74,7 +76,11 @@ export default class Main extends Vue {
 
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
-    return AvailableDecomojis.filter((v) => this.matches(v.name, v.category));
+    const filterd = this.decomojis.filter((v) =>
+      this.matches(v.name, v.category)
+    );
+    this.updateResult(filterd.length);
+    return filterd;
   }
 
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
