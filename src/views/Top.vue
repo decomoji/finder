@@ -4,11 +4,13 @@
     <Header />
     <Main />
     <Collection />
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import Collection from "@/components/Collection.vue";
+import Footer from "@/components/Footer.vue";
 import Header from "@/components/Header.vue";
 import Main from "@/components/Main.vue";
 import { CategoriesObject } from "@/models/CategoriesObject";
@@ -20,6 +22,7 @@ import { Action } from "vuex-class";
 @Component({
   components: {
     Collection,
+    Footer,
     Header,
     Main,
   },
