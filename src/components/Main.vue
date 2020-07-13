@@ -183,12 +183,11 @@ export default class Main extends Vue {
 
   // @method - デコモジのカテゴリーが表示カテゴリーであるか否かを返す
   categoryMatches(category: CategoryName) {
-    const { basic, extra, explicit, preview } = this.decomoji.category;
+    const { basic, extra, explicit } = this.decomoji.category;
     return (
       (basic && category === "basic") ||
       (explicit && category === "explicit") ||
-      (extra && category === "extra") ||
-      (preview && category === "preview")
+      (extra && category === "extra")
     );
   }
 

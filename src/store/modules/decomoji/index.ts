@@ -14,7 +14,6 @@ export const state: () => ThisState = () => ({
     basic: false,
     explicit: false,
     extra: false,
-    preview: false,
   },
   collection: [],
   dark: false,

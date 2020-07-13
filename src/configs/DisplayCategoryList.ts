@@ -9,12 +9,8 @@ export const DisplayCategoryList: CategoryItem[] = [
     text: "拡張セット",
     value: "extra",
   },
-  // {
-  //   text: '危険セット',
-  //   value: 'explicit'
-  // },
   {
-    text: "v5プレビュー",
-    value: "preview",
+    text: "露骨セット",
+    value: "explicit",
   },
 ];

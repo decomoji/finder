@@ -65,7 +65,6 @@ export const actions: ActionTree<ThisState, RootState> = {
       basic,
       extra,
       explicit,
-      preview,
       category,
       dark,
       reacted,
@@ -79,7 +78,6 @@ export const actions: ActionTree<ThisState, RootState> = {
       basic,
       extra,
       explicit,
-      preview,
     }) as CollectionEntry[])
       .map<Collection>((collectionEntry: CollectionEntry) => {
         const [category, rest] = collectionEntry;

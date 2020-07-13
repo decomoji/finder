@@ -41,8 +41,6 @@ export const getters: GetterTree<ThisState, RootState> = {
       (key) => `${key}=${categorizedItems[key].join(",")}`
     );
 
-    // @TODO v5-preview まではカテゴリごとに持つが、元からカテゴリを跨いで一意な名前なので
-    // v5 をリリースした後に `collection=name,name,name...` の形に変更する
     return paramaterizedArray.length > 0 ? paramaterizedArray.join("&") : null;
   },
 

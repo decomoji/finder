@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 
-const category = ["Basic", "Extra", "Explicit", "Preview"];
+const category = ["Basic", "Extra", "Explicit"];
 
 function generate_decomoji_ts(type) {
   fs.readdir(

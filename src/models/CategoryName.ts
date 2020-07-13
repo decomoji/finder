@@ -1,1 +1,1 @@
-export type CategoryName = "basic" | "explicit" | "extra" | "preview";
+export type CategoryName = "basic" | "explicit" | "extra";
