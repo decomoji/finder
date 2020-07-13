@@ -136,6 +136,19 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
+   * コレクションを更新する
+   * @param param
+   * @param payload
+   */
+  updateCollection(
+    { commit, getters },
+    payload: ThisActionPayloads["updateCollection"]
+  ) {
+    commit(RECEIVE_COLLECTION, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
    * ダークモードを更新する
    * @param commit
    * @param payload
