@@ -47,6 +47,8 @@
   --borderDecomojiCollected: var(--shade-400);
   --colorCollection: var(--shade-800);
   --bgCollection: var(--shade-200);
+  --bgFooter: var(--aubergine-900);
+  --colorFooter: var(--shade-200);
 
   --heightHeader: 6.5rem;
 
@@ -56,8 +58,11 @@
 
   --betweenLogoSearch: var(--space-sm);
 
+  --heightFooter: 2.25rem;
+
   --focusHeader: var(--outline-white-05);
   --focusDecomoji: var(--outline-danube-200);
+  --paddingFooter: var(--space-sm);
 }
 
 @include min {
@@ -67,6 +72,8 @@
     --betweenVertical: 0;
     --betweenHorizon: var(--space-lg);
     --betweenLogoSearch: var(--space-md);
+    --heightFooter: 3rem;
+    --paddingFooter: var(--space-md);
   }
 }
 
@@ -84,4 +91,5 @@
   --colorCollection: var(--shade-200);
   --bgCollection: var(--shade-700);
   --focusDecomoji: var(--outline-danube-600);
+  --bgFooter: var(--night-900);
 }
