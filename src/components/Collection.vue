@@ -14,6 +14,13 @@
       </div>
       <div class="__actionCol">
         <button
+          aria-label="コレクションをアルファベット順にソートする"
+          class="__button"
+          @click="handleClickSortCollection"
+        >
+          <Icon value="sort" />
+        </button>
+        <button
           aria-label="コレクションリンクをクリップボードにコピーする"
           class="__button"
           @click="handleClickCopyCollectionLink"
@@ -80,6 +87,8 @@ export default class Collection extends Vue {
   // アクションを引き当てる
   @Action("decomoji/clear") clear!: DecomojiAction["clear"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
+  @Action("decomoji/updateCollection")
+  updateCollection!: DecomojiAction["updateCollection"];
   @Action("decomoji/updateVertical")
   updateVertical!: DecomojiAction["updateVertical"];
 
@@ -103,6 +112,27 @@ export default class Collection extends Vue {
     const jsonString = JSON.stringify(this.decomoji.formattedJson);
     const blob = new Blob([jsonString], { type: "application/json" });
     return window.URL.createObjectURL(blob);
+  }
+
+  // @listen - コレクションをソートする
+  handleClickSortCollection() {
+    if (
+      window.confirm(
+        "コレクションをアルファベット順にソートしますか？（この操作は取り消せません）"
+      )
+    ) {
+      const sorted_collection = [...this.decomoji.collection].sort((a, b) => {
+        const _a = a["name"].toLowerCase();
+        const _b = b["name"].toLowerCase();
+        if (_a < _b) {
+          return -1;
+        } else if (_a > _b) {
+          return 1;
+        }
+        return 0;
+      });
+      this.updateCollection(sorted_collection);
+    }
   }
 
   // @listen - コレクションリンクをクリップボードにコピーする
