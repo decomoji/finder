@@ -1,9 +1,11 @@
 .Container {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: 100vh;
+
   @include min {
     .-vertical & {
-      display: grid;
-      grid-template-rows: var(--heightHeader) 1fr;
-      grid-template-columns: 50% 1fr;
+      grid-template-columns: 50% 50%;
     }
   }
 }

@@ -1,7 +1,7 @@
 .Collection {
   position: sticky;
   left: 0;
-  bottom: 0;
+  bottom: var(--heightFooter);
   max-height: 15rem;
   color: var(--colorCollection);
   background-color: var(--bgCollection);
@@ -14,17 +14,18 @@
 
     // 垂直分割表示は画面幅が広い時だけ適用させる
     .-vertical & {
-      top: 4.375rem;
+      top: var(--heightHeader);
       right: 0;
       bottom: auto;
       left: auto;
-      max-height: calc(100vh - 4.375rem);
+      max-height: calc(100vh - var(--heightHeader) - var(--heightFooter));
     }
   }
 
   .__header {
     display: flex;
     padding: var(--space-sm);
+    padding-bottom: 0;
 
     > * + * {
       margin-left: auto;
