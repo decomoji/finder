@@ -54,6 +54,7 @@ module.exports = {
     { name: "utilities" },
     { name: "views" },
     { name: "env" },
+    { name: "docs" },
     { name: "_" }, // その他
   ],
   messages: {
