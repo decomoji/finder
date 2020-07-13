@@ -81,6 +81,7 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   remove: CollectionItem;
   receive: ParsedParamsObject;
   updateCategory: CategoryNameValue;
+  updateCollection: Collection;
   updateDark: boolean;
   updateReacted: boolean;
   updateResult: number;
