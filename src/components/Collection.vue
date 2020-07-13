@@ -36,7 +36,7 @@
         <button
           aria-label="垂直分割表示を切り替える"
           class="__button -hideInTight"
-          @click="handleClickupdateVertical"
+          @click="handleClickUpdateVertical"
         >
           <Icon :value="updateVerticalIconValue" />
         </button>
@@ -124,7 +124,7 @@ export default class Collection extends Vue {
   }
 
   // @listen - 垂直分割表示を更新する
-  handleClickupdateVertical() {
+  handleClickUpdateVertical() {
     this.updateVertical(!this.decomoji.vertical);
     window.dispatchEvent(new Event("resize"));
   }
