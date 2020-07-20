@@ -24,9 +24,7 @@ Slack で使えるカスタム絵文字「[デコモジ（decomoji）](https://g
 
 ## ライセンス
 
-Copyright (c) 2019 decomoji consortium and other contributors.
-
-Under the MIT License.
+Copyright (c) oti. Under the [MIT License](LICENSE).
 
 ## スペシャルサンクス！
 
