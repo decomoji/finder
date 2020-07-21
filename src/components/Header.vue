@@ -1,16 +1,18 @@
 <template>
-  <header class="Header">
+  <section class="Header">
+    <h2 class="VisuallyHidden">絞り込み検索</h2>
     <div class="__inner">
       <Logo />
       <Search />
     </div>
 
+    <h2 class="VisuallyHidden">表示オプション</h2>
     <div class="__inner">
       <SizeSelector />
       <CategorySelector />
       <OptionSelector />
     </div>
-  </header>
+  </section>
 </template>
 
 <script lang="ts">
