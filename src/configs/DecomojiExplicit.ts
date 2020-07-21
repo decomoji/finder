@@ -59,6 +59,7 @@ export const DecomojiExplicit = [
   "ossann",
   "osyaburisanngurasu",
   "otokonoyoga",
+  "pinnkubonn",
   "sasetarou",
   "seidesyoumou",
   "seiwosyouhi",

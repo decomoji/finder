@@ -3041,7 +3041,6 @@ export const DecomojiExtra = [
   "pikupa-yamero",
   "pikuserupa-fekuto",
   "pinnkatu",
-  "pinnkubonn",
   "piyo",
   "poinnthinngu",
   "poipoi",
