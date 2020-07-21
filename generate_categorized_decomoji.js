@@ -4,9 +4,9 @@ const fs = require("fs");
 
 const category = ["Basic", "Extra", "Explicit"];
 
-function generate_decomoji_ts(type) {
+function generate_categorized_decomoji(type) {
   fs.readdir(
-    `./node_modules/slack-reaction-decomoji/decomoji/${type.toLowerCase()}/`,
+    `./node_modules/decomoji/decomoji/${type.toLowerCase()}/`,
     (err, files) => {
       if (err) {
         if (err.code === "ENOENT") {
@@ -37,4 +37,4 @@ function generate_decomoji_ts(type) {
   );
 }
 
-category.forEach((item) => generate_decomoji_ts(item));
+category.forEach((item) => generate_categorized_decomoji(item));
