@@ -1,6 +1,6 @@
-import { DecomojiBasic } from "@/configs/DecomojiBasic";
-import { DecomojiExplicit } from "@/configs/DecomojiExplicit";
-import { DecomojiExtra } from "@/configs/DecomojiExtra";
+import DecomojiBasic from "decomoji/scripts/manager/configs/list/v5_basic.json";
+import DecomojiExplicit from "decomoji/scripts/manager/configs/list/v5_explicit.json";
+import DecomojiExtra from "decomoji/scripts/manager/configs/list/v5_extra.json";
 import { CategoryName } from "@/models/CategoryName";
 
 export type Decomoji = {
@@ -8,21 +8,19 @@ export type Decomoji = {
   category: CategoryName;
 };
 
-export type AvailableDecomoji = Decomoji & {
-  id: number;
-};
+export type AvailableDecomoji = Decomoji;
 
-const basics = DecomojiBasic.map<Decomoji>((name) => ({
-  name,
+const basics = DecomojiBasic.map<Decomoji>((item) => ({
+  name: item.name,
   category: "basic",
 }));
-const extras = DecomojiExtra.map<Decomoji>((name) => ({
-  name,
+const extras = DecomojiExtra.map<Decomoji>((item) => ({
+  name: item.name,
   category: "extra",
 }));
 
-const explicits = DecomojiExplicit.map<Decomoji>((name) => ({
-  name,
+const explicits = DecomojiExplicit.map<Decomoji>((item) => ({
+  name: item.name,
   category: "explicit",
 }));
 
