@@ -11,9 +11,6 @@
     "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/"
   },
   "dependencies": {
-    "@maboroshi/math-utils": "^1.4.3",
-    "@maboroshi/selector": "^1.0.5",
-    "@maboroshi/shoshiki": "^1.2.2",
     "axios": "^0.19.2",
     "axios-mock-adapter": "^1.16.0",
     "babel-polyfill": "^6.26.0",
