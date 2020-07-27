@@ -7,10 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "set:decomoji-install": "git clone git://github.com/decomoji/decomoji.git node_modules/decomoji",
-    "set:decomoji-copy": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
-    "update:decomoji": "rm -rf node_modules/decomoji && npm run postinstall",
-    "postinstall": "npm run set:decomoji-install && node generate_categorized_decomoji.js && npm run set:decomoji-copy && prettier --write ."
+    "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
+    "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/"
   },
   "dependencies": {
     "@maboroshi/math-utils": "^1.4.3",
@@ -20,8 +18,9 @@
     "axios-mock-adapter": "^1.16.0",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
+    "decomoji": "github:decomoji/decomoji",
     "normalize.css": "^8.0.1",
-    "npm": "^6.14.5",
+    "npm": "^6.14.7",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.4.0",
