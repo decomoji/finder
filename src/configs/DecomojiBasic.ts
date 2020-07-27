@@ -1,6 +1,6 @@
 export const DecomojiBasic = [
   "a-",
-  "a-ne",
+  "a-ne_",
   "agerisyasu",
   "aguri-",
   "akeome",
