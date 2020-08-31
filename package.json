@@ -40,7 +40,7 @@
     "@vue/test-utils": "^1.0.0-beta.31",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",
-    "commitizen": "^4.1.2",
+    "commitizen": "^4.2.1",
     "cz-customizable": "^6.2.0",
     "eslint": "^5.13.0",
     "eslint-plugin-vue": "^5.2.1",
