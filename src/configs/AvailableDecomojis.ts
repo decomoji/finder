@@ -1,6 +1,6 @@
-import DecomojiBasic from "decomoji/scripts/manager/configs/list/v5_basic.json";
-import DecomojiExplicit from "decomoji/scripts/manager/configs/list/v5_explicit.json";
-import DecomojiExtra from "decomoji/scripts/manager/configs/list/v5_extra.json";
+import DecomojiBasic from "decomoji/configs/v5_basic.json";
+import DecomojiExplicit from "decomoji/configs/v5_explicit.json";
+import DecomojiExtra from "decomoji/configs/v5_extra.json";
 import { CategoryName } from "@/models/CategoryName";
 
 export type Decomoji = {
