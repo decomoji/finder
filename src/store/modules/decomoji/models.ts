@@ -3,6 +3,7 @@ import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
 import { NullableString } from "@/models/NullableString";
 import { ParsedParamsObject } from "@/models/ParsedParamsObject";
+import { VersionNameValue } from "@/models/VersionNameValue";
 import { VersionState } from "@/models/VersionState";
 import {
   VuexActionPayloads,
@@ -21,6 +22,7 @@ import {
   UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
 
@@ -74,6 +76,7 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [UPDATE_RESULT]: number;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
+  [UPDATE_VERSION]: VersionNameValue;
   [UPDATE_VERTICAL]: boolean;
 }>;
 
@@ -89,6 +92,7 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   updateResult: number;
   updateSearch: string;
   updateSize: string;
+  updateVersion: VersionNameValue;
   updateVertical: boolean;
 }>;
 
