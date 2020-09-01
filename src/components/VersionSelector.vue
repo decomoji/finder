@@ -17,6 +17,12 @@
         />
         {{ version.text }}
       </label>
+      <button class="__button" type="buton" @click="handleClick(1)">
+        全選択
+      </button>
+      <button class="__button" type="buton" @click="handleClick(0)">
+        全解除
+      </button>
     </div>
   </details>
 </template>
@@ -43,6 +49,12 @@ export default class VersionSelector extends Vue {
   updateVersion!: DecomojiAction["updateVersion"];
 
   displayVersionList = DisplayVersionList;
+
+  // @listen - 表示カテゴリーを全選択/全解除する
+  handleClick(state: number) {
+    const value = !!state;
+    AvailableVersions.forEach((name) => this.updateVersion({ name, value }));
+  }
 
   // @listen - 表示カテゴリーを選択する
   handleCange(versionName: VersionName) {
