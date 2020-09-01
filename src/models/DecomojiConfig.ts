@@ -1,6 +1,8 @@
+import { VersionName } from "@/models/VersionName";
+
 export interface DecomojiConfig {
   name: string;
   path: string;
-  created: string;
-  updated?: string;
+  created: VersionName;
+  updated?: VersionName;
 }
