@@ -47,6 +47,7 @@ export interface DecomojiViewModel extends DecomojiState {
   searchParam: DecomojiGetters["searchParam"];
   sizeParam: DecomojiGetters["sizeParam"];
   urlParams: DecomojiGetters["urlParams"];
+  versionParam: DecomojiGetters["versionParam"];
   verticalParam: DecomojiGetters["verticalParam"];
   viewModel: DecomojiGetters["viewModel"];
 }
@@ -60,6 +61,7 @@ export interface DecomojiGetters {
   searchParam: NullableString;
   sizeParam: string;
   urlParams: string;
+  versionParam: NullableString;
   verticalParam: NullableString;
   viewModel: DecomojiViewModel;
 }
