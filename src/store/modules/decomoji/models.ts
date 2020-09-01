@@ -3,6 +3,7 @@ import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
 import { NullableString } from "@/models/NullableString";
 import { ParsedParamsObject } from "@/models/ParsedParamsObject";
+import { VersionState } from "@/models/VersionState";
 import {
   VuexActionPayloads,
   VuexActions,
@@ -31,6 +32,7 @@ export interface DecomojiState {
   result: number;
   search: string;
   size: string;
+  version: VersionState;
   vertical: boolean;
 }
 
