@@ -172,7 +172,8 @@ export default class Main extends Vue {
   }) {
     return (
       (this.decomoji.search === "" || this.nameMatches(name)) &&
-      this.categoryMatches(category)
+      this.categoryMatches(category) &&
+      this.versionMatches({ created, updated })
     );
   }
 
