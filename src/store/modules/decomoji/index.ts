@@ -26,7 +26,7 @@ export const state: () => ThisState = () => ({
     // 全ての value をキーにして true を与えたオブジェクトにまとめる
     return {
       ...memo,
-      [value]: true,
+      [value]: false,
     };
   }, {}),
   vertical: false,
