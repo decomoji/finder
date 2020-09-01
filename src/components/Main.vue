@@ -14,7 +14,7 @@
       <div class="__decomojiRow">
         <DecomojiButton
           v-for="item in getRowDecomojis(row)"
-          :key="item.id"
+          :key="item.name"
           :category="item.category"
           :name="item.name"
           :collected="matches(item) && collected(item)"
