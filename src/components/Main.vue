@@ -17,10 +17,7 @@
           :key="item.id"
           :category="item.category"
           :name="item.name"
-          :collected="
-            matches(item.name, item.category) &&
-            collected(item.name, item.category)
-          "
+          :collected="matches(item) && collected(item)"
           @add="handleAdd(item)"
           @remove="handleRemove(item)"
         />
@@ -74,9 +71,7 @@ export default class Main extends Vue {
 
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
-    const filterd = this.decomojis.filter((v) =>
-      this.matches(v.name, v.category)
-    );
+    const filterd = this.decomojis.filter((v) => this.matches(v));
     this.updateResult(filterd.length);
     return filterd;
   }
@@ -163,8 +158,18 @@ export default class Main extends Vue {
     });
   }
 
-  // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す
-  matches(name: string, category: CategoryName) {
+  // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチし、バージョン選択にマッチしていれば true を返す
+  matches({
+    name,
+    category,
+    created,
+    updated,
+  }: {
+    name: string;
+    category: CategoryName;
+    created: VersionName;
+    updated?: VersionName;
+  }) {
     return (
       (this.decomoji.search === "" || this.nameMatches(name)) &&
       this.categoryMatches(category)
@@ -206,7 +211,7 @@ export default class Main extends Vue {
   }
 
   // @method - デコモジがコレクションされているか否かを返す
-  collected(name: string, category: CategoryName) {
+  collected({ name, category }: { name: string; category: CategoryName }) {
     return this.decomoji.collection.find(
       (v: CollectionItem) => v.name === name && v.category === category
     );
