@@ -32,10 +32,7 @@
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
-import {
-  AvailableDecomoji,
-  AvailableDecomojis,
-} from "@/configs/AvailableDecomojis";
+import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
@@ -44,6 +41,7 @@ import {
 } from "@/configs/GridSizeValue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
+import { Decomoji } from "@/models/Decomoji";
 import {
   DecomojiAction,
   DecomojiViewModel,
@@ -136,7 +134,7 @@ export default class Main extends Vue {
 
   // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
   @Watch("filteredDecomojis")
-  scrollToSeeList(newList: AvailableDecomoji[], oldList: AvailableDecomoji[]) {
+  scrollToSeeList(newList: Decomoji[], oldList: Decomoji[]) {
     if (newList.length > oldList.length) {
       return;
     }
