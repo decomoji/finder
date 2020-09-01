@@ -20,6 +20,7 @@ import {
   UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
 import { ActionTree } from "vuex";
@@ -199,6 +200,18 @@ export const actions: ActionTree<ThisState, RootState> = {
   updateSize({ commit, getters }, payload: ThisActionPayloads["updateSize"]) {
     commit(UPDATE_SIZE, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * 表示バージョンを更新する
+   * @param commit
+   * @param payload
+   */
+  updateVersion(
+    { commit, getters },
+    payload: ThisActionPayloads["updateVersion"]
+  ) {
+    commit(UPDATE_VERSION, payload);
   },
 
   /**
