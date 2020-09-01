@@ -42,6 +42,7 @@ import {
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
 import { Decomoji } from "@/models/Decomoji";
+import { VersionName } from "@/models/VersionName";
 import {
   DecomojiAction,
   DecomojiViewModel,
@@ -186,6 +187,21 @@ export default class Main extends Vue {
       (basic && category === "basic") ||
       (explicit && category === "explicit") ||
       (extra && category === "extra")
+    );
+  }
+
+  // @method - デコモジのバージョンが表示バージョンであるか否かを返す
+  // データ上は created と updated で別々に絞り込めるが、追加も修正も合わせて「そのバージョンで扱ったもの」という世界観でやる
+  versionMatches({
+    created,
+    updated,
+  }: {
+    created: VersionName;
+    updated?: VersionName;
+  }) {
+    return (
+      this.decomoji.version[created] ||
+      (updated ? this.decomoji.version[updated] : false)
     );
   }
 
