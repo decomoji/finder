@@ -14,6 +14,7 @@ import {
   UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
 import { clearArray, replaceArray } from "@/utilities/array";
@@ -138,6 +139,19 @@ export const mutations: MutationTree<ThisState> = {
    */
   [UPDATE_SIZE](state, payload: ThisMutationPayloads[typeof UPDATE_SIZE]) {
     state.size = payload;
+  },
+
+  /**
+   * 表示バージョンを更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_VERSION](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_VERSION]
+  ) {
+    const { name, value } = payload;
+    state.version[name] = value;
   },
 
   /**
