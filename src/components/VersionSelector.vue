@@ -17,10 +17,20 @@
         />
         {{ version.text }}
       </label>
-      <button class="__button" type="buton" @click="handleClick(1)">
+      <button
+        :disabled="isEverySelected"
+        class="__button"
+        type="buton"
+        @click="handleClick(1)"
+      >
         全選択
       </button>
-      <button class="__button" type="buton" @click="handleClick(0)">
+      <button
+        :disabled="!isSomeSelected"
+        class="__button"
+        type="buton"
+        @click="handleClick(0)"
+      >
         全解除
       </button>
     </div>
@@ -49,6 +59,15 @@ export default class VersionSelector extends Vue {
   updateVersion!: DecomojiAction["updateVersion"];
 
   displayVersionList = DisplayVersionList;
+
+  // バージョンが全て選択されているか否を返す
+  get isEverySelected() {
+    return Object.values(this.decomoji.version).every((version) => version);
+  }
+  // バージョンのいずれか選択されているか否を返す
+  get isSomeSelected() {
+    return Object.values(this.decomoji.version).some((version) => version);
+  }
 
   // @listen - 表示カテゴリーを全選択/全解除する
   handleClick(state: number) {
