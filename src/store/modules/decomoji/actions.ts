@@ -212,6 +212,7 @@ export const actions: ActionTree<ThisState, RootState> = {
     payload: ThisActionPayloads["updateVersion"]
   ) {
     commit(UPDATE_VERSION, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
   /**
