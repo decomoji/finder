@@ -97,6 +97,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       reactedParam,
       searchParam,
       sizeParam,
+      versionParam,
       verticalParam,
     }
   ) => {
@@ -106,6 +107,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       darkParam,
       reactedParam,
       verticalParam,
+      versionParam,
       searchParam,
       collectionParam,
     ]
