@@ -1,3 +1,4 @@
+import { AvailableVersions } from "@/configs/AvailableVersions";
 import { DefaultCategory } from "@/configs/DefaultCategory";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { Collection } from "@/models/Collection";
@@ -71,6 +72,7 @@ export const actions: ActionTree<ThisState, RootState> = {
       reacted,
       search,
       size,
+      version,
       vertical,
     } = payload || {};
 
@@ -115,6 +117,16 @@ export const actions: ActionTree<ThisState, RootState> = {
 
     // 表示サイズを受領する
     commit(UPDATE_SIZE, size || DefaultSize);
+
+    // 表示バージョンを受領する
+    const displayVersions = version ? version.split(",") : [];
+    // 表示バージョンのパラメータがない時はデフォルトとして全てを表示する
+    (displayVersions.length === 0
+      ? AvailableVersions
+      : displayVersions
+    ).forEach((name) => {
+      commit(UPDATE_VERSION, { name, value: true });
+    });
 
     // リアクション済み表示を受領する
     commit(UPDATE_VERTICAL, !!vertical);
