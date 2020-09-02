@@ -57,8 +57,6 @@ export default class Main extends Vue {
   // アクションを引き当てる
   @Action("decomoji/add") add!: DecomojiAction["add"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
-  @Action("decomoji/updateResult")
-  updateResult!: DecomojiAction["updateResult"];
   @Action("decomoji/updateVertical")
   updateVertical!: DecomojiAction["updateVertical"];
 
