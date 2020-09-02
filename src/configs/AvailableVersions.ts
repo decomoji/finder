@@ -3,9 +3,9 @@ import { Decomoji } from "@/models/Decomoji";
 
 const creates = AvailableDecomojis.map((item) => item.created);
 
-const updates = AvailableDecomojis.reduce((memo: string[], item: Decomoji) => {
-  return item.updated ? memo.concat(item.updated) : memo;
-}, []);
+const updates = AvailableDecomojis.map((item: Decomoji) => item.updated).filter(
+  (item): item is Exclude<typeof item, undefined> => item !== undefined
+);
 
 export const AvailableVersions = [
   ...new Set([...creates, ...updates]),
