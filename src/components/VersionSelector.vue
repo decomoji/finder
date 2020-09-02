@@ -60,13 +60,18 @@ export default class VersionSelector extends Vue {
 
   displayVersionList = DisplayVersionList;
 
+  get versionValues() {
+    return Object.values(this.decomoji.version);
+  }
+
   // バージョンが全て選択されているか否を返す
   get isEverySelected() {
-    return Object.values(this.decomoji.version).every((version) => version);
+    return this.versionValues.every((version) => version);
   }
+
   // バージョンのいずれか選択されているか否を返す
   get isSomeSelected() {
-    return Object.values(this.decomoji.version).some((version) => version);
+    return this.versionValues.some((version) => version);
   }
 
   // @listen - 表示カテゴリーを全選択/全解除する
