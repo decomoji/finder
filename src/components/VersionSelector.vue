@@ -21,7 +21,7 @@
         :disabled="isEverySelected"
         class="__button"
         type="buton"
-        @click="handleClick(1)"
+        @click="handleClickSelectAll()"
       >
         全選択
       </button>
@@ -74,10 +74,11 @@ export default class VersionSelector extends Vue {
     return this.versionValues.some((version) => version);
   }
 
-  // @listen - 表示カテゴリーを全選択/全解除する
-  handleClick(state: number) {
-    const value = !!state;
-    AvailableVersions.forEach((name) => this.updateVersion({ name, value }));
+  // @listen - 表示カテゴリーを全選択する
+  handleClickSelectAll() {
+    AvailableVersions.forEach((name) =>
+      this.updateVersion({ name, value: true })
+    );
   }
 
   // @listen - 表示カテゴリーを選択する
