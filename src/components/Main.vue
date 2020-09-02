@@ -17,7 +17,7 @@
           :key="item.name"
           :category="item.category"
           :name="item.name"
-          :collected="matches(item) && collected(item)"
+          :collected="collected(item)"
           @add="handleAdd(item)"
           @remove="handleRemove(item)"
         />
