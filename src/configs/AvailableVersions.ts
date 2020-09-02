@@ -1,9 +1,7 @@
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { Decomoji } from "@/models/Decomoji";
 
-const creates = AvailableDecomojis.reduce((memo: string[], item: Decomoji) => {
-  return item.created ? memo.concat(item.created) : memo;
-}, []);
+const creates = AvailableDecomojis.map((item) => item.created);
 
 const updates = AvailableDecomojis.reduce((memo: string[], item: Decomoji) => {
   return item.updated ? memo.concat(item.updated) : memo;
