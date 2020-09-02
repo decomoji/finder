@@ -20,7 +20,6 @@ import {
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
-  UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
   UPDATE_VERSION,
@@ -32,7 +31,6 @@ export interface DecomojiState {
   collection: Collection;
   dark: boolean;
   reacted: boolean;
-  result: number;
   search: string;
   size: string;
   version: VersionState;
@@ -78,7 +76,6 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [UPDATE_CATEGORY]: CategoryNameValue;
   [UPDATE_DARK]: boolean;
   [UPDATE_REACTED]: boolean;
-  [UPDATE_RESULT]: number;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
   [UPDATE_VERSION]: VersionNameValue;
@@ -94,7 +91,6 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   updateCollection: Collection;
   updateDark: boolean;
   updateReacted: boolean;
-  updateResult: number;
   updateSearch: string;
   updateSize: string;
   updateVersion: VersionNameValue;

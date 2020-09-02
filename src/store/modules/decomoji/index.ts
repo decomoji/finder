@@ -19,7 +19,6 @@ export const state: () => ThisState = () => ({
   collection: [],
   dark: false,
   reacted: false,
-  result: 0,
   search: "",
   size: "",
   version: AvailableVersions.reduce((memo, value: string) => {

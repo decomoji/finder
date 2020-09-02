@@ -1,4 +1,3 @@
-import { AvailableCategories } from "@/configs/AvailableCategories";
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { CategorizedItems } from "@/models/CategorizedItems";
 import { CategoryName } from "@/models/CategoryName";
