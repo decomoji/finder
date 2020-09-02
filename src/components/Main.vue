@@ -79,7 +79,7 @@ export default class Main extends Vue {
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
   get dummyRowsForVirtualScroll() {
     const length = Math.ceil(
-      this.filteredDecomojis.length / this.gridColumnLength
+      this.decomoji.filteredDecomojis.length / this.gridColumnLength
     );
     const arr = [];
     for (let i = 0; i < length; i++) {
@@ -124,7 +124,7 @@ export default class Main extends Vue {
     return (index: number) => {
       const start = this.gridColumnLength * index;
       const end = start + this.gridColumnLength;
-      return this.filteredDecomojis.slice(start, end);
+      return this.decomoji.filteredDecomojis.slice(start, end);
     };
   }
 
