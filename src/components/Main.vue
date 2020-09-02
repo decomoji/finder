@@ -191,19 +191,14 @@ export default class Main extends Vue {
     return this.decomoji.category[category];
   }
 
-  // @method - デコモジのバージョンが表示バージョンであるか否かを返す
-  // データ上は created と updated で別々に絞り込めるが、追加も修正も合わせて「そのバージョンで扱ったもの」という世界観でやる
-  versionMatches({
-    created,
-    updated,
-  }: {
-    created: VersionName;
-    updated?: VersionName;
-  }) {
-    return (
-      this.decomoji.version[created] ||
-      (updated ? this.decomoji.version[updated] : false)
-    );
+  // @method - デコモジの created バージョンが表示するバージョンであるか否かを返す
+  createdMatches(created: VersionName) {
+    return this.decomoji.version[created];
+  }
+
+  // @method - デコモジの updated バージョンが表示するバージョンであるか否かを返す
+  updatedMatches(updated?: VersionName) {
+    return updated ? this.decomoji.version[updated] : false;
   }
 
   // @method - デコモジがコレクションされているか否かを返す
