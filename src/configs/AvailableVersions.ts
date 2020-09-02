@@ -7,6 +7,7 @@ const updates = AvailableDecomojis.map((item: Decomoji) => item.updated).filter(
   (item): item is Exclude<typeof item, undefined> => item !== undefined
 );
 
-export const AvailableVersions = [
-  ...new Set([...creates, ...updates]),
-].sort((a, b) => a.localeCompare(b));
+// creates と updates をマージして重複を取り除く
+const uniqued = Array.from(new Set([...creates, ...updates]));
+
+export const AvailableVersions = uniqued.sort((a, b) => a.localeCompare(b));
