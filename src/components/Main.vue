@@ -171,39 +171,18 @@ export default class Main extends Vue {
     updated?: VersionName;
   }) {
     // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
-    const _nameMatches = this.nameMatches(name) || this.decomoji.search === "";
+    const nameMatches =
+      RegExp(this.decomoji.search).test(name) || this.decomoji.search === "";
     // デコモジのカテゴリーが表示するカテゴリーであるか否か
-    const _categoryMatches = this.categoryMatches(category);
-    // デコモジの作成バージョンかしゅうせバージョンが、表示するバージョンであるか否か
-    const _versionMatches =
-      this.createdMatches(created) || this.updatedMatches(updated);
+    const categoryMatches = this.decomoji.category[category];
+    // デコモジの作成バージョンが、表示するバージョンであるか否か
+    const createdMatches = this.decomoji.version[created];
+    // デコモジの修正バージョンが、表示するバージョンであるか否か
+    const updatedMatches = updated ? this.decomoji.version[updated] : false;
+    const versionMatches = createdMatches || updatedMatches;
 
     // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
-    return _nameMatches && _categoryMatches && _versionMatches;
-  }
-
-  // @method - デコモジが検索クエリを正規表現にマッチするか否かを返す
-  nameMatches(name: string) {
-    try {
-      return RegExp(this.decomoji.search).test(name);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // @method - デコモジのカテゴリーが表示カテゴリーであるか否かを返す
-  categoryMatches(category: CategoryName) {
-    return this.decomoji.category[category];
-  }
-
-  // @method - デコモジの created バージョンが表示するバージョンであるか否かを返す
-  createdMatches(created: VersionName) {
-    return this.decomoji.version[created];
-  }
-
-  // @method - デコモジの updated バージョンが表示するバージョンであるか否かを返す
-  updatedMatches(updated?: VersionName) {
-    return updated ? this.decomoji.version[updated] : false;
+    return nameMatches && categoryMatches && versionMatches;
   }
 
   // @method - デコモジがコレクションされているか否かを返す
