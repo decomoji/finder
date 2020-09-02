@@ -29,7 +29,7 @@
         :disabled="!isSomeSelected"
         class="__button"
         type="buton"
-        @click="handleClick(0)"
+        @click="handleClickClearAll()"
       >
         全解除
       </button>
@@ -78,6 +78,13 @@ export default class VersionSelector extends Vue {
   handleClickSelectAll() {
     AvailableVersions.forEach((name) =>
       this.updateVersion({ name, value: true })
+    );
+  }
+
+  // @listen - 表示カテゴリーを全解除する
+  handleClickClearAll() {
+    AvailableVersions.forEach((name) =>
+      this.updateVersion({ name, value: false })
     );
   }
 
