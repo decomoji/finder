@@ -1,15 +1,17 @@
+import { AvailableCategories } from "@/configs/AvailableCategories";
+import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
+import { CategorizedItems } from "@/models/CategorizedItems";
+import { CategoryName } from "@/models/CategoryName";
+import { VersionName } from "@/models/VersionName";
 import { RootState } from "@/store/models";
 import { pickState } from "@/store/utilities";
+import { isStringOfNotEmpty } from "@/utilities/isString";
 import { state as defaultState } from "./index";
 import {
   DecomojiGetters as ThisGetter,
   DecomojiState as ThisState,
 } from "./models";
 import { GetterTree } from "vuex";
-import { CategorizedItems } from "@/models/CategorizedItems";
-import { CategoryName } from "@/models/CategoryName";
-import { VersionName } from "@/models/VersionName";
-import { isStringOfNotEmpty } from "@/utilities/isString";
 
 export const getters: GetterTree<ThisState, RootState> = {
   /**
@@ -50,6 +52,39 @@ export const getters: GetterTree<ThisState, RootState> = {
    */
   darkParam: (state) => {
     return state.dark ? "dark=true" : null;
+  },
+
+  /**
+   * 各種表示条件に合わせてフィルターしたデコモジリストを返す
+   */
+  filteredDecomojis: (state) => {
+    // @method - 各種条件にマッチしているか否かを返す
+    const matches = ({
+      name,
+      category,
+      created,
+      updated,
+    }: {
+      name: string;
+      category: CategoryName;
+      created: VersionName;
+      updated?: VersionName;
+    }) => {
+      // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
+      const nameMatches =
+        RegExp(state.search).test(name) || state.search === "";
+      // デコモジのカテゴリーが表示するカテゴリーであるか否か
+      const categoryMatches = state.category[category];
+      // デコモジの作成バージョンが、表示するバージョンであるか否か
+      const createdMatches = state.version[created];
+      // 修正バージョンが、表示するバージョンであるか否か
+      const updatedMatches = updated ? state.version[updated] : false;
+      const versionMatches = createdMatches || updatedMatches;
+      // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
+      return nameMatches && categoryMatches && versionMatches;
+    };
+
+    return AvailableDecomojis.filter((v) => matches(v));
   },
 
   /**
@@ -142,6 +177,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       categoryParam,
       collectionParam,
       darkParam,
+      filteredDecomojis,
       formattedJson,
       reactedParam,
       searchParam,
@@ -154,6 +190,7 @@ export const getters: GetterTree<ThisState, RootState> = {
     categoryParam,
     collectionParam,
     darkParam,
+    filteredDecomojis,
     formattedJson,
     reactedParam,
     searchParam,
