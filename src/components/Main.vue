@@ -158,7 +158,7 @@ export default class Main extends Vue {
     });
   }
 
-  // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチし、バージョン選択にマッチしていれば true を返す
+  // @method - 各種条件にマッチしているか否かを返す
   matches({
     name,
     category,
@@ -170,11 +170,16 @@ export default class Main extends Vue {
     created: VersionName;
     updated?: VersionName;
   }) {
-    return (
-      (this.decomoji.search === "" || this.nameMatches(name)) &&
-      this.categoryMatches(category) &&
-      this.versionMatches({ created, updated })
-    );
+    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
+    const _nameMatches = this.nameMatches(name) || this.decomoji.search === "";
+    // デコモジのカテゴリーが表示するカテゴリーであるか否か
+    const _categoryMatches = this.categoryMatches(category);
+    // デコモジの作成バージョンかしゅうせバージョンが、表示するバージョンであるか否か
+    const _versionMatches =
+      this.createdMatches(created) || this.updatedMatches(updated);
+
+    // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
+    return _nameMatches && _categoryMatches && _versionMatches;
   }
 
   // @method - デコモジが検索クエリを正規表現にマッチするか否かを返す
