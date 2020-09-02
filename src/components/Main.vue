@@ -188,12 +188,7 @@ export default class Main extends Vue {
 
   // @method - デコモジのカテゴリーが表示カテゴリーであるか否かを返す
   categoryMatches(category: CategoryName) {
-    const { basic, extra, explicit } = this.decomoji.category;
-    return (
-      (basic && category === "basic") ||
-      (explicit && category === "explicit") ||
-      (extra && category === "extra")
-    );
+    return this.decomoji.category[category];
   }
 
   // @method - デコモジのバージョンが表示バージョンであるか否かを返す
