@@ -28,8 +28,6 @@
 
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
-import { AvailableCategories } from "@/configs/AvailableCategories";
-import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
@@ -65,16 +63,8 @@ export default class Main extends Vue {
   updateVertical!: DecomojiAction["updateVertical"];
 
   // 内部プロパティを定義する
-  decomojis = AvailableDecomojis;
   gridContainerWidth = window.innerWidth;
   bufferHeight = window.innerHeight / 2;
-
-  // @get - 一覧に表示するデコモジ
-  get filteredDecomojis() {
-    const filterd = this.decomojis.filter((v) => this.matches(v));
-    this.updateResult(filterd.length);
-    return filterd;
-  }
 
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
   get dummyRowsForVirtualScroll() {
@@ -156,33 +146,6 @@ export default class Main extends Vue {
       this.gridContainerWidth = this.$el.clientWidth;
       this.bufferHeight = window.innerHeight / 2;
     });
-  }
-
-  // @method - 各種条件にマッチしているか否かを返す
-  matches({
-    name,
-    category,
-    created,
-    updated,
-  }: {
-    name: string;
-    category: CategoryName;
-    created: VersionName;
-    updated?: VersionName;
-  }) {
-    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
-    const nameMatches =
-      RegExp(this.decomoji.search).test(name) || this.decomoji.search === "";
-    // デコモジのカテゴリーが表示するカテゴリーであるか否か
-    const categoryMatches = this.decomoji.category[category];
-    // デコモジの作成バージョンが、表示するバージョンであるか否か
-    const createdMatches = this.decomoji.version[created];
-    // デコモジの修正バージョンが、表示するバージョンであるか否か
-    const updatedMatches = updated ? this.decomoji.version[updated] : false;
-    const versionMatches = createdMatches || updatedMatches;
-
-    // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
-    return nameMatches && categoryMatches && versionMatches;
   }
 
   // @method - デコモジがコレクションされているか否かを返す
