@@ -1,6 +1,7 @@
 import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import { CategorizedItems } from "@/models/CategorizedItems";
 import { CategoryName } from "@/models/CategoryName";
+import { Decomoji } from "@/models/Decomoji";
 import { VersionName } from "@/models/VersionName";
 import { RootState } from "@/store/models";
 import { pickState } from "@/store/utilities";
@@ -83,7 +84,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       return nameMatches && categoryMatches && versionMatches;
     };
 
-    return AvailableDecomojis.filter((v) => matches(v));
+    return AvailableDecomojis.filter((v: Decomoji) => matches(v));
   },
 
   /**
