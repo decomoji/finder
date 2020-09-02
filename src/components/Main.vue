@@ -119,7 +119,7 @@ export default class Main extends Vue {
   }
 
   // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
-  @Watch("filteredDecomojis")
+  @Watch("decomoji.filteredDecomojis.length")
   scrollToSeeList(newList: Decomoji[], oldList: Decomoji[]) {
     if (newList.length > oldList.length) {
       return;
