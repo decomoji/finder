@@ -1,6 +1,7 @@
 import { CategoryNameValue } from "@/models/CategoryNameValue";
 import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
+import { Decomoji } from "@/models/Decomoji";
 import { NullableString } from "@/models/NullableString";
 import { ParsedParamsObject } from "@/models/ParsedParamsObject";
 import { VersionNameValue } from "@/models/VersionNameValue";
@@ -42,6 +43,7 @@ export interface DecomojiViewModel extends DecomojiState {
   categoryParam: DecomojiGetters["categoryParam"];
   collectionParam: DecomojiGetters["collectionParam"];
   darkParam: DecomojiGetters["darkParam"];
+  filteredDecomojis: DecomojiGetters["filteredDecomojis"];
   formattedJson: DecomojiGetters["formattedJson"];
   reactedParam: DecomojiGetters["reactedParam"];
   searchParam: DecomojiGetters["searchParam"];
@@ -56,6 +58,7 @@ export interface DecomojiGetters {
   categoryParam: NullableString;
   collectionParam: NullableString;
   darkParam: NullableString;
+  filteredDecomojis: Decomoji[];
   formattedJson: any;
   reactedParam: NullableString;
   searchParam: NullableString;
