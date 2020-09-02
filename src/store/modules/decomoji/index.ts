@@ -23,7 +23,7 @@ export const state: () => ThisState = () => ({
   search: "",
   size: "",
   version: AvailableVersions.reduce((memo, value: string) => {
-    // 全ての value をキーにして true を与えたオブジェクトにまとめる
+    // 全ての value をキーにして false を与えたオブジェクトにまとめる
     return {
       ...memo,
       [value]: false,
