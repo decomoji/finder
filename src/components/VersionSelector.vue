@@ -13,7 +13,7 @@
           class="__checkbox"
           name="version"
           type="checkbox"
-          @change="handleCange(version.value)"
+          @change="handleChange(version.value)"
         />
         {{ version.text }}
       </label>
@@ -89,7 +89,7 @@ export default class VersionSelector extends Vue {
   }
 
   // @listen - 表示カテゴリーを選択する
-  handleCange(versionName: VersionName) {
+  handleChange(versionName: VersionName) {
     // 更新前の値を反転してアクションに渡す
     this.updateVersion({
       name: versionName,

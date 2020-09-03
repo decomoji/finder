@@ -9,7 +9,7 @@
           class="__radio"
           name="size"
           type="radio"
-          @change="handleCange(size.value)"
+          @change="handleChange(size.value)"
         />
         {{ size.text }}
       </label>
@@ -40,7 +40,7 @@ export default class SizeSelector extends Vue {
   displaySizeList: IconSizeItem[] = DisplaySizeList;
 
   // @listen - 表示サイズを選択する
-  handleCange(value: IconSizeId) {
+  handleChange(value: IconSizeId) {
     this.updateSize(value);
   }
 }
