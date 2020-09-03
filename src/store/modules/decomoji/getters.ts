@@ -79,9 +79,10 @@ export const getters: GetterTree<ThisState, RootState> = {
       const createdMatches = state.version[created];
       // 修正バージョンが、表示するバージョンであるか否か
       const updatedMatches = updated ? state.version[updated] : false;
-      const versionMatches = createdMatches || updatedMatches;
-      // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
-      return nameMatches && categoryMatches && versionMatches;
+      // 当該デコモジについて、カテゴリー、名前、バージョン、全てにマッチするか否かを返す
+      return (
+        nameMatches && categoryMatches && (createdMatches || updatedMatches)
+      );
     };
 
     return AvailableDecomojis.filter((v: Decomoji) => matches(v));
