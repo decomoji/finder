@@ -121,17 +121,10 @@ export default class Collection extends Vue {
         "コレクションをアルファベット順にソートしますか？（この操作は取り消せません）"
       )
     ) {
-      const sorted_collection = [...this.decomoji.collection].sort((a, b) => {
-        const _a = a["name"].toLowerCase();
-        const _b = b["name"].toLowerCase();
-        if (_a < _b) {
-          return -1;
-        } else if (_a > _b) {
-          return 1;
-        }
-        return 0;
-      });
-      this.updateCollection(sorted_collection);
+      const sorted = [...this.decomoji.collection].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      this.updateCollection(sorted);
     }
   }
 
