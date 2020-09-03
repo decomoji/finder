@@ -27,4 +27,23 @@
     display: block;
     white-space: nowrap;
   }
+
+  .__button {
+    @extend %reset-Button;
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+    @include focusHeader;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--space-xs) / 2) var(--space-xs);
+    border-radius: 0.375rem;
+    &:disabled {
+      color: rgba(255, 255, 255, 0.25);
+    }
+  }
 }

@@ -14,13 +14,10 @@
       <div class="__decomojiRow">
         <DecomojiButton
           v-for="item in getRowDecomojis(row)"
-          :key="item.id"
+          :key="item.name"
           :category="item.category"
           :name="item.name"
-          :collected="
-            matches(item.name, item.category) &&
-            collected(item.name, item.category)
-          "
+          :collected="collected(item)"
           @add="handleAdd(item)"
           @remove="handleRemove(item)"
         />
@@ -32,10 +29,7 @@
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
 import { AvailableCategories } from "@/configs/AvailableCategories";
-import {
-  AvailableDecomoji,
-  AvailableDecomojis,
-} from "@/configs/AvailableDecomojis";
+import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
@@ -44,6 +38,8 @@ import {
 } from "@/configs/GridSizeValue";
 import { CategoryName } from "@/models/CategoryName";
 import { CollectionItem } from "@/models/Collection";
+import { Decomoji } from "@/models/Decomoji";
+import { VersionName } from "@/models/VersionName";
 import {
   DecomojiAction,
   DecomojiViewModel,
@@ -75,9 +71,7 @@ export default class Main extends Vue {
 
   // @get - 一覧に表示するデコモジ
   get filteredDecomojis() {
-    const filterd = this.decomojis.filter((v) =>
-      this.matches(v.name, v.category)
-    );
+    const filterd = this.decomojis.filter((v) => this.matches(v));
     this.updateResult(filterd.length);
     return filterd;
   }
@@ -136,7 +130,7 @@ export default class Main extends Vue {
 
   // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
   @Watch("filteredDecomojis")
-  scrollToSeeList(newList: AvailableDecomoji[], oldList: AvailableDecomoji[]) {
+  scrollToSeeList(newList: Decomoji[], oldList: Decomoji[]) {
     if (newList.length > oldList.length) {
       return;
     }
@@ -164,35 +158,35 @@ export default class Main extends Vue {
     });
   }
 
-  // @method - 検索クエリが空であるか検索クエリがデコモジ名にマッチしているかし、かつカテゴリー選択にマッチしていれば true を返す
-  matches(name: string, category: CategoryName) {
-    return (
-      (this.decomoji.search === "" || this.nameMatches(name)) &&
-      this.categoryMatches(category)
-    );
-  }
+  // @method - 各種条件にマッチしているか否かを返す
+  matches({
+    name,
+    category,
+    created,
+    updated,
+  }: {
+    name: string;
+    category: CategoryName;
+    created: VersionName;
+    updated?: VersionName;
+  }) {
+    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
+    const nameMatches =
+      RegExp(this.decomoji.search).test(name) || this.decomoji.search === "";
+    // デコモジのカテゴリーが表示するカテゴリーであるか否か
+    const categoryMatches = this.decomoji.category[category];
+    // デコモジの作成バージョンが、表示するバージョンであるか否か
+    const createdMatches = this.decomoji.version[created];
+    // デコモジの修正バージョンが、表示するバージョンであるか否か
+    const updatedMatches = updated ? this.decomoji.version[updated] : false;
+    const versionMatches = createdMatches || updatedMatches;
 
-  // @method - デコモジが検索クエリを正規表現にマッチするか否かを返す
-  nameMatches(name: string) {
-    try {
-      return RegExp(this.decomoji.search).test(name);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // @method - デコモジのカテゴリーが表示カテゴリーであるか否かを返す
-  categoryMatches(category: CategoryName) {
-    const { basic, extra, explicit } = this.decomoji.category;
-    return (
-      (basic && category === "basic") ||
-      (explicit && category === "explicit") ||
-      (extra && category === "extra")
-    );
+    // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
+    return nameMatches && categoryMatches && versionMatches;
   }
 
   // @method - デコモジがコレクションされているか否かを返す
-  collected(name: string, category: CategoryName) {
+  collected({ name, category }: { name: string; category: CategoryName }) {
     return this.decomoji.collection.find(
       (v: CollectionItem) => v.name === name && v.category === category
     );

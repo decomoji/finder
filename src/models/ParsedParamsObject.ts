@@ -6,5 +6,6 @@ export interface ParsedParamsObject extends CategoriesObject {
   reacted?: string;
   search?: string;
   size?: string;
+  version?: string;
   vertical?: string;
 }

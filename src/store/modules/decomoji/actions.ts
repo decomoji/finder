@@ -1,3 +1,4 @@
+import { AvailableVersions } from "@/configs/AvailableVersions";
 import { DefaultCategory } from "@/configs/DefaultCategory";
 import { DefaultSize } from "@/configs/DefaultSize";
 import { Collection } from "@/models/Collection";
@@ -20,6 +21,7 @@ import {
   UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
 import { ActionTree } from "vuex";
@@ -70,6 +72,7 @@ export const actions: ActionTree<ThisState, RootState> = {
       reacted,
       search,
       size,
+      version,
       vertical,
     } = payload || {};
 
@@ -114,6 +117,12 @@ export const actions: ActionTree<ThisState, RootState> = {
 
     // 表示サイズを受領する
     commit(UPDATE_SIZE, size || DefaultSize);
+
+    // 表示バージョンを受領する
+    const displayVersions = version ? version.split(",") : AvailableVersions;
+    displayVersions.forEach((name) => {
+      commit(UPDATE_VERSION, { name, value: true });
+    });
 
     // リアクション済み表示を受領する
     commit(UPDATE_VERTICAL, !!vertical);
@@ -198,6 +207,19 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   updateSize({ commit, getters }, payload: ThisActionPayloads["updateSize"]) {
     commit(UPDATE_SIZE, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * 表示バージョンを更新する
+   * @param commit
+   * @param payload
+   */
+  updateVersion(
+    { commit, getters },
+    payload: ThisActionPayloads["updateVersion"]
+  ) {
+    commit(UPDATE_VERSION, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 

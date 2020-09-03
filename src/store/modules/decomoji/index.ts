@@ -1,3 +1,4 @@
+import { AvailableVersions } from "@/configs/AvailableVersions";
 import { RootState } from "@/store/models";
 import { actions } from "./actions";
 import { getters } from "./getters";
@@ -21,6 +22,13 @@ export const state: () => ThisState = () => ({
   result: 0,
   search: "",
   size: "",
+  version: AvailableVersions.reduce((memo, value: string) => {
+    // 全ての value をキーにして false を与えたオブジェクトにまとめる
+    return {
+      ...memo,
+      [value]: false,
+    };
+  }, {}),
   vertical: false,
 });
 

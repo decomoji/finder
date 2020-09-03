@@ -13,7 +13,7 @@
           class="__checkbox"
           name="category"
           type="checkbox"
-          @change="handleCange(category.value)"
+          @change="handleChange(category.value)"
         />
         {{ category.text }}
       </label>
@@ -45,7 +45,7 @@ export default class CategorySelector extends Vue {
   displayCategoryList: CategoryItem[] = DisplayCategoryList;
 
   // @listen - 表示カテゴリーを選択する
-  handleCange(categoryName: CategoryName) {
+  handleChange(categoryName: CategoryName) {
     // 更新前の値を反転してアクションに渡す
     this.updateCategory({
       name: categoryName,

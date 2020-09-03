@@ -10,6 +10,7 @@
     <div class="__inner">
       <SizeSelector />
       <CategorySelector />
+      <VersionSelector />
       <OptionSelector />
     </div>
   </section>
@@ -21,6 +22,7 @@ import Logo from "@/components/Logo.vue";
 import OptionSelector from "@/components/OptionSelector.vue";
 import Search from "@/components/Search.vue";
 import SizeSelector from "@/components/SizeSelector.vue";
+import VersionSelector from "@/components/VersionSelector.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
@@ -30,6 +32,7 @@ import { Component, Vue } from "vue-property-decorator";
     OptionSelector,
     Search,
     SizeSelector,
+    VersionSelector,
   },
 })
 export default class Header extends Vue {}

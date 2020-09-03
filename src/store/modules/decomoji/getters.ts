@@ -8,6 +8,7 @@ import {
 import { GetterTree } from "vuex";
 import { CategorizedItems } from "@/models/CategorizedItems";
 import { CategoryName } from "@/models/CategoryName";
+import { VersionName } from "@/models/VersionName";
 import { isStringOfNotEmpty } from "@/utilities/isString";
 
 export const getters: GetterTree<ThisState, RootState> = {
@@ -96,6 +97,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       reactedParam,
       searchParam,
       sizeParam,
+      versionParam,
       verticalParam,
     }
   ) => {
@@ -105,11 +107,21 @@ export const getters: GetterTree<ThisState, RootState> = {
       darkParam,
       reactedParam,
       verticalParam,
+      versionParam,
       searchParam,
       collectionParam,
     ]
       .filter((v) => !!v)
       .join("&");
+  },
+  /**
+   * 表示バージョンをパラメータ文字列に変換したものを返す
+   */
+  versionParam: (state) => {
+    const versions = (Object.keys(state.version) as VersionName[]).filter(
+      (key) => state.version[key]
+    );
+    return versions.length > 0 ? `version=${versions.join(",")}` : null;
   },
 
   /**
