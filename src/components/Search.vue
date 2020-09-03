@@ -41,7 +41,7 @@ export default class Search extends Vue {
 
   // @get - 検索クエリのヒット件数文字列を返す
   get searchResult() {
-    return `${this.decomoji.result}件が該当`;
+    return `${this.decomoji.filteredDecomojis.length}件が該当`;
   }
 
   /**

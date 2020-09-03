@@ -28,8 +28,6 @@
 
 <script lang="ts">
 import DecomojiButton from "@/components/DecomojiButton.vue";
-import { AvailableCategories } from "@/configs/AvailableCategories";
-import { AvailableDecomojis } from "@/configs/AvailableDecomojis";
 import {
   GridContainerPaddingValue,
   GridItemGapValue,
@@ -59,27 +57,17 @@ export default class Main extends Vue {
   // アクションを引き当てる
   @Action("decomoji/add") add!: DecomojiAction["add"];
   @Action("decomoji/remove") remove!: DecomojiAction["remove"];
-  @Action("decomoji/updateResult")
-  updateResult!: DecomojiAction["updateResult"];
   @Action("decomoji/updateVertical")
   updateVertical!: DecomojiAction["updateVertical"];
 
   // 内部プロパティを定義する
-  decomojis = AvailableDecomojis;
   gridContainerWidth = window.innerWidth;
   bufferHeight = window.innerHeight / 2;
-
-  // @get - 一覧に表示するデコモジ
-  get filteredDecomojis() {
-    const filterd = this.decomojis.filter((v) => this.matches(v));
-    this.updateResult(filterd.length);
-    return filterd;
-  }
 
   // @get - virtual scrollに与えるダミー。行だけ出してもらい列は自前で制御するので
   get dummyRowsForVirtualScroll() {
     const length = Math.ceil(
-      this.filteredDecomojis.length / this.gridColumnLength
+      this.decomoji.filteredDecomojis.length / this.gridColumnLength
     );
     const arr = [];
     for (let i = 0; i < length; i++) {
@@ -124,12 +112,12 @@ export default class Main extends Vue {
     return (index: number) => {
       const start = this.gridColumnLength * index;
       const end = start + this.gridColumnLength;
-      return this.filteredDecomojis.slice(start, end);
+      return this.decomoji.filteredDecomojis.slice(start, end);
     };
   }
 
   // @watch - 項目が減って虚無を表示していたらスクロール位置を戻す
-  @Watch("filteredDecomojis")
+  @Watch("decomoji.filteredDecomojis.length")
   scrollToSeeList(newList: Decomoji[], oldList: Decomoji[]) {
     if (newList.length > oldList.length) {
       return;
@@ -156,33 +144,6 @@ export default class Main extends Vue {
       this.gridContainerWidth = this.$el.clientWidth;
       this.bufferHeight = window.innerHeight / 2;
     });
-  }
-
-  // @method - 各種条件にマッチしているか否かを返す
-  matches({
-    name,
-    category,
-    created,
-    updated,
-  }: {
-    name: string;
-    category: CategoryName;
-    created: VersionName;
-    updated?: VersionName;
-  }) {
-    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
-    const nameMatches =
-      RegExp(this.decomoji.search).test(name) || this.decomoji.search === "";
-    // デコモジのカテゴリーが表示するカテゴリーであるか否か
-    const categoryMatches = this.decomoji.category[category];
-    // デコモジの作成バージョンが、表示するバージョンであるか否か
-    const createdMatches = this.decomoji.version[created];
-    // デコモジの修正バージョンが、表示するバージョンであるか否か
-    const updatedMatches = updated ? this.decomoji.version[updated] : false;
-    const versionMatches = createdMatches || updatedMatches;
-
-    // 当該デコモジについて、カテゴリー、名前、バージョン全てにマッチするか否かを返す
-    return nameMatches && categoryMatches && versionMatches;
   }
 
   // @method - デコモジがコレクションされているか否かを返す

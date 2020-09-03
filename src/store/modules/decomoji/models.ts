@@ -1,6 +1,7 @@
 import { CategoryNameValue } from "@/models/CategoryNameValue";
 import { CategoriesState } from "@/models/CategoriesState";
 import { Collection, CollectionItem } from "@/models/Collection";
+import { Decomoji } from "@/models/Decomoji";
 import { NullableString } from "@/models/NullableString";
 import { ParsedParamsObject } from "@/models/ParsedParamsObject";
 import { VersionNameValue } from "@/models/VersionNameValue";
@@ -19,7 +20,6 @@ import {
   UPDATE_CATEGORY,
   UPDATE_DARK,
   UPDATE_REACTED,
-  UPDATE_RESULT,
   UPDATE_SEARCH,
   UPDATE_SIZE,
   UPDATE_VERSION,
@@ -31,7 +31,6 @@ export interface DecomojiState {
   collection: Collection;
   dark: boolean;
   reacted: boolean;
-  result: number;
   search: string;
   size: string;
   version: VersionState;
@@ -42,6 +41,7 @@ export interface DecomojiViewModel extends DecomojiState {
   categoryParam: DecomojiGetters["categoryParam"];
   collectionParam: DecomojiGetters["collectionParam"];
   darkParam: DecomojiGetters["darkParam"];
+  filteredDecomojis: DecomojiGetters["filteredDecomojis"];
   formattedJson: DecomojiGetters["formattedJson"];
   reactedParam: DecomojiGetters["reactedParam"];
   searchParam: DecomojiGetters["searchParam"];
@@ -56,6 +56,7 @@ export interface DecomojiGetters {
   categoryParam: NullableString;
   collectionParam: NullableString;
   darkParam: NullableString;
+  filteredDecomojis: Decomoji[];
   formattedJson: any;
   reactedParam: NullableString;
   searchParam: NullableString;
@@ -75,7 +76,6 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [UPDATE_CATEGORY]: CategoryNameValue;
   [UPDATE_DARK]: boolean;
   [UPDATE_REACTED]: boolean;
-  [UPDATE_RESULT]: number;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
   [UPDATE_VERSION]: VersionNameValue;
@@ -91,7 +91,6 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   updateCollection: Collection;
   updateDark: boolean;
   updateReacted: boolean;
-  updateResult: number;
   updateSearch: string;
   updateSize: string;
   updateVersion: VersionNameValue;
