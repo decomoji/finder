@@ -21,6 +21,12 @@
       ><span aria-hidden="true">:</span>{{ name
       }}<span aria-hidden="true">:</span></span
     >
+    <span class="__tag -created"
+      ><span class="VisuallyHidden">created:</span>{{ created }}</span
+    >
+    <span v-if="updated" class="__tag -updated"
+      ><span class="VisuallyHidden">updated:</span>{{ updated }}</span
+    >
   </button>
 </template>
 
