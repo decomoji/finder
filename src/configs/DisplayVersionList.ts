@@ -6,4 +6,6 @@ export const DisplayVersionList: VersionItem[] = AvailableVersions.map<
 >((value: string) => ({
   text: value,
   value,
-}));
+})).sort((a, b) =>
+  a.value.localeCompare(b.value, undefined, { numeric: true })
+);
