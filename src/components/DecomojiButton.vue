@@ -17,7 +17,10 @@
       height="64"
       width="64"
     />
-    <span :aria-label="name" class="__name">:{{ name }}:</span>
+    <span class="__name"
+      ><span aria-hidden="true">:</span>{{ name
+      }}<span aria-hidden="true">:</span></span
+    >
   </button>
 </template>
 
