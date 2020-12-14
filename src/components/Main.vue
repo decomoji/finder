@@ -18,6 +18,8 @@
           :category="item.category"
           :name="item.name"
           :collected="collected(item)"
+          :created="item.created"
+          :updated="item.updated"
           @add="handleAdd(item)"
           @remove="handleRemove(item)"
         />

@@ -35,5 +35,7 @@ export default class DecomojiButton extends Vue {
   @Prop() category!: CategoryName;
   @Prop() name!: DecomojiName;
   @Prop({ default: false }) collected!: boolean;
+  @Prop({ default: undefined }) created!: string;
+  @Prop({ default: undefined }) updated!: string;
 }
 </script>
