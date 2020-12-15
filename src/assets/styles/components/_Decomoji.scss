@@ -72,6 +72,7 @@
   }
 
   .__tag {
+    display: none;
     position: absolute;
     top: -10px;
     border: 1px solid var(--borderDecomojiCollected);
@@ -81,9 +82,15 @@
     background-color: var(--bgTag);
     &.-created {
       left: -3px;
+      .-created .Main & {
+        display: block;
+      }
     }
     &.-updated {
       right: -3px;
+      .-updated .Main & {
+        display: block;
+      }
     }
   }
 }
