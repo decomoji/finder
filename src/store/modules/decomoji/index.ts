@@ -17,10 +17,12 @@ export const state: () => ThisState = () => ({
     extra: false,
   },
   collection: [],
+  created: false,
   dark: false,
   reacted: false,
   search: "",
   size: "",
+  updated: false,
   version: AvailableVersions.reduce((memo, value: string) => {
     // 全ての value をキーにして false を与えたオブジェクトにまとめる
     return {
