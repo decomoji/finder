@@ -48,6 +48,13 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * 追加バージョン表示か否かをパラメータ文字列に変換したものを返す
+   */
+  createdParam: (state) => {
+    return state.created ? "created=true" : null;
+  },
+
+  /**
    * ダークモード表示か否かをパラメータ文字列に変換したものを返す
    */
   darkParam: (state) => {
@@ -122,6 +129,13 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
+   */
+  updatedParam: (state) => {
+    return state.updated ? "updated=true" : null;
+  },
+
+  /**
    * 各パラメータ文字列を連結したものを返す
    */
   urlParams: (
@@ -129,7 +143,9 @@ export const getters: GetterTree<ThisState, RootState> = {
     {
       categoryParam,
       collectionParam,
+      createdParam,
       darkParam,
+      updatedParam,
       reactedParam,
       searchParam,
       sizeParam,
@@ -145,6 +161,8 @@ export const getters: GetterTree<ThisState, RootState> = {
       verticalParam,
       versionParam,
       searchParam,
+      createdParam,
+      updatedParam,
       collectionParam,
     ]
       .filter((v) => !!v)
@@ -177,12 +195,14 @@ export const getters: GetterTree<ThisState, RootState> = {
     {
       categoryParam,
       collectionParam,
+      createdParam,
       darkParam,
       filteredDecomojis,
       formattedJson,
       reactedParam,
       searchParam,
       sizeParam,
+      updatedParam,
       urlParams,
       verticalParam,
     }: ThisGetter
@@ -190,12 +210,14 @@ export const getters: GetterTree<ThisState, RootState> = {
     ...pickState(defaultState, state),
     categoryParam,
     collectionParam,
+    createdParam,
     darkParam,
     filteredDecomojis,
     formattedJson,
     reactedParam,
     searchParam,
     sizeParam,
+    updatedParam,
     urlParams,
     verticalParam,
   }),
