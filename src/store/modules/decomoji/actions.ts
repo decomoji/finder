@@ -16,10 +16,12 @@ import {
   REMOVE_FROM_COLLECTION,
   REPLACE_URL_PARAMS,
   UPDATE_CATEGORY,
+  UPDATE_CREATED,
   UPDATE_DARK,
   UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_UPDATED,
   UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
@@ -157,6 +159,19 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
+   * 追加バージョン表示を更新する
+   * @param commit
+   * @param payload
+   */
+  updateCreated(
+    { commit, getters },
+    payload: ThisActionPayloads["updateCreated"]
+  ) {
+    commit(UPDATE_CREATED, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
    * ダークモードを更新する
    * @param commit
    * @param payload
@@ -198,6 +213,19 @@ export const actions: ActionTree<ThisState, RootState> = {
    */
   updateSize({ commit, getters }, payload: ThisActionPayloads["updateSize"]) {
     commit(UPDATE_SIZE, payload);
+    commit(REPLACE_URL_PARAMS, getters.urlParams);
+  },
+
+  /**
+   * 追加バージョン表示を更新する
+   * @param commit
+   * @param payload
+   */
+  updateUpdated(
+    { commit, getters },
+    payload: ThisActionPayloads["updateUpdated"]
+  ) {
+    commit(UPDATE_UPDATED, payload);
     commit(REPLACE_URL_PARAMS, getters.urlParams);
   },
 
