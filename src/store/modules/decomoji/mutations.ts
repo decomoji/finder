@@ -9,10 +9,12 @@ import {
   RECEIVE_COLLECTION,
   REPLACE_URL_PARAMS,
   UPDATE_CATEGORY,
+  UPDATE_CREATED,
   UPDATE_DARK,
   UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_UPDATED,
   UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
@@ -93,6 +95,18 @@ export const mutations: MutationTree<ThisState> = {
   },
 
   /**
+   * 追加バージョン表示を更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_CREATED](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_CREATED]
+  ) {
+    state.created = payload;
+  },
+
+  /**
    * ダークモード表示を更新する
    * @param state
    * @param payload
@@ -129,6 +143,18 @@ export const mutations: MutationTree<ThisState> = {
    */
   [UPDATE_SIZE](state, payload: ThisMutationPayloads[typeof UPDATE_SIZE]) {
     state.size = payload;
+  },
+
+  /**
+   * 修正バージョン表示を更新する
+   * @param state
+   * @param payload
+   */
+  [UPDATE_UPDATED](
+    state,
+    payload: ThisMutationPayloads[typeof UPDATE_UPDATED]
+  ) {
+    state.updated = payload;
   },
 
   /**
