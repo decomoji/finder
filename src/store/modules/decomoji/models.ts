@@ -18,10 +18,12 @@ import {
   REMOVE_FROM_COLLECTION,
   REPLACE_URL_PARAMS,
   UPDATE_CATEGORY,
+  UPDATE_CREATED,
   UPDATE_DARK,
   UPDATE_REACTED,
   UPDATE_SEARCH,
   UPDATE_SIZE,
+  UPDATE_UPDATED,
   UPDATE_VERSION,
   UPDATE_VERTICAL,
 } from "./mutation-types";
@@ -29,10 +31,12 @@ import {
 export interface DecomojiState {
   category: CategoriesState;
   collection: Collection;
+  created: boolean;
   dark: boolean;
   reacted: boolean;
   search: string;
   size: string;
+  updated: boolean;
   version: VersionState;
   vertical: boolean;
 }
@@ -40,12 +44,14 @@ export interface DecomojiState {
 export interface DecomojiViewModel extends DecomojiState {
   categoryParam: DecomojiGetters["categoryParam"];
   collectionParam: DecomojiGetters["collectionParam"];
+  createdParam: DecomojiGetters["createdParam"];
   darkParam: DecomojiGetters["darkParam"];
   filteredDecomojis: DecomojiGetters["filteredDecomojis"];
   formattedJson: DecomojiGetters["formattedJson"];
   reactedParam: DecomojiGetters["reactedParam"];
   searchParam: DecomojiGetters["searchParam"];
   sizeParam: DecomojiGetters["sizeParam"];
+  updatedParam: DecomojiGetters["updatedParam"];
   urlParams: DecomojiGetters["urlParams"];
   versionParam: DecomojiGetters["versionParam"];
   verticalParam: DecomojiGetters["verticalParam"];
@@ -55,12 +61,14 @@ export interface DecomojiViewModel extends DecomojiState {
 export interface DecomojiGetters {
   categoryParam: NullableString;
   collectionParam: NullableString;
+  createdParam: NullableString;
   darkParam: NullableString;
   filteredDecomojis: Decomoji[];
   formattedJson: any;
   reactedParam: NullableString;
   searchParam: NullableString;
   sizeParam: string;
+  updatedParam: NullableString;
   urlParams: string;
   versionParam: NullableString;
   verticalParam: NullableString;
@@ -74,10 +82,12 @@ export type DecomojiMutationPayloads = VuexMutationPayloads<{
   [REMOVE_FROM_COLLECTION]: CollectionItem;
   [REPLACE_URL_PARAMS]: string;
   [UPDATE_CATEGORY]: CategoryNameValue;
+  [UPDATE_CREATED]: boolean;
   [UPDATE_DARK]: boolean;
   [UPDATE_REACTED]: boolean;
   [UPDATE_SEARCH]: string;
   [UPDATE_SIZE]: string;
+  [UPDATE_UPDATED]: boolean;
   [UPDATE_VERSION]: VersionNameValue;
   [UPDATE_VERTICAL]: boolean;
 }>;
@@ -89,10 +99,12 @@ export type DecomojiActionPayloads = VuexActionPayloads<{
   receive: ParsedParamsObject;
   updateCategory: CategoryNameValue;
   updateCollection: Collection;
+  updateCreated: boolean;
   updateDark: boolean;
   updateReacted: boolean;
   updateSearch: string;
   updateSize: string;
+  updateUpdated: boolean;
   updateVersion: VersionNameValue;
   updateVertical: boolean;
 }>;
