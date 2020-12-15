@@ -4,8 +4,10 @@
       'App',
       `-${decomoji.size}`,
       {
+        '-created': decomoji.created,
         '-dark': decomoji.dark,
         '-reacted': decomoji.reacted,
+        '-updated': decomoji.updated,
         '-vertical': decomoji.vertical,
       },
     ]"
