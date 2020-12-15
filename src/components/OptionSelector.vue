@@ -4,6 +4,28 @@
     <div class="__panel -option">
       <label class="__label">
         <input
+          :value="decomoji.created"
+          :checked="decomoji.created"
+          class="__checkbox"
+          name="option"
+          type="checkbox"
+          @change="handleChangeCreated"
+        />
+        追加バージョンの表示
+      </label>
+      <label class="__label">
+        <input
+          :value="decomoji.updated"
+          :checked="decomoji.updated"
+          class="__checkbox"
+          name="option"
+          type="checkbox"
+          @change="handleChangeUpdated"
+        />
+        修正バージョンの表示
+      </label>
+      <label class="__label">
+        <input
           :value="decomoji.reacted"
           :checked="decomoji.reacted"
           class="__checkbox"
@@ -42,10 +64,24 @@ export default class OptionSelector extends Vue {
   @Getter("decomoji/viewModel") decomoji!: DecomojiViewModel;
 
   // アクションを引き当てる
+  @Action("decomoji/updateCreated")
+  updateCreated!: DecomojiAction["updateCreated"];
+  @Action("decomoji/updateUpdated")
+  updateUpdated!: DecomojiAction["updateUpdated"];
   @Action("decomoji/updateDark")
   updateDark!: DecomojiAction["updateDark"];
   @Action("decomoji/updateReacted")
   updateReacted!: DecomojiAction["updateReacted"];
+
+  // @listen - 追加バージョン表示を更新する
+  handleChangeCreated() {
+    this.updateCreated(!this.decomoji.created);
+  }
+
+  // @listen - 修正バージョン表示を更新する
+  handleChangeUpdated() {
+    this.updateUpdated(!this.decomoji.updated);
+  }
 
   // @listen - リアクション済み表示を更新する
   handleChangeReacted() {
