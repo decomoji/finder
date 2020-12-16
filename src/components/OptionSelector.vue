@@ -11,7 +11,7 @@
           type="checkbox"
           @change="handleChangeCreated"
         />
-        追加バージョンの表示
+        作成バージョンの表示
       </label>
       <label class="__label">
         <input
@@ -73,7 +73,7 @@ export default class OptionSelector extends Vue {
   @Action("decomoji/updateReacted")
   updateReacted!: DecomojiAction["updateReacted"];
 
-  // @listen - 追加バージョン表示を更新する
+  // @listen - 作成バージョン表示を更新する
   handleChangeCreated() {
     this.updateCreated(!this.decomoji.created);
   }

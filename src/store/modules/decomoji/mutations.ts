@@ -95,7 +95,7 @@ export const mutations: MutationTree<ThisState> = {
   },
 
   /**
-   * 追加バージョン表示を更新する
+   * 作成バージョン表示を更新する
    * @param state
    * @param payload
    */

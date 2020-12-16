@@ -159,7 +159,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * 追加バージョン表示を更新する
+   * 作成バージョン表示を更新する
    * @param commit
    * @param payload
    */
@@ -217,7 +217,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * 追加バージョン表示を更新する
+   * 作成バージョン表示を更新する
    * @param commit
    * @param payload
    */

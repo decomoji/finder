@@ -48,7 +48,7 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
-   * 追加バージョン表示か否かをパラメータ文字列に変換したものを返す
+   * 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
    */
   createdParam: (state) => {
     return state.created ? "created=true" : null;
