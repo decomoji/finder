@@ -129,6 +129,13 @@ export const getters: GetterTree<ThisState, RootState> = {
   },
 
   /**
+   * デコモジの総数を返す
+   */
+  total: () => {
+    return AvailableDecomojis.length;
+  },
+
+  /**
    * 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
    */
   updatedParam: (state) => {
@@ -202,6 +209,7 @@ export const getters: GetterTree<ThisState, RootState> = {
       reactedParam,
       searchParam,
       sizeParam,
+      total,
       updatedParam,
       urlParams,
       verticalParam,
@@ -217,6 +225,7 @@ export const getters: GetterTree<ThisState, RootState> = {
     reactedParam,
     searchParam,
     sizeParam,
+    total,
     updatedParam,
     urlParams,
     verticalParam,
