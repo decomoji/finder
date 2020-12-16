@@ -10,7 +10,14 @@
       @input="debouncedUpdateSearch($event.target.value)"
     />
     <Icon class="__icon" value="search" />
-    <span class="__result">{{ searchResult }}</span>
+    <span class="VisuallyHidden"
+      >{{ decomoji.total }}個中{{
+        decomoji.filteredDecomojis.length
+      }}個が該当しています。</span
+    >
+    <span class="__result" aria-hidden="true"
+      >{{ decomoji.filteredDecomojis.length }}/{{ decomoji.total }}</span
+    >
   </div>
 </template>
 
@@ -38,11 +45,6 @@ export default class Search extends Vue {
 
   // 内部プロパティを定義する
   timer: number = 0;
-
-  // @get - 検索クエリのヒット件数文字列を返す
-  get searchResult() {
-    return `${this.decomoji.filteredDecomojis.length}件が該当`;
-  }
 
   /**
    * @method - 検索クエリの更新処理を間引いて実行する
