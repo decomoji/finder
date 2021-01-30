@@ -115,10 +115,10 @@ export const actions: ActionTree<ThisState, RootState> = {
     commit(UPDATE_SIZE, size || DefaultSize);
 
     // 表示バージョンを受領する
-    const displayVersions = version ? version.split(",") : AvailableVersions;
-    displayVersions.forEach((name) => {
-      commit(UPDATE_VERSION, { name, value: true });
-    });
+    version &&
+      version.split(",").forEach((name) => {
+        commit(UPDATE_VERSION, { name, value: true });
+      });
 
     // 作成バージョン表示を受領する
     commit(UPDATE_CREATED, !!created);
