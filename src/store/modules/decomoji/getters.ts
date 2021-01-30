@@ -129,7 +129,7 @@ export const getters: GetterTree<ThisState, RootState> = {
    * 表示サイズをパラメータ文字列に変換したものを返す
    */
   sizeParam: (state) => {
-    return `size=${state.size}`;
+    return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null;
   },
 
   /**
