@@ -1,4 +1,3 @@
-import "@babel/polyfill";
 import "@/assets/styles/app.scss";
 import createRouter from "@/router";
 import createStore from "@/store";
