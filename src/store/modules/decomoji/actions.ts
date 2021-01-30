@@ -66,6 +66,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   receive({ commit, getters }, payload: ThisActionPayloads["receive"]) {
     const {
       basic,
+      created,
       extra,
       explicit,
       category,
@@ -124,6 +125,9 @@ export const actions: ActionTree<ThisState, RootState> = {
     displayVersions.forEach((name) => {
       commit(UPDATE_VERSION, { name, value: true });
     });
+
+    // 作成バージョン表示を受領する
+    commit(UPDATE_CREATED, !!created);
 
     // リアクション済み表示を受領する
     commit(UPDATE_VERTICAL, !!vertical);
@@ -217,7 +221,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * 作成バージョン表示を更新する
+   * 修正バージョン表示を更新する
    * @param commit
    * @param payload
    */
