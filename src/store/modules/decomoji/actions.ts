@@ -94,17 +94,10 @@ export const actions: ActionTree<ThisState, RootState> = {
     commit(RECEIVE_COLLECTION, collection);
 
     // 表示カテゴリーを受領する
-    const displayCategories = category ? category.split(",") : [];
-    // 表示カテゴリーのパラメータがない時はデフォルトとして basic を表示する
-    if (displayCategories.length === 0) {
-      commit(UPDATE_CATEGORY, { name: DefaultCategory, value: true });
-    }
-    // 表示カテゴリーのパラメータがある時はそれに従う
-    else {
-      displayCategories.forEach((name) => {
+    category &&
+      category.split(",").forEach((name) => {
         commit(UPDATE_CATEGORY, { name, value: true });
       });
-    }
 
     // ダークモードを受領する
     commit(UPDATE_DARK, !!dark);
