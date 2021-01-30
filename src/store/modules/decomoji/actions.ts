@@ -112,7 +112,7 @@ export const actions: ActionTree<ThisState, RootState> = {
     );
 
     // 表示サイズを受領する
-    commit(UPDATE_SIZE, size || DefaultSize);
+    commit(UPDATE_SIZE, size);
 
     // 表示バージョンを受領する
     version &&

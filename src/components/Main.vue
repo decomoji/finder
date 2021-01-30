@@ -80,22 +80,22 @@ export default class Main extends Vue {
 
   // @get - CSS Grid container の padding 値を返す
   get gridContainerPadding() {
-    return GridContainerPaddingValue[this.decomoji.size];
+    return GridContainerPaddingValue[this.decomoji.size || "ll"];
   }
 
   // @get - CSS Grid item の gap 値を返す
   get gridItemGap() {
-    return GridItemGapValue[this.decomoji.size];
+    return GridItemGapValue[this.decomoji.size || "ll"];
   }
 
   // @get - CSS Grid item 幅の最小値を返す
   get gridMinItemWidth() {
-    return GridMinItemWidthValue[this.decomoji.size];
+    return GridMinItemWidthValue[this.decomoji.size || "ll"];
   }
 
   // @get - 1行分の高さを返す
   get gridRowHeight() {
-    return GridRowHeightValue[this.decomoji.size];
+    return GridRowHeightValue[this.decomoji.size || "ll"];
   }
 
   // @get - 1行に入る項目数

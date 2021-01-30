@@ -5,7 +5,7 @@
       <label v-for="size in displaySizeList" :key="size.value" class="__label">
         <input
           :value="size.value"
-          :checked="size.value === decomoji.size"
+          :checked="size.value === decomoji.size || 'll'"
           class="__radio"
           name="size"
           type="radio"
