@@ -64,7 +64,7 @@ export const getters: GetterTree<ThisState, RootState> = {
   /**
    * 各種表示条件に合わせてフィルターしたデコモジリストを返す
    */
-  filteredDecomojis: (state) => {
+  filteredDecomojis: (state, getter) => {
     // @method - 各種条件にマッチしているか否かを返す
     const matches = ({
       name,
@@ -80,12 +80,13 @@ export const getters: GetterTree<ThisState, RootState> = {
       // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
       const nameMatches =
         RegExp(state.search).test(name) || state.search === "";
-      // デコモジのカテゴリーが表示するカテゴリーであるか否か
-      const categoryMatches = state.category[category];
       // デコモジの作成バージョンが、表示するバージョンであるか否か
       const createdMatches = state.version[created];
       // 修正バージョンが、表示するバージョンであるか否か
       const updatedMatches = updated ? state.version[updated] : false;
+      // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
+      const categoryMatches =
+        state.category[category] || getter.categoryParam === null;
       // 当該デコモジについて、カテゴリー、名前、バージョン、全てにマッチするか否かを返す
       return (
         nameMatches && categoryMatches && (createdMatches || updatedMatches)
