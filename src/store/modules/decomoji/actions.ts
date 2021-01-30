@@ -66,6 +66,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   receive({ commit, getters }, payload: ThisActionPayloads["receive"]) {
     const {
       basic,
+      created,
       extra,
       explicit,
       category,
@@ -73,6 +74,7 @@ export const actions: ActionTree<ThisState, RootState> = {
       reacted,
       search,
       size,
+      updated,
       version,
       vertical,
     } = payload || {};
@@ -92,17 +94,10 @@ export const actions: ActionTree<ThisState, RootState> = {
     commit(RECEIVE_COLLECTION, collection);
 
     // 表示カテゴリーを受領する
-    const displayCategories = category ? category.split(",") : [];
-    // 表示カテゴリーのパラメータがない時はデフォルトとして basic を表示する
-    if (displayCategories.length === 0) {
-      commit(UPDATE_CATEGORY, { name: DefaultCategory, value: true });
-    }
-    // 表示カテゴリーのパラメータがある時はそれに従う
-    else {
-      displayCategories.forEach((name) => {
+    category &&
+      category.split(",").forEach((name) => {
         commit(UPDATE_CATEGORY, { name, value: true });
       });
-    }
 
     // ダークモードを受領する
     commit(UPDATE_DARK, !!dark);
@@ -117,13 +112,19 @@ export const actions: ActionTree<ThisState, RootState> = {
     );
 
     // 表示サイズを受領する
-    commit(UPDATE_SIZE, size || DefaultSize);
+    commit(UPDATE_SIZE, size);
 
     // 表示バージョンを受領する
-    const displayVersions = version ? version.split(",") : AvailableVersions;
-    displayVersions.forEach((name) => {
-      commit(UPDATE_VERSION, { name, value: true });
-    });
+    version &&
+      version.split(",").forEach((name) => {
+        commit(UPDATE_VERSION, { name, value: true });
+      });
+
+    // 作成バージョン表示を受領する
+    commit(UPDATE_CREATED, !!created);
+
+    // 修正バージョン表示を受領する
+    commit(UPDATE_UPDATED, !!updated);
 
     // リアクション済み表示を受領する
     commit(UPDATE_VERTICAL, !!vertical);
@@ -217,7 +218,7 @@ export const actions: ActionTree<ThisState, RootState> = {
   },
 
   /**
-   * 作成バージョン表示を更新する
+   * 修正バージョン表示を更新する
    * @param commit
    * @param payload
    */

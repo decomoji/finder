@@ -2,7 +2,7 @@
   <body
     :class="[
       'App',
-      `-${decomoji.size}`,
+      `-${decomoji.size || 'll'}`,
       {
         '-created': decomoji.created,
         '-dark': decomoji.dark,
