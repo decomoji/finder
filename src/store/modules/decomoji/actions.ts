@@ -74,6 +74,7 @@ export const actions: ActionTree<ThisState, RootState> = {
       reacted,
       search,
       size,
+      updated,
       version,
       vertical,
     } = payload || {};
@@ -128,6 +129,9 @@ export const actions: ActionTree<ThisState, RootState> = {
 
     // 作成バージョン表示を受領する
     commit(UPDATE_CREATED, !!created);
+
+    // 修正バージョン表示を受領する
+    commit(UPDATE_UPDATED, !!updated);
 
     // リアクション済み表示を受領する
     commit(UPDATE_VERTICAL, !!vertical);
