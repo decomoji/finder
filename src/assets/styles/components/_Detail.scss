@@ -12,7 +12,9 @@
     margin-top: 4px;
     padding: var(--space-md);
     border-radius: 0.375rem;
+    max-height: 50vh;
     background-color: var(--bgPanel);
+    overflow-y: auto;
 
     &.-option {
       right: 0;
