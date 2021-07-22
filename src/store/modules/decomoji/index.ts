@@ -21,7 +21,7 @@ export const state: () => ThisState = () => ({
   dark: false,
   reacted: false,
   search: "",
-  size: "",
+  size: "ll",
   updated: false,
   version: AvailableVersions.reduce((memo, value: string) => {
     // 全ての value をキーにして false を与えたオブジェクトにまとめる
