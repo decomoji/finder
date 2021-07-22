@@ -17,22 +17,22 @@
     }
   }
 
-  & > * + * {
-    margin-top: var(--betweenVertical);
-    margin-left: var(--betweenHorizon);
-  }
-
   .__inner {
     display: flex;
     align-items: center;
 
+    &:last-of-type {
+      margin-top: var(--betweenVertical);
+      margin-left: var(--betweenHorizon);
+    }
+
     @include min {
-      &:first-child {
-        width: 50%;
+      &:first-of-type {
+        width: 40%;
       }
     }
 
-    & > * + * {
+    &:first-of-type > * + * {
       margin-left: var(--betweenLogoSearch);
     }
   }
