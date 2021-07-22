@@ -104,7 +104,7 @@ export default class Collection extends Vue {
 
   // @get - 垂直分割表示のトグルアイコン文字列を返す
   get updateVerticalIconValue() {
-    return this.decomoji.vertical ? "south_west" : "north_east";
+    return this.decomoji.vertical ? "horizontal_split" : "vertical_split";
   }
 
   // @get - コレクションのJSONをblob形式で返す
