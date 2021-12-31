@@ -11,7 +11,7 @@
     "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "axios-mock-adapter": "^1.19.0",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
