@@ -40,8 +40,6 @@
     "@vue/test-utils": "^1.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",
-    "commitizen": "^4.2.4",
-    "cz-customizable": "^6.3.0",
     "eslint": "^7.18.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.5.0",
@@ -59,16 +57,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "./.cz-config.js"
+      "pre-commit": "pretty-quick --staged"
     }
   }
 }
