@@ -18,9 +18,9 @@ export const getters: GetterTree<ThisState, RootState> = {
    * 表示カテゴリーをパラメータ文字列に変換したものを返す
    */
   categoryParam: (state) => {
-    const arrayedCategories = (Object.keys(
-      state.category
-    ) as CategoryName[]).filter((key) => state.category[key]);
+    const arrayedCategories = (
+      Object.keys(state.category) as CategoryName[]
+    ).filter((key) => state.category[key]);
     return arrayedCategories.length > 0
       ? `category=${arrayedCategories.join(",")}`
       : null;
@@ -38,11 +38,9 @@ export const getters: GetterTree<ThisState, RootState> = {
       {}
     );
 
-    const paramaterizedArray = (Object.keys(
-      categorizedItems
-    ) as CategoryName[]).map(
-      (key) => `${key}=${categorizedItems[key].join(",")}`
-    );
+    const paramaterizedArray = (
+      Object.keys(categorizedItems) as CategoryName[]
+    ).map((key) => `${key}=${categorizedItems[key].join(",")}`);
 
     return paramaterizedArray.length > 0 ? paramaterizedArray.join("&") : null;
   },

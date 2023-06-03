@@ -80,11 +80,13 @@ export const actions: ActionTree<ThisState, RootState> = {
     } = payload || {};
 
     // コレクションを受領する
-    const collection = (Object.entries({
-      basic,
-      extra,
-      explicit,
-    }) as CollectionEntry[])
+    const collection = (
+      Object.entries({
+        basic,
+        extra,
+        explicit,
+      }) as CollectionEntry[]
+    )
       .map<Collection>((collectionEntry: CollectionEntry) => {
         const [category, rest] = collectionEntry;
         const decomojis: string[] = rest ? rest.split(",") : [];
