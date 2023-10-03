@@ -41,7 +41,6 @@
 import { AvailableVersions } from "@/configs/AvailableVersions";
 import { DisplayVersionList } from "@/configs/DisplayVersionList";
 import { VersionName } from "@/models/VersionName";
-import { VersionItem } from "@/models/VersionItem";
 import {
   DecomojiAction,
   DecomojiViewModel,
