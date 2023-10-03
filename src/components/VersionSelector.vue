@@ -20,7 +20,7 @@
       <button
         :disabled="isEverySelected"
         class="__button"
-        type="buton"
+        type="button"
         @click="handleClickSelectAll()"
       >
         全選択
@@ -28,7 +28,7 @@
       <button
         :disabled="!isSomeSelected"
         class="__button"
-        type="buton"
+        type="button"
         @click="handleClickClearAll()"
       >
         全解除
