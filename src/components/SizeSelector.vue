@@ -1,5 +1,5 @@
 <template>
-  <details class="Detail">
+  <details class="Detail" name="selectors">
     <summary class="__summary">サイズ</summary>
     <div class="__panel">
       <label v-for="size in displaySizeList" :key="size.value" class="__label">
