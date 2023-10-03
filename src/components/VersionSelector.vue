@@ -1,5 +1,5 @@
 <template>
-  <details class="Detail">
+  <details class="Detail" name="selectors">
     <summary class="__summary">バージョン</summary>
     <div class="__panel">
       <label
