@@ -3,7 +3,11 @@
 <template>
   <div
     class="sticky top-0 left-0 flex items-center p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
-  ></div>
+  >
+    <a class="flex-[0_0_auto] rounded-full w-8 h-8 overflow-hidden" href="/">
+      <img class="block" src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
+    </a>
+  </div>
 
   <main></main>
 
