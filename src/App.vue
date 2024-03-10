@@ -107,7 +107,30 @@
     </div>
   </div>
 
-  <main></main>
+  <main>
+    <h2 class="sr-only">デコモジ一覧</h2>
+    <div class="grid grid-flow-row gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3">
+      <button class="box-border relative border border-solid border-transparent rounded-md h-[129px] text-center bg-[--bgDecomoji]">
+        <img
+          alt="dekomozisigotosiro"
+          src="/decomoji/extra/dekomozisigotosiro.png"
+          class="m-auto leading-none align-top"
+          height="64"
+          width="64"
+        />
+        <span class="block mt-[--space-sm] text-[--colorDecomoji] break-all">
+          <span aria-hidden="true">:</span>
+          dekomozisigotosiro
+          <span aria-hidden="true">:</span>
+        </span>
+        <span class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]">
+          <span class="sr-only">created:</span>v5.30.0
+        </span>
+        <span class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]">
+          <span class="sr-only">updated:</span>v5.30.1</span>
+      </button>
+    </div>
+  </main>
 
   <footer
     class="sticky top-0 left-0 flex items-center p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]"
