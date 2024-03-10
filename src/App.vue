@@ -24,7 +24,15 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <main></main>
+=======
+  <main>
+
+  </main>
+
+  <footer class="sticky top-0 left-0 p-[--paddingFooter] w-full colr-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]">
+>>>>>>> d2e56cc (feat: src/App.vue, フッターのベースを Tailwind 化した)
 
   <footer
     class="sticky top-0 left-0 flex items-center p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]"
