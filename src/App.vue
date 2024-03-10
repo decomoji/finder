@@ -6,7 +6,7 @@
   >
     <div class="flex items-center gap-[--betweenLogoSearch]">
       <h1 class="flex-[0_0_auto]">
-        <a class="block w-8 h-8 rounded-full overflow-hidden  " href="/">
+        <a class="block w-8 h-8 rounded-full overflow-hidden" href="/">
           <img class="block" src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
         </a>
       </h1>
@@ -17,8 +17,16 @@
           type="text"
           title="検索"
         />
-        <span class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-[--space-xs] m-auto w-6 h-6" aria-hidden="true">search</span>
-        <span class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none" aria-hidden="true">36000/36000</span>
+        <span
+          class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-[--space-xs] m-auto w-6 h-6"
+          aria-hidden="true"
+          >search</span
+        >
+        <span
+          class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
+          aria-hidden="true"
+          >36000/36000</span
+        >
         <span class="sr-only">36000個中36000個が該当しています。</span>
       </div>
     </div>
@@ -26,14 +34,11 @@
     <div class="flex items-center gap-[--betweenLogoSearch]">
       <details class="relative" name="selectors">
         <summary class="p-[--space-sm] rounded-md">サイズ</summary>
-        <div class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto">
+        <div
+          class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+        >
           <label class="block whitespace-nowrap">
-            <input
-              class=""
-              name="size"
-              type="radio"
-              checked
-            />
+            <input class="" name="size" type="radio" checked />
             64px＆名前
           </label>
         </div>
@@ -41,13 +46,11 @@
 
       <details class="relative" name="selectors">
         <summary class="p-[--space-sm] rounded-md">カテゴリー</summary>
-        <div class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto">
+        <div
+          class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+        >
           <label class="block whitespace-nowrap">
-            <input
-              class=""
-              name="size"
-              type="checkbox"
-            />
+            <input class="" name="size" type="checkbox" />
             基本セット
           </label>
         </div>
@@ -55,53 +58,48 @@
 
       <details class="relative" name="selectors">
         <summary class="p-[--space-sm] rounded-md">バージョン</summary>
-        <div class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto">
+        <div
+          class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+        >
           <label class="block whitespace-nowrap">
-            <input
-              class=""
-              name="size"
-              type="checkbox"
-            />
+            <input class="" name="size" type="checkbox" />
             v5.30.0
           </label>
-          <button class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]" type="button">全選択</button>
-          <button class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]" type="button" disabled>全解除</button>
+          <button
+            class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+            type="button"
+          >
+            全選択
+          </button>
+          <button
+            class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+            type="button"
+            disabled
+          >
+            全解除
+          </button>
         </div>
       </details>
 
       <details class="relative" name="selectors">
         <summary class="p-[--space-sm] rounded-md">オプション</summary>
-        <div class="absolute right-0 flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto">
+        <div
+          class="absolute right-0 flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+        >
           <label class="block whitespace-nowrap">
-            <input
-              name="option"
-              type="checkbox"
-              checked
-            />
+            <input name="option" type="checkbox" checked />
             作成バージョンの表示
           </label>
           <label class="block whitespace-nowrap">
-            <input
-              name="option"
-              type="checkbox"
-              checked
-            />
+            <input name="option" type="checkbox" checked />
             修正バージョンの表示
           </label>
           <label class="block whitespace-nowrap">
-            <input
-              name="option"
-              type="checkbox"
-              checked
-            />
+            <input name="option" type="checkbox" checked />
             リアクション済みのスタイル
           </label>
           <label class="block whitespace-nowrap">
-            <input
-              name="option"
-              type="checkbox"
-              checked
-            />
+            <input name="option" type="checkbox" checked />
             ダークモード
           </label>
         </div>
