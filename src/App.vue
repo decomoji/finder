@@ -9,7 +9,7 @@
 
   </main>
 
-  <footer>
 
+  <footer class="sticky flex items-center top-0 left-0 p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]">
   </footer>
 </template>
