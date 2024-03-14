@@ -1,4 +1,67 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import DecomojiBasic from "decomoji/configs/v5_basic.json";
+import DecomojiExtra from "decomoji/configs/v5_extra.json";
+import DecomojiExplicit from "decomoji/configs/v5_explicit.json";
+
+const basics = DecomojiBasic.map(({ name, path, created, updated }) => ({
+    name,
+    path,
+    created,
+    updated,
+    category: "basic",
+}));
+const extras = DecomojiExtra.map(({ name, path, created, updated }) => ({
+    name,
+    path,
+    created,
+    updated,
+    category: "extra",
+}));
+const explicits = DecomojiExplicit.map(({ name, path, created, updated }) => ({
+    name,
+    path,
+    created,
+    updated,
+    category: "explicit",
+}));
+const AvailableDecomojis = [...basics, ...extras, ...explicits];
+
+const creates = AvailableDecomojis.map((item) => item.created);
+const updates = AvailableDecomojis.map((item) => item.updated).filter((item) => item !== undefined);
+const uniqued = Array.from(new Set([...creates, ...updates]));
+const AvailableVersions = uniqued.sort((a, b) => a.localeCompare(b));
+
+const AvailableCategories = [
+  "basic",
+  "explicit",
+  "extra",
+];
+
+const state = {
+  category: {
+    basic: false,
+    explicit: false,
+    extra: false,
+  },
+  collection: [],
+  created: false,
+  dark: false,
+  reacted: false,
+  search: "",
+  size: "ll",
+  updated: false,
+  version: AvailableVersions.reduce((memo, value: string) => {
+    // 全ての value をキーにして false を与えたオブジェクトにまとめる
+    return {
+      ...memo,
+      [value]: false,
+    };
+  }, {}),
+}
+
+
+</script>
 
 <template>
   <div
