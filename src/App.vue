@@ -137,6 +137,26 @@ const sizeParam = computed(() => {
 const updatedParam = computed(() => {
   return state.updated ? 'updated=true' : null
 })
+
+/**
+ * 各パラメータ文字列を連結したものを返す
+ */
+const urlParams = computed(() => {
+  return [
+    sizeParam.value,
+    categoryParam.value,
+    darkParam.value,
+    reactedParam.value,
+    verticalParam.value,
+    versionParam.value,
+    searchParam.value,
+    createdParam.value,
+    updatedParam.value,
+    collectionParam.value
+  ]
+    .filter((v) => !!v)
+    .join('&')
+})
 </script>
 
 <template>
