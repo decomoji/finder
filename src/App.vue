@@ -268,9 +268,17 @@ const formattedJson = computed(() => {
 const classBySize = computed(() => {
   let wrapper = 'grid grid-flow-row '
   let button =
-    'box-border relative border border-solid border-transparent rounded-md text-center bg-[--bgDecomoji] '
+    'box-border relative border border-solid rounded-md text-center '
   let image = 'm-auto leading-none align-top '
   let name = 'block mt-[--space-sm] text-[--colorDecomoji] break-all'
+  switch (state.reacted) {
+    case false:
+      button += "border-transparent bg-[--bgDecomoji] "
+      break;
+    case true:
+      button += "border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted] "
+      break;
+  }
   switch (state.size) {
     case 'll':
       wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3'
