@@ -316,6 +316,9 @@ const items = ref(filteredDecomojis)
 </script>
 
 <template>
+  <div :class="['grid grid-rows-[auto_1fr_auto_auto] min-h-screen text-sm text-[--colorBody] bg-[--bgBody]', {
+        '-dark': state.dark
+      }]">
   <div
     class="sticky z-10 top-0 left-0 flex items-center gap-5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
   >
@@ -493,4 +496,5 @@ const items = ref(filteredDecomojis)
       >, MIT License.
     </p>
   </footer>
+</div>
 </template>
