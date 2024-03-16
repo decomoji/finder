@@ -450,12 +450,13 @@ const items = ref(filteredDecomojis)
           <span aria-hidden="true">:</span>{{ item.name }}<span aria-hidden="true">:</span>
         </span>
         <span
+          v-if="state.created"
           class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
         >
           <span class="sr-only">created:</span>{{ item.created }}
         </span>
         <span
-          v-if="item.updated"
+          v-if="state.updated && item.updated"
           class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
         >
           <span class="sr-only">updated:</span>{{ item.updated }}</span
