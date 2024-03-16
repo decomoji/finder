@@ -175,6 +175,25 @@ const verticalParam = computed(() => {
   return state.vertical ? 'vertical=true' : null
 })
 
+/**
+ * 各種表示条件に合わせてフィルターしたデコモジリストを返す
+ */
+const filteredDecomojis = computed(() => {
+  const matches = ({ name, category, created, updated }: MatchesParams) => {
+    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
+    const nameMatches = RegExp(state.search).test(name) || state.search === ''
+    // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
+    const categoryMatches = state.category[category] || categoryParam.value === null
+    // デコモジの作成バージョンが、表示するバージョンであるか、または何も選択されていないか否か
+    const createdMatches = state.version[created] || versionParam.value === null
+    // 修正バージョンが、表示するバージョンであるか否か、または何も選択されていないか否か
+    const updatedMatches = updated ? state.version[updated] || versionParam.value === null : false
+    // 当該デコモジについて、カテゴリー、名前、バージョン、全てにマッチするか否かを返す
+    return nameMatches && categoryMatches && (createdMatches || updatedMatches)
+  }
+
+  return availableDecomojis.filter((v: DecomojiItem) => matches(v))
+})
 </script>
 
 <template>
