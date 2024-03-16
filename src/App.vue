@@ -78,6 +78,24 @@ const versionParams: VersionParams = availableVersions.reduce((memo, value: stri
 }, {})
 
 const DECOMOJI_AMOUNT = availableDecomojis.length
+const SIZE_LIST: SizeListItem[] = [
+  {
+    text: '64px＆名前',
+    value: 'll'
+  },
+  {
+    text: '64px',
+    value: 'l'
+  },
+  {
+    text: '32px',
+    value: 'm'
+  },
+  {
+    text: '16px',
+    value: 's'
+  }
+]
 const CATEGORY_LIST: CategoryListItem[] = [
   {
     text: '基本セット',
