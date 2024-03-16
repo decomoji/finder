@@ -247,6 +247,10 @@ const items = ref(filteredDecomojis)
 const updateCategory = (value) => {
   state.category[value] = !state.category[value]
 }
+
+const updateVersion = (value) => {
+  state.version[value] = !state.version[value]
+}
 </script>
 
 <template>
