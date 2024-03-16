@@ -267,17 +267,16 @@ const formattedJson = computed(() => {
 
 const classBySize = computed(() => {
   let wrapper = 'grid grid-flow-row '
-  let button =
-    'box-border relative border border-solid rounded-md text-center '
+  let button = 'box-border relative border border-solid rounded-md text-center '
   let image = 'm-auto leading-none align-top '
   let name = 'block mt-[--space-sm] text-[--colorDecomoji] break-all'
   switch (state.reacted) {
     case false:
-      button += "border-transparent bg-[--bgDecomoji] "
-      break;
+      button += 'border-transparent bg-[--bgDecomoji] '
+      break
     case true:
-      button += "border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted] "
-      break;
+      button += 'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted] '
+      break
   }
   switch (state.size) {
     case 'll':
@@ -316,185 +315,217 @@ const items = ref(filteredDecomojis)
 </script>
 
 <template>
-  <div :class="['grid grid-rows-[auto_1fr_auto_auto] min-h-screen text-sm text-[--colorBody] bg-[--bgBody]', {
-        '-dark': state.dark
-      }]">
   <div
-    class="sticky z-10 top-0 left-0 flex items-center gap-5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
+    :class="[
+      'grid grid-rows-[auto_1fr_auto_auto] min-h-screen text-sm text-[--colorBody] bg-[--bgBody]',
+      {
+        '-dark': state.dark
+      }
+    ]"
   >
-    <div class="flex items-center gap-[--betweenLogoSearch]">
-      <h1 class="flex-[0_0_auto]">
-        <a class="block w-8 h-8 rounded-full overflow-hidden" href="/">
-          <img class="block" src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
-        </a>
-      </h1>
-      <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
-        <input
-          v-model="state.search"
-          class="py-[--space-sm] pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
-          type="text"
-          name="search"
-          title="検索"
-        />
-        <span
-          class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-[--space-xs] m-auto w-6 h-6"
-          aria-hidden="true"
-          >search</span
-        >
-        <span
-          class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
-          aria-hidden="true"
-          >{{ items.length }}/{{ DECOMOJI_AMOUNT }}</span
-        >
-        <span class="sr-only">{{ DECOMOJI_AMOUNT }}個中{{ items.length }}個が該当しています。</span>
+    <div
+      class="sticky z-10 top-0 left-0 flex items-center gap-5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
+    >
+      <div class="flex items-center gap-[--betweenLogoSearch]">
+        <h1 class="flex-[0_0_auto]">
+          <a class="block w-8 h-8 rounded-full overflow-hidden" href="/">
+            <img class="block" src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
+          </a>
+        </h1>
+        <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
+          <input
+            v-model="state.search"
+            class="py-[--space-sm] pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
+            type="text"
+            name="search"
+            title="検索"
+          />
+          <span
+            class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-[--space-xs] m-auto w-6 h-6"
+            aria-hidden="true"
+            >search</span
+          >
+          <span
+            class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
+            aria-hidden="true"
+            >{{ items.length }}/{{ DECOMOJI_AMOUNT }}</span
+          >
+          <span class="sr-only"
+            >{{ DECOMOJI_AMOUNT }}個中{{ items.length }}個が該当しています。</span
+          >
+        </div>
+      </div>
+
+      <div class="flex items-center gap-[--betweenLogoSearch]">
+        <details class="relative" name="selectors">
+          <summary class="p-[--space-sm] rounded-md">サイズ</summary>
+          <div
+            class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+          >
+            <label
+              v-for="{ text, value } in SIZE_LIST"
+              :key="value"
+              class="block whitespace-nowrap"
+            >
+              <input
+                :value="value"
+                :checked="state.size === value"
+                type="radio"
+                name="size"
+                @input="state.size = value"
+              />
+              {{ text }}
+            </label>
+          </div>
+        </details>
+
+        <details class="relative" name="selectors">
+          <summary class="p-[--space-sm] rounded-md">カテゴリー</summary>
+          <div
+            class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+          >
+            <label
+              v-for="{ text, value } in CATEGORY_LIST"
+              :key="value"
+              class="block whitespace-nowrap"
+            >
+              <input
+                :value="value"
+                :checked="state.category[value]"
+                type="checkbox"
+                name="category"
+                @input="state.category[value] = !state.category[value]"
+              />
+              {{ text }}
+            </label>
+          </div>
+        </details>
+
+        <details class="relative" name="selectors">
+          <summary class="p-[--space-sm] rounded-md">バージョン</summary>
+          <div
+            class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+          >
+            <label
+              v-for="{ text, value } in VERSION_LIST"
+              :key="value"
+              class="block whitespace-nowrap"
+            >
+              <input
+                :value="value"
+                :checked="state.version[value]"
+                type="checkbox"
+                name="version"
+                @input="state.version[value] = !state.version[value]"
+              />
+              {{ text }}
+            </label>
+            <button
+              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+              type="button"
+            >
+              全選択
+            </button>
+            <button
+              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+              type="button"
+              disabled
+            >
+              全解除
+            </button>
+          </div>
+        </details>
+
+        <details class="relative" name="selectors">
+          <summary class="p-[--space-sm] rounded-md">オプション</summary>
+          <div
+            class="absolute right-0 flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+          >
+            <label class="block whitespace-nowrap">
+              <input
+                v-model="state.created"
+                :checked="state.created"
+                type="checkbox"
+                name="option"
+              />
+              作成バージョンの表示
+            </label>
+            <label class="block whitespace-nowrap">
+              <input
+                v-model="state.updated"
+                :checked="state.updated"
+                type="checkbox"
+                name="option"
+              />
+              修正バージョンの表示
+            </label>
+            <label class="block whitespace-nowrap">
+              <input
+                v-model="state.reacted"
+                :checked="state.reacted"
+                type="checkbox"
+                name="option"
+              />
+              リアクション済みのスタイル
+            </label>
+            <label class="block whitespace-nowrap">
+              <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
+              ダークモード
+            </label>
+          </div>
+        </details>
       </div>
     </div>
 
-    <div class="flex items-center gap-[--betweenLogoSearch]">
-      <details class="relative" name="selectors">
-        <summary class="p-[--space-sm] rounded-md">サイズ</summary>
-        <div
-          class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
-        >
-          <label v-for="{ text, value } in SIZE_LIST" :key="value" class="block whitespace-nowrap">
-            <input
-              :value="value"
-              :checked="state.size === value"
-              type="radio"
-              name="size"
-              @input="state.size = value"
-            />
-            {{ text }}
-          </label>
-        </div>
-      </details>
+    <main>
+      <h2 class="sr-only">デコモジ一覧</h2>
+      <div :class="classBySize.wrapper">
+        <button v-for="item in items" :key="item.name" :class="classBySize.button">
+          <img
+            :alt="item.name"
+            :src="item.path"
+            :class="classBySize.image"
+            height="64"
+            width="64"
+          />
+          <span :class="classBySize.name">
+            <span aria-hidden="true">:</span>{{ item.name }}<span aria-hidden="true">:</span>
+          </span>
+          <span
+            v-if="state.created"
+            class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
+          >
+            <span class="sr-only">created:</span>{{ item.created }}
+          </span>
+          <span
+            v-if="state.updated && item.updated"
+            class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
+          >
+            <span class="sr-only">updated:</span>{{ item.updated }}</span
+          >
+        </button>
+      </div>
+    </main>
 
-      <details class="relative" name="selectors">
-        <summary class="p-[--space-sm] rounded-md">カテゴリー</summary>
-        <div
-          class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+    <footer
+      class="sticky z-10 bottom-0 left-0 flex items-center p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]"
+    >
+      <p>
+        このウェブアプリは
+        <a
+          href="https://twitter.com/otiext"
+          class="link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
+          >oti</a
         >
-          <label
-            v-for="{ text, value } in CATEGORY_LIST"
-            :key="value"
-            class="block whitespace-nowrap"
-          >
-            <input
-              :value="value"
-              :checked="state.category[value]"
-              type="checkbox"
-              name="category"
-              @input="state.category[value] = !state.category[value]"
-            />
-            {{ text }}
-          </label>
-        </div>
-      </details>
-
-      <details class="relative" name="selectors">
-        <summary class="p-[--space-sm] rounded-md">バージョン</summary>
-        <div
-          class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
-        >
-          <label
-            v-for="{ text, value } in VERSION_LIST"
-            :key="value"
-            class="block whitespace-nowrap"
-          >
-            <input
-              :value="value"
-              :checked="state.version[value]"
-              type="checkbox"
-              name="version"
-              @input="state.version[value] = !state.version[value]"
-            />
-            {{ text }}
-          </label>
-          <button
-            class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
-            type="button"
-          >
-            全選択
-          </button>
-          <button
-            class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
-            type="button"
-            disabled
-          >
-            全解除
-          </button>
-        </div>
-      </details>
-
-      <details class="relative" name="selectors">
-        <summary class="p-[--space-sm] rounded-md">オプション</summary>
-        <div
-          class="absolute right-0 flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
-        >
-          <label class="block whitespace-nowrap">
-            <input v-model="state.created" :checked="state.created" type="checkbox" name="option" />
-            作成バージョンの表示
-          </label>
-          <label class="block whitespace-nowrap">
-            <input v-model="state.updated" :checked="state.updated" type="checkbox" name="option" />
-            修正バージョンの表示
-          </label>
-          <label class="block whitespace-nowrap">
-            <input v-model="state.reacted" :checked="state.reacted" type="checkbox" name="option" />
-            リアクション済みのスタイル
-          </label>
-          <label class="block whitespace-nowrap">
-            <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
-            ダークモード
-          </label>
-        </div>
-      </details>
-    </div>
+        が作りました。
+      </p>
+      <p class="ml-auto">
+        <a
+          href="https://github.com/decomoji/finder/"
+          class="link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
+          >GitHub</a
+        >, MIT License.
+      </p>
+    </footer>
   </div>
-
-  <main>
-    <h2 class="sr-only">デコモジ一覧</h2>
-    <div :class="classBySize.wrapper">
-      <button v-for="item in items" :key="item.name" :class="classBySize.button">
-        <img :alt="item.name" :src="item.path" :class="classBySize.image" height="64" width="64" />
-        <span :class="classBySize.name">
-          <span aria-hidden="true">:</span>{{ item.name }}<span aria-hidden="true">:</span>
-        </span>
-        <span
-          v-if="state.created"
-          class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
-        >
-          <span class="sr-only">created:</span>{{ item.created }}
-        </span>
-        <span
-          v-if="state.updated && item.updated"
-          class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
-        >
-          <span class="sr-only">updated:</span>{{ item.updated }}</span
-        >
-      </button>
-    </div>
-  </main>
-
-  <footer
-    class="sticky z-10 bottom-0 left-0 flex items-center p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]"
-  >
-    <p>
-      このウェブアプリは
-      <a
-        href="https://twitter.com/otiext"
-        class="link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
-        >oti</a
-      >
-      が作りました。
-    </p>
-    <p class="ml-auto">
-      <a
-        href="https://github.com/decomoji/finder/"
-        class="link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
-        >GitHub</a
-      >, MIT License.
-    </p>
-  </footer>
-</div>
 </template>
