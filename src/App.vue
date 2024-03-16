@@ -282,9 +282,19 @@ const updateCategory = (value) => {
         <div
           class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
         >
-          <label class="block whitespace-nowrap">
-            <input class="" name="size" type="checkbox" />
-            基本セット
+          <label
+            v-for="category in CATEGORY_LIST"
+            :key="category.value"
+            class="block whitespace-nowrap"
+          >
+            <input
+              :value="category.value"
+              :checked="state.category[category.value]"
+              type="checkbox"
+              name="category"
+              @input="updateCategory(category.value)"
+            />
+            {{ category.text }}
           </label>
         </div>
       </details>
