@@ -10,6 +10,11 @@ type DecomojiName = string
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
 
+interface CategoryListItem {
+  text: string
+  value: CategoryName
+}
+
 interface CategorizedItems {
   [key: string]: DecomojiName[]
 }
@@ -62,7 +67,7 @@ const versionParams: VersionParams = availableVersions.reduce((memo, value: stri
 }, {})
 
 const DECOMOJI_AMOUNT = availableDecomojis.length
-const CATEGORY_LIST = [
+const CATEGORY_LIST: CategoryListItem[] = [
   {
     text: '基本セット',
     value: 'basic'
@@ -228,7 +233,7 @@ const formattedJson = computed(() => {
 const items = ref(filteredDecomojis)
 
 const updateCategory = (value) => {
-  state.category[value] = !value
+  state.category[value] = !state.category[value]
 }
 </script>
 
@@ -283,18 +288,18 @@ const updateCategory = (value) => {
           class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
         >
           <label
-            v-for="category in CATEGORY_LIST"
-            :key="category.value"
+            v-for="{ text, value } in CATEGORY_LIST"
+            :key="value"
             class="block whitespace-nowrap"
           >
             <input
-              :value="category.value"
-              :checked="state.category[category.value]"
+              :value="value"
+              :checked="state.category[value]"
               type="checkbox"
               name="category"
-              @input="updateCategory(category.value)"
+              @input="updateCategory(value)"
             />
-            {{ category.text }}
+            {{ text }}
           </label>
         </div>
       </details>
