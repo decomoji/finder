@@ -11,6 +11,11 @@ type SizeName = 's' | 'm' | 'l' | 'll'
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
 
+interface SizeListItem {
+  text: string
+  value: SizeName
+}
+
 interface CategoryListItem {
   text: string
   value: CategoryName
