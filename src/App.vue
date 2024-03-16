@@ -53,6 +53,18 @@ interface VersionParams {
   [key: VersionName]: boolean
 }
 
+interface State {
+  category: CategoryParams
+  collection: DecomojiItem[]
+  created: boolean
+  dark: boolean
+  reacted: boolean
+  search: string
+  size: SizeName
+  updated: boolean
+  version: VersionParams
+}
+
 // const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExtra, ...DecomojiExplicit]
 const availableDecomojis: DecomojiItem[] = [...DecomojiBasic]
 const categoryParams = ['basic', 'extra', 'explicit'].reduce<CategoryParams>(
@@ -117,7 +129,7 @@ const VERSION_LIST: VersionListItem[] = availableVersions
   }))
   .sort((a, b) => a.value.localeCompare(b.value, undefined, { numeric: true }))
 
-const state = reactive({
+const state: State = reactive({
   category: categoryParams,
   collection: [],
   created: false,
@@ -207,7 +219,6 @@ const urlParams = computed(() => {
     categoryParam.value,
     darkParam.value,
     reactedParam.value,
-    verticalParam.value,
     versionParam.value,
     searchParam.value,
     createdParam.value,
