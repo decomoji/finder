@@ -212,7 +212,7 @@ const items = ref(filteredDecomojis);
 
 <template>
   <div
-    class="sticky top-0 left-0 flex items-center gap-5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
+    class="sticky z-10 top-0 left-0 flex items-center gap-5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
   >
     <div class="flex items-center gap-[--betweenLogoSearch]">
       <h1 class="flex-[0_0_auto]">
