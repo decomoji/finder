@@ -157,6 +157,16 @@ const urlParams = computed(() => {
     .filter((v) => !!v)
     .join('&')
 })
+
+/**
+ * 表示バージョンをパラメータ文字列に変換したものを返す
+ */
+const versionParam = computed(() => {
+  const versions = (Object.keys(state.version) as VersionName[])
+    .filter((key) => state.version[key])
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  return versions.length > 0 ? `version=${versions.join(',')}` : null
+})
 </script>
 
 <template>
