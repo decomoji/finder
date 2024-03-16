@@ -268,6 +268,10 @@ const formattedJson = computed(() => {
 
 const items = ref(filteredDecomojis)
 
+const updateSize = (value) => {
+  state.size = value
+}
+
 const updateCategory = (value) => {
   state.category[value] = !state.category[value]
 }
