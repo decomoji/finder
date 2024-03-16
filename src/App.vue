@@ -516,6 +516,55 @@ const collections = ref(state.collection)
       </div>
     </main>
 
+    <section
+      v-if="state.collection.length"
+      class="sticky left-0 bottom-[--heightFooter] max-h-[15rem] text-[--colorCollection] bg-[--bgCollection] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
+    >
+      <div class="flex p-2.5 pb-0">
+        <div class="flex flex-grow flex-wrap items-baseline">
+          <h2 class="flex-grow text-base leading-[1.4]">
+            <span aria-hidden="true">コレクション：{{ state.collection.length }}</span
+            ><span class="sr-only">コレクション（計{{ state.collection.length }}個）</span>
+          </h2>
+          <p class="flex-grow-[9999] m-0 mr-2.5 mb-2.5 text-sm leading-[1.4]">
+            ダブルクリックするか delete キーでコレクションから外せます。
+          </p>
+        </div>
+        <div class="flex">
+          <button aria-label="コレクションをアルファベット順にソートする">
+            <span class="material-icons" aria-hidden="true">sort</span>
+          </button>
+          <button aria-label="コレクションリンクをクリップボードにコピーする">
+            <span class="material-icons" aria-hidden="true">link</span>
+          </button>
+          <a :href="downloadURL" download="my-collection.json">
+            <span class="sr-only">コレクションをJSON形式でダウンロードする</span>
+            <span class="material-icons" aria-hidden="true">save_alt</span>
+          </a>
+          <button aria-label="コレクションを空にする">
+            <span class="material-icons" aria-hidden="true">delete_forever</span>
+          </button>
+        </div>
+      </div>
+      <div class="__body">
+        <button
+          v-for="(item, i) in collections"
+          :key="`${item.category}/${item.name}`"
+          :class="classBySize.button"
+          @dblclick="state.collection.splice(i, 1)"
+          @keydown="state.collection.splice(i, 1)"
+        >
+          <img
+            :alt="item.name"
+            :src="item.path"
+            :class="classBySize.image"
+            height="64"
+            width="64"
+          />
+        </button>
+      </div>
+    </section>
+
     <footer
       class="sticky z-10 bottom-0 left-0 flex items-center p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]"
     >
