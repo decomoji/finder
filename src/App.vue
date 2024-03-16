@@ -103,6 +103,13 @@ const createdParam = computed(() => {
   return state.created ? 'created=true' : null
 })
 
+/**
+ * ダークモード表示か否かをパラメータ文字列に変換したものを返す
+ */
+const darkParam = computed(() => {
+  return state.dark ? 'dark=true' : null
+})
+
 </script>
 
 <template>
