@@ -39,6 +39,16 @@ interface VersionParams {
 
 // const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExtra, ...DecomojiExplicit]
 const availableDecomojis: DecomojiItem[] = [...DecomojiBasic]
+const categoryParams = ['basic', 'extra', 'explicit'].reduce<CategoryParams>(
+  (memo, value: string) => {
+    // 全ての value をキーにして false を与えたオブジェクトにまとめる
+    return {
+      ...memo,
+      [value]: false
+    }
+  },
+  {}
+)
 const creates = availableDecomojis.map((item) => item.created)
 const updates = availableDecomojis.flatMap((item) => (item.updated ? item.updated : []))
 const uniqued = Array.from(new Set([...creates, ...updates]))
