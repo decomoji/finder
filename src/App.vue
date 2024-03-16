@@ -62,6 +62,20 @@ const versionParams: VersionParams = availableVersions.reduce((memo, value: stri
 }, {})
 
 const DECOMOJI_AMOUNT = availableDecomojis.length
+const CATEGORY_LIST = [
+  {
+    text: '基本セット',
+    value: 'basic'
+  },
+  {
+    text: '拡張セット',
+    value: 'extra'
+  },
+  {
+    text: '露骨セット',
+    value: 'explicit'
+  }
+]
 
 const state = reactive({
   category: ['basic', 'extra', 'explicit'].reduce<CategoryParams>((memo, value: string) => {
