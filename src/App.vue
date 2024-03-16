@@ -421,18 +421,18 @@ const items = ref(filteredDecomojis)
               {{ text }}
             </label>
             <button
-              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
-              :disabled="Object.values(state.version).every(v => v)"
+              :disabled="Object.values(state.version).every((v) => v)"
               type="button"
-              @click="availableVersions.forEach(value => state.version[value] = true)"
+              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+              @click="availableVersions.forEach((value) => (state.version[value] = true))"
             >
               全選択
             </button>
             <button
-              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
-              :disabled="!Object.values(state.version).some(v => v)"
+              :disabled="!Object.values(state.version).some((v) => v)"
               type="button"
-              @click="availableVersions.forEach(value => state.version[value] = false)"
+              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+              @click="availableVersions.forEach((value) => (state.version[value] = false))"
             >
               全解除
             </button>
