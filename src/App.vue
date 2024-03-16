@@ -96,6 +96,13 @@ const collectionParam = computed(() => {
   return paramaterizedArray.length > 0 ? paramaterizedArray.join('&') : null
 })
 
+/**
+ * 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
+ */
+const createdParam = computed(() => {
+  return state.created ? 'created=true' : null
+})
+
 </script>
 
 <template>
