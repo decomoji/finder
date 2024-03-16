@@ -206,6 +206,8 @@ const formattedJson = computed(() => {
     path: `./decomoji/${item.category}/${item.name}.png`
   }))
 })
+
+const items = ref(filteredDecomojis);
 </script>
 
 <template>
