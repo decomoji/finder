@@ -432,6 +432,7 @@ const items = ref(filteredDecomojis)
               class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
               type="button"
               disabled
+              @click="availableVersions.forEach(value => state.version[value] = false)"
             >
               全解除
             </button>
