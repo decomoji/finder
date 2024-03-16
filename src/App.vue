@@ -80,6 +80,22 @@ const categoryParam = computed(() => {
   return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(',')}` : null
 })
 
+/**
+ * コレクションをパラメータ文字列に変換したものを返す
+ */
+const collectionParam = computed(() => {
+  const categorizedItems = state.collection.reduce<CategorizedItems>((acc, { name, category }) => {
+    acc[category] ? acc[category].push(name) : (acc[category] = [name])
+    return acc
+  }, {})
+
+  const paramaterizedArray = (Object.keys(categorizedItems) as CategoryName[]).map(
+    (key) => `${key}=${categorizedItems[key].join(',')}`
+  )
+
+  return paramaterizedArray.length > 0 ? paramaterizedArray.join('&') : null
+})
+
 </script>
 
 <template>
