@@ -305,18 +305,6 @@ const classBySize = computed(() => {
 })
 
 const items = ref(filteredDecomojis)
-
-const updateSize = (value) => {
-  state.size = value
-}
-
-const updateCategory = (value) => {
-  state.category[value] = !state.category[value]
-}
-
-const updateVersion = (value) => {
-  state.version[value] = !state.version[value]
-}
 </script>
 
 <template>
@@ -363,7 +351,7 @@ const updateVersion = (value) => {
               :checked="state.size === value"
               type="radio"
               name="size"
-              @input="updateSize(value)"
+              @input="state.size = value"
             />
             {{ text }}
           </label>
@@ -385,7 +373,7 @@ const updateVersion = (value) => {
               :checked="state.category[value]"
               type="checkbox"
               name="category"
-              @input="updateCategory(value)"
+              @input="state.category[value] = !state.category[value]"
             />
             {{ text }}
           </label>
@@ -407,7 +395,7 @@ const updateVersion = (value) => {
               :checked="state.version[value]"
               type="checkbox"
               name="version"
-              @input="updateVersion(value)"
+              @input="state.version[value] = !state.version[value]"
             />
             {{ text }}
           </label>
