@@ -7,6 +7,7 @@ import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
 import { isStringOfNotEmpty } from './utilities/isString'
 
 type DecomojiName = string
+type SizeName = 's' | 'm' | 'l' | 'll'
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
 
