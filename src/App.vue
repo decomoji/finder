@@ -489,7 +489,12 @@ const collections = ref(state.collection)
     <main>
       <h2 class="sr-only">デコモジ一覧</h2>
       <div :class="classBySize.wrapper">
-        <button v-for="item in items" :key="item.name" :class="classBySize.button">
+        <button
+          v-for="item in items"
+          :key="item.name"
+          :class="classBySize.button"
+          @click="state.collection.push(item)"
+        >
           <img
             :alt="item.name"
             :src="item.path"
