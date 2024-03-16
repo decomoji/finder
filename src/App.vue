@@ -194,6 +194,16 @@ const filteredDecomojis = computed(() => {
 
   return availableDecomojis.filter((v: DecomojiItem) => matches(v))
 })
+
+/**
+ * コレクションを decomoji-manager 向けの json 形式に変換したものを返す
+ */
+const formattedJson = computed(() => {
+  return state.collection.map((item: DecomojiItem) => ({
+    name: item.name,
+    path: `./decomoji/${item.category}/${item.name}.png`
+  }))
+})
 </script>
 
 <template>
