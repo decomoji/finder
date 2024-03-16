@@ -267,22 +267,28 @@ const formattedJson = computed(() => {
 
 const classBySize = computed(() => {
   let wrapper = "grid grid-flow-row "
+  let button = "box-border relative border border-solid border-transparent rounded-md text-center bg-[--bgDecomoji] "
   switch(state.size) {
     case 'll':
       wrapper += "gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3";
+      button += "h-[129px]";
       break;
     case 'l':
       wrapper += "gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2";
+      button += "h-[80px]";
       break;
     case 'm':
       wrapper += "gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1";
+      button += "h-[45px]";
       break;
     case 's':
       wrapper += "gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5";
+      button += "h-[25px]";
       break;
   }
   return {
-    wrapper
+    wrapper,
+    button,
   };
 })
 
@@ -441,7 +447,7 @@ const updateVersion = (value) => {
       <button
         v-for="item in items"
         :key="item.name"
-        class="box-border relative border border-solid border-transparent rounded-md h-[129px] text-center bg-[--bgDecomoji]"
+        :class="classBySize.button"
       >
         <img
           :alt="item.name"
