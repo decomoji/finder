@@ -325,9 +325,19 @@ const updateVersion = (value) => {
         <div
           class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
         >
-          <label class="block whitespace-nowrap">
-            <input class="" name="size" type="checkbox" />
-            v5.30.0
+          <label
+            v-for="{ text, value } in VERSION_LIST"
+            :key="value"
+            class="block whitespace-nowrap"
+          >
+            <input
+              :value="value"
+              :checked="state.version[value]"
+              type="checkbox"
+              name="version"
+              @input="updateVersion(value)"
+            />
+            {{ text }}
           </label>
           <button
             class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
