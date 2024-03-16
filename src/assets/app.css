@@ -71,18 +71,6 @@
   --paddingFooter: var(--space-sm);
 }
 
-@include min {
-  :root {
-    --heightHeader: 4.375rem;
-    --paddingHeader: var(--space-md);
-    --betweenVertical: 0;
-    --betweenHorizon: var(--space-lg);
-    --betweenLogoSearch: var(--space-md);
-    --heightFooter: 3rem;
-    --paddingFooter: var(--space-md);
-  }
-}
-
 .-dark {
   --bgBody: var(--shade-800);
   --colorBody: var(--shade-200);
