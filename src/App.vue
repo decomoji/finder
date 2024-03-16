@@ -236,9 +236,9 @@ const items = ref(filteredDecomojis);
         <span
           class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
           aria-hidden="true"
-          >36000/{{ DECOMOJI_AMOUNT }}</span
+          >{{ items.length }}/{{ DECOMOJI_AMOUNT }}</span
         >
-        <span class="sr-only">{{ DECOMOJI_AMOUNT }}個中36000個が該当しています。</span>
+        <span class="sr-only">{{ DECOMOJI_AMOUNT }}個中{{ items.length }}個が該当しています。</span>
       </div>
     </div>
 
