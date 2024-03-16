@@ -321,29 +321,32 @@ const items = ref(filteredDecomojis);
     <h2 class="sr-only">デコモジ一覧</h2>
     <div class="grid grid-flow-row gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3">
       <button
+        v-for="item in items"
+        :key="item.name"
         class="box-border relative border border-solid border-transparent rounded-md h-[129px] text-center bg-[--bgDecomoji]"
       >
         <img
-          alt="dekomozisigotosiro"
-          src="/decomoji/extra/dekomozisigotosiro.png"
+          :alt="item.name"
+          :src="item.path"
           class="m-auto leading-none align-top"
           height="64"
           width="64"
         />
         <span class="block mt-[--space-sm] text-[--colorDecomoji] break-all">
           <span aria-hidden="true">:</span>
-          dekomozisigotosiro
+          {{ item.name }}
           <span aria-hidden="true">:</span>
         </span>
         <span
           class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
         >
-          <span class="sr-only">created:</span>v5.30.0
+          <span class="sr-only">created:</span>{{ item.created }}
         </span>
         <span
+          v-if="item.updated"
           class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
         >
-          <span class="sr-only">updated:</span>v5.30.1</span
+          <span class="sr-only">updated:</span>{{ item.updated }}</span
         >
       </button>
     </div>
