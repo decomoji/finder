@@ -269,6 +269,7 @@ const classBySize = computed(() => {
   let wrapper = "grid grid-flow-row "
   let button = "box-border relative border border-solid border-transparent rounded-md text-center bg-[--bgDecomoji] "
   let image = "m-auto leading-none align-top "
+  let name = "block mt-[--space-sm] text-[--colorDecomoji] break-all"
   switch(state.size) {
     case 'll':
       wrapper += "gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3";
@@ -279,22 +280,26 @@ const classBySize = computed(() => {
       wrapper += "gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2";
       button += "h-[80px]";
       image += "w-[64px] h-[64px]";
+      name = "sr-only"
       break;
     case 'm':
       wrapper += "gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1";
       button += "h-[45px]";
       image += "w-[32px] h-[32px]";
+      name = "sr-only"
       break;
     case 's':
       wrapper += "gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5";
       button += "h-[25px]";
       image += "w-[16px] h-[16px]";
+      name = "sr-only"
       break;
   }
   return {
     wrapper,
     button,
     image,
+    name
   };
 })
 
@@ -462,10 +467,10 @@ const updateVersion = (value) => {
           height="64"
           width="64"
         />
-        <span class="block mt-[--space-sm] text-[--colorDecomoji] break-all">
-          <span aria-hidden="true">:</span>
-          {{ item.name }}
-          <span aria-hidden="true">:</span>
+        <span :class="classBySize.name">
+          <span aria-hidden="true">:</span>{{
+            item.name
+          }}<span aria-hidden="true">:</span>
         </span>
         <span
           class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
