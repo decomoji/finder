@@ -78,13 +78,7 @@ const CATEGORY_LIST = [
 ]
 
 const state = reactive({
-  category: ['basic', 'extra', 'explicit'].reduce<CategoryParams>((memo, value: string) => {
-  // 全ての value をキーにして false を与えたオブジェクトにまとめる
-  return {
-    ...memo,
-    [value]: false
-  }
-}, {}),
+  category: categoryParams,
   collection: [],
   created: false,
   dark: false,
@@ -93,7 +87,7 @@ const state = reactive({
   size: 'll',
   updated: false,
   vertical: undefined,
-  version: versionParams,
+  version: versionParams
 })
 
 /**
