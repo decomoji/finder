@@ -421,19 +421,19 @@ const items = ref(filteredDecomojis)
           class="absolute right-0 flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
         >
           <label class="block whitespace-nowrap">
-            <input name="option" type="checkbox" checked />
+            <input v-model="state.created" :checked="state.created" type="checkbox" name="option" />
             作成バージョンの表示
           </label>
           <label class="block whitespace-nowrap">
-            <input name="option" type="checkbox" checked />
+            <input v-model="state.updated" :checked="state.updated" type="checkbox" name="option" />
             修正バージョンの表示
           </label>
           <label class="block whitespace-nowrap">
-            <input name="option" type="checkbox" checked />
+            <input v-model="state.reacted" :checked="state.reacted" type="checkbox" name="option" />
             リアクション済みのスタイル
           </label>
           <label class="block whitespace-nowrap">
-            <input name="option" type="checkbox" checked />
+            <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
             ダークモード
           </label>
         </div>
