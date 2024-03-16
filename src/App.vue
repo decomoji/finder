@@ -317,6 +317,7 @@ const classBySize = computed(() => {
 })
 
 const items = ref(filteredDecomojis)
+const collections = ref(state.collection)
 </script>
 
 <template>
