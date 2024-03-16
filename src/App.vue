@@ -70,6 +70,15 @@ const state = reactive({
   version: versionParams,
 })
 
+/**
+ * 表示カテゴリーをパラメータ文字列に変換したものを返す
+ */
+const categoryParam = computed(() => {
+  const arrayedCategories = (Object.keys(state.category) as CategoryName[]).filter(
+    (key) => state.category[key]
+  )
+  return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(',')}` : null
+})
 
 </script>
 
