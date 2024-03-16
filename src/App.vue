@@ -15,6 +15,11 @@ interface CategoryListItem {
   value: CategoryName
 }
 
+interface VersionListItem {
+  text: VersionName
+  value: VersionName
+}
+
 interface CategorizedItems {
   [key: string]: DecomojiName[]
 }
@@ -81,6 +86,13 @@ const CATEGORY_LIST: CategoryListItem[] = [
     value: 'explicit'
   }
 ]
+const VERSION_LIST: VersionListItem[] =
+  availableVersions.map((value: string) => ({
+    text: value,
+    value,
+  })).sort((a, b) =>
+    a.value.localeCompare(b.value, undefined, { numeric: true })
+  );
 
 const state = reactive({
   category: categoryParams,
