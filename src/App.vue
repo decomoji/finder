@@ -167,6 +167,14 @@ const versionParam = computed(() => {
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
   return versions.length > 0 ? `version=${versions.join(',')}` : null
 })
+
+/**
+ * コレクションが垂直分割表示か否かをパラメータ文字列に変換したものを返す
+ */
+const verticalParam = computed(() => {
+  return state.vertical ? 'vertical=true' : null
+})
+
 </script>
 
 <template>
