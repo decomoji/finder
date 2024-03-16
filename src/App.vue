@@ -222,6 +222,7 @@ const items = ref(filteredDecomojis);
       </h1>
       <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
         <input
+          v-model="state.search"
           class="py-[--space-sm] pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
           name="search"
           type="text"
