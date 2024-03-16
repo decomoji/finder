@@ -116,6 +116,14 @@ const darkParam = computed(() => {
 const reactedParam = computed(() => {
   return state.reacted ? 'reacted=true' : null
 })
+
+/**
+ * 検索クエリをパラメータ文字列に変換したものを返す
+ */
+const searchParam = computed(() => {
+  return isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null
+})
+
 </script>
 
 <template>
