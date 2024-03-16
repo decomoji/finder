@@ -259,6 +259,15 @@ const filteredDecomojis = computed(() => {
   return availableDecomojis.filter((v: DecomojiItem) => matches(v))
 })
 
+const downloadURL = computed(() => {
+  const jsonString = JSON.stringify(
+    state.collection.map(({ name, path }: DecomojiItem) => ({
+      name,
+      path
+    }))
+  )
+  const blob = new Blob([jsonString], { type: 'application/json' })
+  return window.URL.createObjectURL(blob)
 })
 
 const classBySize = computed(() => {
