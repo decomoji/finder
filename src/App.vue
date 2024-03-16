@@ -110,6 +110,12 @@ const darkParam = computed(() => {
   return state.dark ? 'dark=true' : null
 })
 
+/**
+ * リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
+ */
+const reactedParam = computed(() => {
+  return state.reacted ? 'reacted=true' : null
+})
 </script>
 
 <template>
