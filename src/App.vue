@@ -124,6 +124,12 @@ const searchParam = computed(() => {
   return isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null
 })
 
+/**
+ * 表示サイズをパラメータ文字列に変換したものを返す
+ */
+const sizeParam = computed(() => {
+  return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null
+})
 </script>
 
 <template>
