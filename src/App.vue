@@ -130,6 +130,13 @@ const searchParam = computed(() => {
 const sizeParam = computed(() => {
   return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null
 })
+
+/**
+ * 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
+ */
+const updatedParam = computed(() => {
+  return state.updated ? 'updated=true' : null
+})
 </script>
 
 <template>
