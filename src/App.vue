@@ -265,6 +265,27 @@ const formattedJson = computed(() => {
   }))
 })
 
+const classBySize = computed(() => {
+  let wrapper = "grid grid-flow-row "
+  switch(state.size) {
+    case 'll':
+      wrapper += "gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3";
+      break;
+    case 'l':
+      wrapper += "gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2";
+      break;
+    case 'm':
+      wrapper += "gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1";
+      break;
+    case 's':
+      wrapper += "gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5";
+      break;
+  }
+  return {
+    wrapper
+  };
+})
+
 const items = ref(filteredDecomojis)
 
 const updateSize = (value) => {
@@ -416,7 +437,7 @@ const updateVersion = (value) => {
 
   <main>
     <h2 class="sr-only">デコモジ一覧</h2>
-    <div class="grid grid-flow-row gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3">
+    <div :class="classBySize.wrapper">
       <button
         v-for="item in items"
         :key="item.name"
