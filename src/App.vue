@@ -319,9 +319,15 @@ const updateVersion = (value) => {
         <div
           class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
         >
-          <label class="block whitespace-nowrap">
-            <input class="" name="size" type="radio" checked />
-            64px＆名前
+          <label v-for="{ text, value } in SIZE_LIST" :key="value" class="block whitespace-nowrap">
+            <input
+              :value="value"
+              :checked="state.size === value"
+              type="radio"
+              name="size"
+              @input="updateSize(value)"
+            />
+            {{ text }}
           </label>
         </div>
       </details>
