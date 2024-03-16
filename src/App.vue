@@ -51,6 +51,8 @@ const versionParams: VersionParams = availableVersions.reduce((memo, value: stri
   }
 }, {})
 
+const DECOMOJI_AMOUNT = availableDecomojis.length
+
 const state = reactive({
   category: ['basic', 'extra', 'explicit'].reduce<CategoryParams>((memo, value: string) => {
   // 全ての value をキーにして false を与えたオブジェクトにまとめる
@@ -231,9 +233,9 @@ const formattedJson = computed(() => {
         <span
           class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
           aria-hidden="true"
-          >36000/36000</span
+          >36000/{{ DECOMOJI_AMOUNT }}</span
         >
-        <span class="sr-only">36000個中36000個が該当しています。</span>
+        <span class="sr-only">{{ DECOMOJI_AMOUNT }}個中36000個が該当しています。</span>
       </div>
     </div>
 
