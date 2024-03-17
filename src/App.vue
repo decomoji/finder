@@ -558,17 +558,31 @@ const collections = ref(state.collection)
           </p>
         </div>
         <div class="flex gap-2.5">
-          <button class="flex justify-center items-center w-8 h-8" aria-label="コレクションをアルファベット順にソートする">
+          <button
+            class="flex justify-center items-center w-8 h-8"
+            title="コレクションをアルファベット順にソートする"
+            @click="
+              state.collection = state.collection.sort((a, b) => a.name.localeCompare(b.name))
+            "
+          >
             <span class="material-icons" aria-hidden="true">sort</span>
           </button>
-          <button class="flex justify-center items-center w-8 h-8" aria-label="コレクションリンクをクリップボードにコピーする">
+          <!-- <button class="flex justify-center items-center w-8 h-8" title="コレクションリンクをクリップボードにコピーする">
             <span class="material-icons" aria-hidden="true">link</span>
-          </button>
-          <a class="flex justify-center items-center w-8 h-8" :href="downloadURL" download="my-collection.json">
+          </button> -->
+          <a
+            class="flex justify-center items-center w-8 h-8"
+            :href="downloadURL"
+            download="my-collection.json"
+          >
             <span class="sr-only">コレクションをJSON形式でダウンロードする</span>
             <span class="material-icons" aria-hidden="true">save_alt</span>
           </a>
-          <button class="flex justify-center items-center w-8 h-8" aria-label="コレクションを空にする">
+          <button
+            class="flex justify-center items-center w-8 h-8"
+            title="コレクションを空にする"
+            @click="state.collection.splice(0, state.collection.length)"
+          >
             <span class="material-icons" aria-hidden="true">delete_forever</span>
           </button>
         </div>
