@@ -74,16 +74,12 @@ const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
   ...v,
   collected: false
 }))
-const categoryParams = ['basic', 'extra', 'explicit'].reduce<CategoryParams>(
-  (memo, value: string) => {
-    // 全ての value をキーにして false を与えたオブジェクトにまとめる
-    return {
-      ...memo,
-      [value]: false
-    }
-  },
-  {}
-)
+const categoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
+  return ['basic', 'extra', 'explicit'].reduce((acc, name: string) => ({
+    ...acc,
+    [name]: category.includes(name) ? true : false
+  }), {})
+}
 const creates = availableDecomojis.map((item) => item.created)
 const updates = availableDecomojis.flatMap((item) => (item.updated ? item.updated : []))
 const uniqued = Array.from(new Set([...creates, ...updates]))
@@ -137,7 +133,7 @@ const VERSION_LIST: VersionListItem[] = availableVersions
   .sort((a, b) => a.value.localeCompare(b.value, undefined, { numeric: true }))
 
 const state: State = reactive({
-  category: categoryParams,
+  category: categoryParams([]),
   collection: [],
   created: false,
   dark: false,
