@@ -84,13 +84,12 @@ const creates = availableDecomojis.map((item) => item.created)
 const updates = availableDecomojis.flatMap((item) => (item.updated ? item.updated : []))
 const uniqued = Array.from(new Set([...creates, ...updates]))
 const availableVersions = uniqued.sort((a, b) => a.localeCompare(b))
-const versionParams: VersionParams = availableVersions.reduce((memo, value: string) => {
-  // 全ての value をキーにして false を与えたオブジェクトにまとめる
-  return {
-    ...memo,
-    [value]: false
-  }
-}, {})
+const versionParams: (version: VersionName[]) => VersionParams = (version) => {
+  return availableVersions.reduce((acc, name: string) => ({
+    ...acc,
+    [name]: version.includes(name) ? true : false
+  }), {})
+}
 
 const DECOMOJI_AMOUNT = availableDecomojis.length
 const SIZE_LIST: SizeListItem[] = [
@@ -142,7 +141,7 @@ const state: State = reactive({
   size: 'll',
   updated: false,
   vertical: undefined,
-  version: versionParams
+  version: versionParams([])
 })
 
 /**
