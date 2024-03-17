@@ -64,7 +64,7 @@ interface State {
   version: VersionParams
 }
 
-// const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExtra, ...DecomojiExplicit]
+// 全 デコモジアイテムに collected プロパティを追加する
 const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
   ...v,
   collected: false
