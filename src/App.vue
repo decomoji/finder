@@ -278,6 +278,7 @@ const classBySize = computed(() => {
   let wrapper = 'grid grid-flow-row '
   let cWrapper = wrapper
   let button = 'box-border relative border border-solid rounded-md text-center '
+  let cButton = button + 'border border-solid border-transparent bg-[--bgDecomojiCollected] '
   let image = 'm-auto leading-none align-top '
   let name = 'block mt-[--space-sm] text-[--colorDecomoji] break-all'
 
@@ -286,12 +287,14 @@ const classBySize = computed(() => {
       wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3'
       cWrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-3'
       button += 'h-[129px]'
+      cButton += 'h-[80px]'
       image += 'w-[64px] h-[64px]'
       break
     case 'l':
       wrapper += 'gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2'
       cWrapper += wrapper
       button += 'h-[80px]'
+      cButton += button
       image += 'w-[64px] h-[64px]'
       name = 'sr-only'
       break
@@ -299,6 +302,7 @@ const classBySize = computed(() => {
       wrapper += 'gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1'
       cWrapper += wrapper
       button += 'h-[45px]'
+      cButton += button
       image += 'w-[32px] h-[32px]'
       name = 'sr-only'
       break
@@ -306,6 +310,7 @@ const classBySize = computed(() => {
       wrapper += 'gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5'
       cWrapper += wrapper
       button += 'h-[25px]'
+      cButton += button
       image += 'w-[16px] h-[16px]'
       name = 'sr-only'
       break
@@ -314,6 +319,7 @@ const classBySize = computed(() => {
     wrapper,
     cWrapper,
     button,
+    cButton,
     image,
     name
   }
@@ -565,7 +571,7 @@ const collections = ref(state.collection)
         <button
           v-for="(item, i) in collections"
           :key="`${item.category}/${item.name}`"
-          :class="classBySize.button"
+          :class="classBySize.cButton"
           @dblclick="state.collection.splice(i, 1)"
           @keydown="state.collection.splice(i, 1)"
         >
