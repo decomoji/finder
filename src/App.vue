@@ -160,16 +160,18 @@ const categoryParam = computed(() => {
  * コレクションをパラメータ文字列に変換したものを返す
  */
 const collectionParam = computed(() => {
-  const categorizedItems = state.collection.reduce<CategorizedItems>((acc, { name, category }) => {
-    acc[category] ? acc[category].push(name) : (acc[category] = [name])
-    return acc
-  }, {})
+  // const categorizedItems = state.collection.reduce<CategorizedItems>((acc, { name, category }) => {
+  //   acc[category] ? acc[category].push(name) : (acc[category] = [name])
+  //   return acc
+  // }, {})
 
-  const paramaterizedArray = (Object.keys(categorizedItems) as CategoryName[]).map(
-    (key) => `${key}=${categorizedItems[key].join(',')}`
-  )
+  // const paramaterizedArray = (Object.keys(categorizedItems) as CategoryName[]).map(
+  //   (key) => `${key}=${categorizedItems[key].join(',')}`
+  // )
 
-  return paramaterizedArray.length > 0 ? paramaterizedArray.join('&') : null
+  return state.collection.length > 0
+    ? `collection=${state.collection.map((v) => v.name).join(',')}`
+    : null
 })
 
 /**
