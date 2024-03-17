@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "resolveJsonModule": true,
-  },
   "files": [],
   "references": [
     {
