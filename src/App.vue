@@ -497,39 +497,34 @@ const collections = ref(state.collection)
       <h2 class="sr-only">デコモジ一覧</h2>
       <div :class="classBySize.wrapper">
         <button
-          v-for="item in items"
-          :key="item.name"
+          v-for="{ name, path, created, updated, collected } in items"
+          :key="`main_${name}`"
           :class="[
             classBySize.button,
             {
-              'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted]': !item.collected && state.reacted,
-              'border-transparent bg-[--bgDecomoji]': !item.collected && !state.reacted,
-              'border-[--borderDecomojiCollected] bg-[--bgDecomojiCollected]': item.collected
+              'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted]':
+                !collected && state.reacted,
+              'border-transparent bg-[--bgDecomoji]': !collected && !state.reacted,
+              'border-[--borderDecomojiCollected] bg-[--bgDecomojiCollected]': collected
             }
           ]"
           @click="state.collection.push(item)"
         >
-          <img
-            :alt="item.name"
-            :src="item.path"
-            :class="classBySize.image"
-            height="64"
-            width="64"
-          />
+          <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
           <span :class="classBySize.name">
-            <span aria-hidden="true">:</span>{{ item.name }}<span aria-hidden="true">:</span>
+            <span aria-hidden="true">:</span>{{ name }}<span aria-hidden="true">:</span>
           </span>
           <span
             v-if="state.created"
             class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
           >
-            <span class="sr-only">created:</span>{{ item.created }}
+            <span class="sr-only">created:</span>{{ created }}
           </span>
           <span
-            v-if="state.updated && item.updated"
+            v-if="state.updated && updated"
             class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
           >
-            <span class="sr-only">updated:</span>{{ item.updated }}</span
+            <span class="sr-only">updated:</span>{{ updated }}</span
           >
         </button>
       </div>
@@ -567,19 +562,13 @@ const collections = ref(state.collection)
       </div>
       <div :class="classBySize.cWrapper">
         <button
-          v-for="(item, i) in collections"
-          :key="`${item.category}/${item.name}`"
+          v-for="({ name, path }, i) in collections"
+          :key="`collection_${name}`"
           :class="classBySize.cButton"
           @dblclick="state.collection.splice(i, 1)"
           @keydown="state.collection.splice(i, 1)"
         >
-          <img
-            :alt="item.name"
-            :src="item.path"
-            :class="classBySize.image"
-            height="64"
-            width="64"
-          />
+          <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
         </button>
       </div>
     </section>
