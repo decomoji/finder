@@ -527,11 +527,11 @@ const collections = ref(state.collection)
     >
       <div class="flex p-2.5 pb-0">
         <div class="flex flex-grow flex-wrap items-baseline">
-          <h2 class="flex-grow text-base leading-[1.4]">
+          <h2 class="flex-grow mr-2.5 text-base font-bold leading-[1.4]">
             <span aria-hidden="true">コレクション：{{ state.collection.length }}</span
             ><span class="sr-only">コレクション（計{{ state.collection.length }}個）</span>
           </h2>
-          <p class="flex-grow-[9999] m-0 mr-2.5 mb-2.5 text-sm leading-[1.4]">
+          <p class="flex-grow-[9999] mb-2.5 text-sm leading-[1.4]">
             ダブルクリックするか delete キーでコレクションから外せます。
           </p>
         </div>
