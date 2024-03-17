@@ -563,13 +563,13 @@ onBeforeMount(() => {
             <span aria-hidden="true">:</span>{{ name }}<span aria-hidden="true">:</span>
           </span>
           <span
-            v-if="state.created"
+            v-if="state.size === 'll' && state.created"
             class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
           >
             <span class="sr-only">created:</span>{{ created }}
           </span>
           <span
-            v-if="state.updated && updated"
+            v-if="state.size === 'll' && state.updated && updated"
             class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
           >
             <span class="sr-only">updated:</span>{{ updated }}</span
