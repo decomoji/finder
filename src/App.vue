@@ -279,14 +279,6 @@ const classBySize = computed(() => {
   let button = 'box-border relative border border-solid rounded-md text-center '
   let image = 'm-auto leading-none align-top '
   let name = 'block mt-[--space-sm] text-[--colorDecomoji] break-all'
-  switch (state.reacted) {
-    case false:
-      button += 'border-transparent bg-[--bgDecomoji] '
-      break
-    case true:
-      button += 'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted] '
-      break
-  }
   switch (state.size) {
     case 'll':
       wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3'
@@ -496,7 +488,14 @@ const collections = ref(state.collection)
         <button
           v-for="item in items"
           :key="item.name"
-          :class="classBySize.button"
+          :class="[
+            classBySize.button,
+            {
+              'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted]': !item.collected && state.reacted,
+              'border-transparent bg-[--bgDecomoji]': !item.collected && !state.reacted,
+              'border-[--borderDecomojiCollected] bg-[--bgDecomojiCollected]': item.collected
+            }
+          ]"
           @click="state.collection.push(item)"
         >
           <img
