@@ -148,7 +148,7 @@ const state: State = reactive({
  * 表示カテゴリーをパラメータ文字列に変換したものを返す
  */
 const categoryParam = computed(() => {
-  const arrayedCategories = (Object.keys(state.category) as CategoryName[]).filter(
+  const arrayedCategories = (Object.keys(state.category)).filter(
     (key) => state.category[key]
   )
   return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(',')}` : null
@@ -158,15 +158,6 @@ const categoryParam = computed(() => {
  * コレクションをパラメータ文字列に変換したものを返す
  */
 const collectionParam = computed(() => {
-  // const categorizedItems = state.collection.reduce<CategorizedItems>((acc, { name, category }) => {
-  //   acc[category] ? acc[category].push(name) : (acc[category] = [name])
-  //   return acc
-  // }, {})
-
-  // const paramaterizedArray = (Object.keys(categorizedItems) as CategoryName[]).map(
-  //   (key) => `${key}=${categorizedItems[key].join(',')}`
-  // )
-
   return state.collection.length > 0
     ? `collection=${state.collection.map((v) => v.name).join(',')}`
     : null
