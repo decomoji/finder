@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, onBeforeMount, reactive, ref, watch } from 'vue'
 import DecomojiBasic from 'decomoji/configs/v5_basic.json'
 import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
@@ -328,6 +328,8 @@ const classBySize = computed(() => {
 
 const items = ref(filteredDecomojis)
 const collections = ref(state.collection)
+
+watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
 </script>
 
 <template>
