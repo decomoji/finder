@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
-    "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/"
+    "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
+    "prepare": "husky install"
   },
   "dependencies": {
     "decomoji": "github:decomoji/decomoji",
