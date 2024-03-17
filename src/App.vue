@@ -36,6 +36,7 @@ interface DecomojiItem {
   path: string
   created: VersionName
   updated?: VersionName
+  collected: boolean
 }
 
 interface MatchesParams {
@@ -66,7 +67,7 @@ interface State {
 }
 
 // const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExtra, ...DecomojiExplicit]
-const availableDecomojis: DecomojiItem[] = [...DecomojiBasic]
+const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({ ...v, collected: false}))
 const categoryParams = ['basic', 'extra', 'explicit'].reduce<CategoryParams>(
   (memo, value: string) => {
     // 全ての value をキーにして false を与えたオブジェクトにまとめる
@@ -256,7 +257,10 @@ const filteredDecomojis = computed(() => {
     return nameMatches && categoryMatches && (createdMatches || updatedMatches)
   }
 
-  return availableDecomojis.filter((v: DecomojiItem) => matches(v))
+  return availableDecomojis.filter((v: DecomojiItem) => matches(v)).map((decomoji) => ({
+    ...decomoji,
+    collected: state.collection.find((item) => item.name === decomoji.name) ? true : false
+  }))
 })
 
 const downloadURL = computed(() => {
