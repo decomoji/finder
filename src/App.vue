@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive, ref, watch } from 'vue'
+import { computed, onBeforeMount, reactive, watch } from 'vue'
 import DecomojiBasic from 'decomoji/configs/v5_basic.json'
 import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
@@ -325,9 +325,6 @@ const classBySize = computed(() => {
   }
 })
 
-const items = ref(filteredDecomojis)
-const collections = ref(state.collection)
-
 watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
 
 onBeforeMount(() => {
@@ -405,10 +402,10 @@ onBeforeMount(() => {
           <span
             class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
             aria-hidden="true"
-            >{{ items.length }}/{{ DECOMOJI_AMOUNT }}</span
+            >{{ filteredDecomojis.length }}/{{ DECOMOJI_AMOUNT }}</span
           >
           <span class="sr-only"
-            >{{ DECOMOJI_AMOUNT }}個中{{ items.length }}個が該当しています。</span
+            >{{ DECOMOJI_AMOUNT }}個中{{ filteredDecomojis.length }}個が該当しています。</span
           >
         </div>
       </div>
@@ -541,7 +538,7 @@ onBeforeMount(() => {
       <h2 class="sr-only">デコモジ一覧</h2>
       <div :class="classBySize.wrapper">
         <button
-          v-for="{ name, path, created, updated, collected } in items"
+          v-for="{ name, path, created, updated, collected } in filteredDecomojis"
           :key="`main_${name}`"
           :class="[
             classBySize.button,
@@ -626,7 +623,7 @@ onBeforeMount(() => {
       </div>
       <div :class="classBySize.cWrapper">
         <button
-          v-for="({ name, path }, i) in collections"
+          v-for="({ name, path }, i) in state.collection"
           :key="`collection_${name}`"
           :class="classBySize.cButton"
           @dblclick="state.collection.splice(i, 1)"
