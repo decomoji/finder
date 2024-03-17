@@ -6,7 +6,6 @@ import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
 
 import { isStringOfNotEmpty } from './utilities/isString'
 
-type DecomojiName = string
 type SizeName = 's' | 'm' | 'l' | 'll'
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
@@ -24,10 +23,6 @@ interface CategoryListItem {
 interface VersionListItem {
   text: VersionName
   value: VersionName
-}
-
-interface CategorizedItems {
-  [key: string]: DecomojiName[]
 }
 
 interface DecomojiItem {
@@ -75,20 +70,26 @@ const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
   collected: false
 }))
 const categoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
-  return ['basic', 'extra', 'explicit'].reduce((acc, name: string) => ({
-    ...acc,
-    [name]: category.includes(name) ? true : false
-  }), {})
+  return ['basic', 'extra', 'explicit'].reduce(
+    (acc, name: string) => ({
+      ...acc,
+      [name]: category.includes(name) ? true : false
+    }),
+    {}
+  )
 }
-const creates = availableDecomojis.map((item) => item.created)
-const updates = availableDecomojis.flatMap((item) => (item.updated ? item.updated : []))
+const creates = availableDecomojis.map((v) => v.created)
+const updates = availableDecomojis.flatMap((v) => (v.updated ? v.updated : []))
 const uniqued = Array.from(new Set([...creates, ...updates]))
 const availableVersions = uniqued.sort((a, b) => a.localeCompare(b))
 const versionParams: (version: VersionName[]) => VersionParams = (version) => {
-  return availableVersions.reduce((acc, name: string) => ({
-    ...acc,
-    [name]: version.includes(name) ? true : false
-  }), {})
+  return availableVersions.reduce(
+    (acc, name: string) => ({
+      ...acc,
+      [name]: version.includes(name) ? true : false
+    }),
+    {}
+  )
 }
 
 const DECOMOJI_AMOUNT = availableDecomojis.length
@@ -264,7 +265,7 @@ const filteredDecomojis = computed(() => {
     .filter((v: DecomojiItem) => matches(v))
     .map((decomoji) => ({
       ...decomoji,
-      collected: state.collection.find((item) => item.name === decomoji.name) ? true : false
+      collected: state.collection.find((v) => v.name === decomoji.name) ? true : false
     }))
 })
 
@@ -513,7 +514,7 @@ const collections = ref(state.collection)
           @click="
             collected
               ? state.collection.splice(
-                  state.collection.findIndex((item) => item.name === name),
+                  state.collection.findIndex((v) => v.name === name),
                   1
                 )
               : state.collection.push({ name, path })
