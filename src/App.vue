@@ -267,12 +267,7 @@ const filteredDecomojis = computed(() => {
 })
 
 const downloadURL = computed(() => {
-  const jsonString = JSON.stringify(
-    state.collection.map(({ name, path }: DecomojiItem) => ({
-      name,
-      path
-    }))
-  )
+  const jsonString = JSON.stringify(state.collection)
   const blob = new Blob([jsonString], { type: 'application/json' })
   return window.URL.createObjectURL(blob)
 })
