@@ -330,6 +330,46 @@ const items = ref(filteredDecomojis)
 const collections = ref(state.collection)
 
 watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
+
+onBeforeMount(() => {
+  const {
+    category,
+    collection,
+    created,
+    dark,
+    reacted,
+    search,
+    size,
+    updated,
+    version
+  }: {
+    [key: string]: string
+  } = location.search
+    .substring(1)
+    .split('&')
+    .reduce((acc, str) => {
+      const [key, value] = str.split('=')
+      return {
+        ...acc,
+        [key]: value
+      }
+    }, {})
+
+  state.search = search ? search : state.search
+  state.size = size ? (size as SizeName) : state.size
+  state.category = category ? categoryParams(category.split(',')) : state.category
+  state.collection = collection
+    ? collection.split(',').map((v) => ({
+        name: v,
+        path: availableDecomojis.find((decomoji) => decomoji.name === v)!.path
+      }))
+    : state.collection
+  state.version = version ? versionParams(version.split(',')) : state.version
+  state.created = created === 'true' ? true : false
+  state.dark = dark === 'true' ? true : false
+  state.reacted = reacted === 'true' ? true : false
+  state.updated = updated === 'true' ? true : false
+})
 </script>
 
 <template>
