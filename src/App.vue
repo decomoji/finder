@@ -219,15 +219,15 @@ const updatedParam = computed(() => {
  */
 const urlParams = computed(() => {
   return [
+    searchParam.value,
     sizeParam.value,
     categoryParam.value,
-    darkParam.value,
-    reactedParam.value,
+    collectionParam.value,
     versionParam.value,
-    searchParam.value,
     createdParam.value,
     updatedParam.value,
-    collectionParam.value
+    reactedParam.value,
+    darkParam.value
   ]
     .filter((v) => !!v)
     .join('&')
