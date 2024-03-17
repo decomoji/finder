@@ -141,7 +141,6 @@ const state: State = reactive({
   search: '',
   size: 'll',
   updated: false,
-  vertical: undefined,
   version: versionParams([])
 })
 
