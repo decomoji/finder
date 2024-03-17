@@ -557,18 +557,18 @@ const collections = ref(state.collection)
             ダブルクリックするか delete キーでコレクションから外せます。
           </p>
         </div>
-        <div class="flex">
-          <button aria-label="コレクションをアルファベット順にソートする">
+        <div class="flex gap-2.5">
+          <button class="flex justify-center items-center w-8 h-8" aria-label="コレクションをアルファベット順にソートする">
             <span class="material-icons" aria-hidden="true">sort</span>
           </button>
-          <button aria-label="コレクションリンクをクリップボードにコピーする">
+          <button class="flex justify-center items-center w-8 h-8" aria-label="コレクションリンクをクリップボードにコピーする">
             <span class="material-icons" aria-hidden="true">link</span>
           </button>
-          <a :href="downloadURL" download="my-collection.json">
+          <a class="flex justify-center items-center w-8 h-8" :href="downloadURL" download="my-collection.json">
             <span class="sr-only">コレクションをJSON形式でダウンロードする</span>
             <span class="material-icons" aria-hidden="true">save_alt</span>
           </a>
-          <button aria-label="コレクションを空にする">
+          <button class="flex justify-center items-center w-8 h-8" aria-label="コレクションを空にする">
             <span class="material-icons" aria-hidden="true">delete_forever</span>
           </button>
         </div>
