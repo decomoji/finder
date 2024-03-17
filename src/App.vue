@@ -39,6 +39,9 @@ interface DecomojiItem {
   collected: boolean
 }
 
+interface CollectedDecomojiItem
+  extends Omit<DecomojiItem, 'category' | 'created' | 'updated' | 'collected'> {}
+
 interface MatchesParams {
   name: string
   category: CategoryName
@@ -56,7 +59,7 @@ interface VersionParams {
 
 interface State {
   category: CategoryParams
-  collection: DecomojiItem[]
+  collection: CollectedDecomojiItem[]
   created: boolean
   dark: boolean
   reacted: boolean
