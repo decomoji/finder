@@ -510,7 +510,14 @@ const collections = ref(state.collection)
               'border-[--borderDecomojiCollected] bg-[--bgDecomojiCollected]': collected
             }
           ]"
-          @click="state.collection.push(item)"
+          @click="
+            collected
+              ? state.collection.splice(
+                  state.collection.findIndex((item) => item.name === name),
+                  1
+                )
+              : state.collection.push({ name, path })
+          "
         >
           <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
           <span :class="classBySize.name">
