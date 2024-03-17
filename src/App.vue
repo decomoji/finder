@@ -71,7 +71,7 @@ const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
 }))
 const categoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
   return ['basic', 'extra', 'explicit'].reduce(
-    (acc, name: string) => ({
+    (acc, name) => ({
       ...acc,
       [name]: category.includes(name) ? true : false
     }),
@@ -84,7 +84,7 @@ const uniqued = Array.from(new Set([...creates, ...updates]))
 const availableVersions = uniqued.sort((a, b) => a.localeCompare(b))
 const versionParams: (version: VersionName[]) => VersionParams = (version) => {
   return availableVersions.reduce(
-    (acc, name: string) => ({
+    (acc, name) => ({
       ...acc,
       [name]: version.includes(name) ? true : false
     }),
@@ -126,7 +126,7 @@ const CATEGORY_LIST: CategoryListItem[] = [
   }
 ]
 const VERSION_LIST: VersionListItem[] = availableVersions
-  .map((value: string) => ({
+  .map((value) => ({
     text: value,
     value
   }))
