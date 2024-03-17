@@ -280,7 +280,7 @@ const classBySize = computed(() => {
   let button = 'box-border relative border border-solid rounded-md text-center '
   let cButton = button + 'border border-solid border-transparent bg-[--bgDecomojiCollected] '
   let image = 'm-auto leading-none align-top '
-  let name = 'block mt-[--space-sm] text-[--colorDecomoji] break-all'
+  let name = 'block mt-2.5 text-[--colorDecomoji] break-all'
 
   switch (state.size) {
     case 'll':
@@ -389,18 +389,18 @@ onBeforeMount(() => {
         <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
           <input
             v-model="state.search"
-            class="py-[--space-sm] pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
+            class="py-2.5 pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
             type="text"
             name="search"
             title="検索"
           />
           <span
-            class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-[--space-xs] m-auto w-6 h-6"
+            class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-2 m-auto w-6 h-6"
             aria-hidden="true"
             >search</span
           >
           <span
-            class="pointer-events-none absolute top-0 bottom-0 right-[--space-xs] m-auto h-4 leading-none"
+            class="pointer-events-none absolute top-0 bottom-0 right-2 m-auto h-4 leading-none"
             aria-hidden="true"
             >{{ filteredDecomojis.length }}/{{ DECOMOJI_AMOUNT }}</span
           >
@@ -412,9 +412,9 @@ onBeforeMount(() => {
 
       <div class="flex items-center gap-[--betweenLogoSearch]">
         <details class="relative" name="selectors">
-          <summary class="p-[--space-sm] rounded-md">サイズ</summary>
+          <summary class="p-2.5 rounded-md">サイズ</summary>
           <div
-            class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label
               v-for="{ text, value } in SIZE_LIST"
@@ -434,9 +434,9 @@ onBeforeMount(() => {
         </details>
 
         <details class="relative" name="selectors">
-          <summary class="p-[--space-sm] rounded-md">カテゴリー</summary>
+          <summary class="p-2.5 rounded-md">カテゴリー</summary>
           <div
-            class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label
               v-for="{ text, value } in CATEGORY_LIST"
@@ -456,9 +456,9 @@ onBeforeMount(() => {
         </details>
 
         <details class="relative" name="selectors">
-          <summary class="p-[--space-sm] rounded-md">バージョン</summary>
+          <summary class="p-2.5 rounded-md">バージョン</summary>
           <div
-            class="absolute flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label
               v-for="{ text, value } in VERSION_LIST"
@@ -494,9 +494,9 @@ onBeforeMount(() => {
         </details>
 
         <details class="relative" name="selectors">
-          <summary class="p-[--space-sm] rounded-md">オプション</summary>
+          <summary class="p-2.5 rounded-md">オプション</summary>
           <div
-            class="absolute right-0 flex flex-col gap-[--space-md] mt-1 p-[--space-md] rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute right-0 flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label class="block whitespace-nowrap">
               <input
