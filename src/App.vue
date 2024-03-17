@@ -276,29 +276,35 @@ const downloadURL = computed(() => {
 
 const classBySize = computed(() => {
   let wrapper = 'grid grid-flow-row '
+  let cWrapper = wrapper
   let button = 'box-border relative border border-solid rounded-md text-center '
   let image = 'm-auto leading-none align-top '
   let name = 'block mt-[--space-sm] text-[--colorDecomoji] break-all'
+
   switch (state.size) {
     case 'll':
       wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3'
+      cWrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-3'
       button += 'h-[129px]'
       image += 'w-[64px] h-[64px]'
       break
     case 'l':
       wrapper += 'gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2'
+      cWrapper += wrapper
       button += 'h-[80px]'
       image += 'w-[64px] h-[64px]'
       name = 'sr-only'
       break
     case 'm':
       wrapper += 'gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1'
+      cWrapper += wrapper
       button += 'h-[45px]'
       image += 'w-[32px] h-[32px]'
       name = 'sr-only'
       break
     case 's':
       wrapper += 'gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5'
+      cWrapper += wrapper
       button += 'h-[25px]'
       image += 'w-[16px] h-[16px]'
       name = 'sr-only'
@@ -306,6 +312,7 @@ const classBySize = computed(() => {
   }
   return {
     wrapper,
+    cWrapper,
     button,
     image,
     name
@@ -554,7 +561,7 @@ const collections = ref(state.collection)
           </button>
         </div>
       </div>
-      <div class="__body">
+      <div :class="classBySize.cWrapper">
         <button
           v-for="(item, i) in collections"
           :key="`${item.category}/${item.name}`"
