@@ -419,7 +419,7 @@ onBeforeMount(() => {
             <label
               v-for="{ text, value } in SIZE_LIST"
               :key="value"
-              class="block whitespace-nowrap"
+              class="flex items-center gap-1 whitespace-nowrap"
             >
               <input
                 :value="value"
@@ -441,7 +441,7 @@ onBeforeMount(() => {
             <label
               v-for="{ text, value } in CATEGORY_LIST"
               :key="value"
-              class="block whitespace-nowrap"
+              class="flex items-center gap-1 whitespace-nowrap"
             >
               <input
                 :value="value"
@@ -463,7 +463,7 @@ onBeforeMount(() => {
             <label
               v-for="{ text, value } in VERSION_LIST"
               :key="value"
-              class="block whitespace-nowrap"
+              class="flex items-center gap-1 whitespace-nowrap"
             >
               <input
                 :value="value"
@@ -498,7 +498,7 @@ onBeforeMount(() => {
           <div
             class="absolute right-0 flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
-            <label class="block whitespace-nowrap">
+            <label class="flex items-center gap-1 whitespace-nowrap">
               <input
                 v-model="state.created"
                 :checked="state.created"
@@ -507,7 +507,7 @@ onBeforeMount(() => {
               />
               作成バージョンの表示
             </label>
-            <label class="block whitespace-nowrap">
+            <label class="flex items-center gap-1 whitespace-nowrap">
               <input
                 v-model="state.updated"
                 :checked="state.updated"
@@ -516,7 +516,7 @@ onBeforeMount(() => {
               />
               修正バージョンの表示
             </label>
-            <label class="block whitespace-nowrap">
+            <label class="flex items-center gap-1 whitespace-nowrap">
               <input
                 v-model="state.reacted"
                 :checked="state.reacted"
@@ -525,7 +525,7 @@ onBeforeMount(() => {
               />
               リアクション済みのスタイル
             </label>
-            <label class="block whitespace-nowrap">
+            <label class="flex items-center gap-1 whitespace-nowrap">
               <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
               ダークモード
             </label>
