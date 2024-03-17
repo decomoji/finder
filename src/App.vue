@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive, watch } from 'vue'
+import { computed, onBeforeMount, reactive, watch, type PropType, ref } from 'vue'
 import DecomojiBasic from 'decomoji/configs/v5_basic.json'
 import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
+import { useVirtualizer } from '@tanstack/vue-virtual'
 
 import { isStringOfNotEmpty } from './utilities/isString'
 
@@ -307,6 +308,18 @@ const classBySize = computed(() => {
   }
 })
 
+const parentRef = ref<HTMLElement | null>(null)
+
+const rowVirtualizer = useVirtualizer({
+  count: filtered.value.length,
+  getScrollElement: () => parentRef.value,
+  estimateSize: () => 129,
+  overscan: 5,
+})
+
+const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
+const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
+
 // state を監視してURLにパラメータを追加する
 watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
 
@@ -524,45 +537,71 @@ onBeforeMount(() => {
 
     <main>
       <h2 class="sr-only">デコモジ一覧</h2>
-      <div :class="classBySize.wrapper">
-        <button
-          v-for="{ name, path, created, updated, collected } in filtered"
-          :key="`main_${name}`"
-          :class="[
-            classBySize.button,
-            {
-              'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted]':
-                !collected && state.reacted,
-              'border-transparent bg-[--bgDecomoji]': !collected && !state.reacted,
-              'border-[--borderDecomojiCollected] bg-[--bgDecomojiCollected]': collected
-            }
-          ]"
-          @click="
-            collected
-              ? state.collected.splice(
-                  state.collected.findIndex((v) => v.name === name),
-                  1
-                )
-              : state.collected.push({ name, path })
-          "
+      <!-- <div :class="classBySize.wrapper">
+      </div> -->
+      <div
+        ref="parentRef"
+        class="overflow-auto"
+      >
+        <div
+          class="relative w-full"
+          :style="{ height: `${totalSize}px`}"
         >
-          <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
-          <span :class="classBySize.name">
-            <span aria-hidden="true">:</span>{{ name }}<span aria-hidden="true">:</span>
-          </span>
-          <span
-            v-if="state.size === 'll' && state.created"
-            class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
+          <div
+            v-for="virtualRow in virtualRows"
+            :key="virtualRow.index"
+            :class="classBySize.wrapper"
+            :style="{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${virtualRow.size}px`,
+              transform: `translateY(${virtualRow.start}px)`,
+            }"
           >
-            <span class="sr-only">created:</span>{{ created }}
-          </span>
-          <span
-            v-if="state.size === 'll' && state.updated && updated"
-            class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
-          >
-            <span class="sr-only">updated:</span>{{ updated }}</span
-          >
-        </button>
+            <button
+              :key="`main_${filtered[virtualRow.index].name}`"
+              :class="[
+                classBySize.button,
+                {
+                  'border-[--borderDecomojiReacted] bg-[--bgDecomojiReacted]':
+                    !filtered[virtualRow.index].collected && state.reacted,
+                  'border-transparent bg-[--bgDecomoji]': !filtered[virtualRow.index].collected && !state.reacted,
+                  'border-[--borderDecomojiCollected] bg-[--bgDecomojiCollected]': filtered[virtualRow.index].collected
+                }
+              ]"
+              @click="
+                filtered[virtualRow.index].collected
+                  ? state.collected.splice(
+                      state.collected.findIndex((v) => v.name === filtered[virtualRow.index].name),
+                      1
+                    )
+                  : state.collected.push({
+                      name: filtered[virtualRow.index].name,
+                      path: filtered[virtualRow.index].path
+                    })
+              "
+            >
+              <img :alt="filtered[virtualRow.index].name" :src="filtered[virtualRow.index].path" :class="classBySize.image" height="64" width="64" />
+              <span :class="classBySize.name">
+                <span aria-hidden="true">:</span>{{ filtered[virtualRow.index].name }}<span aria-hidden="true">:</span>
+              </span>
+              <span
+                v-if="state.size === 'll' && state.created"
+                class="absolute top-[-10px] left-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
+              >
+                <span class="sr-only">created:</span>{{ filtered[virtualRow.index].created }}
+              </span>
+              <span
+                v-if="state.size === 'll' && state.updated && filtered[virtualRow.index].updated"
+                class="absolute top-[-10px] right-[-3px] border border-solid border-[--borderDecomojiCollected] py-[2px] px-[5px] rounded-md text-[--colorTag] bg-[--bgTag]"
+              >
+                <span class="sr-only">updated:</span>{{ filtered[virtualRow.index].updated }}</span
+              >
+            </button>
+          </div>
+        </div>
       </div>
     </main>
 
