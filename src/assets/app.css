@@ -49,8 +49,8 @@
   --borderDecomojiReacted: var(--sea-500);
   --bgDecomojiCollected: var(--shade-100);
   --borderDecomojiCollected: var(--shade-400);
-  --colorCollection: var(--shade-800);
-  --bgCollection: var(--shade-200);
+  --colorCollected: var(--shade-800);
+  --bgCollected: var(--shade-200);
   --bgFooter: var(--aubergine-900);
   --colorFooter: var(--shade-200);
   --bgTag: var(--shade-100);
@@ -82,8 +82,8 @@
   --bgDecomojiCollected: var(--shade-900);
   --borderDecomojiCollected: var(--shade-500);
   --colorDecomoji: var(--shade-200);
-  --colorCollection: var(--shade-200);
-  --bgCollection: var(--shade-700);
+  --colorCollected: var(--shade-200);
+  --bgCollected: var(--shade-700);
   --focusDecomoji: var(--outline-danube-600);
   --bgFooter: var(--night-900);
   --bgTag: var(--shade-800);

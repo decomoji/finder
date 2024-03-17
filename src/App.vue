@@ -54,7 +54,7 @@ interface VersionParams {
 
 interface State {
   category: CategoryParams
-  collection: CollectedDecomojiItem[]
+  collected: CollectedDecomojiItem[]
   created: boolean
   dark: boolean
   reacted: boolean
@@ -69,7 +69,9 @@ const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
   ...v,
   collected: false
 }))
-const categoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
+
+// { category_name: boolean } の形を作る
+const createCategoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
   return ['basic', 'extra', 'explicit'].reduce(
     (acc, name) => ({
       ...acc,
@@ -78,11 +80,17 @@ const categoryParams: (category: CategoryName[]) => CategoryParams = (category) 
     {}
   )
 }
-const creates = availableDecomojis.map((v) => v.created)
-const updates = availableDecomojis.flatMap((v) => (v.updated ? v.updated : []))
-const uniqued = Array.from(new Set([...creates, ...updates]))
-const availableVersions = uniqued.sort((a, b) => a.localeCompare(b))
-const versionParams: (version: VersionName[]) => VersionParams = (version) => {
+
+// created と updated を抽出してユニークなバージョンリストを作る
+const availableVersions = Array.from(
+  new Set([
+    ...availableDecomojis.map((v) => v.created),
+    ...availableDecomojis.flatMap((v) => (v.updated ? v.updated : []))
+  ])
+).sort((a, b) => a.localeCompare(b))
+
+// { version_name: boolean } の形を作る
+const createVersionParams: (version: VersionName[]) => VersionParams = (version) => {
   return availableVersions.reduce(
     (acc, name) => ({
       ...acc,
@@ -92,7 +100,7 @@ const versionParams: (version: VersionName[]) => VersionParams = (version) => {
   )
 }
 
-const DECOMOJI_AMOUNT = availableDecomojis.length
+// テンプレートで表示するためのサイズリスト
 const SIZE_LIST: SizeListItem[] = [
   {
     text: '64px＆名前',
@@ -111,6 +119,8 @@ const SIZE_LIST: SizeListItem[] = [
     value: 's'
   }
 ]
+
+// テンプレートで表示するためのカテゴリーリスト
 const CATEGORY_LIST: CategoryListItem[] = [
   {
     text: '基本セット',
@@ -125,6 +135,8 @@ const CATEGORY_LIST: CategoryListItem[] = [
     value: 'explicit'
   }
 ]
+
+// テンプレートで表示するためのバージョンリスト
 const VERSION_LIST: VersionListItem[] = availableVersions
   .map((value) => ({
     text: value,
@@ -132,88 +144,69 @@ const VERSION_LIST: VersionListItem[] = availableVersions
   }))
   .sort((a, b) => a.value.localeCompare(b.value, undefined, { numeric: true }))
 
+// このアプリのステート
 const state: State = reactive({
-  category: categoryParams([]),
-  collection: [],
+  category: createCategoryParams([]),
+  collected: [],
   created: false,
   dark: false,
   reacted: false,
   search: '',
   size: 'll',
   updated: false,
-  version: versionParams([])
+  version: createVersionParams([])
 })
 
-/**
- * 表示カテゴリーをパラメータ文字列に変換したものを返す
- */
+// 表示カテゴリーをパラメータ文字列に変換したものを返す
 const categoryParam = computed(() => {
-  const arrayedCategories = (Object.keys(state.category)).filter(
-    (key) => state.category[key]
-  )
+  const arrayedCategories = Object.keys(state.category).filter((key) => state.category[key])
   return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(',')}` : null
 })
 
-/**
- * コレクションをパラメータ文字列に変換したものを返す
- */
-const collectionParam = computed(() => {
-  return state.collection.length > 0
-    ? `collection=${state.collection.map((v) => v.name).join(',')}`
+// コレクションをパラメータ文字列に変換したものを返す
+const collectedParam = computed(() => {
+  return state.collected.length > 0
+    ? `collected=${state.collected.map((v) => v.name).join(',')}`
     : null
 })
 
-/**
- * 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
- */
+// 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
 const createdParam = computed(() => {
   return state.created ? 'created=true' : null
 })
 
-/**
- * ダークモード表示か否かをパラメータ文字列に変換したものを返す
- */
+// ダークモード表示か否かをパラメータ文字列に変換したものを返す
 const darkParam = computed(() => {
   return state.dark ? 'dark=true' : null
 })
 
-/**
- * リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
- */
+// リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
 const reactedParam = computed(() => {
   return state.reacted ? 'reacted=true' : null
 })
 
-/**
- * 検索クエリをパラメータ文字列に変換したものを返す
- */
+// 検索クエリをパラメータ文字列に変換したものを返す
 const searchParam = computed(() => {
   return isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null
 })
 
-/**
- * 表示サイズをパラメータ文字列に変換したものを返す
- */
+// 表示サイズをパラメータ文字列に変換したものを返す
 const sizeParam = computed(() => {
   return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null
 })
 
-/**
- * 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
- */
+// 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
 const updatedParam = computed(() => {
   return state.updated ? 'updated=true' : null
 })
 
-/**
- * 各パラメータ文字列を連結したものを返す
- */
+// 各パラメータ文字列を連結したものを返す
 const urlParams = computed(() => {
   return [
     searchParam.value,
     sizeParam.value,
     categoryParam.value,
-    collectionParam.value,
+    collectedParam.value,
     versionParam.value,
     createdParam.value,
     updatedParam.value,
@@ -224,9 +217,7 @@ const urlParams = computed(() => {
     .join('&')
 })
 
-/**
- * 表示バージョンをパラメータ文字列に変換したものを返す
- */
+// 表示バージョンをパラメータ文字列に変換したものを返す
 const versionParam = computed(() => {
   const versions = (Object.keys(state.version) as VersionName[])
     .filter((key) => state.version[key])
@@ -234,10 +225,8 @@ const versionParam = computed(() => {
   return versions.length > 0 ? `version=${versions.join(',')}` : null
 })
 
-/**
- * 各種表示条件に合わせてフィルターしたデコモジリストを返す
- */
-const filteredDecomojis = computed(() => {
+// 各種表示条件に合わせてフィルターしたデコモジリストを返す
+const filtered = computed(() => {
   const matches = ({ name, category, created, updated }: MatchesParams) => {
     // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
     const nameMatches = RegExp(state.search).test(name) || state.search === ''
@@ -255,16 +244,18 @@ const filteredDecomojis = computed(() => {
     .filter((v: DecomojiItem) => matches(v))
     .map((decomoji) => ({
       ...decomoji,
-      collected: state.collection.find((v) => v.name === decomoji.name) ? true : false
+      collected: state.collected.find((v) => v.name === decomoji.name) ? true : false
     }))
 })
 
+// コレクションを JSON 化した URL を返す
 const downloadURL = computed(() => {
-  const jsonString = JSON.stringify(state.collection)
+  const jsonString = JSON.stringify(state.collected)
   const blob = new Blob([jsonString], { type: 'application/json' })
   return window.URL.createObjectURL(blob)
 })
 
+// state.size に応じた CSS クラス名のセットを返す
 const classBySize = computed(() => {
   let wrapper = 'grid grid-flow-row '
   let cWrapper = wrapper
@@ -316,12 +307,14 @@ const classBySize = computed(() => {
   }
 })
 
+// state を監視してURLにパラメータを追加する
 watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
 
+// URLパラメータから画面状態を復元する
 onBeforeMount(() => {
   const {
     category,
-    collection,
+    collected,
     created,
     dark,
     reacted,
@@ -332,8 +325,11 @@ onBeforeMount(() => {
   }: {
     [key: string]: string
   } = location.search
+    // 先頭の `?` の除去
     .substring(1)
+    // & で分割
     .split('&')
+    // { key: value } に変形
     .reduce((acc, str) => {
       const [key, value] = str.split('=')
       return {
@@ -342,16 +338,17 @@ onBeforeMount(() => {
       }
     }, {})
 
+  // state の各プロパティを更新
   state.search = search ? search : state.search
   state.size = size ? (size as SizeName) : state.size
-  state.category = category ? categoryParams(category.split(',')) : state.category
-  state.collection = collection
-    ? collection.split(',').map((v) => ({
+  state.category = category ? createCategoryParams(category.split(',')) : state.category
+  state.collected = collected
+    ? collected.split(',').map((v) => ({
         name: v,
         path: availableDecomojis.find((decomoji) => decomoji.name === v)!.path
       }))
-    : state.collection
-  state.version = version ? versionParams(version.split(',')) : state.version
+    : state.collected
+  state.version = version ? createVersionParams(version.split(',')) : state.version
   state.created = created === 'true' ? true : false
   state.dark = dark === 'true' ? true : false
   state.reacted = reacted === 'true' ? true : false
@@ -393,10 +390,10 @@ onBeforeMount(() => {
           <span
             class="pointer-events-none absolute top-0 bottom-0 right-2 m-auto h-4 leading-none"
             aria-hidden="true"
-            >{{ filteredDecomojis.length }}/{{ DECOMOJI_AMOUNT }}</span
+            >{{ filtered.length }}/{{ availableDecomojis.length }}</span
           >
           <span class="sr-only"
-            >{{ DECOMOJI_AMOUNT }}個中{{ filteredDecomojis.length }}個が該当しています。</span
+            >{{ availableDecomojis.length }}個中{{ filtered.length }}個が該当しています。</span
           >
         </div>
       </div>
@@ -529,7 +526,7 @@ onBeforeMount(() => {
       <h2 class="sr-only">デコモジ一覧</h2>
       <div :class="classBySize.wrapper">
         <button
-          v-for="{ name, path, created, updated, collected } in filteredDecomojis"
+          v-for="{ name, path, created, updated, collected } in filtered"
           :key="`main_${name}`"
           :class="[
             classBySize.button,
@@ -542,11 +539,11 @@ onBeforeMount(() => {
           ]"
           @click="
             collected
-              ? state.collection.splice(
-                  state.collection.findIndex((v) => v.name === name),
+              ? state.collected.splice(
+                  state.collected.findIndex((v) => v.name === name),
                   1
                 )
-              : state.collection.push({ name, path })
+              : state.collected.push({ name, path })
           "
         >
           <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
@@ -570,13 +567,13 @@ onBeforeMount(() => {
     </main>
 
     <section
-      v-if="state.collection.length"
-      class="sticky left-0 bottom-[--heightFooter] max-h-[15rem] text-[--colorCollection] bg-[--bgCollection] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
+      v-if="state.collected.length"
+      class="sticky left-0 bottom-[--heightFooter] max-h-[15rem] text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
     >
       <div class="flex p-2.5 pb-0">
         <div class="flex flex-grow flex-wrap items-baseline">
           <h2 class="flex-grow mr-2.5 text-base font-bold leading-[1.4]">
-            コレクション：{{ state.collection.length }}
+            コレクション：{{ state.collected.length }}
           </h2>
           <p class="flex-grow-[9999] mb-2.5 text-sm leading-[1.4]">
             ダブルクリックするか delete キーでコレクションから外せます。
@@ -587,7 +584,7 @@ onBeforeMount(() => {
             class="flex justify-center items-center w-8 h-8"
             title="コレクションをアルファベット順にソートする"
             @click="
-              state.collection = state.collection.sort((a, b) => a.name.localeCompare(b.name))
+              state.collected = state.collected.sort((a, b) => a.name.localeCompare(b.name))
             "
           >
             <span class="material-icons" aria-hidden="true">sort</span>
@@ -598,7 +595,7 @@ onBeforeMount(() => {
           <a
             class="flex justify-center items-center w-8 h-8"
             :href="downloadURL"
-            download="my-collection.json"
+            download="my-collected.json"
           >
             <span class="sr-only">コレクションをJSON形式でダウンロードする</span>
             <span class="material-icons" aria-hidden="true">save_alt</span>
@@ -606,7 +603,7 @@ onBeforeMount(() => {
           <button
             class="flex justify-center items-center w-8 h-8"
             title="コレクションを空にする"
-            @click="state.collection.splice(0, state.collection.length)"
+            @click="state.collected.splice(0, state.collected.length)"
           >
             <span class="material-icons" aria-hidden="true">delete_forever</span>
           </button>
@@ -614,11 +611,11 @@ onBeforeMount(() => {
       </div>
       <div :class="classBySize.cWrapper">
         <button
-          v-for="({ name, path }, i) in state.collection"
-          :key="`collection_${name}`"
+          v-for="({ name, path }, i) in state.collected"
+          :key="`collected_${name}`"
           :class="classBySize.cButton"
-          @dblclick="state.collection.splice(i, 1)"
-          @keydown="state.collection.splice(i, 1)"
+          @dblclick="state.collected.splice(i, 1)"
+          @keydown="state.collected.splice(i, 1)"
         >
           <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
         </button>
