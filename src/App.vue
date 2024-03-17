@@ -70,7 +70,10 @@ interface State {
 }
 
 // const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExtra, ...DecomojiExplicit]
-const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({ ...v, collected: false}))
+const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
+  ...v,
+  collected: false
+}))
 const categoryParams = ['basic', 'extra', 'explicit'].reduce<CategoryParams>(
   (memo, value: string) => {
     // 全ての value をキーにして false を与えたオブジェクトにまとめる
@@ -262,10 +265,12 @@ const filteredDecomojis = computed(() => {
     return nameMatches && categoryMatches && (createdMatches || updatedMatches)
   }
 
-  return availableDecomojis.filter((v: DecomojiItem) => matches(v)).map((decomoji) => ({
-    ...decomoji,
-    collected: state.collection.find((item) => item.name === decomoji.name) ? true : false
-  }))
+  return availableDecomojis
+    .filter((v: DecomojiItem) => matches(v))
+    .map((decomoji) => ({
+      ...decomoji,
+      collected: state.collection.find((item) => item.name === decomoji.name) ? true : false
+    }))
 })
 
 const downloadURL = computed(() => {
@@ -546,8 +551,7 @@ const collections = ref(state.collection)
       <div class="flex p-2.5 pb-0">
         <div class="flex flex-grow flex-wrap items-baseline">
           <h2 class="flex-grow mr-2.5 text-base font-bold leading-[1.4]">
-            <span aria-hidden="true">コレクション：{{ state.collection.length }}</span
-            ><span class="sr-only">コレクション（計{{ state.collection.length }}個）</span>
+            コレクション：{{ state.collection.length }}
           </h2>
           <p class="flex-grow-[9999] mb-2.5 text-sm leading-[1.4]">
             ダブルクリックするか delete キーでコレクションから外せます。
