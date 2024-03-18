@@ -69,6 +69,35 @@ interface ValueBySizeParams {
   [key: SizeName]: number
 }
 
+const RowPaddingValue: ValueBySizeParams = {
+  ll: 10,
+  l: 8,
+  m: 5,
+  s: 3,
+};
+
+const RowGapValue: ValueBySizeParams = {
+  ll: 10,
+  l: 8,
+  m: 5,
+  s: 3,
+};
+
+const MinWidthValue: ValueBySizeParams = {
+  ll: 128,
+  l: 80,
+  m: 42,
+  s: 24,
+};
+
+const RowHeightValue: ValueBySizeParams = {
+  ll: 139,
+  l: 88,
+  m: 50,
+  s: 28,
+};
+
+
 // 全 デコモジアイテムに collected プロパティを追加する
 const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
   ...v,
