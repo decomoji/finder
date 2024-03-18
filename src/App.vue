@@ -341,12 +341,29 @@ const classBySize = computed(() => {
   }
 })
 
+// TODO: カラム数を動的に算出する必要がある
+const columnsLength = computed(() => {
+  return 8
+})
+
+const splitedFiltered = computed(() => {
+  return (index: number) => {
+    const start = columnsLength.value * index
+    const end = start + columnsLength.value
+    return filtered.value.slice(start, end)
+  }
+})
+
+const rowHeightBySize = computed(() => {
+  return RowHeightValue[state.size]
+})
+
 const parentRef = ref<HTMLElement | null>(null)
 
 const rowVirtualizer = useVirtualizer({
-  count: filtered.value.length,
+  count: filtered.value.length / columnsLength.value,
   getScrollElement: () => parentRef.value,
-  estimateSize: () => 129,
+  estimateSize: () => rowHeightBySize.value,
   overscan: 5,
 })
 
