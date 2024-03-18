@@ -99,7 +99,8 @@ const RowHeightValue: ValueBySizeParams = {
 
 
 // 全 デコモジアイテムに collected プロパティを追加する
-const availableDecomojis: DecomojiItem[] = [...DecomojiBasic].map((v) => ({
+// TODO: ...DecomojiExtra, を混ぜるとハングアップする
+const availableDecomojis: DecomojiItem[] = [...DecomojiBasic,  ...DecomojiExplicit].map((v) => ({
   ...v,
   collected: false
 }))
