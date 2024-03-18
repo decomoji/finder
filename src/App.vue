@@ -7,7 +7,7 @@ import { useVirtualizer } from '@tanstack/vue-virtual'
 
 import { isStringOfNotEmpty } from './utilities/isString'
 
-type SizeName = 's' | 'm' | 'l' | 'll'
+type SizeName = string | 's' | 'm' | 'l' | 'll'
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
 
@@ -63,6 +63,10 @@ interface State {
   size: SizeName
   updated: boolean
   version: VersionParams
+}
+
+interface ValueBySizeParams {
+  [key: SizeName]: number
 }
 
 // 全 デコモジアイテムに collected プロパティを追加する
