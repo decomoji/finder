@@ -99,7 +99,7 @@ const RowHeightValue: ValueBySizeParams = {
 
 // 全 デコモジアイテムに collected プロパティを追加する
 // TODO: ...DecomojiExtra, を混ぜるとハングアップする
-const availableDecomojis: DecomojiItem[] = [...DecomojiBasic,  ...DecomojiExplicit].map((v) => ({
+const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExplicit].map((v) => ({
   ...v,
   collected: false
 }))
@@ -362,7 +362,7 @@ const rowVirtualizer = useVirtualizer({
   count: filtered.value.length / columnLength.value,
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
-  overscan: 5
+  overscan: 3
 })
 
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
