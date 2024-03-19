@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive, watch, type PropType, ref } from 'vue'
+import { computed, onBeforeMount, reactive, watch, ref } from 'vue'
 import DecomojiBasic from 'decomoji/configs/v5_basic.json'
 import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
@@ -384,24 +384,24 @@ const debouncedInputSearch = (value: string) => {
 // 項目が減って虚無を表示していたらスクロール位置を戻す
 watch(filtered, (newList, oldList) => {
   if (newList.length > oldList.length) {
-    return;
+    return
   }
 
-  const el = document.documentElement;
-  const screenHeight = el.clientHeight;
+  const el = document.documentElement
+  const screenHeight = el.clientHeight
 
   if (!(parentRef.value instanceof HTMLElement)) {
-    throw new Error("Component must be rendered as an HTMLElement");
+    throw new Error('Component must be rendered as an HTMLElement')
   }
-  const headerHeight = parentRef.value.offsetTop; // ということにする
+  const headerHeight = parentRef.value.offsetTop // ということにする
 
-  const numOfRows = filtered.value.length / 8;
-  const listHeight = rowHeightBySize.value * numOfRows;
-  const maxScrollTop = headerHeight + listHeight - screenHeight; // 下部paddingは省略
+  const numOfRows = filtered.value.length / 8
+  const listHeight = rowHeightBySize.value * numOfRows
+  const maxScrollTop = headerHeight + listHeight - screenHeight // 下部paddingは省略
 
   console.log(Math.min(el.scrollTop, maxScrollTop))
 
-  el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
+  el.scrollTop = Math.min(el.scrollTop, maxScrollTop)
 })
 
 // state を監視してURLにパラメータを追加する
@@ -626,10 +626,7 @@ onBeforeMount(() => {
         <div
           v-for="{ size, start, index } in virtualRows"
           :key="index"
-          :class="[
-            classBySize.wrapper,
-            'absolute top-0 left-0 w-full'
-          ]"
+          :class="[classBySize.wrapper, 'absolute top-0 left-0 w-full']"
           :style="{
             height: `${size}px`,
             transform: `translateY(${start}px)`
