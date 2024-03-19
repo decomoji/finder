@@ -7,6 +7,11 @@ import { useVirtualizer } from '@tanstack/vue-virtual'
 
 import { isStringOfNotEmpty } from './utilities/isString'
 
+// なぜかわからないが $event.target には value が生えていないので無理やり型を通す
+interface InputEventTarget extends EventTarget {
+  value: string
+}
+
 type SizeName = string | 's' | 'm' | 'l' | 'll'
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
@@ -368,6 +373,14 @@ const rowVirtualizer = useVirtualizer({
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
 const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
 
+let timer = 0
+const debouncedInputSearch = (value: string) => {
+  window.clearTimeout(timer)
+  timer = setTimeout(() => {
+    state.search = value
+  }, 300)
+}
+
 // 項目が減って虚無を表示していたらスクロール位置を戻す
 watch(filtered, (newList, oldList) => {
   if (newList.length > oldList.length) {
@@ -460,11 +473,12 @@ onBeforeMount(() => {
         </h1>
         <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
           <input
-            v-model="state.search"
+            :value="state.search"
             class="py-2.5 pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
             type="text"
             name="search"
             title="検索"
+            @input="debouncedInputSearch(($event.target as InputEventTarget).value)"
           />
           <span
             class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-2 m-auto w-6 h-6"
