@@ -73,30 +73,29 @@ const RowPaddingValue: ValueBySizeParams = {
   ll: 10,
   l: 8,
   m: 5,
-  s: 3,
-};
+  s: 3
+}
 
 const RowGapValue: ValueBySizeParams = {
   ll: 10,
   l: 8,
   m: 5,
-  s: 3,
-};
+  s: 3
+}
 
 const MinWidthValue: ValueBySizeParams = {
   ll: 128,
   l: 80,
   m: 42,
-  s: 24,
-};
+  s: 24
+}
 
 const RowHeightValue: ValueBySizeParams = {
   ll: 139,
   l: 88,
   m: 50,
-  s: 28,
-};
-
+  s: 28
+}
 
 // 全 デコモジアイテムに collected プロパティを追加する
 // TODO: ...DecomojiExtra, を混ぜるとハングアップする
@@ -365,7 +364,7 @@ const rowVirtualizer = useVirtualizer({
   count: filtered.value.length / columnsLength.value,
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
-  overscan: 5,
+  overscan: 5
 })
 
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
@@ -588,25 +587,21 @@ onBeforeMount(() => {
 
     <main ref="parentRef" class="overflow-auto">
       <h2 class="sr-only">デコモジ一覧</h2>
-      <div
-        class="relative w-full"
-        :style="{ height: `${totalSize}px`}"
-      >
+      <div class="relative w-full" :style="{ height: `${totalSize}px` }">
         <div
-          v-for="virtualRow in virtualRows"
-          :key="virtualRow.index"
-          :class="classBySize.wrapper"
+          v-for="{ size, start, index } in virtualRows"
+          :key="index"
+          :class="[
+            classBySize.wrapper,
+            'absolute top-0 left-0 w-full'
+          ]"
           :style="{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: `${virtualRow.size}px`,
-            transform: `translateY(${virtualRow.start}px)`,
+            height: `${size}px`,
+            transform: `translateY(${start}px)`
           }"
         >
           <button
-            v-for="{ name, path, collected, created, updated} in splitedFiltered(virtualRow.index)"
+            v-for="{ name, path, collected, created, updated } in splitedFiltered(index)"
             :key="name"
             :class="[
               classBySize.button,
@@ -667,9 +662,7 @@ onBeforeMount(() => {
           <button
             class="flex justify-center items-center w-8 h-8"
             title="コレクションをアルファベット順にソートする"
-            @click="
-              state.collected = state.collected.sort((a, b) => a.name.localeCompare(b.name))
-            "
+            @click="state.collected = state.collected.sort((a, b) => a.name.localeCompare(b.name))"
           >
             <span class="material-icons" aria-hidden="true">sort</span>
           </button>
