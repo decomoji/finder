@@ -368,6 +368,29 @@ const rowVirtualizer = useVirtualizer({
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
 const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
 
+// 項目が減って虚無を表示していたらスクロール位置を戻す
+watch(filtered, (newList, oldList) => {
+  if (newList.length > oldList.length) {
+    return;
+  }
+
+  const el = document.documentElement;
+  const screenHeight = el.clientHeight;
+
+  if (!(parentRef.value instanceof HTMLElement)) {
+    throw new Error("Component must be rendered as an HTMLElement");
+  }
+  const headerHeight = parentRef.value.offsetTop; // ということにする
+
+  const numOfRows = filtered.value.length / 8;
+  const listHeight = rowHeightBySize.value * numOfRows;
+  const maxScrollTop = headerHeight + listHeight - screenHeight; // 下部paddingは省略
+
+  console.log(Math.min(el.scrollTop, maxScrollTop))
+
+  el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
+})
+
 // state を監視してURLにパラメータを追加する
 watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
 
