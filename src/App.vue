@@ -346,13 +346,11 @@ const columnLength = computed(() => {
   return 8
 })
 
-const splitedFiltered = computed(() => {
-  return (index: number) => {
-    const start = columnsLength.value * index
-    const end = start + columnsLength.value
-    return filtered.value.slice(start, end)
-  }
-})
+const splitedFiltered = (index: number) => {
+  const start = 8 * index
+  const end = start + 8
+  return filtered.value.slice(start, end)
+}
 
 const rowHeightBySize = computed(() => {
   return RowHeightValue[state.size]
