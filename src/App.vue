@@ -342,7 +342,7 @@ const classBySize = computed(() => {
 })
 
 // TODO: カラム数を動的に算出する必要がある
-const columnsLength = computed(() => {
+const columnLength = computed(() => {
   return 8
 })
 
@@ -361,7 +361,7 @@ const rowHeightBySize = computed(() => {
 const parentRef = ref<HTMLElement | null>(null)
 
 const rowVirtualizer = useVirtualizer({
-  count: filtered.value.length / columnsLength.value,
+  count: filtered.value.length / columnLength.value,
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
   overscan: 5
