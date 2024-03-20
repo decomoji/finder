@@ -393,7 +393,7 @@ const updateGridContainerSize = () => {
 const parentRef = ref<HTMLElement | null>(null)
 
 const rowVirtualizer = useVirtualizer({
-  count: filtered.value.length / columnLength.value,
+  count: Math.ceil(filtered.value.length / columnLength.value),
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
   overscan: 3
