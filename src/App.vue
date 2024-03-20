@@ -74,13 +74,6 @@ interface ValueBySizeParams {
   [key: SizeName]: number
 }
 
-const RowPaddingValue: ValueBySizeParams = {
-  ll: 10,
-  l: 8,
-  m: 5,
-  s: 3
-}
-
 const RowGapValue: ValueBySizeParams = {
   ll: 10,
   l: 8,
@@ -88,18 +81,11 @@ const RowGapValue: ValueBySizeParams = {
   s: 3
 }
 
-const MinWidthValue: ValueBySizeParams = {
+const RowItemWidthValue: ValueBySizeParams = {
   ll: 128,
   l: 80,
   m: 42,
   s: 24
-}
-
-const RowHeightValue: ValueBySizeParams = {
-  ll: 139,
-  l: 88,
-  m: 50,
-  s: 28
 }
 
 // 全 デコモジアイテムに collected プロパティを追加する
@@ -352,16 +338,14 @@ const classBySize = computed(() => {
 
 const containerWidth = ref(window.innerWidth)
 
-const columnLength = computed(() => {
-  const gridItemWidth = minWidthBySize.value + gapBySize.value
-  const gridContainerVirtualWidth =
-    containerWidth.value + gapBySize.value - rowPaddingBySize.value * 2
-  return Math.floor(gridContainerVirtualWidth / gridItemWidth)
-})
-
-// CSS Grid container の padding 値を返す
-const rowPaddingBySize = computed(() => {
-  return RowPaddingValue[state.size || 'll']
+// 1行に収められるアイテムの数を返す
+const rowItemLength = computed(() => {
+  // サイズごとのアイテムのピュアサイズ ＋ gap １つ分
+  const item = rowItemWidthBySize.value + gapBySize.value
+  // コンテナ幅 - gap １つ分
+  const container = containerWidth.value - gapBySize.value
+  // 割って切り捨てた数が「１行に収められるアイテムの数」となる
+  return Math.floor(container / item)
 })
 
 // CSS Grid item の gap 値を返す
@@ -370,19 +354,20 @@ const gapBySize = computed(() => {
 })
 
 // CSS Grid item 幅の最小値を返す
-const minWidthBySize = computed(() => {
-  return MinWidthValue[state.size || 'll']
+const rowItemWidthBySize = computed(() => {
+  return RowItemWidthValue[state.size || 'll']
 })
 
 // 1行分の高さを返す
 const rowHeightBySize = computed(() => {
-  return RowHeightValue[state.size || 'll']
+  return rowItemWidthBySize.value + gapBySize.value
 })
 
-const rowDecomojis = (index: number) => {
-  const start = columnLength.value * index
-  const end = start + columnLength.value
-  return filtered.value.slice(start, end)
+// n 番目から rowItemLength 目を切り出したデコモジリストを返す
+const sliced = (n: number) => {
+  const from = rowItemLength.value * n
+  const to = from + rowItemLength.value
+  return filtered.value.slice(from, to)
 }
 
 const updateContainerWidth = () => {
@@ -397,7 +382,8 @@ const updateContainerWidth = () => {
 const parentRef = ref<HTMLElement | null>(null)
 
 const rowVirtualizer = useVirtualizer({
-  count: Math.ceil(filtered.value.length / columnLength.value),
+  // 全デコモジリストを１行に収まる数で割って切り上げた数
+  count: Math.ceil(filtered.value.length / rowItemLength.value),
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
   overscan: 3
@@ -428,7 +414,7 @@ watch(filtered, (newList, oldList) => {
   }
   const headerHeight = parentRef.value.offsetTop // ということにする
 
-  const numOfRows = filtered.value.length / columnLength.value
+  const numOfRows = filtered.value.length / rowItemLength.value
   const listHeight = rowHeightBySize.value * numOfRows
   const maxScrollTop = headerHeight + listHeight - screenHeight // 下部paddingは省略
 
