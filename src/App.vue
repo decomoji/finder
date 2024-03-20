@@ -349,7 +349,10 @@ const classBySize = computed(() => {
 const containerWidth = ref(window.innerHeight)
 
 const columnLength = computed(() => {
-  return 8
+  const gridItemWidth = minWidthBySize.value + gapBySize.value
+  const gridContainerVirtualWidth =
+    containerWidth.value + gapBySize.value - rowPaddingBySize.value * 2
+  return Math.floor(gridContainerVirtualWidth / gridItemWidth)
 })
 
 // CSS Grid container の padding 値を返す
