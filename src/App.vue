@@ -395,11 +395,9 @@ watch(filtered, (newList, oldList) => {
   }
   const headerHeight = parentRef.value.offsetTop // ということにする
 
-  const numOfRows = filtered.value.length / 8
+  const numOfRows = filtered.value.length / columnLength.value
   const listHeight = rowHeightBySize.value * numOfRows
   const maxScrollTop = headerHeight + listHeight - screenHeight // 下部paddingは省略
-
-  console.log(Math.min(el.scrollTop, maxScrollTop))
 
   el.scrollTop = Math.min(el.scrollTop, maxScrollTop)
 })
