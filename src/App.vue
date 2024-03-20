@@ -386,7 +386,7 @@ const rowVirtualizer = useVirtualizer({
   count: Math.ceil(filtered.value.length / rowItemLength.value),
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
-  overscan: 3
+  overscan: 0 // 0 出ないと余計な row が生成されてしまう
 })
 
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
