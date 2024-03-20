@@ -385,7 +385,7 @@ const rowDecomojis = (index: number) => {
   return filtered.value.slice(start, end)
 }
 
-const updateGridContainerSize = () => {
+const updateContainerWidth = () => {
   nextTick().then(() => {
     if (!(parentRef.value instanceof HTMLElement)) {
       throw new Error('Component must be rendered as an HTMLElement')
@@ -484,8 +484,8 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-  window.addEventListener('resize', updateGridContainerSize)
-  updateGridContainerSize()
+  window.addEventListener('resize', updateContainerWidth)
+  updateContainerWidth()
 })
 </script>
 
