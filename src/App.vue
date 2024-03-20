@@ -300,7 +300,7 @@ const downloadURL = computed(() => {
 
 // state.size に応じた CSS クラス名のセットを返す
 const classBySize = computed(() => {
-  let wrapper = 'grid grid-flow-row '
+  let wrapper = 'box-border grid grid-flow-row '
   let cWrapper = wrapper
   let button = 'box-border relative border border-solid rounded-md text-center '
   let cButton = button + 'border border-solid border-transparent bg-[--bgDecomojiCollected] '
@@ -309,31 +309,31 @@ const classBySize = computed(() => {
 
   switch (state.size) {
     case 'll':
-      wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] p-3'
+      wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] px-3'
       cWrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-3'
-      button += 'h-[129px]'
+      button += 'h-[128px]'
       cButton += 'h-[80px]'
       image += 'w-[64px] h-[64px]'
       break
     case 'l':
-      wrapper += 'gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2'
-      cWrapper += wrapper
+      wrapper += 'gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] px-2'
+      cWrapper += 'gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2'
       button += 'h-[80px]'
       cButton += button
       image += 'w-[64px] h-[64px]'
       name = 'sr-only'
       break
     case 'm':
-      wrapper += 'gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1'
-      cWrapper += wrapper
+      wrapper += 'gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] px-1'
+      cWrapper += 'gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1'
       button += 'h-[45px]'
       cButton += button
       image += 'w-[32px] h-[32px]'
       name = 'sr-only'
       break
     case 's':
-      wrapper += 'gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5'
-      cWrapper += wrapper
+      wrapper += 'gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] px-0.5'
+      cWrapper += 'gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5'
       button += 'h-[25px]'
       cButton += button
       image += 'w-[16px] h-[16px]'
