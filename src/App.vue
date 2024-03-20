@@ -381,6 +381,15 @@ const rowDecomojis = (index: number) => {
   return filtered.value.slice(start, end)
 }
 
+const updateGridContainerSize = () => {
+  nextTick().then(() => {
+    if (!(parentRef.value instanceof HTMLElement)) {
+      throw new Error('Component must be rendered as an HTMLElement')
+    }
+    containerWidth.value = parentRef.value.clientWidth
+  })
+}
+
 const parentRef = ref<HTMLElement | null>(null)
 
 const rowVirtualizer = useVirtualizer({
