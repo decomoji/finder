@@ -642,7 +642,7 @@ onMounted(() => {
       </div>
     </header>
 
-    <main ref="parentRef" class="overflow-auto">
+    <main ref="parentRef">
       <h2 class="sr-only">デコモジ一覧</h2>
       <div class="relative w-full" :style="{ height: `${totalSize}px` }">
         <div
