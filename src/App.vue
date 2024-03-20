@@ -478,6 +478,11 @@ onBeforeMount(() => {
   state.reacted = reacted === 'true' ? true : false
   state.updated = updated === 'true' ? true : false
 })
+
+onMounted(() => {
+  window.addEventListener('resize', updateGridContainerSize)
+  updateGridContainerSize()
+})
 </script>
 
 <template>
