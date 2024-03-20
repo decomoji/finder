@@ -402,10 +402,10 @@ const rowVirtualizer = useVirtualizer({
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
 const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
 
-let timer = 0
+const debounce = ref(0)
 const debouncedInputSearch = (value: string) => {
-  window.clearTimeout(timer)
-  timer = setTimeout(() => {
+  window.clearTimeout(debounce.value)
+  debounce.value = setTimeout(() => {
     state.search = value
   }, 300)
 }
