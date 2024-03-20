@@ -375,6 +375,12 @@ const rowHeightBySize = computed(() => {
   return RowHeightValue[state.size || 'll']
 })
 
+const rowDecomojis = (index: number) => {
+  const start = columnLength.value * index
+  const end = start + columnLength.value
+  return filtered.value.slice(start, end)
+}
+
 const parentRef = ref<HTMLElement | null>(null)
 
 const rowVirtualizer = useVirtualizer({
@@ -645,7 +651,7 @@ onBeforeMount(() => {
           }"
         >
           <button
-            v-for="{ name, path, collected, created, updated } in splitedFiltered(index)"
+            v-for="{ name, path, collected, created, updated } in rowDecomojis(index)"
             :key="name"
             :class="[
               classBySize.button,
