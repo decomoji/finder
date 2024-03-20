@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive, watch, ref } from 'vue'
+import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
 import DecomojiBasic from 'decomoji/configs/v5_basic.json'
 import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
@@ -104,7 +104,11 @@ const RowHeightValue: ValueBySizeParams = {
 
 // 全 デコモジアイテムに collected プロパティを追加する
 // TODO: ...DecomojiExtra, を混ぜるとハングアップする
-const availableDecomojis: DecomojiItem[] = [...DecomojiBasic, ...DecomojiExplicit].map((v) => ({
+const availableDecomojis: DecomojiItem[] = [
+  ...DecomojiBasic,
+  // ...DecomojiExtra,
+  ...DecomojiExplicit
+].map((v) => ({
   ...v,
   collected: false
 }))
@@ -494,7 +498,7 @@ onMounted(() => {
       }
     ]"
   >
-    <div
+    <header
       class="sticky z-10 top-0 left-0 flex items-center gap-5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
     >
       <div class="flex items-center gap-[--betweenLogoSearch]">
@@ -650,7 +654,7 @@ onMounted(() => {
           </div>
         </details>
       </div>
-    </div>
+    </header>
 
     <main ref="parentRef" class="overflow-auto">
       <h2 class="sr-only">デコモジ一覧</h2>
@@ -658,7 +662,7 @@ onMounted(() => {
         <div
           v-for="{ size, start, index } in virtualRows"
           :key="index"
-          :class="[classBySize.wrapper, 'absolute top-0 left-0 w-full']"
+          :class="['absolute top-0 left-0 w-full', classBySize.wrapper]"
           :style="{
             height: `${size}px`,
             transform: `translateY(${start}px)`
