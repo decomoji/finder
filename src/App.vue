@@ -655,7 +655,7 @@ onMounted(() => {
           }"
         >
           <button
-            v-for="{ name, path, collected, created, updated } in rowDecomojis(index)"
+            v-for="{ name, path, collected, created, updated } in sliced(index)"
             :key="name"
             :class="[
               classBySize.button,
