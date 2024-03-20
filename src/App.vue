@@ -350,7 +350,7 @@ const classBySize = computed(() => {
   }
 })
 
-const containerWidth = ref(window.innerHeight)
+const containerWidth = ref(window.innerWidth)
 
 const columnLength = computed(() => {
   const gridItemWidth = minWidthBySize.value + gapBySize.value
