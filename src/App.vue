@@ -346,7 +346,8 @@ const classBySize = computed(() => {
   }
 })
 
-// TODO: カラム数を動的に算出する必要がある
+const containerWidth = ref(window.innerHeight)
+
 const columnLength = computed(() => {
   return 8
 })
