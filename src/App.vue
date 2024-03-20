@@ -352,14 +352,24 @@ const columnLength = computed(() => {
   return 8
 })
 
-const splitedFiltered = (index: number) => {
-  const start = 8 * index
-  const end = start + 8
-  return filtered.value.slice(start, end)
-}
+// CSS Grid container の padding 値を返す
+const rowPaddingBySize = computed(() => {
+  return RowPaddingValue[state.size || 'll']
+})
 
+// CSS Grid item の gap 値を返す
+const gapBySize = computed(() => {
+  return RowGapValue[state.size || 'll']
+})
+
+// CSS Grid item 幅の最小値を返す
+const minWidthBySize = computed(() => {
+  return MinWidthValue[state.size || 'll']
+})
+
+// 1行分の高さを返す
 const rowHeightBySize = computed(() => {
-  return RowHeightValue[state.size]
+  return RowHeightValue[state.size || 'll']
 })
 
 const parentRef = ref<HTMLElement | null>(null)
