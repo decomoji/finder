@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useVirtualizer } from '@tanstack/vue-virtual'
+// import DecomojiAll from 'decomoji/configs/v5_all.json'
 import DecomojiBasic from 'decomoji/configs/v5_basic.json'
-import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
+// import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
 import { isStringOfNotEmpty } from './utilities/isString'
-
 
 // なぜかわからないが $event.target には value が生えていないので無理やり型を通す
 interface InputEventTarget extends EventTarget {
