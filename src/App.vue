@@ -641,7 +641,13 @@ onMounted(() => {
 
     <main ref="parentRef">
       <h2 class="sr-only">デコモジ一覧</h2>
-      <div class="relative w-full" :style="{ marginTop: `${gapBySize}px`, height: `${Math.ceil(filtered.length / rowItemLength) * rowHeightBySize}px` }">
+      <div
+        class="relative w-full"
+        :style="{
+          marginTop: `${gapBySize}px`,
+          height: `${Math.ceil(filtered.length / rowItemLength) * rowHeightBySize}px`
+        }"
+      >
         <div
           v-for="{ size, start, index } in virtualRows"
           :key="index"
