@@ -37,7 +37,7 @@ interface DecomojiItem {
   path: string
   created: VersionName
   updated?: VersionName
-  collected: boolean
+  collected?: boolean
 }
 
 interface CollectedDecomojiItem
@@ -94,10 +94,7 @@ const availableDecomojis: DecomojiItem[] = [
   ...DecomojiBasic,
   // ...DecomojiExtra,
   ...DecomojiExplicit
-].map((v) => ({
-  ...v,
-  collected: false
-}))
+]
 
 // { category_name: boolean } の形を作る
 const createCategoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
