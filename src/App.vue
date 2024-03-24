@@ -266,12 +266,14 @@ const filtered = computed(() => {
     return nameMatches && categoryMatches && (createdMatches || updatedMatches)
   }
 
-  return availableDecomojis
-    .filter((v: DecomojiItem) => matches(v))
-    .map((decomoji) => ({
-      ...decomoji,
-      collected: state.collected.find((v) => v.name === decomoji.name) ? true : false
-    }))
+  return availableDecomojis.flatMap((v: DecomojiItem) =>
+    matches(v)
+      ? {
+          ...v,
+          collected: state.collected.find((collcted) => collcted.name === v.name) ? true : undefined
+        }
+      : []
+  )
 })
 
 // コレクションを JSON 化した URL を返す
