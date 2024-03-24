@@ -251,11 +251,15 @@ const versionParam = computed(() => {
   return versions.length > 0 ? `version=${versions.join(',')}` : null
 })
 
+const searchRegex = computed(() => {
+  return RegExp(state.search)
+})
+
 // 各種表示条件に合わせてフィルターしたデコモジリストを返す
 const filtered = computed(() => {
   const matches = ({ name, category, created, updated }: MatchesParams) => {
     // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
-    const nameMatches = RegExp(state.search).test(name) || state.search === ''
+    const nameMatches = searchRegex.value.test(name) || state.search === ''
     // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
     const categoryMatches = state.category[category] || categoryParam.value === null
     // デコモジの作成バージョンが、表示するバージョンであるか、または何も選択されていないか否か
