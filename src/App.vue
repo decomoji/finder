@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useVirtualizer } from '@tanstack/vue-virtual'
-// import DecomojiAll from 'decomoji/configs/v5_all.json'
-import DecomojiBasic from 'decomoji/configs/v5_basic.json'
-import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
+import { useVirtualizer } from '@tanstack/vue-virtual';
+import DecomojiAll from 'decomoji/configs/v5_all.json';
+// import DecomojiBasic from 'decomoji/configs/v5_basic.json'
+// import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
 // import DecomojiExtra from 'decomoji/configs/v5_extra.json'
-import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
-import { isStringOfNotEmpty } from './utilities/isString'
+import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
+import { isStringOfNotEmpty } from './utilities/isString';
 
 // なぜかわからないが $event.target には value が生えていないので無理やり型を通す
 interface InputEventTarget extends EventTarget {
@@ -91,9 +91,10 @@ const RowItemWidthValue: ValueBySizeParams = {
 // 全 デコモジアイテムに collected プロパティを追加する
 // TODO: ...DecomojiExtra, を混ぜるとハングアップする
 const availableDecomojis: DecomojiItem[] = [
-  ...DecomojiBasic,
+  // ...DecomojiBasic,
   // ...DecomojiExtra,
-  ...DecomojiExplicit
+  // ...DecomojiExplicit
+  ...DecomojiAll
 ]
 
 // { category_name: boolean } の形を作る
@@ -389,7 +390,7 @@ const rowVirtualizer = useVirtualizer({
   count: Math.ceil(filtered.value.length / rowItemLength.value),
   getScrollElement: () => parentRef.value,
   estimateSize: () => rowHeightBySize.value,
-  overscan: 0 // 0 出ないと余計な row が生成されてしまう
+  overscan: 0 // 0 でないと余計な row が生成されてしまう
 })
 
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
