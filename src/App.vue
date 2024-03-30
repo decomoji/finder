@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { useVirtualizer } from '@tanstack/vue-virtual';
-import DecomojiAll from 'decomoji/configs/v5_all.json';
-// import DecomojiBasic from 'decomoji/configs/v5_basic.json'
-// import DecomojiExplicit from 'decomoji/configs/v5_explicit.json'
-// import DecomojiExtra from 'decomoji/configs/v5_extra.json'
-import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
-import { isStringOfNotEmpty } from './utilities/isString';
 import { useWindowVirtualizer } from '@tanstack/vue-virtual'
+import DecomojiAll from 'decomoji/configs/v5_all.json'
+import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
+import { isStringOfNotEmpty } from './utilities/isString'
 
 // なぜかわからないが $event.target には value が生えていないので無理やり型を通す
 interface InputEventTarget extends EventTarget {
@@ -89,16 +85,9 @@ const RowItemWidthValue: ValueBySizeParams = {
   s: 24
 }
 
-// 全 デコモジアイテムに collected プロパティを追加する
-// TODO: ...DecomojiExtra, を混ぜるとハングアップする
-const availableDecomojis: DecomojiItem[] = [
-  // ...DecomojiBasic,
-  // ...DecomojiExplicit,
-  // ...DecomojiExtra,
-  ...DecomojiAll
-]
+const availableDecomojis: DecomojiItem[] = DecomojiAll
 
-// { category_name: boolean } の形を作る
+// { category_name: boolean } のオブジェクトを作る
 const createCategoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
   return ['basic', 'extra', 'explicit'].reduce(
     (acc, name) => ({
@@ -117,7 +106,7 @@ const availableVersions = Array.from(
   ])
 ).sort((a, b) => a.localeCompare(b))
 
-// { version_name: boolean } の形を作る
+// { version_name: boolean } のオブジェクトを作る
 const createVersionParams: (version: VersionName[]) => VersionParams = (version) => {
   return availableVersions.reduce(
     (acc, name) => ({
