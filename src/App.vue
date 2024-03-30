@@ -6,6 +6,7 @@ import DecomojiAll from 'decomoji/configs/v5_all.json';
 // import DecomojiExtra from 'decomoji/configs/v5_extra.json'
 import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
 import { isStringOfNotEmpty } from './utilities/isString';
+import { useWindowVirtualizer } from '@tanstack/vue-virtual'
 
 // なぜかわからないが $event.target には value が生えていないので無理やり型を通す
 interface InputEventTarget extends EventTarget {
@@ -390,17 +391,29 @@ const updateContainerWidth = () => {
 }
 
 const parentRef = ref<HTMLElement | null>(null)
+const parentOffsetRef = ref(0)
 
-const rowVirtualizer = useVirtualizer({
-  // 全デコモジリストを１行に収まる数で割って切り上げた数
-  count: Math.ceil(filtered.value.length / rowItemLength.value),
-  getScrollElement: () => parentRef.value,
-  estimateSize: () => rowHeightBySize.value,
-  overscan: 0 // 0 でないと余計な row が生成されてしまう
+const rowVirtualizerOptions = computed(() => {
+  return {
+    count: Math.ceil(filtered.value.length / rowItemLength.value),
+    estimateSize: () => rowHeightBySize.value,
+    scrollMargin: parentOffsetRef.value
+  }
 })
 
+const rowVirtualizer = useWindowVirtualizer(rowVirtualizerOptions)
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
-// const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
+const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
+
+const measureElement = (el: HTMLElement) => {
+  if (!el) {
+    return
+  }
+
+  rowVirtualizer.value.measureElement(el)
+
+  return undefined
+}
 
 const debounce = ref(0)
 const debouncedInputSearch = (value: string) => {
@@ -658,13 +671,15 @@ onMounted(() => {
         class="relative w-full"
         :style="{
           marginTop: `${gapBySize}px`,
-          height: `${Math.ceil(filtered.length / rowItemLength) * rowHeightBySize}px`
+          height: `${totalSize}px`
         }"
       >
         <div
-          v-for="{ size, start, index } in virtualRows"
-          :key="index"
+          v-for="{ size, start, index, key } in virtualRows"
+          :key="key"
           :class="['absolute top-0 left-0 w-full', classBySize.wrapper]"
+          :data-index="index"
+          :ref="measureElement"
           :style="{
             height: `${size}px`,
             transform: `translateY(${start}px)`
