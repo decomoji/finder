@@ -430,7 +430,9 @@ watch(filtered, (newList, oldList) => {
 })
 
 // state を監視してURLにパラメータを追加する
-watch(state, () => window.history.replaceState({}, '', urlParams.value.length ? `?${urlParams.value}` : null))
+watch(state, () =>
+  window.history.replaceState(null, '', urlParams.value.length ? `?${urlParams.value}` : '/')
+)
 
 // URLパラメータから画面状態を復元する
 onBeforeMount(() => {
