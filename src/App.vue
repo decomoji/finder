@@ -174,110 +174,6 @@ const state: State = reactive({
   version: createVersionParams([])
 })
 
-// 表示カテゴリーをパラメータ文字列に変換したものを返す
-const categoryParam = computed(() => {
-  const arrayedCategories = Object.keys(state.category).filter((key) => state.category[key])
-  return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(',')}` : null
-})
-
-// コレクションをパラメータ文字列に変換したものを返す
-const collectedParam = computed(() => {
-  return state.collected.length > 0
-    ? `collected=${state.collected.map((v) => v.name).join(',')}`
-    : null
-})
-
-// 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
-const createdParam = computed(() => {
-  return state.created ? 'created=true' : null
-})
-
-// ダークモード表示か否かをパラメータ文字列に変換したものを返す
-const darkParam = computed(() => {
-  return state.dark ? 'dark=true' : null
-})
-
-// リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
-const reactedParam = computed(() => {
-  return state.reacted ? 'reacted=true' : null
-})
-
-// 検索クエリをパラメータ文字列に変換したものを返す
-const searchParam = computed(() => {
-  return isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null
-})
-
-// 表示サイズをパラメータ文字列に変換したものを返す
-const sizeParam = computed(() => {
-  return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null
-})
-
-// 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
-const updatedParam = computed(() => {
-  return state.updated ? 'updated=true' : null
-})
-
-// 各パラメータ文字列を連結したものを返す
-const urlParams = computed(() => {
-  return [
-    searchParam.value,
-    sizeParam.value,
-    categoryParam.value,
-    collectedParam.value,
-    versionParam.value,
-    createdParam.value,
-    updatedParam.value,
-    reactedParam.value,
-    darkParam.value
-  ]
-    .filter((v) => !!v)
-    .join('&')
-})
-
-// 表示バージョンをパラメータ文字列に変換したものを返す
-const versionParam = computed(() => {
-  const versions = (Object.keys(state.version) as VersionName[])
-    .filter((key) => state.version[key])
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-  return versions.length > 0 ? `version=${versions.join(',')}` : null
-})
-
-const searchRegex = computed(() => {
-  return RegExp(state.search)
-})
-
-// 各種表示条件に合わせてフィルターしたデコモジリストを返す
-const filtered = computed(() => {
-  const matches = ({ name, category, created, updated }: MatchesParams) => {
-    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
-    const nameMatches = searchRegex.value.test(name) || state.search === ''
-    // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
-    const categoryMatches = state.category[category] || categoryParam.value === null
-    // デコモジの作成バージョンが、表示するバージョンであるか、または何も選択されていないか否か
-    const createdMatches = state.version[created] || versionParam.value === null
-    // 修正バージョンが、表示するバージョンであるか否か、または何も選択されていないか否か
-    const updatedMatches = updated ? state.version[updated] || versionParam.value === null : false
-    // 当該デコモジについて、カテゴリー、名前、バージョン、全てにマッチするか否かを返す
-    return nameMatches && categoryMatches && (createdMatches || updatedMatches)
-  }
-
-  return availableDecomojis.flatMap((v: DecomojiItem) =>
-    matches(v)
-      ? {
-          ...v,
-          collected: state.collected.find((collcted) => collcted.name === v.name) ? true : undefined
-        }
-      : []
-  )
-})
-
-// コレクションを JSON 化した URL を返す
-const downloadURL = computed(() => {
-  const jsonString = JSON.stringify(state.collected)
-  const blob = new Blob([jsonString], { type: 'application/json' })
-  return window.URL.createObjectURL(blob)
-})
-
 // state.size に応じた CSS クラス名のセットを返す
 const classBySize = computed(() => {
   let wrapper = 'box-border grid grid-flow-row '
@@ -331,7 +227,139 @@ const classBySize = computed(() => {
   }
 })
 
+// 入力イベントを間引いて state.search を更新する
+const debounce = ref(0)
+const debouncedInputSearch = (value: string) => {
+  window.clearTimeout(debounce.value)
+  debounce.value = setTimeout(() => {
+    state.search = value
+  }, 300)
+}
+
+// RegExp インスタンスを computed にした方が速い
+const searchRegex = computed(() => {
+  return RegExp(state.search)
+})
+
+// 各種表示条件に合わせてフィルターしたデコモジリストを返す
+const filtered = computed(() => {
+  const matches = ({ name, category, created, updated }: MatchesParams) => {
+    // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
+    const nameMatches = searchRegex.value.test(name) || state.search === ''
+    // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
+    const categoryMatches = state.category[category] || categoryParam.value === null
+    // デコモジの作成バージョンが、表示するバージョンであるか、または何も選択されていないか否か
+    const createdMatches = state.version[created] || versionParam.value === null
+    // 修正バージョンが、表示するバージョンであるか否か、または何も選択されていないか否か
+    const updatedMatches = updated ? state.version[updated] || versionParam.value === null : false
+    // 当該デコモジについて、カテゴリー、名前、バージョン、全てにマッチするか否かを返す
+    return nameMatches && categoryMatches && (createdMatches || updatedMatches)
+  }
+
+  return availableDecomojis.flatMap((v: DecomojiItem) =>
+    matches(v)
+      ? {
+          ...v,
+          collected: state.collected.find((collcted) => collcted.name === v.name) ? true : undefined
+        }
+      : []
+  )
+})
+
+// n 番目から rowItemLength 目を切り出したデコモジリストを返す
+const sliced = computed(() => {
+  return (n: number) => {
+    const from = rowItemLength.value * n
+    const to = from + rowItemLength.value
+    return filtered.value.slice(from, to)
+  }
+})
+
+// 表示カテゴリーをパラメータ文字列に変換したものを返す
+const categoryParam = computed(() => {
+  const arrayedCategories = Object.keys(state.category).filter((key) => state.category[key])
+  return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(',')}` : null
+})
+
+// コレクションをパラメータ文字列に変換したものを返す
+const collectedParam = computed(() => {
+  return state.collected.length > 0
+    ? `collected=${state.collected.map((v) => v.name).join(',')}`
+    : null
+})
+
+// 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
+const createdParam = computed(() => {
+  return state.created ? 'created=true' : null
+})
+
+// ダークモード表示か否かをパラメータ文字列に変換したものを返す
+const darkParam = computed(() => {
+  return state.dark ? 'dark=true' : null
+})
+
+// リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
+const reactedParam = computed(() => {
+  return state.reacted ? 'reacted=true' : null
+})
+
+// 検索クエリをパラメータ文字列に変換したものを返す
+const searchParam = computed(() => {
+  return isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null
+})
+
+// 表示サイズをパラメータ文字列に変換したものを返す
+const sizeParam = computed(() => {
+  return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null
+})
+
+// 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
+const updatedParam = computed(() => {
+  return state.updated ? 'updated=true' : null
+})
+
+// 表示バージョンをパラメータ文字列に変換したものを返す
+const versionParam = computed(() => {
+  const versions = (Object.keys(state.version) as VersionName[])
+    .filter((key) => state.version[key])
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  return versions.length > 0 ? `version=${versions.join(',')}` : null
+})
+
+// 各パラメータ文字列を連結したものを返す
+const urlParams = computed(() => {
+  return [
+    searchParam.value,
+    sizeParam.value,
+    categoryParam.value,
+    collectedParam.value,
+    versionParam.value,
+    createdParam.value,
+    updatedParam.value,
+    reactedParam.value,
+    darkParam.value
+  ]
+    .filter((v) => !!v)
+    .join('&')
+})
+
+// コレクションを JSON 化した URL を返す
+const downloadURL = computed(() => {
+  const jsonString = JSON.stringify(state.collected)
+  const blob = new Blob([jsonString], { type: 'application/json' })
+  return window.URL.createObjectURL(blob)
+})
+
+// ウィンドウ幅はリサイズをリスンして適宜更新される
 const containerWidth = ref(window.innerWidth)
+const handleResizeWindow = () => {
+  nextTick().then(() => {
+    if (!(parentRef.value instanceof HTMLElement)) {
+      throw new Error('Component must be rendered as an HTMLElement')
+    }
+    containerWidth.value = parentRef.value.clientWidth
+  })
+}
 
 // 1行に収められるアイテムの数を返す
 const rowItemLength = computed(() => {
@@ -358,25 +386,8 @@ const rowHeightBySize = computed(() => {
   return rowItemWidthBySize.value + gapBySize.value
 })
 
-// n 番目から rowItemLength 目を切り出したデコモジリストを返す
-const sliced = (n: number) => {
-  const from = rowItemLength.value * n
-  const to = from + rowItemLength.value
-  return filtered.value.slice(from, to)
-}
-
-const updateContainerWidth = () => {
-  nextTick().then(() => {
-    if (!(parentRef.value instanceof HTMLElement)) {
-      throw new Error('Component must be rendered as an HTMLElement')
-    }
-    containerWidth.value = parentRef.value.clientWidth
-  })
-}
-
 const parentRef = ref<HTMLElement | null>(null)
 const parentOffsetRef = ref(0)
-
 const rowVirtualizerOptions = computed(() => {
   return {
     count: Math.ceil(filtered.value.length / rowItemLength.value),
@@ -384,11 +395,9 @@ const rowVirtualizerOptions = computed(() => {
     scrollMargin: parentOffsetRef.value
   }
 })
-
 const rowVirtualizer = useWindowVirtualizer(rowVirtualizerOptions)
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
 const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
-
 const measureElement = (el: HTMLElement) => {
   if (!el) {
     return
@@ -397,14 +406,6 @@ const measureElement = (el: HTMLElement) => {
   rowVirtualizer.value.measureElement(el)
 
   return undefined
-}
-
-const debounce = ref(0)
-const debouncedInputSearch = (value: string) => {
-  window.clearTimeout(debounce.value)
-  debounce.value = setTimeout(() => {
-    state.search = value
-  }, 300)
 }
 
 // 項目が減って虚無を表示していたらスクロール位置を戻す
@@ -429,7 +430,7 @@ watch(filtered, (newList, oldList) => {
 })
 
 // state を監視してURLにパラメータを追加する
-watch(state, () => window.history.replaceState({}, '', '?' + urlParams.value))
+watch(state, () => window.history.replaceState({}, '', urlParams.value.length ? `?${urlParams.value}` : null))
 
 // URLパラメータから画面状態を復元する
 onBeforeMount(() => {
@@ -477,8 +478,8 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-  window.addEventListener('resize', updateContainerWidth)
-  updateContainerWidth()
+  window.addEventListener('resize', handleResizeWindow)
+  handleResizeWindow()
 })
 </script>
 
