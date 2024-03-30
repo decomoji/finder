@@ -776,7 +776,7 @@ onMounted(() => {
         このウェブアプリは
         <a
           href="https://twitter.com/otiext"
-          class="link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
+          class="underline link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
           >oti</a
         >
         が作りました。
@@ -784,7 +784,7 @@ onMounted(() => {
       <p class="ml-auto">
         <a
           href="https://github.com/decomoji/finder/"
-          class="link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
+          class="underline link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
           >GitHub</a
         >, MIT License.
       </p>
