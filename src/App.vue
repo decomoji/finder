@@ -92,8 +92,8 @@ const RowItemWidthValue: ValueBySizeParams = {
 // TODO: ...DecomojiExtra, を混ぜるとハングアップする
 const availableDecomojis: DecomojiItem[] = [
   // ...DecomojiBasic,
+  // ...DecomojiExplicit,
   // ...DecomojiExtra,
-  // ...DecomojiExplicit
   ...DecomojiAll
 ]
 
@@ -179,7 +179,7 @@ const state: State = reactive({
   dark: false,
   reacted: false,
   search: '',
-  size: 'll',
+  size: '',
   updated: false,
   version: createVersionParams([])
 })
@@ -329,6 +329,12 @@ const classBySize = computed(() => {
       image += 'w-[16px] h-[16px]'
       name = 'sr-only'
       break
+    default:
+      wrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] px-3'
+      cWrapper += 'gap-3 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-3'
+      button += 'h-[128px]'
+      cButton += 'h-[80px]'
+      image += 'w-[64px] h-[64px]'
   }
   return {
     wrapper,
