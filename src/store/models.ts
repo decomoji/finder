@@ -1,4 +1,0 @@
-/**
- * ルートステート
- */
-export interface RootState {}
