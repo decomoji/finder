@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useWindowVirtualizer } from '@tanstack/vue-virtual'
 import DecomojiAll from 'decomoji/configs/v5_all.json'
+import DecomojiVersions from 'decomoji/configs/v5_versions.json'
 import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
 import { isStringOfNotEmpty } from './utilities/isString'
 
@@ -99,12 +100,7 @@ const createCategoryParams: (category: CategoryName[]) => CategoryParams = (cate
 }
 
 // created と updated を抽出してユニークなバージョンリストを作る
-const availableVersions = Array.from(
-  new Set([
-    ...availableDecomojis.map((v) => v.created),
-    ...availableDecomojis.flatMap((v) => (v.updated ? v.updated : []))
-  ])
-).sort((a, b) => a.localeCompare(b))
+const availableVersions: string[] = DecomojiVersions
 
 // { version_name: boolean } のオブジェクトを作る
 const createVersionParams: (version: VersionName[]) => VersionParams = (version) => {
