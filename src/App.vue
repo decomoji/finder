@@ -739,28 +739,20 @@ onMounted(() => {
       v-if="state.collected.length"
       class="sticky left-0 bottom-9 sm:bottom-11 max-h-[15rem] text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
     >
-      <div class="flex p-2.5 pb-0">
-        <div class="flex flex-grow flex-wrap items-baseline">
-          <h2 class="flex-grow mr-2.5 text-base font-bold leading-[1.4]">
-            コレクション：{{ state.collected.length }}
-          </h2>
-          <p class="flex-grow-[9999] mb-2.5 text-sm leading-[1.4]">
-            ダブルクリックするか delete キーでコレクションから外せます。
-          </p>
-        </div>
-        <div class="flex gap-2.5">
+      <div class="flex justify-between items-center gap-1 p-2.5 pb-0">
+        <h2 class="font-bold leading-[1.4]">
+          コレクション：{{ state.collected.length }}
+        </h2>
+        <div class="flex gap-1">
           <button
-            class="flex justify-center items-center w-8 h-8"
+            class="flex justify-center items-center w-10 h-6"
             title="コレクションをアルファベット順にソートする"
             @click="state.collected = state.collected.sort((a, b) => a.name.localeCompare(b.name))"
           >
             <span class="material-icons" aria-hidden="true">sort</span>
           </button>
-          <!-- <button class="flex justify-center items-center w-8 h-8" title="コレクションリンクをクリップボードにコピーする">
-            <span class="material-icons" aria-hidden="true">link</span>
-          </button> -->
           <a
-            class="flex justify-center items-center w-8 h-8"
+            class="flex justify-center items-center w-10 h-6"
             :href="downloadURL"
             download="my-collected.json"
           >
@@ -768,7 +760,7 @@ onMounted(() => {
             <span class="material-icons" aria-hidden="true">save_alt</span>
           </a>
           <button
-            class="flex justify-center items-center w-8 h-8"
+            class="flex justify-center items-center w-10 h-6"
             title="コレクションを空にする"
             @click="state.collected.splice(0, state.collected.length)"
           >
