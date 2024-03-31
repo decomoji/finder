@@ -491,9 +491,9 @@ onMounted(() => {
     ]"
   >
     <header
-      class="sticky z-10 top-0 left-0 flex flex-wrap items-center gap-x-5 gap-y-2.5 p-[--paddingHeader] w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
+      class="sticky z-10 top-0 left-0 flex flex-wrap items-center gap-x-5 gap-y-2.5 p-2.5 w-full text-[--colorHeader] bg-[--bgHeader] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
     >
-      <div class="flex items-center gap-[--betweenLogoSearch] basis-[40rem] grow">
+      <div class="flex items-center gap-2.5 basis-[40rem] grow">
         <h1 class="flex-[0_0_auto]">
           <a class="block w-8 h-8 rounded-full overflow-hidden" href="/">
             <img class="block" src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
@@ -546,7 +546,7 @@ onMounted(() => {
         </details>
       </div>
 
-      <div class="flex items-center gap-[--betweenLogoSearch] basis-0 grow-[999] min-w-[50%]">
+      <div class="flex items-center gap-2.5 basis-0 grow-[999] min-w-[50%]">
         <details class="relative hidden sm:block" name="options">
           <summary class="p-2.5 rounded-md">サイズ</summary>
           <div
@@ -737,7 +737,7 @@ onMounted(() => {
 
     <section
       v-if="state.collected.length"
-      class="sticky left-0 bottom-[--heightFooter] max-h-[15rem] text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
+      class="sticky left-0 bottom-9 sm:bottom-11 max-h-[15rem] text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
     >
       <div class="flex p-2.5 pb-0">
         <div class="flex flex-grow flex-wrap items-baseline">
@@ -790,7 +790,7 @@ onMounted(() => {
     </section>
 
     <footer
-      class="sticky z-10 bottom-0 left-0 flex items-center gap-5 p-[--paddingFooter] w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] text-xs sm:text-base"
+      class="sticky z-10 bottom-0 left-0 flex items-center gap-5 p-2.5 w-full text-[--colorFooter] bg-[--bgFooter] shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] text-xs sm:text-base"
     >
       <p>
         このウェブアプリは
