@@ -1,20 +1,6 @@
-import "@/assets/styles/app.scss";
-import createRouter from "@/router";
-import createStore from "@/store";
-import Vue from "vue";
-import App from "@/App.vue";
-import VueVirtualScroller from "vue-virtual-scroller";
+import './assets/app.css'
 
-Vue.config.productionTip = false;
+import { createApp } from 'vue'
+import App from './App.vue'
 
-Vue.use(VueVirtualScroller);
-
-// プラグインを引き当てる
-const router = createRouter();
-const store = createStore();
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+createApp(App).mount('#app')

@@ -1,11 +1,11 @@
-import { getObjectClassName } from "@/utilities/getObjectClassName";
+import { getObjectClassName } from './getObjectClassName'
 
 /**
  * 値が文字列であるか否かを返す
  * @param val
  */
 export function isString(val: any): val is string {
-  return getObjectClassName(val) === "[object String]";
+  return getObjectClassName(val) === '[object String]'
 }
 
 /**
@@ -13,5 +13,5 @@ export function isString(val: any): val is string {
  * @param val
  */
 export function isStringOfNotEmpty(val: any): val is string {
-  return isString(val) && val.length > 0;
+  return isString(val) && val.length > 0
 }

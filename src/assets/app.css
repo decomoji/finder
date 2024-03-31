@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Slack Aubergine テーマの紫 */
+  --aubergine-800: #240726;
+  --aubergine-900: #1f061f;
+  /* くすんだブルー */
+  --danube-200: #adbfca;
+  --danube-600: #5c7280;
+  /* 黒そうで黒くない、少しだけ青い黒 */
+  --night-800: #110f13;
+  --night-900: #0e0d10;
+  /* Slack で自分がリアクションしたときの青 */
+  --sea-200: #e6f3fa;
+  --sea-500: #1d89c7;
+  --sea-800: #135092;
+  /* 無彩色系 */
+  --shade-100: #ffffff;
+  --shade-200: #f4f4f4;
+  --shade-400: #727272;
+  --shade-500: #424242;
+  --shade-700: #1a1c20;
+  --shade-800: #15171a;
+  --shade-900: #000000;
+
+  --outline-danube-200: 0 0 0 4px var(--danube-200);
+  --outline-danube-600: 0 0 0 4px var(--danube-600);
+
+  /* 中間ラベル */
+  --bgBody: var(--shade-100);
+  --colorBody: var(--shade-800);
+  --bgHeader: var(--aubergine-900);
+  --colorHeader: var(--shade-200);
+  --bgPanel: var(--aubergine-800);
+  --colorDecomoji: var(--shade-800);
+  --bgDecomoji: var(--shade-200);
+  --bgDecomojiReacted: var(--sea-200);
+  --borderDecomojiReacted: var(--sea-500);
+  --bgDecomojiCollected: var(--shade-100);
+  --borderDecomojiCollected: var(--shade-400);
+  --colorCollected: var(--shade-800);
+  --bgCollected: var(--shade-200);
+  --focusDecomoji: var(--outline-danube-200);
+  --colorFooter: var(--shade-200);
+  --bgFooter: var(--aubergine-900);
+  --bgTag: var(--shade-100);
+  --colorTag: var(--shade-800);
+}
+
+.-dark {
+  --bgBody: var(--shade-800);
+  --colorBody: var(--shade-200);
+  --bgHeader: var(--night-900);
+  --bgPanel: var(--night-800);
+  --colorDecomoji: var(--shade-200);
+  --bgDecomoji: var(--shade-700);
+  --bgDecomojiReacted: var(--sea-800);
+  --borderDecomojiReacted: var(--sea-800);
+  --bgDecomojiCollected: var(--shade-900);
+  --borderDecomojiCollected: var(--shade-500);
+  --colorCollected: var(--shade-200);
+  --bgCollected: var(--shade-700);
+  --focusDecomoji: var(--outline-danube-600);
+  --bgFooter: var(--night-900);
+  --bgTag: var(--shade-800);
+  --colorTag: var(--shade-100);
+}
+
+/* https://github.com/ampproject/amphtml/blob/2e9a940e78df8de38a6c06a0772aeaa4839a24d1/css/ampshared.css#L164-L204 */
+.sr-only {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: block !important;
+  width: 4px !important;
+  height: 4px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  visibility: visible !important;
+}
