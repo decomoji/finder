@@ -29,14 +29,6 @@
   --outline-danube-200: 0 0 0 4px var(--danube-200);
   --outline-danube-600: 0 0 0 4px var(--danube-600);
 
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 0.625rem;
-  --space-md: 1rem;
-  --space-lg: 1.25rem;
-  --space-xl: 1.5rem;
-  --space-xxl: 1.75rem;
-
   /* 中間ラベル */
   --bgBody: var(--shade-100);
   --colorBody: var(--shade-800);
@@ -56,19 +48,8 @@
   --bgTag: var(--shade-100);
   --colorTag: var(--shade-800);
 
-  --heightHeader: 6.5rem;
-
-  --paddingHeader: var(--space-sm);
-  --betweenVertical: var(--space-sm);
-  --betweenHorizon: 0;
-
-  --betweenLogoSearch: var(--space-sm);
-
-  --heightFooter: 2.25rem;
-
   --focusHeader: var(--outline-white-05);
   --focusDecomoji: var(--outline-danube-200);
-  --paddingFooter: var(--space-sm);
 }
 
 .-dark {
