@@ -502,7 +502,7 @@ onMounted(() => {
         <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
           <input
             :value="state.search"
-            class="py-2.5 pl-[calc(1.5rem+var(--space-md))] pr-[calc(6.5rem+var(--space-md))] rounded-md w-full text-md bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
+            class="py-2.5 pl-10 pr-28 rounded-md w-full text-base bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
             type="text"
             name="search"
             title="検索"
@@ -548,9 +548,9 @@ onMounted(() => {
 
       <div class="flex items-center gap-2.5 basis-0 grow-[999] min-w-[50%]">
         <details class="relative hidden sm:block" name="options">
-          <summary class="p-2.5 rounded-md">サイズ</summary>
+          <summary class="py-1 px-2.5 rounded-md">サイズ</summary>
           <div
-            class="absolute flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute flex flex-col gap-2 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label
               v-for="{ text, value } in SIZE_LIST"
@@ -570,9 +570,9 @@ onMounted(() => {
         </details>
 
         <details class="relative" name="options">
-          <summary class="p-2.5 rounded-md">カテゴリー</summary>
+          <summary class="py-1 px-2.5 rounded-md">カテゴリー</summary>
           <div
-            class="absolute flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute flex flex-col gap-2 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label
               v-for="{ text, value } in CATEGORY_LIST"
@@ -592,9 +592,9 @@ onMounted(() => {
         </details>
 
         <details class="relative" name="options">
-          <summary class="p-2.5 rounded-md">バージョン</summary>
+          <summary class="py-1 px-2.5 rounded-md">バージョン</summary>
           <div
-            class="absolute flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
+            class="absolute flex flex-col gap-2 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
             <label
               v-for="{ text, value } in VERSION_LIST"
@@ -613,7 +613,7 @@ onMounted(() => {
             <button
               :disabled="Object.values(state.version).every((v) => v)"
               type="button"
-              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+              class="flex justify-center items-center py-1 px-2 disabled:text-[rgba(255,255,255,0.25)]"
               @click="availableVersions.forEach((value) => (state.version[value] = true))"
             >
               全選択
@@ -621,7 +621,7 @@ onMounted(() => {
             <button
               :disabled="!Object.values(state.version).some((v) => v)"
               type="button"
-              class="flex justify-center items-center p-[calc(var(--space-xs)/2)_var(--space-xs)] disabled:text-[rgba(255,255,255,0.25)]"
+              class="flex justify-center items-center py-1 px-2 disabled:text-[rgba(255,255,255,0.25)]"
               @click="availableVersions.forEach((value) => (state.version[value] = false))"
             >
               全解除
@@ -630,7 +630,7 @@ onMounted(() => {
         </details>
 
         <details class="relative" name="options">
-          <summary class="p-2.5 rounded-md">オプション</summary>
+          <summary class="py-1 px-2.5 rounded-md">オプション</summary>
           <div
             class="absolute right-0 flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-[--bgPanel] overflow-y-auto"
           >
