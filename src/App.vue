@@ -740,9 +740,7 @@ onMounted(() => {
       class="sticky left-0 bottom-9 sm:bottom-11 max-h-[15rem] text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
     >
       <div class="flex justify-between items-center gap-1 p-2.5 pb-0">
-        <h2 class="font-bold leading-[1.4]">
-          コレクション：{{ state.collected.length }}
-        </h2>
+        <h2 class="font-bold leading-[1.4]">コレクション：{{ state.collected.length }}</h2>
         <div class="flex gap-1">
           <button
             class="flex justify-center items-center w-10 h-6"
