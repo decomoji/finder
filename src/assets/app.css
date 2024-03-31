@@ -25,7 +25,6 @@
   --shade-800: #15171a;
   --shade-900: #000000;
 
-  --outline-white-05: 0 0 0 4px rgba(255, 255, 255, 0.5);
   --outline-danube-200: 0 0 0 4px var(--danube-200);
   --outline-danube-600: 0 0 0 4px var(--danube-600);
 
@@ -43,13 +42,11 @@
   --borderDecomojiCollected: var(--shade-400);
   --colorCollected: var(--shade-800);
   --bgCollected: var(--shade-200);
-  --bgFooter: var(--aubergine-900);
+  --focusDecomoji: var(--outline-danube-200);
   --colorFooter: var(--shade-200);
+  --bgFooter: var(--aubergine-900);
   --bgTag: var(--shade-100);
   --colorTag: var(--shade-800);
-
-  --focusHeader: var(--outline-white-05);
-  --focusDecomoji: var(--outline-danube-200);
 }
 
 .-dark {
@@ -57,12 +54,12 @@
   --colorBody: var(--shade-200);
   --bgHeader: var(--night-900);
   --bgPanel: var(--night-800);
+  --colorDecomoji: var(--shade-200);
   --bgDecomoji: var(--shade-700);
   --bgDecomojiReacted: var(--sea-800);
   --borderDecomojiReacted: var(--sea-800);
   --bgDecomojiCollected: var(--shade-900);
   --borderDecomojiCollected: var(--shade-500);
-  --colorDecomoji: var(--shade-200);
   --colorCollected: var(--shade-200);
   --bgCollected: var(--shade-700);
   --focusDecomoji: var(--outline-danube-600);
