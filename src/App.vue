@@ -87,10 +87,12 @@ const RowItemWidthValue: ValueBySizeParams = {
 }
 
 const availableDecomojis: DecomojiItem[] = DecomojiAll
+const availableCategories: CategoryName[] = ['basic', 'extra', 'explicit']
+const availableVersions: string[] = DecomojiVersions
 
-// { category_name: boolean } のオブジェクトを作る
+// { [category_name]: boolean } のオブジェクトを作る
 const createCategoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
-  return ['basic', 'extra', 'explicit'].reduce(
+  return availableCategories.reduce(
     (acc, name) => ({
       ...acc,
       [name]: category.includes(name) ? true : false
@@ -99,10 +101,7 @@ const createCategoryParams: (category: CategoryName[]) => CategoryParams = (cate
   )
 }
 
-// created と updated を抽出してユニークなバージョンリストを作る
-const availableVersions: string[] = DecomojiVersions
-
-// { version_name: boolean } のオブジェクトを作る
+// { [version_name]: boolean } のオブジェクトを作る
 const createVersionParams: (version: VersionName[]) => VersionParams = (version) => {
   return availableVersions.reduce(
     (acc, name) => ({
@@ -170,6 +169,26 @@ const state: State = reactive({
   version: createVersionParams([])
 })
 
+// リサイズイベントで要素幅を更新するハンドラー
+const containerWidth = ref(window.innerWidth)
+const handleResizeWindow = () => {
+  nextTick().then(() => {
+    if (!(parentRef.value instanceof HTMLElement)) {
+      throw new Error('Component must be rendered as an HTMLElement')
+    }
+    containerWidth.value = parentRef.value.clientWidth
+  })
+}
+
+// 入力イベントを間引いて state.search を更新するハンドラー
+const debounce = ref(0)
+const debouncedInputSearch = (value: string) => {
+  window.clearTimeout(debounce.value)
+  debounce.value = setTimeout(() => {
+    state.search = value
+  }, 300)
+}
+
 // state.size に応じた CSS クラス名のセットを返す
 const classBySize = computed(() => {
   let wrapper = 'box-border grid grid-flow-row '
@@ -222,15 +241,6 @@ const classBySize = computed(() => {
     name
   }
 })
-
-// 入力イベントを間引いて state.search を更新する
-const debounce = ref(0)
-const debouncedInputSearch = (value: string) => {
-  window.clearTimeout(debounce.value)
-  debounce.value = setTimeout(() => {
-    state.search = value
-  }, 300)
-}
 
 // RegExp インスタンスを computed にした方が速い
 const searchRegex = computed(() => {
@@ -346,17 +356,6 @@ const downloadURL = computed(() => {
   return window.URL.createObjectURL(blob)
 })
 
-// ウィンドウ幅はリサイズをリスンして適宜更新される
-const containerWidth = ref(window.innerWidth)
-const handleResizeWindow = () => {
-  nextTick().then(() => {
-    if (!(parentRef.value instanceof HTMLElement)) {
-      throw new Error('Component must be rendered as an HTMLElement')
-    }
-    containerWidth.value = parentRef.value.clientWidth
-  })
-}
-
 // 1行に収められるアイテムの数を返す
 const rowItemLength = computed(() => {
   // サイズごとのアイテムのピュアサイズ ＋ gap １つ分
@@ -382,6 +381,7 @@ const rowHeightBySize = computed(() => {
   return rowItemWidthBySize.value + gapBySize.value
 })
 
+// Virtual Scroll に必要な変数たち
 const parentRef = ref<HTMLElement | null>(null)
 const parentOffsetRef = ref(0)
 const rowVirtualizerOptions = computed(() => {
