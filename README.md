@@ -8,7 +8,7 @@ Slack で使えるカスタム絵文字「[デコモジ（decomoji）](https://g
 
 デコモジファインダーは、デコモジに含まれているものを閲覧・条件検索できるツールです。
 
-![デコモジファインダーの画面キャプチャ](./docs/images/screenshot.png)
+![デコモジファインダーの画面キャプチャ](./fixture/screenshot.png)
 
 ## 特徴
 
