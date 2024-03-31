@@ -1,4 +1,4 @@
-import { getObjectClassName } from './getObhectClassName'
+import { getObjectClassName } from './getObjectClassName'
 
 /**
  * 値が文字列であるか否かを返す
