@@ -4,11 +4,6 @@ import DecomojiAll from 'decomoji/configs/v5_all.json'
 import DecomojiVersions from 'decomoji/configs/v5_versions.json'
 import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
 
-// なぜかわからないが $event.target には value が生えていないので無理やり型を通す
-interface InputEventTarget extends EventTarget {
-  value: string
-}
-
 type SizeName = string | 's' | 'm' | 'l' | 'll'
 type CategoryName = string | 'basic' | 'extra' | 'explicit'
 type VersionName = string
@@ -202,15 +197,6 @@ const handleResizeWindow = () => {
     }
     containerWidth.value = parentRef.value.clientWidth
   })
-}
-
-// 入力イベントを間引いて state.search を更新するハンドラー
-const debounce = ref(0)
-const debouncedInputSearch = (value: string) => {
-  window.clearTimeout(debounce.value)
-  debounce.value = setTimeout(() => {
-    state.search = value
-  }, 300)
 }
 
 // state.size に応じた CSS クラス名のセットを返す
@@ -525,12 +511,11 @@ onMounted(() => {
         </h1>
         <div class="relative flex-[1_1_auto] text-[--shade-200] focus-within:text-[--shade-800]">
           <input
-            :value="state.search"
+            v-model="state.search"
             class="py-2.5 pl-10 pr-28 rounded-md w-full text-base bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
             type="text"
             name="search"
             title="検索"
-            @input="debouncedInputSearch(($event.target as InputEventTarget).value)"
           />
           <span
             class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-2 m-auto w-6 h-6"
