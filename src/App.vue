@@ -3,7 +3,6 @@ import { useWindowVirtualizer } from '@tanstack/vue-virtual'
 import DecomojiAll from 'decomoji/configs/v5_all.json'
 import DecomojiVersions from 'decomoji/configs/v5_versions.json'
 import { computed, nextTick, onBeforeMount, onMounted, reactive, ref, watch } from 'vue'
-import { isStringOfNotEmpty } from './utilities/isString'
 
 // なぜかわからないが $event.target には value が生えていないので無理やり型を通す
 interface InputEventTarget extends EventTarget {
@@ -70,6 +69,31 @@ interface State {
 
 interface ValueBySizeParams {
   [key: SizeName]: number
+}
+
+/**
+ * オブジェクトのクラス名を文字列で返す
+ * @param val
+ */
+const getObjectClassName = (val: any) => {
+  return Object.prototype.toString.call(val)
+}
+
+
+/**
+ * 値が文字列であるか否かを返す
+ * @param val
+ */
+const isString = (val: any): val is string => {
+  return getObjectClassName(val) === '[object String]'
+}
+
+/**
+ * 値が空ではない文字列であるか否かを返す
+ * @param val
+ */
+const isStringOfNotEmpty = (val: any): val is string => {
+  return isString(val) && val.length > 0
 }
 
 const RowGapValue: ValueBySizeParams = {
