@@ -469,7 +469,7 @@ onBeforeMount(() => {
     }, {})
 
   // state の各プロパティを更新
-  state.search = search ? search : state.search
+  state.search = search ? decodeURIComponent(search) : state.search
   state.size = size ? (size as SizeName) : state.size
   state.category = category ? createCategoryParams(category.split(',')) : state.category
   state.collected = collected
