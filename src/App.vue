@@ -760,8 +760,27 @@ onMounted(() => {
     </main>
 
     <section
+      v-if="state.json"
+      :class="[
+        'sticky left-0 p-3 h-40 text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]',
+        {
+          'bottom-[12.25rem] sm:bottom-[12.75rem]': state.collected.length > 0,
+          'bottom-9 sm:bottom-11': state.collected.length < 1
+        }
+      ]"
+    >
+      <h2 class="sr-only">マッチしたデコモジ一覧のJSON形式</h2>
+      <textarea
+        :value="JSON.stringify(filtered)"
+        class="border rounded-md h-full w-full overflow-y-auto scroll-touch resize-none"
+        title="マッチしたデコモジ一覧のJSON形式"
+        readonly
+      ></textarea>
+    </section>
+
+    <section
       v-if="state.collected.length"
-      class="sticky left-0 bottom-9 sm:bottom-11 max-h-[15rem] text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
+      class="sticky left-0 bottom-9 sm:bottom-11 h-40 text-[--colorCollected] bg-[--bgCollected] shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
     >
       <div class="flex justify-between items-center gap-1 p-2.5 pb-0">
         <h2 class="font-bold leading-[1.4]">コレクション：{{ state.collected.length }}</h2>
