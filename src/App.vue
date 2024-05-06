@@ -75,7 +75,6 @@ const getObjectClassName = (val: any) => {
   return Object.prototype.toString.call(val)
 }
 
-
 /**
  * 値が文字列であるか否かを返す
  * @param val
@@ -182,6 +181,7 @@ const state: State = reactive({
   collected: [],
   created: false,
   dark: false,
+  json: false,
   reacted: false,
   search: '',
   size: '',
