@@ -359,7 +359,8 @@ const urlParams = computed(() => {
     createdParam.value,
     updatedParam.value,
     reactedParam.value,
-    darkParam.value
+    darkParam.value,
+    jsonParam.value
   ]
     .filter((v) => !!v)
     .join('&')
