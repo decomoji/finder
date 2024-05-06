@@ -685,6 +685,10 @@ onMounted(() => {
               <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
               ダークモード
             </label>
+            <label class="flex items-center gap-1 whitespace-nowrap">
+              <input v-model="state.json" :checked="state.json" type="checkbox" name="option" />
+              検索結果をjson表示
+            </label>
           </div>
         </details>
       </div>
