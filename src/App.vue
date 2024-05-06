@@ -55,6 +55,7 @@ interface State {
   collected: CollectedDecomojiItem[]
   created: boolean
   dark: boolean
+  json: boolean
   reacted: boolean
   search: string
   size: SizeName
