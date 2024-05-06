@@ -458,7 +458,8 @@ onBeforeMount(() => {
     search,
     size,
     updated,
-    version
+    version,
+    json
   }: {
     [key: string]: string
   } = location.search
@@ -492,6 +493,7 @@ onBeforeMount(() => {
   state.dark = Boolean(dark)
   state.reacted = Boolean(reacted)
   state.updated = Boolean(updated)
+  state.json = Boolean(json)
 })
 
 onMounted(() => {
