@@ -259,7 +259,7 @@ const searchRegex = computed(() => {
 
 // 各種表示条件に合わせてフィルターしたデコモジリストを返す
 const filtered = computed(() => {
-  const matches = ({ name, category, created, updated }: MatchesParams) => {
+  const isMatched = ({ name, category, created, updated }: MatchesParams) => {
     // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
     const nameMatches = searchRegex.value.test(name) || state.search === ''
     // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
@@ -273,7 +273,7 @@ const filtered = computed(() => {
   }
 
   return availableDecomojis.flatMap((v: DecomojiItem) =>
-    matches(v)
+    isMatched(v)
       ? {
           ...v,
           collected: state.collected.find((collcted) => collcted.name === v.name) ? true : undefined
