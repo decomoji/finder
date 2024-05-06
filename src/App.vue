@@ -306,17 +306,17 @@ const collectedParam = computed(() => {
 
 // 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
 const createdParam = computed(() => {
-  return state.created ? 'created=true' : null
+  return state.created ? 'created' : null
 })
 
 // ダークモード表示か否かをパラメータ文字列に変換したものを返す
 const darkParam = computed(() => {
-  return state.dark ? 'dark=true' : null
+  return state.dark ? 'dark' : null
 })
 
 // リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
 const reactedParam = computed(() => {
-  return state.reacted ? 'reacted=true' : null
+  return state.reacted ? 'reacted' : null
 })
 
 // 検索クエリをパラメータ文字列に変換したものを返す
@@ -331,7 +331,7 @@ const sizeParam = computed(() => {
 
 // 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
 const updatedParam = computed(() => {
-  return state.updated ? 'updated=true' : null
+  return state.updated ? 'updated' : null
 })
 
 // 表示バージョンをパラメータ文字列に変換したものを返す
@@ -464,7 +464,8 @@ onBeforeMount(() => {
       const [key, value] = str.split('=')
       return {
         ...acc,
-        [key]: value
+        // キーだけある場合は真偽値のオプションと見做して　true にする
+        [key]: value === undefined ? true : value
       }
     }, {})
 
@@ -479,10 +480,11 @@ onBeforeMount(() => {
       }))
     : state.collected
   state.version = version ? createVersionParams(version.split(',')) : state.version
-  state.created = created === 'true' ? true : false
-  state.dark = dark === 'true' ? true : false
-  state.reacted = reacted === 'true' ? true : false
-  state.updated = updated === 'true' ? true : false
+  // undefined になり得るので真偽値にキャストする
+  state.created = Boolean(created)
+  state.dark = Boolean(dark)
+  state.reacted = Boolean(reacted)
+  state.updated = Boolean(updated)
 })
 
 onMounted(() => {
