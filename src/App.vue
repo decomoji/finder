@@ -314,6 +314,11 @@ const darkParam = computed(() => {
   return state.dark ? 'dark' : null
 })
 
+// JSONを表示するか否かをパラメータ文字列に変換したものを返す
+const jsonParam = computed(() => {
+  return state.json ? 'json' : null
+})
+
 // リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
 const reactedParam = computed(() => {
   return state.reacted ? 'reacted' : null
