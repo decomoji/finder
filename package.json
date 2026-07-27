@@ -6,40 +6,41 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
     "build-only": "vite build",
+    "preview": "vite preview",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
+    "lint": "eslint . --fix",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
     "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
-    "@tanstack/vue-virtual": "^3.8.6",
+    "@tanstack/vue-virtual": "^3.13.34",
     "decomoji": "github:decomoji/decomoji",
-    "vue": "^3.4.37"
+    "vue": "^3.5.40"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.10.4",
-    "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^22.2.0",
-    "@vitejs/plugin-vue": "^5.1.2",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/tsconfig": "^0.5.1",
-    "autoprefixer": "^10.4.20",
+    "@rushstack/eslint-patch": "^1.16.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@tsconfig/node20": "^20.1.9",
+    "@types/node": "^26.1.1",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/eslint-config-typescript": "^14.9.0",
+    "@vue/tsconfig": "^0.9.1",
+    "autoprefixer": "^10.5.4",
     "cpx": "^1.5.0",
-    "eslint": "^8.56.0",
-    "eslint-plugin-vue": "^9.27.0",
-    "husky": "^9.1.4",
-    "npm-run-all2": "^6.2.2",
-    "postcss": "^8.4.41",
-    "prettier": "^3.3.3",
-    "pretty-quick": "^4.0.0",
-    "tailwindcss": "^3.4.9",
-    "typescript": "~5.5.4",
-    "vite": "^5.4.8",
-    "vue-tsc": "^2.0.29"
+    "eslint": "^10.7.0",
+    "eslint-plugin-vue": "^10.10.0",
+    "husky": "^9.1.7",
+    "npm-run-all2": "^9.0.2",
+    "postcss": "^8.5.22",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.5",
+    "vue-tsc": "^3.3.8"
+  },
+  "allowScripts": {
+    "core-js@2.6.12": true,
+    "fsevents@1.2.13": true
   }
 }
