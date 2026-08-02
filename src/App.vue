@@ -667,7 +667,8 @@ onMounted(() => {
             <label class="flex items-center gap-1 whitespace-nowrap">
               <input
                 v-model="state.created"
-                :checked="state.created"
+                :checked="(state.size === 'll' || state.size === '') && state.created"
+                :disabled="state.size !== 'll' && state.size !== ''"
                 type="checkbox"
                 name="option"
               />
@@ -676,7 +677,8 @@ onMounted(() => {
             <label class="flex items-center gap-1 whitespace-nowrap">
               <input
                 v-model="state.updated"
-                :checked="state.updated"
+                :checked="(state.size === 'll' || state.size === '') && state.updated"
+                :disabled="state.size !== 'll' && state.size !== ''"
                 type="checkbox"
                 name="option"
               />
