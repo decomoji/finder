@@ -1,10 +1,11 @@
-# ビルドは行わない。`public/` をそのまま公開する。
+# バンドルはしない。`public/` をそのまま公開する。
 #
-# `command` を明示しているのは、Netlify の UI 側に残っている旧設定
-# （`npm run build`）を上書きするため。npm install 時の postinstall で
-# デコモジの画像と JSON は `public/` にコピーされるが、node_modules が
-# キャッシュから復元されると postinstall が走らないことがあるので、
-# ここでも明示的に実行しておく。
+# postinstall が public/ の中身（デコモジの画像と JSON、vendor の JS、
+# app.css）を一式そろえる。npm install 時にも走るが、node_modules が
+# キャッシュから復元されると走らないことがあるので、ここで明示的に実行する。
+#
+# `command` を書いているのは、Netlify の UI 側に残っている旧設定
+# （`npm run build`）を上書きする意味もある。
 [build]
 command = "npm run postinstall"
 publish = "public"

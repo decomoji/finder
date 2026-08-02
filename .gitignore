@@ -29,5 +29,8 @@ coverage
 
 *.tsbuildinfo
 
-public/decomoji
+# すべて postinstall が生成する
+public/app.css
 public/configs
+public/decomoji
+public/vendor

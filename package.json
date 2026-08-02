@@ -4,14 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "npx --yes serve public",
+    "start": "npm run build:css && npx --yes serve public",
+    "build:css": "tailwindcss --input styles/app.css --output public/app.css --minify",
+    "watch:css": "npm run build:css -- --watch=always",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
-    "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/ && cpx 'node_modules/decomoji/configs/v5_{all,versions}.json' public/configs/"
+    "postinstall": "npm run copy:decomoji && npm run copy:vendor && npm run build:css",
+    "copy:decomoji": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/ && cpx 'node_modules/decomoji/configs/v5_{all,versions}.json' public/configs/",
+    "copy:vendor": "cpx 'node_modules/vue/dist/vue.esm-browser.prod.js' public/vendor/ && cpx 'node_modules/@tanstack/vue-virtual/dist/esm/*.js*' public/vendor/vue-virtual/ && cpx 'node_modules/@tanstack/virtual-core/dist/esm/*.js*' public/vendor/virtual-core/"
   },
   "dependencies": {
     "decomoji": "github:decomoji/decomoji"
   },
   "devDependencies": {
-    "cpx2": "^9.0.0"
+    "@tailwindcss/cli": "^4.1.16",
+    "@tanstack/vue-virtual": "^3.13.35",
+    "cpx2": "^9.0.0",
+    "vue": "^3.5.23"
   }
 }
