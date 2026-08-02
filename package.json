@@ -15,7 +15,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@tanstack/vue-virtual": "^3.13.34",
+    "@tanstack/vue-virtual": "^3.13.35",
     "decomoji": "github:decomoji/decomoji",
     "vue": "^3.5.40"
   },
@@ -23,21 +23,21 @@
     "@rushstack/eslint-patch": "^1.16.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@tsconfig/node20": "^20.1.9",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/eslint-config-typescript": "^14.9.0",
     "@vue/tsconfig": "^0.9.1",
     "autoprefixer": "^10.5.4",
     "cpx": "^1.5.0",
-    "eslint": "^10.7.0",
+    "eslint": "^10.8.0",
     "eslint-plugin-vue": "^10.10.0",
     "husky": "^9.1.7",
-    "npm-run-all2": "^9.0.2",
-    "postcss": "^8.5.22",
+    "npm-run-all2": "^9.0.3",
+    "postcss": "^8.5.25",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3",
-    "vite": "^8.1.5",
-    "vue-tsc": "^3.3.8"
+    "typescript": "^7.0.2",
+    "vite": "^8.2.0",
+    "vue-tsc": "^3.3.9"
   },
   "allowScripts": {
     "core-js@2.6.12": true,
