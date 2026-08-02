@@ -77,25 +77,19 @@ interface MetricsBySizeParams {
  * オブジェクトのクラス名を文字列で返す
  * @param val
  */
-const getObjectClassName = (val: unknown) => {
-  return Object.prototype.toString.call(val);
-};
+const getObjectClassName = (val: unknown) => Object.prototype.toString.call(val);
 
 /**
  * 値が文字列であるか否かを返す
  * @param val
  */
-const isString = (val: unknown): val is string => {
-  return getObjectClassName(val) === "[object String]";
-};
+const isString = (val: unknown): val is string => getObjectClassName(val) === "[object String]";
 
 /**
  * 値が空ではない文字列であるか否かを返す
  * @param val
  */
-const isStringOfNotEmpty = (val: unknown): val is string => {
-  return isString(val) && val.length > 0;
-};
+const isStringOfNotEmpty = (val: unknown): val is string => isString(val) && val.length > 0;
 
 // 1行のレイアウトを算出するための実測値
 // 仮想スクロールはこの値から行数と行の高さを決めるため、
@@ -116,26 +110,24 @@ const availableCategories: CategoryName[] = ["basic", "extra", "explicit"];
 const availableVersions: string[] = DecomojiVersions;
 
 // { [category_name]: boolean } のオブジェクトを作る
-const createCategoryParams: (category: CategoryName[]) => CategoryParams = (category) => {
-  return availableCategories.reduce(
+const createCategoryParams: (category: CategoryName[]) => CategoryParams = (category) =>
+  availableCategories.reduce(
     (acc, name) => ({
       ...acc,
       [name]: category.includes(name) ? true : false,
     }),
     {},
   );
-};
 
 // { [version_name]: boolean } のオブジェクトを作る
-const createVersionParams: (version: VersionName[]) => VersionParams = (version) => {
-  return availableVersions.reduce(
+const createVersionParams: (version: VersionName[]) => VersionParams = (version) =>
+  availableVersions.reduce(
     (acc, name) => ({
       ...acc,
       [name]: version.includes(name) ? true : false,
     }),
     {},
   );
-};
 
 // テンプレートで表示するためのサイズリスト
 const SIZE_LIST: SizeListItem[] = [
@@ -252,9 +244,7 @@ const classBySize = computed(() => {
 });
 
 // RegExp インスタンスを computed にした方が速い
-const searchRegex = computed(() => {
-  return RegExp(state.search);
-});
+const searchRegex = computed(() => RegExp(state.search));
 
 // 各種表示条件に合わせてフィルターしたデコモジリストを返す
 const filtered = computed(() => {
@@ -290,46 +280,32 @@ const categoryParam = computed(() => {
 });
 
 // コレクションをパラメータ文字列に変換したものを返す
-const collectedParam = computed(() => {
-  return state.collected.length > 0
-    ? `collected=${state.collected.map((v) => v.name).join(",")}`
-    : null;
-});
+const collectedParam = computed(() =>
+  state.collected.length > 0 ? `collected=${state.collected.map((v) => v.name).join(",")}` : null,
+);
 
 // 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
-const createdParam = computed(() => {
-  return state.created ? "created" : null;
-});
+const createdParam = computed(() => (state.created ? "created" : null));
 
 // ダークモード表示か否かをパラメータ文字列に変換したものを返す
-const darkParam = computed(() => {
-  return state.dark ? "dark" : null;
-});
+const darkParam = computed(() => (state.dark ? "dark" : null));
 
 // JSONを表示するか否かをパラメータ文字列に変換したものを返す
-const jsonParam = computed(() => {
-  return state.json ? "json" : null;
-});
+const jsonParam = computed(() => (state.json ? "json" : null));
 
 // リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
-const reactedParam = computed(() => {
-  return state.reacted ? "reacted" : null;
-});
+const reactedParam = computed(() => (state.reacted ? "reacted" : null));
 
 // 検索クエリをパラメータ文字列に変換したものを返す
-const searchParam = computed(() => {
-  return isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null;
-});
+const searchParam = computed(() =>
+  isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null,
+);
 
 // 表示サイズをパラメータ文字列に変換したものを返す
-const sizeParam = computed(() => {
-  return isStringOfNotEmpty(state.size) ? `size=${state.size}` : null;
-});
+const sizeParam = computed(() => (isStringOfNotEmpty(state.size) ? `size=${state.size}` : null));
 
 // 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
-const updatedParam = computed(() => {
-  return state.updated ? "updated" : null;
-});
+const updatedParam = computed(() => (state.updated ? "updated" : null));
 
 // 表示バージョンをパラメータ文字列に変換したものを返す
 const versionParam = computed(() => {
@@ -340,8 +316,8 @@ const versionParam = computed(() => {
 });
 
 // 各パラメータ文字列を連結したものを返す
-const urlParams = computed(() => {
-  return [
+const urlParams = computed(() =>
+  [
     searchParam.value,
     sizeParam.value,
     categoryParam.value,
@@ -354,15 +330,15 @@ const urlParams = computed(() => {
     jsonParam.value,
   ]
     .filter((v) => !!v)
-    .join("&");
-});
+    .join("&"),
+);
 
 // コレクションを JSON 化した URL を返す
-const downloadURL = computed(() => {
-  const jsonString = JSON.stringify(state.collected);
-  const blob = new Blob([jsonString], { type: "application/json" });
-  return window.URL.createObjectURL(blob);
-});
+const downloadURL = computed(() =>
+  window.URL.createObjectURL(
+    new Blob([JSON.stringify(state.collected)], { type: "application/json" }),
+  ),
+);
 
 // 1行に収められるアイテムの数を返す
 // `repeat(auto-fill, minmax(N, 1fr))` がとる列数と一致させる必要がある
