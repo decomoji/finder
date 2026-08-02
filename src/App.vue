@@ -2,16 +2,7 @@
 import { useWindowVirtualizer } from "@tanstack/vue-virtual";
 import DecomojiAll from "decomoji/configs/v5_all.json";
 import DecomojiVersions from "decomoji/configs/v5_versions.json";
-import {
-  computed,
-  nextTick,
-  onBeforeMount,
-  onMounted,
-  reactive,
-  ref,
-  watch,
-  type ComponentPublicInstance,
-} from "vue";
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from "vue";
 
 type SizeName = string | "s" | "m" | "l" | "ll";
 type CategoryName = string | "basic" | "extra" | "explicit";
@@ -71,8 +62,15 @@ interface State {
   version: VersionParams;
 }
 
-interface ValueBySizeParams {
-  [key: SizeName]: number;
+interface RowMetrics {
+  gap: number;
+  padding: number;
+  itemWidth: number;
+  itemHeight: number;
+}
+
+interface MetricsBySizeParams {
+  [key: SizeName]: RowMetrics;
 }
 
 /**
@@ -99,18 +97,18 @@ const isStringOfNotEmpty = (val: unknown): val is string => {
   return isString(val) && val.length > 0;
 };
 
-const RowGapValue: ValueBySizeParams = {
-  ll: 10,
-  l: 8,
-  m: 5,
-  s: 3,
-};
-
-const RowItemWidthValue: ValueBySizeParams = {
-  ll: 128,
-  l: 80,
-  m: 42,
-  s: 24,
+// 1行のレイアウトを算出するための実測値
+// 仮想スクロールはこの値から行数と行の高さを決めるため、
+// `classBySize()` が返す Tailwind のクラスと必ず一致させること
+const ROW_METRICS: MetricsBySizeParams = {
+  // gap-3 / px-3 / minmax(128px,1fr) / h-[128px]
+  ll: { gap: 12, padding: 12, itemWidth: 128, itemHeight: 128 },
+  // gap-2 / px-2 / minmax(80px,1fr) / h-[80px]
+  l: { gap: 8, padding: 8, itemWidth: 80, itemHeight: 80 },
+  // gap-1 / px-1 / minmax(42px,1fr) / h-[45px]
+  m: { gap: 4, padding: 4, itemWidth: 42, itemHeight: 45 },
+  // gap-0.5 / px-0.5 / minmax(24px,1fr) / h-[25px]
+  s: { gap: 2, padding: 2, itemWidth: 24, itemHeight: 25 },
 };
 
 const availableDecomojis: DecomojiItem[] = DecomojiAll;
@@ -197,16 +195,8 @@ const state: State = reactive({
   version: createVersionParams([]),
 });
 
-// リサイズイベントで要素幅を更新するハンドラー
-const containerWidth = ref(window.innerWidth);
-const handleResizeWindow = () => {
-  nextTick().then(() => {
-    if (!(parentRef.value instanceof HTMLElement)) {
-      throw new Error("Component must be rendered as an HTMLElement");
-    }
-    containerWidth.value = parentRef.value.clientWidth;
-  });
-};
+// state.size に応じた1行のレイアウト実測値を返す
+const metrics = computed(() => ROW_METRICS[state.size || "ll"]);
 
 // state.size に応じた CSS クラス名のセットを返す
 const classBySize = computed(() => {
@@ -293,15 +283,6 @@ const filtered = computed(() => {
   );
 });
 
-// n 番目から rowItemLength 目を切り出したデコモジリストを返す
-const sliced = computed(() => {
-  return (n: number) => {
-    const from = rowItemLength.value * n;
-    const to = from + rowItemLength.value;
-    return filtered.value.slice(from, to);
-  };
-});
-
 // 表示カテゴリーをパラメータ文字列に変換したものを返す
 const categoryParam = computed(() => {
   const arrayedCategories = Object.keys(state.category).filter((key) => state.category[key]);
@@ -384,51 +365,52 @@ const downloadURL = computed(() => {
 });
 
 // 1行に収められるアイテムの数を返す
+// `repeat(auto-fill, minmax(N, 1fr))` がとる列数と一致させる必要がある
 const rowItemLength = computed(() => {
-  // サイズごとのアイテムのピュアサイズ ＋ gap １つ分
-  const item = rowItemWidthBySize.value + gapBySize.value;
-  // コンテナ幅 - gap １つ分
-  const container = containerWidth.value - gapBySize.value;
-  // 割って切り捨てた数が「１行に収められるアイテムの数」となる
-  return Math.floor(container / item);
-});
-
-// CSS Grid item の gap 値を返す
-const gapBySize = computed(() => {
-  return RowGapValue[state.size || "ll"];
-});
-
-// CSS Grid item 幅の最小値を返す
-const rowItemWidthBySize = computed(() => {
-  return RowItemWidthValue[state.size || "ll"];
+  const { gap, padding, itemWidth } = metrics.value;
+  // コンテナ幅から左右のパディングを引いたものが、グリッドのコンテンツ幅となる
+  const content = listWidth.value - padding * 2;
+  // n 列のとき必要な幅は `itemWidth * n + gap * (n - 1)` なので、両辺に gap を足して割る
+  const length = Math.floor((content + gap) / (itemWidth + gap));
+  // 0 を返すと行数が Infinity になってしまうため最低 1 を保証する
+  return Math.max(1, length);
 });
 
 // 1行分の高さを返す
-const rowHeightBySize = computed(() => {
-  return rowItemWidthBySize.value + gapBySize.value;
-});
+const rowHeight = computed(() => metrics.value.itemHeight + metrics.value.gap);
 
-// Virtual Scroll に必要な変数たち
-const parentRef = ref<HTMLElement | null>(null);
-const parentOffsetRef = ref(0);
-const rowVirtualizerOptions = computed(() => {
-  return {
-    count: Math.ceil(filtered.value.length / rowItemLength.value),
-    estimateSize: () => rowHeightBySize.value,
-    scrollMargin: parentOffsetRef.value,
-  };
-});
-const rowVirtualizer = useWindowVirtualizer(rowVirtualizerOptions);
-const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems());
-const totalSize = computed(() => rowVirtualizer.value.getTotalSize());
-const measureElement = (el: Element | ComponentPublicInstance | null) => {
-  if (!el) {
+// 行を並べるコンテナ。幅とドキュメント上の開始位置はここを実測する
+const listRef = ref<HTMLElement | null>(null);
+const listWidth = ref(window.innerWidth);
+// `useWindowVirtualizer` は window.scrollY を基準に可視範囲を計算するため、
+// リストがドキュメント先頭から始まらない分をオフセットとして渡す必要がある
+const listOffset = ref(0);
+
+// コンテナを実測する。ヘッダーは折り返しで高さが変わるためリサイズのたびに測り直す
+const measureList = () => {
+  if (!listRef.value) {
     return;
   }
+  // clientWidth は整数に丸められて列数の判定が1つずれることがあるため実数で測る
+  const { top, width } = listRef.value.getBoundingClientRect();
+  listWidth.value = width;
+  listOffset.value = top + window.scrollY;
+};
 
-  rowVirtualizer.value.measureElement(el as Element);
+const rowVirtualizer = useWindowVirtualizer(
+  computed(() => ({
+    count: Math.ceil(filtered.value.length / rowItemLength.value),
+    estimateSize: () => rowHeight.value,
+    scrollMargin: listOffset.value,
+  })),
+);
+const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems());
+const totalSize = computed(() => rowVirtualizer.value.getTotalSize());
 
-  return undefined;
+// n 行目に並べるデコモジを切り出して返す
+const slicedRow = (n: number) => {
+  const from = rowItemLength.value * n;
+  return filtered.value.slice(from, from + rowItemLength.value);
 };
 
 // 項目が減って虚無を表示していたらスクロール位置を戻す
@@ -438,16 +420,9 @@ watch(filtered, (newList, oldList) => {
   }
 
   const el = document.documentElement;
-  const screenHeight = el.clientHeight;
-
-  if (!(parentRef.value instanceof HTMLElement)) {
-    throw new Error("Component must be rendered as an HTMLElement");
-  }
-  const headerHeight = parentRef.value.offsetTop; // ということにする
-
-  const numOfRows = filtered.value.length / rowItemLength.value;
-  const listHeight = rowHeightBySize.value * numOfRows;
-  const maxScrollTop = headerHeight + listHeight - screenHeight; // 下部paddingは省略
+  // totalSize は仮想スクローラーの更新後にしか新しくならないため、ここでは自前で高さを出す
+  const listHeight = Math.ceil(newList.length / rowItemLength.value) * rowHeight.value;
+  const maxScrollTop = listOffset.value + listHeight - el.clientHeight; // 下部paddingは省略
 
   el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
 });
@@ -507,8 +482,8 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  window.addEventListener("resize", handleResizeWindow);
-  handleResizeWindow();
+  window.addEventListener("resize", measureList);
+  measureList();
 });
 </script>
 
@@ -708,12 +683,13 @@ onMounted(() => {
       </div>
     </header>
 
-    <main ref="parentRef">
+    <main>
       <h2 class="sr-only">デコモジ一覧</h2>
       <div
+        ref="listRef"
         class="relative w-full"
         :style="{
-          marginTop: `${gapBySize}px`,
+          marginTop: `${metrics.gap}px`,
           height: `${totalSize}px`,
         }"
       >
@@ -722,14 +698,13 @@ onMounted(() => {
           :key="index"
           :class="['absolute top-0 left-0 w-full', classBySize.wrapper]"
           :data-index="index"
-          :ref="measureElement"
           :style="{
             height: `${size}px`,
-            transform: `translateY(${start}px)`,
+            transform: `translateY(${start - listOffset}px)`,
           }"
         >
           <button
-            v-for="{ name, path, collected, created, updated } in sliced(index)"
+            v-for="{ name, path, collected, created, updated } in slicedRow(index)"
             :key="name"
             :class="[
               classBySize.button,
