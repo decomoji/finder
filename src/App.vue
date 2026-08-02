@@ -524,22 +524,24 @@ onMounted(() => {
     <header
       class="sticky z-10 top-0 left-0 flex flex-wrap items-center gap-x-5 gap-y-2.5 p-2.5 w-full text-(--colorHeader) bg-(--bgHeader) shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
     >
-      <div class="flex items-center gap-2.5 basis-[40rem] grow">
+      <div class="flex items-center gap-2.5 basis-160 grow">
         <h1 class="flex-[0_0_auto]">
           <a class="block w-8 h-8 rounded-full overflow-hidden" href="/">
             <img class="block" src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
           </a>
         </h1>
-        <div class="relative flex-[1_1_auto] text-(--shade-200) focus-within:text-(--shade-800)">
+        <div
+          class="relative flex-[1_1_auto] text-(--colorSearch) focus-within:[--colorSearch:var(--colorSearchFocus)]"
+        >
           <input
             v-model="state.search"
-            class="py-2.5 pl-10 pr-28 rounded-md w-full text-base bg-[rgba(255,255,255,0.25)] focus-within:bg-[rgba(255,255,255,0.95)]"
+            class="py-2.5 pl-10 pr-28 rounded-md w-full text-base bg-(--bgSearch) focus:[--bgSearch:var(--bgSearchFocus)]"
             type="text"
             name="search"
             title="検索"
           />
           <span
-            class="material-icons pointer-events-none absolute top-[1px] bottom-0 left-2 m-auto w-6 h-6"
+            class="material-icons pointer-events-none absolute top-px bottom-0 left-2 m-auto w-6 h-6"
             aria-hidden="true"
             >search</span
           >
@@ -576,7 +578,7 @@ onMounted(() => {
         </details>
       </div>
 
-      <div class="flex items-center gap-2.5 basis-0 grow-[999] min-w-[50%]">
+      <div class="flex items-center gap-2.5 basis-0 grow-999 min-w-[50%]">
         <details class="relative hidden sm:block" name="options">
           <summary class="py-1 px-2.5 rounded-md">サイズ</summary>
           <div
@@ -756,13 +758,13 @@ onMounted(() => {
             </span>
             <span
               v-if="(state.size === 'll' || state.size === '') && state.created"
-              class="absolute top-[-8px] left-[-5px] border border-solid border-(--borderDecomojiCollected) py-[2px] px-[5px] rounded-md text-(--colorTag) bg-(--bgTag)"
+              class="absolute -top-2 -right-1.25 border border-solid border-(--borderDecomojiCollected) py-0.5 px-1.25 rounded-md text-(--colorTag) bg-(--bgTag)"
             >
               <span class="sr-only">created:</span>{{ created }}
             </span>
             <span
               v-if="(state.size === 'll' || state.size === '') && state.updated && updated"
-              class="absolute top-[-8px] right-[-5px] border border-solid border-(--borderDecomojiCollected) py-[2px] px-[5px] rounded-md text-(--colorTag) bg-(--bgTag)"
+              class="absolute -top-2 -right-1.25 border border-solid border-(--borderDecomojiCollected) py-0.5 px-1.25 rounded-md text-(--colorTag) bg-(--bgTag)"
             >
               <span class="sr-only">updated:</span>{{ updated }}</span
             >
@@ -776,7 +778,7 @@ onMounted(() => {
       :class="[
         'sticky left-0 p-3 h-40 text-(--colorCollected) bg-(--bgCollected) shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]',
         {
-          'bottom-[12.25rem] sm:bottom-[12.75rem]': state.collected.length > 0,
+          'bottom-49 sm:bottom-51': state.collected.length > 0,
           'bottom-9 sm:bottom-11': state.collected.length < 1,
         },
       ]"
@@ -839,19 +841,11 @@ onMounted(() => {
     >
       <p>
         このウェブアプリは
-        <a
-          href="https://twitter.com/otiext"
-          class="underline link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
-          >oti</a
-        >
+        <a href="https://twitter.com/otiext" class="underline">oti</a>
         が作りました。
       </p>
       <p class="ml-auto">
-        <a
-          href="https://github.com/decomoji/finder/"
-          class="underline link:text-inherit visited:text-inherit hover:text-inherit active:text-inherit"
-          >GitHub</a
-        >, MIT License.
+        <a href="https://github.com/decomoji/finder/" class="underline">GitHub</a>, MIT License.
       </p>
     </footer>
   </div>

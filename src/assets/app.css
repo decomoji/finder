@@ -32,6 +32,10 @@
   --bgHeader: var(--aubergine-900);
   --colorHeader: var(--shade-200);
   --bgPanel: var(--aubergine-800);
+  --colorSearch: var(--shade-200);
+  --colorSearchFocus: var(--shade-800);
+  --bgSearch: rgba(255, 255, 255, 0.25);
+  --bgSearchFocus: rgba(255, 255, 255, 0.95);
   --colorDecomoji: var(--shade-800);
   --bgDecomoji: var(--shade-200);
   --bgDecomojiReacted: var(--sea-200);
