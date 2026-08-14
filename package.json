@@ -4,12 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node scripts/serve.mjs --watch",
-    "serve": "node scripts/serve.mjs",
-    "build:css": "tailwindcss --input styles/app.css --output public/app.css --minify",
+    "start": "node scripts/serve.mjs",
     "copy:assets": "node scripts/copy.mjs",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
-    "postinstall": "npm run copy:assets && npm run build:css"
+    "postinstall": "npm run copy:assets"
   },
   "dependencies": {
     "decomoji": "github:decomoji/decomoji"

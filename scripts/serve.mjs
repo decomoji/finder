@@ -3,12 +3,9 @@ import { createServer } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildAndWatch } from "./watch.mjs";
-
 const root = fileURLToPath(new URL("..", import.meta.url));
 const OUT_DIR = path.join(root, "public");
 const PORT = Number(process.env.PORT ?? 1234);
-const WATCH = process.argv.includes("--watch");
 
 const CONTENT_TYPES = {
   ".css": "text/css; charset=utf-8",
@@ -114,7 +111,5 @@ server.on("error", (error) => {
   console.error(`ポート${PORT}は使用中です。PORT=2345 npm start のように別のポートを指定してください。`);
   process.exit(1);
 });
-
-if (WATCH) await buildAndWatch();
 
 server.listen(PORT, "localhost", () => console.log(`http://localhost:${PORT}/`));
