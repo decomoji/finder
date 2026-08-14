@@ -15,7 +15,6 @@
     "decomoji": "github:decomoji/decomoji"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.16",
     "vue": "^3.5.23"
   }
 }
