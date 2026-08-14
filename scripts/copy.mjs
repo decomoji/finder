@@ -27,9 +27,6 @@ const ASSETS = [
 
   // importmap が指す先。CDN に頼らず、バージョンを package-lock.json で管理するために自前で配る
   { from: "vue/dist/vue.esm-browser.prod.js", to: "vendor/vue.esm-browser.prod.js" },
-  // 型定義は配信しても使われないので、実際に読み込む .js と、その .js.map だけにする
-  { from: "@tanstack/vue-virtual/dist/esm", to: "vendor/vue-virtual", exts: [".js", ".map"] },
-  { from: "@tanstack/virtual-core/dist/esm", to: "vendor/virtual-core", exts: [".js", ".map"] },
 ];
 
 /** items を limit 本の並列で流す */

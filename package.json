@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.16",
-    "@tanstack/vue-virtual": "^3.13.35",
     "vue": "^3.5.23"
   }
 }

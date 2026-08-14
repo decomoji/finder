@@ -12,19 +12,6 @@
 
     <link rel="stylesheet" href="/app.css" />
 
-    <script>
-      /**
-       * @tanstack/virtual-core の npm 配布物には、開発用のデバッグ分岐として
-       * `process.env.NODE_ENV` の参照が残っている（CDN の esm.sh はこれを
-       * 置換してくれていた）。import 文は巻き上げられてモジュール本体より先に
-       * 評価されるため、モジュールの中では手当てできない。先に走る classic
-       * script でここだけ補う。
-       * いま読んでいる vue / vue-virtual / virtual-core には `typeof process`
-       * による分岐がないので、これで Node 経路に入ってしまう心配はない。
-       */
-      globalThis.process ??= { env: { NODE_ENV: "production" } };
-    </script>
-
     <!--
       素の import 文を自前配信のファイルに解決させる。
       中身は postinstall が node_modules からコピーするので、
@@ -33,9 +20,7 @@
     <script type="importmap">
       {
         "imports": {
-          "vue": "/vendor/vue.esm-browser.prod.js",
-          "@tanstack/vue-virtual": "/vendor/vue-virtual/index.js",
-          "@tanstack/virtual-core": "/vendor/virtual-core/index.js"
+          "vue": "/vendor/vue.esm-browser.prod.js"
         }
       }
     </script>
@@ -265,13 +250,13 @@
             }"
           >
             <div
-              v-for="{ size, start, index } in virtualRows"
+              v-for="{ start, index } in virtualRows"
               :key="index"
               :class="['absolute top-0 left-0 w-full', classBySize.wrapper]"
               :data-index="index"
               :style="{
-                height: `${size}px`,
-                transform: `translateY(${start - listOffset}px)`,
+                height: `${rowHeight}px`,
+                transform: `translateY(${start}px)`,
               }"
             >
               <button
@@ -401,7 +386,6 @@
 
     <script type="module">
       import { computed, createApp, onBeforeMount, onMounted, reactive, ref, watch } from "vue";
-      import { useWindowVirtualizer } from "@tanstack/vue-virtual";
 
       // ビルドしないので JSON はバンドルできない。起動時に取得する
       const [availableDecomojis, availableVersions] = await Promise.all([
@@ -704,30 +688,53 @@
           // 行を並べるコンテナ。幅とドキュメント上の開始位置はここを実測する
           const listRef = ref(null);
           const listWidth = ref(window.innerWidth);
-          // `useWindowVirtualizer` は window.scrollY を基準に可視範囲を計算するため、
-          // リストがドキュメント先頭から始まらない分をオフセットとして渡す必要がある
+          // リストはドキュメント先頭からは始まらない（上にヘッダーがある）ので、
+          // その分を引かないと window.scrollY から可視範囲を出せない
           const listOffset = ref(0);
+          const scrollY = ref(window.scrollY);
+          const viewportHeight = ref(window.innerHeight);
 
-          // コンテナを実測する。ヘッダーは折り返しで高さが変わるためリサイズのたびに測り直す
-          const measureList = () => {
-            if (!listRef.value) {
-              return;
-            }
+          // ウィンドウのリサイズでヘッダーの高さが変わる可能性があるので取り直す
+          const resize = () => {
+            viewportHeight.value = window.innerHeight;
+            if (!listRef.value) return;
+
             // clientWidth は整数に丸められて列数の判定が1つずれることがあるため実数で測る
             const { top, width } = listRef.value.getBoundingClientRect();
             listWidth.value = width;
             listOffset.value = top + window.scrollY;
           };
 
-          const rowVirtualizer = useWindowVirtualizer(
-            computed(() => ({
-              count: Math.ceil(filtered.value.length / rowItemLength.value),
-              estimateSize: () => rowHeight.value,
-              scrollMargin: listOffset.value,
-            })),
-          );
-          const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems());
-          const totalSize = computed(() => rowVirtualizer.value.getTotalSize());
+          // 総行数
+          const rowCount = computed(() => Math.ceil(filtered.value.length / rowItemLength.value));
+
+          // リスト全体の高さ。これをコンテナに与えることでスクロールバーの長さが決まる
+          const totalSize = computed(() => rowCount.value * rowHeight.value);
+
+          // 画面外に余分に描いておく行数。スクロール中に空白が見えるのを防ぐ
+          const OVERSCAN = 2;
+
+          /**
+           * いま描くべき行だけを返す。全行が同じ高さなので、可視範囲は割り算で出せる。
+           * `start` はリストの先頭を原点とした位置（コンテナが position: relative なのでそのまま使える）。
+           */
+          const virtualRows = computed(() => {
+            // リストの先頭を原点にしたスクロール位置。リストより上にいる間は負になる
+            const top = scrollY.value - listOffset.value;
+            const first = Math.max(0, Math.floor(top / rowHeight.value) - OVERSCAN);
+            const last = Math.min(
+              rowCount.value - 1,
+              Math.ceil((top + viewportHeight.value) / rowHeight.value) + OVERSCAN,
+            );
+
+            const rows = [];
+            // 行数が0のときや、リストを通り過ぎたときは first > last になってここは回らない
+            for (let index = first; index <= last; index++) {
+              rows.push({ index, start: index * rowHeight.value });
+            }
+
+            return rows;
+          });
 
           // n 行目に並べるデコモジを切り出して返す
           const slicedRow = (n) =>
@@ -740,11 +747,11 @@
             }
 
             const el = document.documentElement;
-            // totalSize は仮想スクローラーの更新後にしか新しくならないため、ここでは自前で高さを出す
-            const listHeight = Math.ceil(newList.length / rowItemLength.value) * rowHeight.value;
-            const maxScrollTop = listOffset.value + listHeight - el.clientHeight; // 下部paddingは省略
+            const maxScrollTop = listOffset.value + totalSize.value - el.clientHeight; // 下部paddingは省略
 
             el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
+            // scroll イベントを待つと1フレーム分だけ古い範囲を描いてしまうので待たずに反映する
+            scrollY.value = el.scrollTop;
           });
 
           // state を監視してURLにパラメータを追加する
@@ -804,8 +811,12 @@
           });
 
           onMounted(() => {
-            window.addEventListener("resize", measureList);
-            measureList();
+            // passive にしておくとスクロールの邪魔をしない
+            window.addEventListener("scroll", () => (scrollY.value = window.scrollY), {
+              passive: true,
+            });
+            window.addEventListener("resize", resize);
+            resize();
           });
 
           // テンプレートから参照するものだけを返す
@@ -818,9 +829,9 @@
             classBySize,
             downloadURL,
             filtered,
-            listOffset,
             listRef,
             metrics,
+            rowHeight,
             slicedRow,
             state,
             totalSize,
