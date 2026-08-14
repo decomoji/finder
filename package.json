@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "npm run build:css && npx --yes serve public",
+    "start": "node scripts/serve.mjs --watch",
+    "serve": "node scripts/serve.mjs",
     "build:css": "tailwindcss --input styles/app.css --output public/app.css --minify",
-    "watch:css": "npm run build:css -- --watch=always",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
     "postinstall": "npm run copy:decomoji && npm run copy:vendor && npm run build:css",
     "copy:decomoji": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/ && cpx 'node_modules/decomoji/configs/v5_{all,versions}.json' public/configs/",
