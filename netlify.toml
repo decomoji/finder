@@ -1,11 +1,4 @@
-# バンドルはしない。`public/` をそのまま公開する。
-#
-# postinstall が public/ の中身（デコモジの画像と JSON、vendor の JS、
-# app.css）を一式そろえる。npm install 時にも走るが、node_modules が
-# キャッシュから復元されると走らないことがあるので、ここで明示的に実行する。
-#
-# `command` を書いているのは、Netlify の UI 側に残っている旧設定
-# （`npm run build`）を上書きする意味もある。
+# node_modules がキャッシュから復元されると postinstall が走らないことがあるので明示的に実行させる
 [build]
 command = "npm run postinstall"
 publish = "public"
