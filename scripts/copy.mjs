@@ -25,8 +25,8 @@ const ASSETS = [
   { from: "decomoji/configs/v5_all.json", to: "configs/v5_all.json" },
   { from: "decomoji/configs/v5_versions.json", to: "configs/v5_versions.json" },
 
-  // importmap が指す先。CDN に頼らず、バージョンを package-lock.json で管理するために自前で配る
-  { from: "vue/dist/vue.esm-browser.prod.js", to: "vendor/vue.esm-browser.prod.js" },
+  // vue は package.json でバージョン管理するがブラウザから直接読むためアセットとしてコピーする
+  { from: "vue/dist/vue.esm-browser.prod.js", to: "vendor/vue.js" },
 ];
 
 /** items を limit 本の並列で流す */
