@@ -39,46 +39,34 @@
     -->
     <template id="app-template">
       <div
-        :class="[
-          'grid grid-rows-[auto_1fr_auto_auto] min-h-screen text-sm text-(--colorBody) bg-(--bgBody)',
-          {
-            '-dark': state.dark,
-          },
-        ]"
+        :class="['app', { '-dark': state.dark }]"
+        :style="{
+          '--gap': `${metrics.gap}px`,
+          '--pad': `${metrics.padding}px`,
+          '--item-w': `${metrics.itemWidth}px`,
+          '--item-h': `${metrics.itemHeight}px`,
+          '--img': `${metrics.image}px`,
+          '--c-item-w': `${metrics.collectedWidth}px`,
+          '--c-item-h': `${metrics.collectedHeight}px`,
+        }"
       >
-        <header
-          class="sticky z-10 top-0 left-0 flex flex-wrap items-center gap-x-5 gap-y-2.5 p-2.5 w-full text-(--colorHeader) bg-(--bgHeader) shadow-[0_2px_4px_rgba(0,0,0,0.15),0_8px_8px_rgba(0,0,0,0.075)]"
-        >
-          <div class="flex items-center gap-2.5 basis-160 grow">
-            <h1 class="flex-[0_0_auto]">
-              <a class="block w-8 h-8 rounded-full overflow-hidden" href="/">
-                <img
-                  class="block"
-                  src="/logo.png"
-                  alt="デコモジファインダー"
-                  width="32"
-                  height="32"
-                />
+        <header class="header">
+          <div class="header-search">
+            <h1 class="logo">
+              <a class="logo-link" href="/">
+                <img src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
               </a>
             </h1>
-            <div
-              class="relative flex-[1_1_auto] text-(--colorSearch) focus-within:[--colorSearch:var(--colorSearchFocus)]"
-            >
+            <div class="search">
               <input
                 v-model="state.search"
-                class="py-2.5 pl-10 pr-28 rounded-md w-full text-base bg-(--bgSearch) focus:[--bgSearch:var(--bgSearchFocus)]"
+                class="search-input"
                 type="text"
                 name="search"
                 title="検索"
               />
-              <span
-                class="material-icons pointer-events-none absolute top-px bottom-0 left-2 m-auto w-6 h-6"
-                aria-hidden="true"
-                >search</span
-              >
-              <span
-                class="pointer-events-none absolute top-0 bottom-0 right-2 m-auto h-4 leading-none"
-                aria-hidden="true"
+              <span class="material-icons search-icon" aria-hidden="true">search</span>
+              <span class="search-count" aria-hidden="true"
                 >{{ filtered.length }}/{{ availableDecomojis.length }}</span
               >
               <span class="sr-only"
@@ -86,16 +74,10 @@
               >
             </div>
 
-            <details class="relative sm:hidden" name="options">
-              <summary class="p-2.5 rounded-md whitespace-nowrap">サイズ</summary>
-              <div
-                class="absolute right-0 z-10 flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-(--bgPanel) overflow-y-auto"
-              >
-                <label
-                  v-for="{ text, value } in SIZE_LIST"
-                  :key="value"
-                  class="flex items-center gap-1 whitespace-nowrap"
-                >
+            <details class="options -narrow-only" name="options">
+              <summary class="options-summary -tappable">サイズ</summary>
+              <div class="options-panel -right -front">
+                <label v-for="{ text, value } in SIZE_LIST" :key="value" class="options-label">
                   <input
                     :value="value"
                     :checked="state.size === value"
@@ -109,17 +91,11 @@
             </details>
           </div>
 
-          <div class="flex items-center gap-2.5 basis-0 grow-999 min-w-[50%]">
-            <details class="relative hidden sm:block" name="options">
-              <summary class="py-1 px-2.5 rounded-md">サイズ</summary>
-              <div
-                class="absolute flex flex-col gap-2 p-4 rounded-md max-h-[50vh] bg-(--bgPanel) overflow-y-auto"
-              >
-                <label
-                  v-for="{ text, value } in SIZE_LIST"
-                  :key="value"
-                  class="flex items-center gap-1 whitespace-nowrap"
-                >
+          <div class="header-options">
+            <details class="options -wide-only" name="options">
+              <summary class="options-summary">サイズ</summary>
+              <div class="options-panel">
+                <label v-for="{ text, value } in SIZE_LIST" :key="value" class="options-label">
                   <input
                     :value="value"
                     :checked="state.size === value"
@@ -132,16 +108,10 @@
               </div>
             </details>
 
-            <details class="relative" name="options">
-              <summary class="py-1 px-2.5 rounded-md">カテゴリー</summary>
-              <div
-                class="absolute flex flex-col gap-2 p-4 rounded-md max-h-[50vh] bg-(--bgPanel) overflow-y-auto"
-              >
-                <label
-                  v-for="{ text, value } in CATEGORY_LIST"
-                  :key="value"
-                  class="flex items-center gap-1 whitespace-nowrap"
-                >
+            <details class="options" name="options">
+              <summary class="options-summary">カテゴリー</summary>
+              <div class="options-panel">
+                <label v-for="{ text, value } in CATEGORY_LIST" :key="value" class="options-label">
                   <input
                     :value="value"
                     :checked="state.category[value]"
@@ -154,16 +124,10 @@
               </div>
             </details>
 
-            <details class="relative" name="options">
-              <summary class="py-1 px-2.5 rounded-md">バージョン</summary>
-              <div
-                class="absolute flex flex-col gap-2 p-4 rounded-md max-h-[50vh] bg-(--bgPanel) overflow-y-auto"
-              >
-                <label
-                  v-for="{ text, value } in VERSION_LIST"
-                  :key="value"
-                  class="flex items-center gap-1 whitespace-nowrap"
-                >
+            <details class="options" name="options">
+              <summary class="options-summary">バージョン</summary>
+              <div class="options-panel">
+                <label v-for="{ text, value } in VERSION_LIST" :key="value" class="options-label">
                   <input
                     :value="value"
                     :checked="state.version[value]"
@@ -176,7 +140,7 @@
                 <button
                   :disabled="Object.values(state.version).every((v) => v)"
                   type="button"
-                  class="flex justify-center items-center py-1 px-2 disabled:text-[rgba(255,255,255,0.25)]"
+                  class="options-action"
                   @click="availableVersions.forEach((value) => (state.version[value] = true))"
                 >
                   全選択
@@ -184,7 +148,7 @@
                 <button
                   :disabled="!Object.values(state.version).some((v) => v)"
                   type="button"
-                  class="flex justify-center items-center py-1 px-2 disabled:text-[rgba(255,255,255,0.25)]"
+                  class="options-action"
                   @click="availableVersions.forEach((value) => (state.version[value] = false))"
                 >
                   全解除
@@ -192,32 +156,30 @@
               </div>
             </details>
 
-            <details class="relative" name="options">
-              <summary class="py-1 px-2.5 rounded-md">オプション</summary>
-              <div
-                class="absolute right-0 flex flex-col gap-4 mt-1 p-4 rounded-md max-h-[50vh] bg-(--bgPanel) overflow-y-auto"
-              >
-                <label class="flex items-center gap-1 whitespace-nowrap">
+            <details class="options" name="options">
+              <summary class="options-summary">オプション</summary>
+              <div class="options-panel -right">
+                <label class="options-label">
                   <input
                     v-model="state.created"
-                    :checked="(state.size === 'll' || state.size === '') && state.created"
-                    :disabled="state.size !== 'll' && state.size !== ''"
+                    :checked="showsName && state.created"
+                    :disabled="!showsName"
                     type="checkbox"
                     name="option"
                   />
                   作成バージョンの表示
                 </label>
-                <label class="flex items-center gap-1 whitespace-nowrap">
+                <label class="options-label">
                   <input
                     v-model="state.updated"
-                    :checked="(state.size === 'll' || state.size === '') && state.updated"
-                    :disabled="state.size !== 'll' && state.size !== ''"
+                    :checked="showsName && state.updated"
+                    :disabled="!showsName"
                     type="checkbox"
                     name="option"
                   />
                   修正バージョンの表示
                 </label>
-                <label class="flex items-center gap-1 whitespace-nowrap">
+                <label class="options-label">
                   <input
                     v-model="state.reacted"
                     :checked="state.reacted"
@@ -226,11 +188,11 @@
                   />
                   リアクション済みのスタイル
                 </label>
-                <label class="flex items-center gap-1 whitespace-nowrap">
+                <label class="options-label">
                   <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
                   ダークモード
                 </label>
-                <label class="flex items-center gap-1 whitespace-nowrap">
+                <label class="options-label">
                   <input v-model="state.json" :checked="state.json" type="checkbox" name="option" />
                   検索結果をjson表示
                 </label>
@@ -243,7 +205,7 @@
           <h2 class="sr-only">デコモジ一覧</h2>
           <div
             ref="listRef"
-            class="relative w-full"
+            class="list"
             :style="{
               marginTop: `${metrics.gap}px`,
               height: `${totalSize}px`,
@@ -252,7 +214,7 @@
             <div
               v-for="{ start, index } in virtualRows"
               :key="index"
-              :class="['absolute top-0 left-0 w-full', classBySize.wrapper]"
+              class="list-row decomoji-grid"
               :data-index="index"
               :style="{
                 height: `${rowHeight}px`,
@@ -263,13 +225,8 @@
                 v-for="{ name, path, collected, created, updated } in slicedRow(index)"
                 :key="name"
                 :class="[
-                  classBySize.button,
-                  {
-                    'border-(--borderDecomojiReacted) bg-(--bgDecomojiReacted)':
-                      !collected && state.reacted,
-                    'border-transparent bg-(--bgDecomoji)': !collected && !state.reacted,
-                    'border-(--borderDecomojiCollected) bg-(--bgDecomojiCollected)': collected,
-                  },
+                  'decomoji',
+                  { '-reacted': !collected && state.reacted, '-collected': collected },
                 ]"
                 @click="
                   collected
@@ -283,20 +240,14 @@
                       })
                 "
               >
-                <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
-                <span :class="classBySize.name">
+                <img :alt="name" :src="path" class="decomoji-image" height="64" width="64" />
+                <span :class="showsName ? 'decomoji-name' : 'sr-only'">
                   <span aria-hidden="true">:</span>{{ name }}<span aria-hidden="true">:</span>
                 </span>
-                <span
-                  v-if="(state.size === 'll' || state.size === '') && state.created"
-                  class="absolute -top-2 -right-1.25 border border-solid border-(--borderDecomojiCollected) py-0.5 px-1.25 rounded-md text-(--colorTag) bg-(--bgTag)"
-                >
+                <span v-if="showsName && state.created" class="decomoji-tag">
                   <span class="sr-only">created:</span>{{ created }}
                 </span>
-                <span
-                  v-if="(state.size === 'll' || state.size === '') && state.updated && updated"
-                  class="absolute -top-2 -right-1.25 border border-solid border-(--borderDecomojiCollected) py-0.5 px-1.25 rounded-md text-(--colorTag) bg-(--bgTag)"
-                >
+                <span v-if="showsName && state.updated && updated" class="decomoji-tag">
                   <span class="sr-only">updated:</span>{{ updated }}</span
                 >
               </button>
@@ -306,32 +257,23 @@
 
         <section
           v-if="state.json"
-          :class="[
-            'sticky left-0 p-3 h-40 text-(--colorCollected) bg-(--bgCollected) shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)]',
-            {
-              'bottom-49 sm:bottom-51': state.collected.length > 0,
-              'bottom-9 sm:bottom-11': state.collected.length < 1,
-            },
-          ]"
+          :class="['json-panel', { '-above-collection': state.collected.length > 0 }]"
         >
           <h2 class="sr-only">マッチしたデコモジ一覧のJSON形式</h2>
           <textarea
             :value="JSON.stringify(filtered)"
-            class="border rounded-md h-full w-full overflow-y-auto scroll-touch resize-none"
+            class="json-textarea"
             title="マッチしたデコモジ一覧のJSON形式"
             readonly
           ></textarea>
         </section>
 
-        <section
-          v-if="state.collected.length"
-          class="sticky left-0 bottom-9 sm:bottom-11 h-40 text-(--colorCollected) bg-(--bgCollected) shadow-[0_-2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] overflow-y-auto scroll-touch"
-        >
-          <div class="flex justify-between items-center gap-1 p-2.5 pb-0">
-            <h2 class="font-bold leading-[1.4]">コレクション：{{ state.collected.length }}</h2>
-            <div class="flex gap-1">
+        <section v-if="state.collected.length" class="collection">
+          <div class="collection-header">
+            <h2 class="collection-title">コレクション：{{ state.collected.length }}</h2>
+            <div class="collection-actions">
               <button
-                class="flex justify-center items-center w-10 h-6"
+                class="icon-button"
                 title="コレクションをアルファベット順にソートする"
                 @click="
                   state.collected = state.collected.sort((a, b) => a.name.localeCompare(b.name))
@@ -339,16 +281,12 @@
               >
                 <span class="material-icons" aria-hidden="true">sort</span>
               </button>
-              <a
-                class="flex justify-center items-center w-10 h-6"
-                :href="downloadURL"
-                download="my-collected.json"
-              >
+              <a class="icon-button" :href="downloadURL" download="my-collected.json">
                 <span class="sr-only">コレクションをJSON形式でダウンロードする</span>
                 <span class="material-icons" aria-hidden="true">save_alt</span>
               </a>
               <button
-                class="flex justify-center items-center w-10 h-6"
+                class="icon-button"
                 title="コレクションを空にする"
                 @click="state.collected.splice(0, state.collected.length)"
               >
@@ -356,29 +294,27 @@
               </button>
             </div>
           </div>
-          <div :class="classBySize.cWrapper">
+          <div class="collection-grid">
             <button
               v-for="({ name, path }, i) in state.collected"
               :key="`collected_${name}`"
-              :class="classBySize.cButton"
+              class="collection-item"
               @dblclick="state.collected.splice(i, 1)"
               @keydown="state.collected.splice(i, 1)"
             >
-              <img :alt="name" :src="path" :class="classBySize.image" height="64" width="64" />
+              <img :alt="name" :src="path" class="decomoji-image" height="64" width="64" />
             </button>
           </div>
         </section>
 
-        <footer
-          class="sticky z-10 bottom-0 left-0 flex items-center gap-5 p-2.5 w-full text-(--colorFooter) bg-(--bgFooter) shadow-[0_2px_4px_rgba(0,0,0,0.15),0_-8px_8px_rgba(0,0,0,0.075)] text-xs sm:text-base"
-        >
+        <footer class="footer">
           <p>
             このウェブアプリは
-            <a href="https://twitter.com/otiext" class="underline">oti</a>
+            <a href="https://twitter.com/otiext" class="link">oti</a>
             が作りました。
           </p>
-          <p class="ml-auto">
-            <a href="https://github.com/decomoji/finder/" class="underline">GitHub</a>, MIT License.
+          <p class="footer-end">
+            <a href="https://github.com/decomoji/finder/" class="link">GitHub</a>, MIT License.
           </p>
         </footer>
       </div>
@@ -411,18 +347,19 @@
        */
       const isStringOfNotEmpty = (val) => isString(val) && val.length > 0;
 
-      // 1行のレイアウトを算出するための実測値
-      // 仮想スクロールはこの値から行数と行の高さを決めるため、
-      // `classBySize()` が返す Tailwind のクラスと必ず一致させること
+      /**
+       * 表示サイズごとのpx
+       *
+       * - itemWidth  … グリッドの列幅の下限（minmax の第一引数）
+       * - itemHeight … デコモジのボタンの高さ
+       * - image      … デコモジ画像の一辺
+       * - collected* … 画面下のコレクション欄での幅と高さ（ll だけ一覧より小さい）
+       */
       const ROW_METRICS = {
-        // gap-3 / px-3 / minmax(128px,1fr) / h-[128px]
-        ll: { gap: 12, padding: 12, itemWidth: 128, itemHeight: 128 },
-        // gap-2 / px-2 / minmax(80px,1fr) / h-[80px]
-        l: { gap: 8, padding: 8, itemWidth: 80, itemHeight: 80 },
-        // gap-1 / px-1 / minmax(42px,1fr) / h-[45px]
-        m: { gap: 4, padding: 4, itemWidth: 42, itemHeight: 45 },
-        // gap-0.5 / px-0.5 / minmax(24px,1fr) / h-[25px]
-        s: { gap: 2, padding: 2, itemWidth: 24, itemHeight: 25 },
+        ll: { gap: 12, padding: 12, itemWidth: 128, itemHeight: 128, image: 64, collectedWidth: 80, collectedHeight: 80 },
+        l: { gap: 8, padding: 8, itemWidth: 80, itemHeight: 80, image: 64, collectedWidth: 80, collectedHeight: 80 },
+        m: { gap: 4, padding: 4, itemWidth: 42, itemHeight: 45, image: 32, collectedWidth: 42, collectedHeight: 45 },
+        s: { gap: 2, padding: 2, itemWidth: 24, itemHeight: 25, image: 16, collectedWidth: 24, collectedHeight: 25 },
       };
 
       const availableCategories = ["basic", "extra", "explicit"];
@@ -511,59 +448,8 @@
           // state.size に応じた1行のレイアウト実測値を返す
           const metrics = computed(() => ROW_METRICS[state.size || "ll"]);
 
-          // state.size に応じた CSS クラス名のセットを返す
-          const classBySize = computed(() => {
-            let wrapper = "box-border grid grid-flow-row ";
-            let cWrapper = wrapper;
-            let button = "box-border relative border border-solid rounded-md text-center ";
-            let cButton =
-              button + "border border-solid border-transparent bg-(--bgDecomojiCollected) ";
-            let image = "m-auto leading-none align-top ";
-            let name = "block mt-2.5 text-(--colorDecomoji) break-all";
-
-            switch (state.size) {
-              case "s":
-                wrapper += "gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] px-0.5";
-                cWrapper += "gap-0.5 grid-cols-[repeat(auto-fill,minmax(24px,1fr))] p-0.5";
-                button += "h-[25px]";
-                cButton += button;
-                image += "w-[16px] h-[16px]";
-                name = "sr-only";
-                break;
-              case "m":
-                wrapper += "gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] px-1";
-                cWrapper += "gap-1 grid-cols-[repeat(auto-fill,minmax(42px,1fr))] p-1";
-                button += "h-[45px]";
-                cButton += button;
-                image += "w-[32px] h-[32px]";
-                name = "sr-only";
-                break;
-              case "l":
-                wrapper += "gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] px-2";
-                cWrapper += "gap-2 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-2";
-                button += "h-[80px]";
-                cButton += button;
-                image += "w-[64px] h-[64px]";
-                name = "sr-only";
-                break;
-              case "ll":
-              default:
-                wrapper += "gap-3 grid-cols-[repeat(auto-fill,minmax(128px,1fr))] px-3";
-                cWrapper += "gap-3 grid-cols-[repeat(auto-fill,minmax(80px,1fr))] p-3";
-                button += "h-[128px]";
-                cButton += "h-[80px]";
-                image += "w-[64px] h-[64px]";
-                break;
-            }
-            return {
-              wrapper,
-              cWrapper,
-              button,
-              cButton,
-              image,
-              name,
-            };
-          });
+          // 名前を出すのは ll のときだけ（"" は未指定＝既定で ll 扱い）
+          const showsName = computed(() => state.size === "ll" || state.size === "");
 
           // RegExp インスタンスを computed にした方が速い
           const searchRegex = computed(() => RegExp(state.search));
@@ -826,7 +712,7 @@
             VERSION_LIST,
             availableDecomojis,
             availableVersions,
-            classBySize,
+            showsName,
             downloadURL,
             filtered,
             listRef,

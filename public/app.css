@@ -1,0 +1,515 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+}
+
+html {
+  line-height: 1.5;
+  tab-size: 4;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h1,
+h2 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+summary {
+  display: list-item;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  /* 縦横比を保って縮小させる。width/height 属性より優先されるので、
+     500px 四方のロゴが 32px 枠で描かれるときの縁の見えかたが変わる */
+  height: auto;
+  vertical-align: middle;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+:root {
+  /* Slack Aubergine テーマの紫 */
+  --aubergine-800: #240726;
+  --aubergine-900: #1f061f;
+  /* くすんだブルー */
+  --danube-200: #adbfca;
+  --danube-600: #5c7280;
+  /* 黒そうで黒くない、少しだけ青い黒 */
+  --night-800: #110f13;
+  --night-900: #0e0d10;
+  /* Slack で自分がリアクションしたときの青 */
+  --sea-200: #e6f3fa;
+  --sea-500: #1d89c7;
+  --sea-800: #135092;
+  /* 無彩色系 */
+  --shade-100: #ffffff;
+  --shade-200: #f4f4f4;
+  --shade-400: #727272;
+  --shade-500: #424242;
+  --shade-700: #1a1c20;
+  --shade-800: #15171a;
+  --shade-900: #000000;
+
+  --outline-danube-200: 0 0 0 4px var(--danube-200);
+  --outline-danube-600: 0 0 0 4px var(--danube-600);
+
+  /* 中間ラベル */
+  --bgBody: var(--shade-100);
+  --colorBody: var(--shade-800);
+  --bgHeader: var(--aubergine-900);
+  --colorHeader: var(--shade-200);
+  --bgPanel: var(--aubergine-800);
+  --colorSearch: var(--shade-200);
+  --colorSearchFocus: var(--shade-800);
+  --bgSearch: rgba(255, 255, 255, 0.25);
+  --bgSearchFocus: rgba(255, 255, 255, 0.95);
+  --colorDecomoji: var(--shade-800);
+  --bgDecomoji: var(--shade-200);
+  --bgDecomojiReacted: var(--sea-200);
+  --borderDecomojiReacted: var(--sea-500);
+  --bgDecomojiCollected: var(--shade-100);
+  --borderDecomojiCollected: var(--shade-400);
+  --colorCollected: var(--shade-800);
+  --bgCollected: var(--shade-200);
+  --focusDecomoji: var(--outline-danube-200);
+  --colorFooter: var(--shade-200);
+  --bgFooter: var(--aubergine-900);
+  --bgTag: var(--shade-100);
+  --colorTag: var(--shade-800);
+
+  /* 影 */
+  --shadow-down: 0 2px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.075);
+  --shadow-up: 0 -2px 4px rgba(0, 0, 0, 0.15), 0 -8px 8px rgba(0, 0, 0, 0.075);
+  --shadow-footer: 0 2px 4px rgba(0, 0, 0, 0.15), 0 -8px 8px rgba(0, 0, 0, 0.075);
+
+  --radius: 0.375rem;
+}
+
+.-dark {
+  --bgBody: var(--shade-800);
+  --colorBody: var(--shade-200);
+  --bgHeader: var(--night-900);
+  --bgPanel: var(--night-800);
+  --colorDecomoji: var(--shade-200);
+  --bgDecomoji: var(--shade-700);
+  --bgDecomojiReacted: var(--sea-800);
+  --borderDecomojiReacted: var(--sea-800);
+  --bgDecomojiCollected: var(--shade-900);
+  --borderDecomojiCollected: var(--shade-500);
+  --colorCollected: var(--shade-200);
+  --bgCollected: var(--shade-700);
+  --focusDecomoji: var(--outline-danube-600);
+  --bgFooter: var(--night-900);
+  --bgTag: var(--shade-800);
+  --colorTag: var(--shade-100);
+}
+
+/* https://github.com/ampproject/amphtml/blob/2e9a940e78df8de38a6c06a0772aeaa4839a24d1/css/ampshared.css#L164-L204 */
+.sr-only {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: block !important;
+  width: 4px !important;
+  height: 4px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  visibility: visible !important;
+}
+
+.link {
+  text-decoration: underline;
+}
+
+/* デコモジの JSON を取得しているあいだの表示 */
+#app:empty::before {
+  display: block;
+  padding: 2rem;
+  content: "読み込み中…";
+  font-family: sans-serif;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: 100vh;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--colorBody);
+  background: var(--bgBody);
+}
+
+.header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 1.25rem;
+  row-gap: 0.625rem;
+  padding: 0.625rem;
+  width: 100%;
+  color: var(--colorHeader);
+  background: var(--bgHeader);
+  box-shadow: var(--shadow-down);
+}
+
+.header-search {
+  display: flex;
+  flex: 1 1 40rem;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.header-options {
+  display: flex;
+  flex: 999 1 0;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 50%;
+}
+
+.logo {
+  flex: 0 0 auto;
+}
+
+.logo-link {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: calc(infinity * 1px);
+  overflow: hidden;
+}
+
+.search {
+  position: relative;
+  flex: 1 1 auto;
+  color: var(--colorSearch);
+}
+
+.search:focus-within {
+  --colorSearch: var(--colorSearchFocus);
+}
+
+.search-input {
+  padding: 0.625rem 7rem 0.625rem 2.5rem;
+  width: 100%;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  background: var(--bgSearch);
+}
+
+.search-input:focus {
+  --bgSearch: var(--bgSearchFocus);
+}
+
+.search-icon {
+  position: absolute;
+  top: 1px;
+  bottom: 0;
+  left: 0.5rem;
+  margin: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  pointer-events: none;
+}
+
+.search-count {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0.5rem;
+  margin: auto;
+  height: 1rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.options {
+  position: relative;
+}
+
+.options-summary {
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius);
+}
+
+/* 狭い画面用。指で押しやすいよう大きめにとる */
+.options-summary.-tappable {
+  padding: 0.625rem;
+  white-space: nowrap;
+}
+
+.options-panel {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  max-height: 50vh;
+  border-radius: var(--radius);
+  background: var(--bgPanel);
+  overflow-y: auto;
+}
+
+/* 画面右端にはみ出させないもの。間隔も広い */
+.options-panel.-right {
+  right: 0;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* デコモジ一覧より手前に出す（狭い画面のサイズ切り替え） */
+.options-panel.-front {
+  z-index: 10;
+}
+
+.options-label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.options-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+}
+
+.options-action:disabled {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* 仮想スクロールのコンテナ。高さと余白は JS が付ける */
+.list {
+  position: relative;
+  width: 100%;
+}
+
+/* 1行。JS が算出した位置に絶対配置する */
+.list-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.decomoji-grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, minmax(var(--item-w), 1fr));
+  gap: var(--gap);
+  padding-inline: var(--pad);
+}
+
+.decomoji {
+  position: relative;
+  height: var(--item-h);
+  border-width: 1px;
+  border-radius: var(--radius);
+  border-color: transparent;
+  text-align: center;
+  background: var(--bgDecomoji);
+}
+
+.decomoji.-reacted {
+  border-color: var(--borderDecomojiReacted);
+  background: var(--bgDecomojiReacted);
+}
+
+/* コレクション済みは、リアクション済みより優先して見せる */
+.decomoji.-collected {
+  border-color: var(--borderDecomojiCollected);
+  background: var(--bgDecomojiCollected);
+}
+
+.decomoji-image {
+  margin: auto;
+  width: var(--img);
+  height: var(--img);
+  line-height: 1;
+  vertical-align: top;
+}
+
+.decomoji-name {
+  display: block;
+  margin-top: 0.625rem;
+  color: var(--colorDecomoji);
+  word-break: break-all;
+}
+
+/* 作成／修正バージョンのバッジ */
+.decomoji-tag {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.3125rem;
+  padding: 0.125rem 0.3125rem;
+  border-width: 1px;
+  border-color: var(--borderDecomojiCollected);
+  border-radius: var(--radius);
+  color: var(--colorTag);
+  background: var(--bgTag);
+}
+
+.json-panel {
+  position: sticky;
+  left: 0;
+  bottom: 2.25rem;
+  padding: 0.75rem;
+  height: 10rem;
+  color: var(--colorCollected);
+  background: var(--bgCollected);
+  box-shadow: var(--shadow-up);
+}
+
+/* コレクションが出ている分だけ上にずらす */
+.json-panel.-above-collection {
+  bottom: 12.25rem;
+}
+
+.json-textarea {
+  width: 100%;
+  height: 100%;
+  border-width: 1px;
+  border-radius: var(--radius);
+  resize: none;
+  overflow-y: auto;
+}
+
+.collection {
+  position: sticky;
+  left: 0;
+  bottom: 2.25rem;
+  height: 10rem;
+  color: var(--colorCollected);
+  background: var(--bgCollected);
+  box-shadow: var(--shadow-up);
+  overflow-y: auto;
+}
+
+.collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 0.625rem 0;
+}
+
+.collection-title {
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.collection-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.icon-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 1.5rem;
+}
+
+.collection-grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, minmax(var(--c-item-w), 1fr));
+  gap: var(--gap);
+  padding: var(--pad);
+}
+
+.collection-item {
+  position: relative;
+  height: var(--c-item-h);
+  border-width: 1px;
+  border-color: transparent;
+  border-radius: var(--radius);
+  text-align: center;
+  background: var(--bgDecomojiCollected);
+}
+
+.footer {
+  position: sticky;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.625rem;
+  width: 100%;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--colorFooter);
+  background: var(--bgFooter);
+  box-shadow: var(--shadow-footer);
+}
+
+.footer-end {
+  margin-left: auto;
+}
+
+.-wide-only {
+  display: none;
+}
+
+@media (width >= 40rem) {
+  .json-panel {
+    bottom: 2.75rem;
+  }
+
+  .json-panel.-above-collection {
+    bottom: 12.75rem;
+  }
+
+  .collection {
+    bottom: 2.75rem;
+  }
+
+  .footer {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .-narrow-only {
+    display: none;
+  }
+
+  .-wide-only {
+    display: block;
+  }
+}
