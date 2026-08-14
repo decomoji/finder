@@ -7,10 +7,9 @@
     "start": "node scripts/serve.mjs --watch",
     "serve": "node scripts/serve.mjs",
     "build:css": "tailwindcss --input styles/app.css --output public/app.css --minify",
+    "copy:assets": "node scripts/copy.mjs",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
-    "postinstall": "npm run copy:decomoji && npm run copy:vendor && npm run build:css",
-    "copy:decomoji": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/ && cpx 'node_modules/decomoji/configs/v5_{all,versions}.json' public/configs/",
-    "copy:vendor": "cpx 'node_modules/vue/dist/vue.esm-browser.prod.js' public/vendor/ && cpx 'node_modules/@tanstack/vue-virtual/dist/esm/*.js*' public/vendor/vue-virtual/ && cpx 'node_modules/@tanstack/virtual-core/dist/esm/*.js*' public/vendor/virtual-core/"
+    "postinstall": "npm run copy:assets && npm run build:css"
   },
   "dependencies": {
     "decomoji": "github:decomoji/decomoji"
@@ -18,7 +17,6 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.16",
     "@tanstack/vue-virtual": "^3.13.35",
-    "cpx2": "^9.0.0",
     "vue": "^3.5.23"
   }
 }
