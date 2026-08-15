@@ -34,7 +34,7 @@ const resolver = async (pathname) => {
     const stats = await stat(candidate).catch(() => null);
 
     // ディレクトリそのものは返さず、その中の index.html を試す
-    if (stats?.isFile()) return { file: candidate, stats, ext: path.extname(f) };
+    if (stats?.isFile()) return { file: candidate, stats, ext: path.extname(candidate) };
   }
 
   return null;
