@@ -380,6 +380,11 @@ textarea {
   border-radius: var(--radius);
   color: var(--colorTag);
   background: var(--bgTag);
+
+  &.-created {
+    left: -0.3125rem;
+    right: auto;
+  }
 }
 
 .json-panel {

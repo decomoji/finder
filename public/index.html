@@ -222,10 +222,10 @@
                 <span :class="showsName ? 'decomoji-name' : 'sr-only'">
                   <span aria-hidden="true">:</span>{{ name }}<span aria-hidden="true">:</span>
                 </span>
-                <span v-if="showsName && state.created" class="decomoji-tag">
+                <span v-if="showsName && state.created" class="decomoji-tag -created">
                   <span class="sr-only">created:</span>{{ created }}
                 </span>
-                <span v-if="showsName && state.updated && updated" class="decomoji-tag">
+                <span v-if="showsName && state.updated && updated" class="decomoji-tag -updated">
                   <span class="sr-only">updated:</span>{{ updated }}</span
                 >
               </button>
