@@ -9,22 +9,15 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Icons&amp;family=Noto+Sans+JP:wght@400;700&amp;display=swap&amp;subset=japanese"
     />
-    <link rel="stylesheet" href="/app.css" />
+    <link rel="stylesheet" href="/finder.css" />
   </head>
 
   <body>
     <div id="app"></div>
 
-    <!--
-      アプリのテンプレート。<template> の中身は不活性なので、マウントするまで
-      生の markup が見えてしまう心配がない（データ取得に数秒かかるので効く）。
-
-      ブラウザの HTML パーサーが解釈するため、SFC の <template> と違って
-      属性名は大文字小文字を区別しない点に注意。
-    -->
     <template id="app-template">
       <div
-        :class="['app', { '-dark': state.dark }]"
+        :class="['finder', { '-dark': state.dark }]"
         :style="{
           '--gap': `${metrics.gap}px`,
           '--pad': `${metrics.padding}px`,
