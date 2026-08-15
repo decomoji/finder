@@ -1,4 +1,4 @@
-# デコモジファインダー v3
+# デコモジファインダー
 
 https://finder.decomoji.dev
 

@@ -4,35 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "npm run type-check && npm run build-only",
-    "build-only": "vite build",
-    "preview": "vite preview",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --fix",
+    "start": "node scripts/serve.mjs",
+    "copy:assets": "node scripts/copy.mjs",
     "update:decomoji": "rm -rf node_modules/decomoji && npm i -d decomoji/decomoji && npm run postinstall",
-    "postinstall": "cpx 'node_modules/decomoji/decomoji/{basic,extra,explicit}/*.png' public/decomoji/",
-    "prepare": "husky"
+    "postinstall": "npm run copy:assets"
   },
   "dependencies": {
-    "@tanstack/vue-virtual": "^3.13.35",
-    "decomoji": "github:decomoji/decomoji",
-    "vue": "^3.5.40"
+    "decomoji": "github:decomoji/decomoji"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "@tsconfig/node22": "^22.0.5",
-    "@types/node": "^26.1.2",
-    "@vitejs/plugin-vue": "^6.0.8",
-    "@vue/eslint-config-typescript": "^14.9.0",
-    "@vue/tsconfig": "^0.9.1",
-    "cpx2": "^9.0.0",
-    "eslint": "^10.8.0",
-    "eslint-plugin-vue": "^10.10.0",
-    "husky": "^9.1.7",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3",
-    "vite": "^8.2.0",
-    "vue-tsc": "^3.3.9"
+    "vue": "^3.5.23"
   }
 }

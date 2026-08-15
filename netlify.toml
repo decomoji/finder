@@ -1,0 +1,4 @@
+# node_modules がキャッシュから復元されると postinstall が走らないことがあるので明示的に実行させる
+[build]
+command = "npm run postinstall"
+publish = "public"

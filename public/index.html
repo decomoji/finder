@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>デコモジファインダー</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Icons&amp;family=Noto+Sans+JP:wght@400;700&amp;display=swap&amp;subset=japanese"
+    />
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <!--
+      アプリのテンプレート。<template> の中身は不活性なので、マウントするまで
+      生の markup が見えてしまう心配がない（データ取得に数秒かかるので効く）。
+
+      ブラウザの HTML パーサーが解釈するため、SFC の <template> と違って
+      属性名は大文字小文字を区別しない点に注意。
+    -->
+    <template id="app-template">
+      <div
+        :class="['app', { '-dark': state.dark }]"
+        :style="{
+          '--gap': `${metrics.gap}px`,
+          '--pad': `${metrics.padding}px`,
+          '--item-w': `${metrics.itemWidth}px`,
+          '--item-h': `${metrics.itemHeight}px`,
+          '--img': `${metrics.image}px`,
+          '--c-item-w': `${metrics.collectedWidth}px`,
+          '--c-item-h': `${metrics.collectedHeight}px`,
+        }"
+      >
+        <header class="header">
+          <div class="header-search">
+            <h1 class="logo">
+              <a class="logo-link" href="/">
+                <img src="/logo.png" alt="デコモジファインダー" width="32" height="32" />
+              </a>
+            </h1>
+            <div class="search">
+              <input
+                v-model="state.search"
+                class="search-input"
+                type="text"
+                name="search"
+                title="検索"
+              />
+              <span class="material-icons search-icon" aria-hidden="true">search</span>
+              <span class="search-count" aria-hidden="true"
+                >{{ filtered.length }}/{{ availableDecomojis.length }}</span
+              >
+              <span class="sr-only"
+                >{{ availableDecomojis.length }}個中{{ filtered.length }}個が該当しています。</span
+              >
+            </div>
+
+            <details class="options -narrow-only" name="options">
+              <summary class="options-summary -tappable">サイズ</summary>
+              <div class="options-panel -right -front">
+                <label v-for="{ text, value } in SIZE_LIST" :key="value" class="options-label">
+                  <input
+                    :value="value"
+                    :checked="state.size === value"
+                    type="radio"
+                    name="size"
+                    @input="state.size = value"
+                  />
+                  {{ text }}
+                </label>
+              </div>
+            </details>
+          </div>
+
+          <div class="header-options">
+            <details class="options -wide-only" name="options">
+              <summary class="options-summary">サイズ</summary>
+              <div class="options-panel">
+                <label v-for="{ text, value } in SIZE_LIST" :key="value" class="options-label">
+                  <input
+                    :value="value"
+                    :checked="state.size === value"
+                    type="radio"
+                    name="size"
+                    @input="state.size = value"
+                  />
+                  {{ text }}
+                </label>
+              </div>
+            </details>
+
+            <details class="options" name="options">
+              <summary class="options-summary">カテゴリー</summary>
+              <div class="options-panel">
+                <label v-for="{ text, value } in CATEGORY_LIST" :key="value" class="options-label">
+                  <input
+                    :value="value"
+                    :checked="state.category[value]"
+                    type="checkbox"
+                    name="category"
+                    @input="state.category[value] = !state.category[value]"
+                  />
+                  {{ text }}
+                </label>
+              </div>
+            </details>
+
+            <details class="options" name="options">
+              <summary class="options-summary">バージョン</summary>
+              <div class="options-panel">
+                <label v-for="{ text, value } in VERSION_LIST" :key="value" class="options-label">
+                  <input
+                    :value="value"
+                    :checked="state.version[value]"
+                    type="checkbox"
+                    name="version"
+                    @input="state.version[value] = !state.version[value]"
+                  />
+                  {{ text }}
+                </label>
+                <button
+                  :disabled="Object.values(state.version).every((v) => v)"
+                  type="button"
+                  class="options-action"
+                  @click="availableVersions.forEach((value) => (state.version[value] = true))"
+                >
+                  全選択
+                </button>
+                <button
+                  :disabled="!Object.values(state.version).some((v) => v)"
+                  type="button"
+                  class="options-action"
+                  @click="availableVersions.forEach((value) => (state.version[value] = false))"
+                >
+                  全解除
+                </button>
+              </div>
+            </details>
+
+            <details class="options" name="options">
+              <summary class="options-summary">オプション</summary>
+              <div class="options-panel -right">
+                <label class="options-label">
+                  <input
+                    v-model="state.created"
+                    :checked="showsName && state.created"
+                    :disabled="!showsName"
+                    type="checkbox"
+                    name="option"
+                  />
+                  作成バージョンの表示
+                </label>
+                <label class="options-label">
+                  <input
+                    v-model="state.updated"
+                    :checked="showsName && state.updated"
+                    :disabled="!showsName"
+                    type="checkbox"
+                    name="option"
+                  />
+                  修正バージョンの表示
+                </label>
+                <label class="options-label">
+                  <input
+                    v-model="state.reacted"
+                    :checked="state.reacted"
+                    type="checkbox"
+                    name="option"
+                  />
+                  リアクション済みのスタイル
+                </label>
+                <label class="options-label">
+                  <input v-model="state.dark" :checked="state.dark" type="checkbox" name="option" />
+                  ダークモード
+                </label>
+                <label class="options-label">
+                  <input v-model="state.json" :checked="state.json" type="checkbox" name="option" />
+                  検索結果をjson表示
+                </label>
+              </div>
+            </details>
+          </div>
+        </header>
+
+        <main>
+          <h2 class="sr-only">デコモジ一覧</h2>
+          <div
+            ref="listRef"
+            class="list"
+            :style="{
+              marginTop: `${metrics.gap}px`,
+              height: `${totalSize}px`,
+            }"
+          >
+            <div
+              v-for="{ start, index } in virtualRows"
+              :key="index"
+              class="list-row decomoji-grid"
+              :data-index="index"
+              :style="{
+                height: `${rowHeight}px`,
+                transform: `translateY(${start}px)`,
+              }"
+            >
+              <button
+                v-for="{ name, path, collected, created, updated } in slicedRow(index)"
+                :key="name"
+                :class="[
+                  'decomoji',
+                  { '-reacted': !collected && state.reacted, '-collected': collected },
+                ]"
+                @click="
+                  collected
+                    ? state.collected.splice(
+                        state.collected.findIndex((v) => v.name === name),
+                        1,
+                      )
+                    : state.collected.push({
+                        name: name,
+                        path: path,
+                      })
+                "
+              >
+                <img :alt="name" :src="path" class="decomoji-image" height="64" width="64" />
+                <span :class="showsName ? 'decomoji-name' : 'sr-only'">
+                  <span aria-hidden="true">:</span>{{ name }}<span aria-hidden="true">:</span>
+                </span>
+                <span v-if="showsName && state.created" class="decomoji-tag">
+                  <span class="sr-only">created:</span>{{ created }}
+                </span>
+                <span v-if="showsName && state.updated && updated" class="decomoji-tag">
+                  <span class="sr-only">updated:</span>{{ updated }}</span
+                >
+              </button>
+            </div>
+          </div>
+        </main>
+
+        <section
+          v-if="state.json"
+          :class="['json-panel', { '-above-collection': state.collected.length > 0 }]"
+        >
+          <h2 class="sr-only">マッチしたデコモジ一覧のJSON形式</h2>
+          <textarea
+            :value="JSON.stringify(filtered)"
+            class="json-textarea"
+            title="マッチしたデコモジ一覧のJSON形式"
+            readonly
+          ></textarea>
+        </section>
+
+        <section v-if="state.collected.length" class="collection">
+          <div class="collection-header">
+            <h2 class="collection-title">コレクション：{{ state.collected.length }}</h2>
+            <div class="collection-actions">
+              <button
+                class="icon-button"
+                title="コレクションをアルファベット順にソートする"
+                @click="
+                  state.collected = state.collected.sort((a, b) => a.name.localeCompare(b.name))
+                "
+              >
+                <span class="material-icons" aria-hidden="true">sort</span>
+              </button>
+              <a class="icon-button" :href="downloadURL" download="my-collected.json">
+                <span class="sr-only">コレクションをJSON形式でダウンロードする</span>
+                <span class="material-icons" aria-hidden="true">save_alt</span>
+              </a>
+              <button
+                class="icon-button"
+                title="コレクションを空にする"
+                @click="state.collected.splice(0, state.collected.length)"
+              >
+                <span class="material-icons" aria-hidden="true">delete_forever</span>
+              </button>
+            </div>
+          </div>
+          <div class="collection-grid">
+            <button
+              v-for="({ name, path }, i) in state.collected"
+              :key="`collected_${name}`"
+              class="collection-item"
+              @dblclick="state.collected.splice(i, 1)"
+              @keydown="state.collected.splice(i, 1)"
+            >
+              <img :alt="name" :src="path" class="decomoji-image" height="64" width="64" />
+            </button>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <p>
+            このウェブアプリは
+            <a href="https://twitter.com/otiext" class="link">oti</a>
+            が作りました。
+          </p>
+          <p class="footer-end">
+            <a href="https://github.com/decomoji/finder/" class="link">GitHub</a>, MIT License.
+          </p>
+        </footer>
+      </div>
+    </template>
+
+    <script type="module">
+      import { computed, createApp, onBeforeMount, onMounted, reactive, ref, watch } from "/vendor/vue.js";
+
+      // ビルドしないので JSON はバンドルできない。起動時に取得する
+      const [availableDecomojis, availableVersions] = await Promise.all([
+        fetch("/configs/v5_all.json").then((res) => res.json()),
+        fetch("/configs/v5_versions.json").then((res) => res.json()),
+      ]);
+
+      /**
+       * オブジェクトのクラス名を文字列で返す
+       * @param val
+       */
+      const getObjectClassName = (val) => Object.prototype.toString.call(val);
+
+      /**
+       * 値が文字列であるか否かを返す
+       * @param val
+       */
+      const isString = (val) => getObjectClassName(val) === "[object String]";
+
+      /**
+       * 値が空ではない文字列であるか否かを返す
+       * @param val
+       */
+      const isStringOfNotEmpty = (val) => isString(val) && val.length > 0;
+
+      /**
+       * 表示サイズごとのpx
+       *
+       * - itemWidth  … グリッドの列幅の下限（minmax の第一引数）
+       * - itemHeight … デコモジのボタンの高さ
+       * - image      … デコモジ画像の一辺
+       * - collected* … 画面下のコレクション欄での幅と高さ（ll だけ一覧より小さい）
+       */
+      const ROW_METRICS = {
+        ll: { gap: 12, padding: 12, itemWidth: 128, itemHeight: 128, image: 64, collectedWidth: 80, collectedHeight: 80 },
+        l: { gap: 8, padding: 8, itemWidth: 80, itemHeight: 80, image: 64, collectedWidth: 80, collectedHeight: 80 },
+        m: { gap: 4, padding: 4, itemWidth: 42, itemHeight: 45, image: 32, collectedWidth: 42, collectedHeight: 45 },
+        s: { gap: 2, padding: 2, itemWidth: 24, itemHeight: 25, image: 16, collectedWidth: 24, collectedHeight: 25 },
+      };
+
+      const availableCategories = ["basic", "extra", "explicit"];
+
+      // { [category_name]: boolean } のオブジェクトを作る
+      const createCategoryParams = (category) =>
+        availableCategories.reduce(
+          (acc, name) => ({
+            ...acc,
+            [name]: category.includes(name) ? true : false,
+          }),
+          {},
+        );
+
+      // { [version_name]: boolean } のオブジェクトを作る
+      const createVersionParams = (version) =>
+        availableVersions.reduce(
+          (acc, name) => ({
+            ...acc,
+            [name]: version.includes(name) ? true : false,
+          }),
+          {},
+        );
+
+      // テンプレートで表示するためのサイズリスト
+      const SIZE_LIST = [
+        {
+          text: "64px＆名前",
+          value: "ll",
+        },
+        {
+          text: "64px",
+          value: "l",
+        },
+        {
+          text: "32px",
+          value: "m",
+        },
+        {
+          text: "16px",
+          value: "s",
+        },
+      ];
+
+      // テンプレートで表示するためのカテゴリーリスト
+      const CATEGORY_LIST = [
+        {
+          text: "基本セット",
+          value: "basic",
+        },
+        {
+          text: "拡張セット",
+          value: "extra",
+        },
+        {
+          text: "露骨セット",
+          value: "explicit",
+        },
+      ];
+
+      // テンプレートで表示するためのバージョンリスト
+      const VERSION_LIST = availableVersions
+        .map((value) => ({
+          text: value,
+          value,
+        }))
+        .sort((a, b) => a.value.localeCompare(b.value, undefined, { numeric: true }));
+
+      createApp({
+        template: "#app-template",
+        setup() {
+          // このアプリのステート
+          const state = reactive({
+            category: createCategoryParams([]),
+            collected: [],
+            created: false,
+            dark: false,
+            json: false,
+            reacted: false,
+            search: "",
+            size: "",
+            updated: false,
+            version: createVersionParams([]),
+          });
+
+          // state.size に応じた1行のレイアウト実測値を返す
+          const metrics = computed(() => ROW_METRICS[state.size || "ll"]);
+
+          // 名前を出すのは ll のときだけ（"" は未指定＝既定で ll 扱い）
+          const showsName = computed(() => state.size === "ll" || state.size === "");
+
+          // RegExp インスタンスを computed にした方が速い
+          const searchRegex = computed(() => RegExp(state.search));
+
+          // 各種表示条件に合わせてフィルターしたデコモジリストを返す
+          const filtered = computed(() => {
+            const isMatched = ({ name, category, created, updated }) => {
+              // デコモジの名前が検索クエリに含まれるか否か、または検索クエリが空であるか否か
+              const nameMatches = searchRegex.value.test(name) || state.search === "";
+              // デコモジのカテゴリーが表示するカテゴリーであるか、または何も選択されていないか否か
+              const categoryMatches = state.category[category] || categoryParam.value === null;
+              // デコモジの作成バージョンが、表示するバージョンであるか、または何も選択されていないか否か
+              const createdMatches = state.version[created] || versionParam.value === null;
+              // 修正バージョンが、表示するバージョンであるか否か、または何も選択されていないか否か
+              const updatedMatches = updated
+                ? state.version[updated] || versionParam.value === null
+                : false;
+              // 当該デコモジについて、カテゴリー、名前、バージョン、全てにマッチするか否かを返す
+              return nameMatches && categoryMatches && (createdMatches || updatedMatches);
+            };
+
+            return availableDecomojis.flatMap((v) =>
+              isMatched(v)
+                ? {
+                    ...v,
+                    collected: state.collected.find((collcted) => collcted.name === v.name)
+                      ? true
+                      : undefined,
+                  }
+                : [],
+            );
+          });
+
+          // 表示カテゴリーをパラメータ文字列に変換したものを返す
+          const categoryParam = computed(() => {
+            const arrayedCategories = Object.keys(state.category).filter(
+              (key) => state.category[key],
+            );
+            return arrayedCategories.length > 0 ? `category=${arrayedCategories.join(",")}` : null;
+          });
+
+          // コレクションをパラメータ文字列に変換したものを返す
+          const collectedParam = computed(() =>
+            state.collected.length > 0
+              ? `collected=${state.collected.map((v) => v.name).join(",")}`
+              : null,
+          );
+
+          // 作成バージョン表示か否かをパラメータ文字列に変換したものを返す
+          const createdParam = computed(() => (state.created ? "created" : null));
+
+          // ダークモード表示か否かをパラメータ文字列に変換したものを返す
+          const darkParam = computed(() => (state.dark ? "dark" : null));
+
+          // JSONを表示するか否かをパラメータ文字列に変換したものを返す
+          const jsonParam = computed(() => (state.json ? "json" : null));
+
+          // リアクション済みスタイルか否かをパラメータ文字列に変換したものを返す
+          const reactedParam = computed(() => (state.reacted ? "reacted" : null));
+
+          // 検索クエリをパラメータ文字列に変換したものを返す
+          const searchParam = computed(() =>
+            isStringOfNotEmpty(state.search) ? `search=${encodeURIComponent(state.search)}` : null,
+          );
+
+          // 表示サイズをパラメータ文字列に変換したものを返す
+          const sizeParam = computed(() =>
+            isStringOfNotEmpty(state.size) ? `size=${state.size}` : null,
+          );
+
+          // 修正バージョン表示か否かをパラメータ文字列に変換したものを返す
+          const updatedParam = computed(() => (state.updated ? "updated" : null));
+
+          // 表示バージョンをパラメータ文字列に変換したものを返す
+          const versionParam = computed(() => {
+            const versions = Object.keys(state.version)
+              .filter((key) => state.version[key])
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            return versions.length > 0 ? `version=${versions.join(",")}` : null;
+          });
+
+          // 各パラメータ文字列を連結したものを返す
+          const urlParams = computed(() =>
+            [
+              searchParam.value,
+              sizeParam.value,
+              categoryParam.value,
+              collectedParam.value,
+              versionParam.value,
+              createdParam.value,
+              updatedParam.value,
+              reactedParam.value,
+              darkParam.value,
+              jsonParam.value,
+            ]
+              .filter((v) => !!v)
+              .join("&"),
+          );
+
+          // コレクションを JSON 化した URL を返す
+          const downloadURL = computed(() =>
+            window.URL.createObjectURL(
+              new Blob([JSON.stringify(state.collected)], { type: "application/json" }),
+            ),
+          );
+
+          // 1行に収められるアイテムの数を返す
+          // `repeat(auto-fill, minmax(N, 1fr))` がとる列数と一致させる必要がある
+          const rowItemLength = computed(() => {
+            const { gap, padding, itemWidth } = metrics.value;
+            // コンテナ幅から左右のパディングを引いたものが、グリッドのコンテンツ幅となる
+            const content = listWidth.value - padding * 2;
+            // n 列のとき必要な幅は `itemWidth * n + gap * (n - 1)` なので、両辺に gap を足して割る
+            const length = Math.floor((content + gap) / (itemWidth + gap));
+            // 0 を返すと行数が Infinity になってしまうため最低 1 を保証する
+            return Math.max(1, length);
+          });
+
+          // 1行分の高さを返す
+          const rowHeight = computed(() => metrics.value.itemHeight + metrics.value.gap);
+
+          // 行を並べるコンテナ。幅とドキュメント上の開始位置はここを実測する
+          const listRef = ref(null);
+          const listWidth = ref(window.innerWidth);
+          // リストはドキュメント先頭からは始まらない（上にヘッダーがある）ので、
+          // その分を引かないと window.scrollY から可視範囲を出せない
+          const listOffset = ref(0);
+          const scrollY = ref(window.scrollY);
+          const viewportHeight = ref(window.innerHeight);
+
+          // ウィンドウのリサイズでヘッダーの高さが変わる可能性があるので取り直す
+          const resize = () => {
+            viewportHeight.value = window.innerHeight;
+            if (!listRef.value) return;
+
+            // clientWidth は整数に丸められて列数の判定が1つずれることがあるため実数で測る
+            const { top, width } = listRef.value.getBoundingClientRect();
+            listWidth.value = width;
+            listOffset.value = top + window.scrollY;
+          };
+
+          // 総行数
+          const rowCount = computed(() => Math.ceil(filtered.value.length / rowItemLength.value));
+
+          // リスト全体の高さ。これをコンテナに与えることでスクロールバーの長さが決まる
+          const totalSize = computed(() => rowCount.value * rowHeight.value);
+
+          // 画面外に余分に描いておく行数。スクロール中に空白が見えるのを防ぐ
+          const OVERSCAN = 2;
+
+          /**
+           * いま描くべき行だけを返す。全行が同じ高さなので、可視範囲は割り算で出せる。
+           * `start` はリストの先頭を原点とした位置（コンテナが position: relative なのでそのまま使える）。
+           */
+          const virtualRows = computed(() => {
+            // リストの先頭を原点にしたスクロール位置。リストより上にいる間は負になる
+            const top = scrollY.value - listOffset.value;
+            const first = Math.max(0, Math.floor(top / rowHeight.value) - OVERSCAN);
+            const last = Math.min(
+              rowCount.value - 1,
+              Math.ceil((top + viewportHeight.value) / rowHeight.value) + OVERSCAN,
+            );
+
+            const rows = [];
+            // 行数が0のときや、リストを通り過ぎたときは first > last になってここは回らない
+            for (let index = first; index <= last; index++) {
+              rows.push({ index, start: index * rowHeight.value });
+            }
+
+            return rows;
+          });
+
+          // n 行目に並べるデコモジを切り出して返す
+          const slicedRow = (n) =>
+            filtered.value.slice(rowItemLength.value * n, rowItemLength.value * (n + 1));
+
+          // 項目が減って虚無を表示していたらスクロール位置を戻す
+          watch(filtered, (newList, oldList) => {
+            if (newList.length > oldList.length) {
+              return;
+            }
+
+            const el = document.documentElement;
+            const maxScrollTop = listOffset.value + totalSize.value - el.clientHeight; // 下部paddingは省略
+
+            el.scrollTop = Math.min(el.scrollTop, maxScrollTop);
+            // scroll イベントを待つと1フレーム分だけ古い範囲を描いてしまうので待たずに反映する
+            scrollY.value = el.scrollTop;
+          });
+
+          // state を監視してURLにパラメータを追加する
+          watch(state, () =>
+            window.history.replaceState(
+              null,
+              "",
+              urlParams.value.length ? `?${urlParams.value}` : "/",
+            ),
+          );
+
+          // URLパラメータから画面状態を復元する
+          onBeforeMount(() => {
+            const {
+              category,
+              collected,
+              created,
+              dark,
+              reacted,
+              search,
+              size,
+              updated,
+              version,
+              json,
+            } = location.search
+              // 先頭の `?` の除去
+              .substring(1)
+              // & で分割
+              .split("&")
+              // { key: value } に変形
+              .reduce((acc, str) => {
+                const [key, value] = str.split("=");
+                return {
+                  ...acc,
+                  // キーだけある場合は真偽値のオプションと見做して　true にする
+                  [key]: value === undefined ? true : value,
+                };
+              }, {});
+
+            // state の各プロパティを更新
+            state.search = search ? decodeURIComponent(search) : state.search;
+            state.size = size ? size : state.size;
+            state.category = category ? createCategoryParams(category.split(",")) : state.category;
+            state.collected = collected
+              ? collected.split(",").map((v) => ({
+                  name: v,
+                  path: availableDecomojis.find((decomoji) => decomoji.name === v).path,
+                }))
+              : state.collected;
+            state.version = version ? createVersionParams(version.split(",")) : state.version;
+            // undefined になり得るので真偽値にキャストする
+            state.created = Boolean(created);
+            state.dark = Boolean(dark);
+            state.reacted = Boolean(reacted);
+            state.updated = Boolean(updated);
+            state.json = Boolean(json);
+          });
+
+          onMounted(() => {
+            // passive にしておくとスクロールの邪魔をしない
+            window.addEventListener("scroll", () => (scrollY.value = window.scrollY), {
+              passive: true,
+            });
+            window.addEventListener("resize", resize);
+            resize();
+          });
+
+          // テンプレートから参照するものだけを返す
+          return {
+            CATEGORY_LIST,
+            SIZE_LIST,
+            VERSION_LIST,
+            availableDecomojis,
+            availableVersions,
+            showsName,
+            downloadURL,
+            filtered,
+            listRef,
+            metrics,
+            rowHeight,
+            slicedRow,
+            state,
+            totalSize,
+            virtualRows,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
