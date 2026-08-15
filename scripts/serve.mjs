@@ -3,11 +3,9 @@ import { createServer } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = fileURLToPath(new URL("..", import.meta.url));
-const OUT_DIR = path.join(root, "public");
-const PORT = Number(process.env.PORT ?? 1234);
-
-const CONTENT_TYPES = {
+const ROOT = path.resolve(import.meta.dirname, "..", "public");
+const PORT = Number(process.env.PORT) || 1234;
+const MIME = {
   ".css": "text/css; charset=utf-8",
   ".html": "text/html; charset=utf-8",
   ".ico": "image/x-icon",
@@ -22,45 +20,32 @@ const CONTENT_TYPES = {
   ".woff2": "font/woff2",
 };
 
-/**
- * postinstall が置くもので、編集対象ではない（変わるのは npm install したときだけ）。
- * v5_all.json は 5MB、デコモジの画像は4万枚あるので、リロードやスクロールのたびに
- * 取り直させない。ここに挙げたものだけ、ブラウザに保存させて 304 で済ませる。
- */
-const REVALIDATE_DIRS = ["/configs/", "/decomoji/"];
+//
+const resolver = async (pathname) => {
+  const filepath = path.join(ROOT, pathname);
 
-/**
- * 編集するファイル（index.html / app.css / vendor）は常に取り直させる。
- * それ以外は保存を許すが、使う前に必ず問い合わせさせる（`no-cache` は
- * 「キャッシュ禁止」ではなく「毎回検証しろ」の意味）。
- */
-const cacheControlFor = (pathname) =>
-  REVALIDATE_DIRS.some((dir) => pathname.startsWith(dir)) ? "no-cache" : "no-store";
+  // パストラバーサルを許可しない
+  if (path.relative(ROOT, filepath).split(path.sep)[0] === "..") return null;
 
-/** URLのパスに対応する public/ 配下のファイルを探す。ディレクトリならその中の index.html を指す */
-const resolveAsset = async (pathname) => {
-  const file = path.join(OUT_DIR, pathname);
+  const candidates = [filepath, path.join(filepath, "index.html")];
 
-  // パストラバーサル（`/../secret`）で public/ の外を指していたら弾く。先頭の階層が `..` なら外に出ている
-  if (path.relative(OUT_DIR, file).split(path.sep)[0] === "..") return undefined;
+  for (const candidate of candidates) {
+    // 存在しない場合は null になるので、次の候補を試す
+    const stats = await stat(candidate).catch(() => null);
 
-  for (const f of [file, path.join(file, "index.html")]) {
-    // 存在しない場合は undefined になるので、次の候補を試す
-    const stats = await stat(f).catch(() => undefined);
-
-    // ディレクトリそのものは返さず、その中の index.html を試させる
-    if (stats?.isFile()) return { file: f, stats, ext: path.extname(f) };
+    // ディレクトリそのものは返さず、その中の index.html を試す
+    if (stats?.isFile()) return { file: candidate, stats, ext: path.extname(f) };
   }
 
-  return undefined;
+  return null;
 };
 
-const sendAsset = async (request, response, status, asset, pathname) => {
+const sender = async (request, response, status, { ext, file, stats }, pathname) => {
   // サイズと更新時刻が一致すれば同じ内容とみなす。ここでは中身を読まずに済ませたいのでハッシュは取らない
-  const etag = `W/"${asset.stats.size.toString(16)}-${asset.stats.mtimeMs.toString(16)}"`;
+  const etag = `W/"${stats.size.toString(16)}-${stats.mtimeMs.toString(16)}"`;
   const headers = {
-    "content-type": CONTENT_TYPES[asset.ext] ?? "application/octet-stream",
-    "cache-control": cacheControlFor(pathname),
+    "cache-control": ["/configs/", "/decomoji/"].some((dir) => pathname.startsWith(dir)) ? "no-cache" : "no-store",
+    "content-type": MIME[ext] ?? "application/octet-stream",
     etag,
   };
 
@@ -72,25 +57,25 @@ const sendAsset = async (request, response, status, asset, pathname) => {
   }
 
   response.writeHead(status, headers);
-  response.end(await readFile(asset.file));
+  response.end(await readFile(file));
 };
 
 const server = createServer(async (request, response) => {
   try {
     const { pathname } = new URL(request.url, `http://localhost:${PORT}`);
     const decoded = decodeURIComponent(pathname);
-    const asset = await resolveAsset(decoded);
+    const source = await resolver(decoded);
 
-    if (asset) {
-      await sendAsset(request, response, 200, asset, decoded);
+    if (source) {
+      await sender(request, response, 200, source, decoded);
       return;
     }
 
     // このアプリはクエリパラメータだけで状態を表すため、未知のパスは素直に 404 でよい
-    const notFound = await resolveAsset("/404.html");
+    const notFound = await resolver("/404.html");
 
     if (notFound) {
-      await sendAsset(request, response, 404, notFound, "/404.html");
+      await sender(request, response, 404, notFound, "/404.html");
     } else {
       response.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
       response.end("Not Found");
@@ -107,9 +92,9 @@ const server = createServer(async (request, response) => {
 
 server.on("error", (error) => {
   if (error.code !== "EADDRINUSE") throw error;
-
   console.error(`ポート${PORT}は使用中です。PORT=2345 npm start のように別のポートを指定してください。`);
   process.exit(1);
 });
 
-server.listen(PORT, "localhost", () => console.log(`http://localhost:${PORT}/`));
+// IPv4 で起動する
+server.listen(PORT, "127.0.0.1", () => console.log(`http://localhost:${PORT}/`));
