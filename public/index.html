@@ -37,6 +37,7 @@
             </h1>
             <div class="search">
               <input
+                ref="searchRef"
                 v-model="state.search"
                 class="search-input"
                 type="text"
@@ -558,6 +559,21 @@
           const scrollY = ref(window.scrollY);
           const viewportHeight = ref(window.innerHeight);
 
+          // 検索フィールドの参照
+          const searchRef = ref(null);
+
+          // `/` キーで検索フィールドにフォーカスする
+          const focusSearch = (e) => {
+            if (e.key !== "/" || e.isComposing || e.ctrlKey || e.metaKey || e.altKey) return;
+            // 入力中のフィールドでは `/` をそのまま入力させる
+            const el = e.target;
+            if (el instanceof HTMLElement && (el.isContentEditable || el.closest("input, textarea, select"))) return;
+
+            e.preventDefault();
+            searchRef.value?.focus();
+            searchRef.value?.select();
+          };
+
           // ウィンドウのリサイズでヘッダーの高さが変わる可能性があるので取り直す
           const resize = () => {
             viewportHeight.value = window.innerHeight;
@@ -680,6 +696,7 @@
               passive: true,
             });
             window.addEventListener("resize", resize);
+            window.addEventListener("keydown", focusSearch);
             resize();
           });
 
@@ -696,6 +713,7 @@
             listRef,
             metrics,
             rowHeight,
+            searchRef,
             slicedRow,
             state,
             totalSize,
